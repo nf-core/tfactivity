@@ -30,8 +30,9 @@ include { PREPARE_GENOME          } from './subworkflows/local/prepare_genome'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-params.fasta = getGenomeAttribute('fasta')
-params.gtf   = getGenomeAttribute('gtf')
+params.fasta     = getGenomeAttribute('fasta')
+params.gtf       = getGenomeAttribute('gtf')
+params.blacklist = getGenomeAttribute('blacklist')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,7 +67,9 @@ workflow NFCORE_TFACTIVITY {
     //
     TFACTIVITY (
         samplesheet,
-        ch_versions
+        ch_versions,
+        params.merge_samples,
+        params.blacklist
     )
 
     emit:
