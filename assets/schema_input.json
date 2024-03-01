@@ -7,11 +7,17 @@
     "items": {
         "type": "object",
         "properties": {
-            "state": {
+            "sample": {
                 "type": "string",
                 "pattern": "^\\S+$",
-                "errorMessage": "State name must be provided and cannot contain spaces",
-                "meta": ["state"]
+                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "meta": ["id"]
+            },
+            "condition": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Condition name must be provided and cannot contain spaces",
+                "meta": ["condition"]
             },
             "assay": {
                 "type": "string",
@@ -27,6 +33,6 @@
                 "errorMessage": "Peak file must be provided and must be a .bed or .broadPeak file",
             }
         },
-        "required": ["state", "assay", "peak_file"]
+        "required": ["sample", "condition", "assay", "peak_file"]
     }
 }

@@ -43,6 +43,27 @@
                 }
             }
         },
+        "pipeline_options": {
+            "title": "Pipeline options",
+            "type": "object",
+            "fa_icon": "fas fa-cogs",
+            "description": "Options for the pipeline itself.",
+            "properties": {
+                "merge_samples": {
+                    "type": "boolean",
+                    "description": "Merge samples with the same condition and assay.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "If you have multiple samples with the same condition and assay, you can set this parameter to `true` to merge them into a single sample. This is useful if you have technical replicates and want to combine them into a single sample for analysis."
+                },
+                "min_peak_occurrence": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum number of samples that a peak has to occur in to keep it while merging.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "If you have multiple samples with the same condition and assay and use the `--merge_samples` parameter, you can set this parameter to the minimum number of samples that a peak has to occur in to keep it while merging."
+                }
+            }
+        },
         "reference_genome_options": {
             "title": "Reference genome options",
             "type": "object",
@@ -282,6 +303,9 @@
     "allOf": [
         {
             "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/pipeline_options"
         },
         {
             "$ref": "#/definitions/reference_genome_options"

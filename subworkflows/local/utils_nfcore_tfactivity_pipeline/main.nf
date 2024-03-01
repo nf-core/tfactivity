@@ -82,8 +82,6 @@ workflow PIPELINE_INITIALISATION {
     //
     Channel
         .fromSamplesheet("input")
-        .map { meta, peak_file -> [ [id: meta.state + "_" + meta.assay] + meta, peak_file]}
-        .groupTuple()
         .map {
             validateInputSamplesheet(it)
         }

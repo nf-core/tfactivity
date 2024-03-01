@@ -1,7 +1,7 @@
-state,assay,peak_file
-condition1,H3K27ac,condition1_H3K27ac_1.broadPeak
-condition1,H3K27ac,condition1_H3K27ac_2.broadPeak
-condition1,H3K4me3,condition1_H3K4me3.broadPeak
-condition2,H3K27ac,condition2_H3K27ac.broadPeak
-condition3,H3K27ac,condition3_H3K27ac.broadPeak
-condition3,H3K4me3,condition3_H3K4me3.broadPeak
+sample,condition,assay,peak_file
+condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.broadPeak
+condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.broadPeak
+condition1_H3K4me3,condition1,H3K4me3,condition1_H3K4me3.broadPeak
+condition2_H3K27ac,condition2,H3K27ac,condition2_H3K27ac.broadPeak
+condition3_H3K27ac,condition3,H3K27ac,condition3_H3K27ac.broadPeak
+condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.broadPeak
