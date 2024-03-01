@@ -23,10 +23,10 @@ workflow TFACTIVITY {
 
     take:
     ch_samplesheet // channel: samplesheet read in from --input
+    ch_versions
 
     main:
 
-    ch_versions = Channel.empty()
     // ch_multiqc_files = Channel.empty()
     
     // ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
@@ -35,6 +35,8 @@ workflow TFACTIVITY {
         ch_samplesheet,
         params.merge_samples
     )
+
+    ch_versions = ch_versions.mix(PEAKS.out.versions)
 
     //
     // Collate and save software versions

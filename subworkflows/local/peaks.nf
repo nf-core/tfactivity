@@ -20,9 +20,11 @@ workflow PEAKS {
     if (merge_samples) {
         MERGE_SAMPLES(CLEAN_BED.out.output)
         ch_peaks = MERGE_SAMPLES.out.merged
+        ch_versions = ch_versions.mix(MERGE_SAMPLES.out.versions)
     } else {
         SORT_PEAKS(CLEAN_BED.out.output, [])
         ch_peaks = SORT_PEAKS.out.sorted
+        ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
     emit:

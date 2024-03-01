@@ -49,6 +49,8 @@ workflow NFCORE_TFACTIVITY {
 
     main:
 
+    ch_versions = Channel.empty()
+
     //
     // SUBWORKFLOW: Prepare genome
     //
@@ -57,11 +59,14 @@ workflow NFCORE_TFACTIVITY {
         params.gtf
     )
 
+    ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
+
     //
     // WORKFLOW: Run pipeline
     //
     TFACTIVITY (
-        samplesheet
+        samplesheet,
+        ch_versions
     )
 
     emit:
