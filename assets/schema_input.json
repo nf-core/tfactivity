@@ -32,11 +32,11 @@
                 "pattern": "^\\S+\\.(bed|broadPeak)$",
                 "errorMessage": "Peak file must be provided and must be a .bed or .broadPeak file",
             },
-            "footprints": {
+            "footprinting": {
                 "type": "boolean",
                 "default": true,
-                "errorMessage": "footprints must be a boolean value",
-                "meta": ["footprints"]
+                "errorMessage": "footprinting must be a boolean value",
+                "meta": ["footprinting"]
             },
             "include_original": {
                 "type": "boolean",
