@@ -147,11 +147,10 @@ def validateInputParameters() {
 def validateInputSamplesheet(input) {
     def (meta, peak_files) = input[0..1]
 
-    // Check that multiple runs of the same sample are of the same datatype i.e. single-end / paired-end
-    // def endedness_ok = metas.collect{ it.single_end }.unique().size == 1
-    // if (!endedness_ok) {
-    //     error("Please check input samplesheet -> Multiple runs of a sample must be of the same datatype i.e. single-end or paired-end: ${metas[0].id}")
-    // }
+    // Check that include_original is only set to false if footprinting is enabled
+    if ( !meta.footprinting && !meta.include_original ) {
+        error("The 'include_original' parameter can only be set to 'false' if 'footprinting' is enabled.")
+    }
 
     return [ meta, peak_files ]
 }

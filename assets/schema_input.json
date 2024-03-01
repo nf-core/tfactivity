@@ -31,6 +31,25 @@
                 "exists": true,
                 "pattern": "^\\S+\\.(bed|broadPeak)$",
                 "errorMessage": "Peak file must be provided and must be a .bed or .broadPeak file",
+            },
+            "footprints": {
+                "type": "boolean",
+                "default": true,
+                "errorMessage": "footprints must be a boolean value",
+                "meta": ["footprints"]
+            },
+            "include_original": {
+                "type": "boolean",
+                "default": true,
+                "errorMessage": "include_original must be a boolean value",
+                "meta": ["include_original"]
+            },
+            "max_peak_gap": {
+                "type": "integer",
+                "default": 500,
+                "minimum": 0,
+                "errorMessage": "max_peak_gap must be a positive integer",
+                "meta": ["max_peak_gap"]
             }
         },
         "required": ["sample", "condition", "assay", "peak_file"]
