@@ -33,6 +33,7 @@ include { PREPARE_GENOME          } from './subworkflows/local/prepare_genome'
 params.fasta     = getGenomeAttribute('fasta')
 params.gtf       = getGenomeAttribute('gtf')
 params.blacklist = getGenomeAttribute('blacklist')
+params.pwms      = getGenomeAttribute('pwms')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,12 +53,17 @@ workflow NFCORE_TFACTIVITY {
 
     ch_versions = Channel.empty()
 
+    ch_fasta = Channel.value(file(params.fasta))
+    ch_gtf   = Channel.value(file(params.gtf))
+    ch_blacklist = Channel.value(file(params.blacklist))
+    ch_pwms  = Channel.value(file(params.pwms))
+
     //
     // SUBWORKFLOW: Prepare genome
     //
     PREPARE_GENOME (
-        params.fasta,
-        params.gtf
+        ch_fasta,
+        ch_gtf
     )
 
     ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
@@ -67,9 +73,14 @@ workflow NFCORE_TFACTIVITY {
     //
     TFACTIVITY (
         samplesheet,
-        ch_versions,
+        ch_fasta,
+        ch_gtf,
+        ch_blacklist,
+        ch_pwms,
+        params.window_size,
+        params.decay,
         params.merge_samples,
-        params.blacklist
+        ch_versions
     )
 
     emit:

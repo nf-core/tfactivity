@@ -23,9 +23,14 @@ workflow TFACTIVITY {
 
     take:
     ch_samplesheet // channel: samplesheet read in from --input
-    ch_versions
-    merge_samples
+    fasta
+    gtf
     blacklist
+    pwms
+    window_size
+    decay
+    merge_samples
+    ch_versions
 
     main:
 
@@ -35,8 +40,13 @@ workflow TFACTIVITY {
     // ch_versions = ch_versions.mix(FASTQC.out.versions.first())
     PEAKS(
         ch_samplesheet,
-        merge_samples,
-        blacklist
+        fasta,
+        gtf,
+        blacklist,
+        pwms,
+        window_size,
+        decay,
+        merge_samples
     )
 
     ch_versions = ch_versions.mix(PEAKS.out.versions)

@@ -12,12 +12,12 @@ workflow PREPARE_GENOME {
 
     ch_versions = Channel.empty()
 
-    ch_fasta = Channel.value([[id: 'fasta'], file(fasta)])
-    ch_gtf   = Channel.value([[id: 'gtf'],   file(gtf)])
+    ch_fasta_tuple = fasta.map { fasta -> [[id: 'fasta'], fasta] }
+    ch_gtf_tuple   = gtf.map { gtf -> [[id: 'gtf'], gtf] }
 
     // Prepare gene map
 
-    EXTRACT_ID_SYMBOL_MAP(ch_gtf, [[], []])
+    EXTRACT_ID_SYMBOL_MAP(ch_gtf_tuple, [[], []])
     REMOVE_GENE_VERSIONS(EXTRACT_ID_SYMBOL_MAP.out.feature_annotation, [])
 
     ch_versions = ch_versions.mix(
@@ -25,7 +25,7 @@ workflow PREPARE_GENOME {
         REMOVE_GENE_VERSIONS.out.versions
     )
 
-    SAMTOOLS_FAIDX(ch_fasta, [[], []])
+    SAMTOOLS_FAIDX(ch_fasta_tuple, [[], []])
 
     ch_versions = ch_versions.mix(
         SAMTOOLS_FAIDX.out.versions

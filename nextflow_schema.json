@@ -61,6 +61,20 @@
                     "description": "Minimum number of samples that a peak has to occur in to keep it while merging.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "If you have multiple samples with the same condition and assay and use the `--merge_samples` parameter, you can set this parameter to the minimum number of samples that a peak has to occur in to keep it while merging."
+                },
+                "window_size": {
+                    "type": "integer",
+                    "default": 50000,
+                    "description": "Size of the window to search for binding sites.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Size of the window to search for binding sites. The default value is 50000."
+                },
+                "decay": {
+                    "type": "boolean",
+                    "default": "true",
+                    "description": "Use decay in STARE",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Use decay in STARE. The default value is `true`."
                 }
             }
         },
@@ -103,6 +117,16 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.bed(\\.gz)?$",
                     "description": "Path to blacklist regions file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "pwms": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.txt(\\.gz)?$",
+                    "description": "Path to PWMs file.",
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
                     "fa_icon": "far fa-file-code"
                 },

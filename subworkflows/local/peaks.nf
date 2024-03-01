@@ -2,6 +2,7 @@
 include { GAWK as CLEAN_BED               } from '../../modules/nf-core/gawk/main'
 include { BEDTOOLS_SORT as SORT_PEAKS     } from '../../modules/nf-core/bedtools/sort/main'
 include { BEDTOOLS_SUBTRACT as BLACKLIST  } from '../../modules/nf-core/bedtools/subtract/main'
+include { STARE                           } from '../../modules/local/stare/main'
 
 // Subworkflows
 include { FOOTPRINTING               } from './footprinting'
@@ -11,8 +12,13 @@ workflow PEAKS {
 
     take:
     ch_peaks // channel: [ val(meta), [ peaks ] ]
-    merge_samples
+    fasta
+    gtf
     blacklist
+    pwms
+    window_size
+    decay
+    merge_samples
 
     main:
 
@@ -36,10 +42,15 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
-    if (blacklist) {
-        BLACKLIST( ch_peaks.map{ meta, peaks -> [meta, peaks, blacklist] } )
-        ch_peaks = BLACKLIST.out.bed
-    }
+    STARE(
+        ch_peaks,
+        fasta,
+        gtf,
+        blacklist,
+        pwms,
+        window_size,
+        decay
+    )
 
     emit:
 
