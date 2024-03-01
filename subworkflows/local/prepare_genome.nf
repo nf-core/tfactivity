@@ -1,5 +1,4 @@
 include { ATLASGENEANNOTATIONMANIPULATION_GTF2FEATUREANNOTATION as EXTRACT_ID_SYMBOL_MAP } from '../../modules/nf-core/atlasgeneannotationmanipulation/gtf2featureannotation/main.nf'
-include { GAWK as REMOVE_GENE_VERSIONS    } from '../../modules/nf-core/gawk/main'
 include { SAMTOOLS_FAIDX                  } from '../../modules/nf-core/samtools/faidx/main'
 
 workflow PREPARE_GENOME {
@@ -18,21 +17,18 @@ workflow PREPARE_GENOME {
     // Prepare gene map
 
     EXTRACT_ID_SYMBOL_MAP(ch_gtf_tuple, [[], []])
-    REMOVE_GENE_VERSIONS(EXTRACT_ID_SYMBOL_MAP.out.feature_annotation, [])
 
-    ch_versions = ch_versions.mix(
-        EXTRACT_ID_SYMBOL_MAP.out.versions,
-        REMOVE_GENE_VERSIONS.out.versions
-    )
+    // Prepare fasta index
 
     SAMTOOLS_FAIDX(ch_fasta_tuple, [[], []])
 
     ch_versions = ch_versions.mix(
+        EXTRACT_ID_SYMBOL_MAP.out.versions,
         SAMTOOLS_FAIDX.out.versions
     )
 
     emit:
-    gene_map = REMOVE_GENE_VERSIONS.out.output
+    gene_map = EXTRACT_ID_SYMBOL_MAP.out.feature_annotation
     fai      = SAMTOOLS_FAIDX.out.fai
 
     versions = ch_versions                     // channel: [ versions.yml ]

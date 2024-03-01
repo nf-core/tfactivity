@@ -32,6 +32,11 @@ workflow PEAKS {
 
     ch_peaks = FOOTPRINTING.out.footprinted_peaks
 
+    ch_versions = ch_versions.mix(
+        CLEAN_BED.out.versions,
+        FOOTPRINTING.out.versions
+    )
+
     if (merge_samples) {
         MERGE_SAMPLES(ch_peaks)
         ch_peaks = MERGE_SAMPLES.out.merged
@@ -50,6 +55,10 @@ workflow PEAKS {
         pwms,
         window_size,
         decay
+    )
+
+    ch_versions = ch_versions.mix(
+        STARE.out.versions
     )
 
     emit:
