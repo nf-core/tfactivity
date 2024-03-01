@@ -87,7 +87,6 @@ workflow PIPELINE_INITIALISATION {
         .map {
             validateInputSamplesheet(it)
         }
-        .view()
         .set { ch_samplesheet }
 
     emit:
@@ -148,7 +147,6 @@ def validateInputParameters() {
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {
-    print(input[1])
     def (meta, peak_files) = input[0..1]
 
     // Check that multiple runs of the same sample are of the same datatype i.e. single-end / paired-end
