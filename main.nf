@@ -22,6 +22,7 @@ include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_tfac
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_tfactivity_pipeline'
 
 include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_tfactivity_pipeline'
+include { PREPARE_GENOME          } from './subworkflows/local/prepare_genome'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,10 +30,8 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_tfac
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-// TODO nf-core: Remove this line if you don't need a FASTA file
-//   This is an example of how to use getGenomeAttribute() to fetch parameters
-//   from igenomes.config using `--genome`
 params.fasta = getGenomeAttribute('fasta')
+params.gtf   = getGenomeAttribute('gtf')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,6 +48,14 @@ workflow NFCORE_TFACTIVITY {
     samplesheet // channel: samplesheet read in from --input
 
     main:
+
+    //
+    // SUBWORKFLOW: Prepare genome
+    //
+    PREPARE_GENOME (
+        params.fasta,
+        params.gtf
+    )
 
     //
     // WORKFLOW: Run pipeline
