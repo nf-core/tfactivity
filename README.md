@@ -47,8 +47,13 @@ First, prepare a samplesheet with your input data that looks as follows:
 `samplesheet.csv`:
 
 ```csv
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
+state,assay,peak_file
+condition1,H3K27ac,condition1_H3K27ac_1.broadPeak
+condition1,H3K27ac,condition1_H3K27ac_2.broadPeak
+condition1,H3K4me3,condition1_H3K4me3.broadPeak
+condition2,H3K27ac,condition2_H3K27ac.broadPeak
+condition3,H3K27ac,condition3_H3K27ac.broadPeak
+condition3,H3K4me3,condition3_H3K4me3.broadPeak
 ```
 
 Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
