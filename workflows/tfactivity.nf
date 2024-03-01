@@ -38,6 +38,13 @@ workflow TFACTIVITY {
     
     // ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
     // ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+
+    ch_conditions = ch_samplesheet.map { meta, peak_file -> meta.condition }
+                        .toSortedList().flatten().unique()
+    
+    ch_contrasts = ch_conditions.combine(ch_conditions)
+                                .filter { condition1, condition2 -> condition1 < condition2 }
+
     PEAKS(
         ch_samplesheet,
         fasta,
@@ -46,7 +53,8 @@ workflow TFACTIVITY {
         pwms,
         window_size,
         decay,
-        merge_samples
+        merge_samples,
+        ch_contrasts
     )
 
     ch_versions = ch_versions.mix(PEAKS.out.versions)

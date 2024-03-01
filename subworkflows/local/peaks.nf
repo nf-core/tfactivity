@@ -4,6 +4,7 @@ include { BEDTOOLS_SORT as SORT_PEAKS     } from '../../modules/nf-core/bedtools
 include { BEDTOOLS_SUBTRACT as BLACKLIST  } from '../../modules/nf-core/bedtools/subtract/main'
 include { STARE                           } from '../../modules/local/stare/main'
 include { COMBINE_TABLES as AFFINITY_MEAN } from '../../modules/local/combine_tables/main'
+include { COMBINE_TABLES as AFFINITY_RATIO} from '../../modules/local/combine_tables/main'
 
 // Subworkflows
 include { FOOTPRINTING               } from './footprinting'
@@ -20,6 +21,7 @@ workflow PEAKS {
     window_size
     decay
     merge_samples
+    contrasts
 
     main:
 
@@ -74,11 +76,28 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(AFFINITY_MEAN.out.versions)
     }
 
+    ch_affinities_spread = ch_affinities
+        .map { meta, affinities -> [meta.condition, meta.assay, affinities] }
+
+    ch_contrast_affinities = contrasts
+        .map {condition1, condition2 -> [condition2, condition1]}
+        .combine(ch_affinities_spread, by: 0)
+        .map {condition2, condition1, assay2, affinities2 -> [condition1, condition2, assay2, affinities2] }
+        .combine(ch_affinities_spread, by: 0)
+        .map {condition1, condition2, assay2, affinities2, assay1, affinities1 -> [condition1, condition2, assay1, affinities1, assay2, affinities2] }
+        .filter {condition1, condition2, assay1, affinities1, assay2, affinities2 -> assay1 == assay2}
+        .map {condition1, condition2, assay1, affinities1, assay2, affinities2 -> [condition1 + ":" + condition2, assay1, [affinities1, affinities2]] }
+        .map {contrast, assay, affinities -> [[id: contrast + "_" + assay, contrast: contrast, assay: assay], affinities] }
+    
+    AFFINITY_RATIO(ch_contrast_affinities, "ratio")
+
     ch_versions = ch_versions.mix(
-        STARE.out.versions
+        STARE.out.versions,
+        AFFINITY_RATIO.out.versions,
     )
 
     emit:
+    affinity_ratio = AFFINITY_RATIO.out.combined
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
