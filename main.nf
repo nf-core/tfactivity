@@ -88,6 +88,12 @@ workflow NFCORE_TFACTIVITY {
         params.merge_samples,
         params.min_count,
         params.min_tpm,
+
+        params.dynamite_ofolds,
+        params.dynamite_ifolds,
+        params.dynamite_alpha,
+        params.dynamite_randomize,
+
         ch_versions
     )
 

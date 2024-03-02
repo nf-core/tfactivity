@@ -13,6 +13,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_tfac
 include { PREPARE_GENOME         } from '../subworkflows/local/prepare_genome'
 include { COUNTS                 } from '../subworkflows/local/counts'
 include { PEAKS                  } from '../subworkflows/local/peaks'
+include { DYNAMITE               } from '../subworkflows/local/dynamite'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,8 +36,17 @@ workflow TFACTIVITY {
     window_size
     decay
     merge_samples
+
+    // Counts
     min_count
     min_tpm
+
+    // Dynamite
+    dynamite_ofolds
+    dynamite_ifolds
+    dynamite_alpha
+    dynamite_randomize
+
     ch_versions
 
     main:
@@ -72,6 +82,15 @@ workflow TFACTIVITY {
         decay,
         merge_samples,
         ch_contrasts
+    )
+
+    DYNAMITE(
+        COUNTS.out.differential,
+        PEAKS.out.affinity_ratio,
+        dynamite_ofolds,
+        dynamite_ifolds,
+        dynamite_alpha,
+        dynamite_randomize
     )
 
     ch_versions = ch_versions.mix(COUNTS.out.versions, PEAKS.out.versions)

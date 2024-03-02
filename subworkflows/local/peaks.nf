@@ -82,12 +82,18 @@ workflow PEAKS {
     ch_contrast_affinities = contrasts
         .map {condition1, condition2 -> [condition2, condition1]}
         .combine(ch_affinities_spread, by: 0)
-        .map {condition2, condition1, assay2, affinities2 -> [condition1, condition2, assay2, affinities2] }
+        .map {condition2, condition1, assay2, affinities2 ->
+                [condition1, condition2, assay2, affinities2] }
         .combine(ch_affinities_spread, by: 0)
-        .map {condition1, condition2, assay2, affinities2, assay1, affinities1 -> [condition1, condition2, assay1, affinities1, assay2, affinities2] }
-        .filter {condition1, condition2, assay1, affinities1, assay2, affinities2 -> assay1 == assay2}
-        .map {condition1, condition2, assay1, affinities1, assay2, affinities2 -> [condition1 + ":" + condition2, assay1, [affinities1, affinities2]] }
-        .map {contrast, assay, affinities -> [[id: contrast + "_" + assay, contrast: contrast, assay: assay], affinities] }
+        .map {condition1, condition2, assay2, affinities2, assay1, affinities1 ->
+                [condition1, condition2, assay1, affinities1, assay2, affinities2] }
+        .filter {condition1, condition2, assay1, affinities1, assay2, affinities2 ->
+                assay1 == assay2}
+        .map {condition1, condition2, assay1, affinities1, assay2, affinities2 ->
+                [[id: condition1 + ":" + condition2 + "_" + assay1,
+                    condition1: condition1, condition2: condition2,
+                    assay: assay1],
+                    [affinities1, affinities2]] }
     
     AFFINITY_RATIO(ch_contrast_affinities, "ratio")
 

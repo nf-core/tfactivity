@@ -110,6 +110,34 @@
                     "description": "Minimum TPM to keep a gene in the analysis.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Minimum TPM to keep a gene in the analysis. The default value is 0."
+                },
+                "dynamite_ofolds": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "Number of outer folds for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Number of outer folds for dynamite. The default value is 3."
+                },
+                "dynamite_ifolds": {
+                    "type": "integer",
+                    "default": 6,
+                    "description": "Number of inner folds for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Number of inner folds for dynamite. The default value is 6."
+                },
+                "dynamite_alpha": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Alpha value for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Alpha value for dynamite. The default value is 0.1."
+                },
+                "dynamite_randomize": {
+                    "type": "boolean",
+                    "default": "false",
+                    "description": "Randomize the data for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Randomize the data for dynamite. The default value is `false`."
                 }
             }
         },
