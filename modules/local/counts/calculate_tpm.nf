@@ -1,4 +1,4 @@
-process COMBINE_COUNTS {
+process CALCULATE_TPM {
     tag "$meta.id"
     label "process_low"
 
@@ -8,23 +8,23 @@ process COMBINE_COUNTS {
         'biocontainers/mulled-v2-2076f4a3fb468a04063c9e6b7747a630abb457f6:fccb0c41a243c639e11dd1be7b74f563e624fcca-0' }"
 
     input:
-    tuple val(meta), path(counts), path(design)
-    path(extra_counts)
-    tuple val(meta2), path(gene_map)
+    tuple val(meta), path(counts)
+    tuple val(meta2), path(lengths)
 
     output:
-    tuple val(meta), path("*.clean.tsv"), emit: counts
-    tuple val(meta), path("genes.txt")  , emit: genes
-    path  "versions.yml"                , emit: versions
+    tuple val(meta), path("*.tpm.tsv"), emit: tpm
+
+    path  "versions.yml"              , emit: versions
 
     script:
     """
-    combine_counts.py --counts ${counts} --genes ${gene_map} --metadata ${design} --output ${meta.id}.clean.tsv
+    calculate_tpm.py --counts ${counts} --lengths ${lengths} --output ${meta.id}.tpm.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         python: \$(python --version | sed 's/Python //g')
         pandas: \$(python -c "import pandas; print(pandas.__version__)")
+        numpy: \$(python -c "import numpy; print(numpy.__version__)")
     END_VERSIONS
     """
 }

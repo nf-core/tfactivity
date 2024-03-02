@@ -29,6 +29,7 @@ workflow TFACTIVITY {
     blacklist
     pwms
     gene_lengths
+    gene_map
     counts
     counts_design
     window_size
@@ -51,6 +52,7 @@ workflow TFACTIVITY {
 
     COUNTS(
         gene_lengths,
+        gene_map,
         counts,
         counts_design
     )

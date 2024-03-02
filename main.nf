@@ -80,6 +80,7 @@ workflow NFCORE_TFACTIVITY {
         ch_blacklist,
         ch_pwms,
         PREPARE_GENOME.out.gene_lengths,
+        PREPARE_GENOME.out.gene_map,
         ch_counts,
         ch_counts_design,
         params.window_size,
