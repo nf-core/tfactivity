@@ -102,8 +102,8 @@ nf-core/tfactivity was originally written by Nico Trummer.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-- Markus Hoffmann
-- Leon Hafner
+- [Markus Hoffmann](https://scholar.google.com/citations?user=_qXUS28AAAAJ)
+- [Leon Hafner](https://www.linkedin.com/in/leon-hafner/)
 
 ## Contributions and Support
 
