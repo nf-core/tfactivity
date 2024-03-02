@@ -35,7 +35,7 @@ workflow DYNAMITE {
 
 
     emit:
-    FILTER.out.output
+    regression_coefficients = FILTER.out.output
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
