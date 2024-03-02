@@ -1,5 +1,6 @@
 include { PREPROCESS               }   from '../../modules/local/dynamite/preprocess'
 include { DYNAMITE as RUN_DYNAMITE } from '../../modules/local/dynamite/dynamite'
+include { GAWK as FILTER } from '../../modules/nf-core/gawk/main'
 
 workflow DYNAMITE {
     take:
