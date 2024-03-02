@@ -1,4 +1,5 @@
-include { TF_TG_SCORE } from '../../modules/local/ranking/tf_tg_score'
+include { TF_TG_SCORE               } from '../../modules/local/ranking/tf_tg_score'
+include { RANKING as CREATE_RANKING } from '../../modules/local/ranking/ranking'
 
 workflow RANKING {
 
@@ -6,6 +7,7 @@ workflow RANKING {
     ch_differential
     ch_affinities
     ch_regression_coefficients
+    alpha
 
     main:
 
@@ -23,6 +25,8 @@ workflow RANKING {
             [meta, differential, affinities, regression_coefficients]}
 
     TF_TG_SCORE(ch_combined)
+    CREATE_RANKING(TF_TG_SCORE.out.score, alpha)
+
 
     emit:
 

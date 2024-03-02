@@ -11,7 +11,7 @@ process TF_TG_SCORE {
     tuple val(meta), path(differential), path(affinities), path(regression_coefficients)
 
     output:
-    tuple val(meta), path("*.score.tsv"), emit: counts
+    tuple val(meta), path("*.score.tsv"), emit: score
 
     path  "versions.yml"                , emit: versions
 

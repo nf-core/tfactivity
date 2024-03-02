@@ -145,6 +145,13 @@
                     "description": "Minimum regression value for dynamite.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Minimum regression value for dynamite. The default value is 0.1."
+                },
+                "alpha": {
+                    "type": "number",
+                    "default": 0.05,
+                    "description": "Alpha value for the Mann-Whitney U test.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Alpha value for the Mann-Whitney U test. The default value is 0.05."
                 }
             }
         },

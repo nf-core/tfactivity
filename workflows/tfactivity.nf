@@ -48,6 +48,9 @@ workflow TFACTIVITY {
     dynamite_alpha
     dynamite_randomize
 
+    // Ranking
+    alpha
+
     ch_versions
 
     main:
@@ -92,7 +95,8 @@ workflow TFACTIVITY {
     RANKING(
         COUNTS.out.differential,
         PEAKS.out.affinity_sum,
-        DYNAMITE.out.regression_coefficients
+        DYNAMITE.out.regression_coefficients,
+        alpha
     )
 
     ch_versions = ch_versions.mix(

@@ -94,6 +94,8 @@ workflow NFCORE_TFACTIVITY {
         params.dynamite_alpha,
         params.dynamite_randomize,
 
+        params.alpha,
+
         ch_versions
     )
 
