@@ -58,7 +58,8 @@ workflow TFACTIVITY {
         counts,
         counts_design,
         min_count,
-        min_tpm
+        min_tpm,
+        ch_contrasts
     )
 
     PEAKS(

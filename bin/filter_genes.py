@@ -30,6 +30,10 @@ gene_intersection = df_counts.index.intersection(df_tpms.index)
 df_counts = df_counts.loc[gene_intersection]
 df_tpms = df_tpms.loc[gene_intersection]
 
+# Rename index to gene_id
+df_counts.index.name = "gene_id"
+df_tpms.index.name = "gene_id"
+
 # Write the output files
 df_counts.to_csv(args.counts_output, sep="\t")
 df_tpms.to_csv(args.tpms_output, sep="\t")

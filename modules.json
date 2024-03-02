@@ -30,6 +30,11 @@
                         "git_sha": "9437e6053dccf4aafa022bfd6e7e9de67e625af8",
                         "installed_by": ["modules"]
                     },
+                    "deseq2/differential": {
+                        "branch": "master",
+                        "git_sha": "9326d73af3fbe2ee90d9ce0a737461a727c5118e",
+                        "installed_by": ["modules"]
+                    },
                     "fastqc": {
                         "branch": "master",
                         "git_sha": "f4ae1d942bd50c5c0b9bd2de1393ce38315ba57c",
