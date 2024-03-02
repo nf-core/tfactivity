@@ -46,7 +46,10 @@ workflow COUNTS {
     DESEQ2_DIFFERENTIAL(
         Channel.value(["condition"]).combine(contrasts)
             .map{ variable, reference, target -> 
-                [[id: reference + ":" + target, condition1: reference, condition2: target],
+                [[id: reference + ":" + target,
+                    contrast: reference + ":" + target,
+                    condition1: reference,
+                    condition2: target],
                     variable, reference, target]},
         PREPARE_DESIGN.out.design
             .map{ meta, design -> design }

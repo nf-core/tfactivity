@@ -91,6 +91,7 @@ workflow PEAKS {
                 assay1 == assay2}
         .map {condition1, condition2, assay1, affinities1, assay2, affinities2 ->
                 [[id: condition1 + ":" + condition2 + "_" + assay1,
+                    contrast: condition1 + ":" + condition2,
                     condition1: condition1, condition2: condition2,
                     assay: assay1],
                     [affinities1, affinities2]] }
