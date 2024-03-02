@@ -93,7 +93,11 @@ workflow TFACTIVITY {
         dynamite_randomize
     )
 
-    ch_versions = ch_versions.mix(COUNTS.out.versions, PEAKS.out.versions)
+    ch_versions = ch_versions.mix(
+        COUNTS.out.versions,
+        PEAKS.out.versions,
+        DYNAMITE.out.versions
+    )
 
     //
     // Collate and save software versions
