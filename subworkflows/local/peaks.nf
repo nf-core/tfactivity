@@ -5,6 +5,7 @@ include { BEDTOOLS_SUBTRACT as BLACKLIST  } from '../../modules/nf-core/bedtools
 include { STARE                           } from '../../modules/local/stare/main'
 include { COMBINE_TABLES as AFFINITY_MEAN } from '../../modules/local/combine_tables/main'
 include { COMBINE_TABLES as AFFINITY_RATIO} from '../../modules/local/combine_tables/main'
+include { COMBINE_TABLES as AFFINITY_SUM  } from '../../modules/local/combine_tables/main'
 
 // Subworkflows
 include { FOOTPRINTING               } from './footprinting'
@@ -97,14 +98,17 @@ workflow PEAKS {
                     [affinities1, affinities2]] }
     
     AFFINITY_RATIO(ch_contrast_affinities, "ratio")
+    AFFINITY_SUM(ch_contrast_affinities, "sum")
 
     ch_versions = ch_versions.mix(
         STARE.out.versions,
         AFFINITY_RATIO.out.versions,
+        AFFINITY_SUM.out.versions
     )
 
     emit:
     affinity_ratio = AFFINITY_RATIO.out.combined
+    affinity_sum = AFFINITY_SUM.out.combined
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }

@@ -14,6 +14,7 @@ include { PREPARE_GENOME         } from '../subworkflows/local/prepare_genome'
 include { COUNTS                 } from '../subworkflows/local/counts'
 include { PEAKS                  } from '../subworkflows/local/peaks'
 include { DYNAMITE               } from '../subworkflows/local/dynamite'
+include { RANKING                } from '../subworkflows/local/ranking'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -86,6 +87,12 @@ workflow TFACTIVITY {
         dynamite_ifolds,
         dynamite_alpha,
         dynamite_randomize
+    )
+
+    RANKING(
+        COUNTS.out.differential,
+        PEAKS.out.affinity_sum,
+        DYNAMITE.out.regression_coefficients
     )
 
     ch_versions = ch_versions.mix(

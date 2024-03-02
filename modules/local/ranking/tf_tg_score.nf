@@ -1,4 +1,4 @@
-process COMBINE_COUNTS {
+process TF_TG_SCORE {
     tag "$meta.id"
     label "process_single"
 
@@ -8,18 +8,20 @@ process COMBINE_COUNTS {
         'biocontainers/mulled-v2-2076f4a3fb468a04063c9e6b7747a630abb457f6:fccb0c41a243c639e11dd1be7b74f563e624fcca-0' }"
 
     input:
-    tuple val(meta), path(counts), path(design)
-    path(extra_counts)
-    tuple val(meta2), path(gene_map)
+    tuple val(meta), path(differential), path(affinities), path(regression_coefficients)
 
     output:
-    tuple val(meta), path("*.clean.tsv"), emit: counts
-    tuple val(meta), path("genes.txt")  , emit: genes
+    tuple val(meta), path("*.score.tsv"), emit: counts
+
     path  "versions.yml"                , emit: versions
 
     script:
     """
-    combine_counts.py --counts ${counts} --genes ${gene_map} --metadata ${design} --output ${meta.id}.clean.tsv
+    tf_tg_score.py \\
+     --differential ${differential} \\
+     --affinities ${affinities} \\
+     --regression_coefficients ${regression_coefficients} \\
+     --output ${meta.id}.score.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

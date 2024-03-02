@@ -132,7 +132,7 @@ for(Sample in FileList){
   print(paste0("Learning model for ",name))
   i<-i+1
   #Loading the data matrix
-  M<-read.table(paste(argsL$dataDir,Sample,sep="/"),header=TRUE,stringsAsFactors=FALSE,row.names=1)
+  M<-read.table(paste(argsL$dataDir,Sample,sep="/"),header=TRUE,stringsAsFactors=FALSE,row.names=1,check.names=FALSE)
   #Removing features with standard deviation zero
   SD<-apply(M,2,sd)
   Feature_zero_SD<-as.vector(which(SD==0))
