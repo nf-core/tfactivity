@@ -67,7 +67,7 @@ workflow TFACTIVITY {
         ch_contrasts
     )
 
-    ch_versions = ch_versions.mix(PEAKS.out.versions)
+    ch_versions = ch_versions.mix(COUNTS.out.versions, PEAKS.out.versions)
 
     //
     // Collate and save software versions
