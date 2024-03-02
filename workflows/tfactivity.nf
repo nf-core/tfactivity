@@ -11,6 +11,7 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_tfactivity_pipeline'
 
 include { PREPARE_GENOME         } from '../subworkflows/local/prepare_genome'
+include { COUNTS                 } from '../subworkflows/local/counts'
 include { PEAKS                  } from '../subworkflows/local/peaks'
 
 /*
@@ -27,6 +28,9 @@ workflow TFACTIVITY {
     gtf
     blacklist
     pwms
+    gene_lengths
+    counts
+    counts_design
     window_size
     decay
     merge_samples
@@ -44,6 +48,12 @@ workflow TFACTIVITY {
     
     ch_contrasts = ch_conditions.combine(ch_conditions)
                                 .filter { condition1, condition2 -> condition1 < condition2 }
+
+    COUNTS(
+        gene_lengths,
+        counts,
+        counts_design
+    )
 
     PEAKS(
         ch_samplesheet,

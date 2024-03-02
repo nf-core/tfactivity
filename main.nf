@@ -57,6 +57,8 @@ workflow NFCORE_TFACTIVITY {
     ch_gtf   = Channel.value(file(params.gtf))
     ch_blacklist = Channel.value(file(params.blacklist))
     ch_pwms  = Channel.value(file(params.pwms))
+    ch_counts = Channel.value(file(params.counts))
+    ch_counts_design = Channel.value(file(params.counts_design))
 
     //
     // SUBWORKFLOW: Prepare genome
@@ -77,6 +79,9 @@ workflow NFCORE_TFACTIVITY {
         ch_gtf,
         ch_blacklist,
         ch_pwms,
+        PREPARE_GENOME.out.gene_lengths,
+        ch_counts,
+        ch_counts_design,
         params.window_size,
         params.decay,
         params.merge_samples,

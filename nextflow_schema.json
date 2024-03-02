@@ -23,6 +23,27 @@
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/tfactivity/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
+                "counts": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.(csv|txt)$",
+                    "description": "Path to comma-separated file containing the counts for the samples in the experiment. Can also be a file containing just gene identifiers. In this case, count values need to be referenced in the counts_design file.",
+                    "help_text": "You will need to create a counts file with the counts for the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with a header row. See [usage docs](https://nf-co.re/tfactivity/usage#counts-input).",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "counts_design": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_counts_design.json",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to comma-separated file containing information about the counts file.",
+                    "help_text": "You will need to create a counts design file with information about the counts file in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/tfactivity/usage#counts-design-input).",
+                    "fa_icon": "fas fa-file-csv"
+                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
