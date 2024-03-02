@@ -100,10 +100,10 @@ For more details about the output files and reports, please refer to the
 
 nf-core/tfactivity was originally written by Nico Trummer.
 
-<!-- TODO nf-core: 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-If applicable, make list of people who have also contributed -->
+- Markus Hoffmann
+- Leon Hafner
 
 ## Contributions and Support
 
