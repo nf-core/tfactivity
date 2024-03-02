@@ -1,4 +1,4 @@
-process INTEGRATE_DATA {
+process PREPROCESS {
     tag "$meta.id"
     label "process_single"
 
@@ -11,16 +11,16 @@ process INTEGRATE_DATA {
     tuple val(meta), path(differential_expression), path(affinity_ratio)
 
     output:
-    tuple val(meta), path("*.integrated.tsv"), emit: integrated
+    tuple val(meta), path("*.preprocessed.tsv"), emit: output
 
     path  "versions.yml"                     , emit: versions
 
     script:
     """
-    dynamite_integrate.py \\
+    dynamite_preprocess.py \\
         --affinities ${affinity_ratio} \\
         --expression ${differential_expression} \\
-        --output ${meta.id}.integrated.tsv
+        --output ${meta.id}.preprocessed.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

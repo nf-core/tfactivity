@@ -25,6 +25,7 @@ gene_intersection = df_affinities.index.intersection(df_expression.index)
 df_affinities = df_affinities.loc[gene_intersection]
 df_expression = df_expression.loc[gene_intersection]
 
-df_affinities["Expression"] = df_expression["log2FoldChange"]
+df_affinities["Expression"] = 0
+df_affinities.loc[df_expression["log2FoldChange"] > 0, "Expression"] = 1
 
 df_affinities.to_csv(args.output, sep="\t")

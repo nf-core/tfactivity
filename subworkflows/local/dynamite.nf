@@ -1,4 +1,4 @@
-include { INTEGRATE_DATA } from '../../modules/local/dynamite/integrate_data'
+include { PREPROCESS } from '../../modules/local/dynamite/preprocess'
 
 workflow DYNAMITE {
     take:
@@ -20,9 +20,9 @@ workflow DYNAMITE {
         .map{ condition1, condition2, meta_differential, differential, meta_affinity, affinity_ratio ->
             [meta_affinity, differential, affinity_ratio]}
     
-    INTEGRATE_DATA(ch_combined)
+    PREPROCESS(ch_combined)
 
-    ch_versions = ch_versions.mix(INTEGRATE_DATA.out.versions)
+    ch_versions = ch_versions.mix(PREPROCESS.out.versions)
 
 
     emit:
