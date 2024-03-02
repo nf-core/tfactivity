@@ -1,6 +1,5 @@
 include { ATLASGENEANNOTATIONMANIPULATION_GTF2FEATUREANNOTATION as EXTRACT_ID_SYMBOL_MAP } from '../../modules/nf-core/atlasgeneannotationmanipulation/gtf2featureannotation/main.nf'
 include { GTFTOOLS_LENGTH                 } from '../../modules/local/gtftools/length/main'
-include { SAMTOOLS_FAIDX                  } from '../../modules/nf-core/samtools/faidx/main'
 
 workflow PREPARE_GENOME {
 
@@ -20,19 +19,15 @@ workflow PREPARE_GENOME {
     EXTRACT_ID_SYMBOL_MAP(ch_gtf_tuple, [[], []])
     GTFTOOLS_LENGTH(ch_gtf_tuple)
 
-    // Prepare fasta index
-
-    SAMTOOLS_FAIDX(ch_fasta_tuple, [[], []])
 
     ch_versions = ch_versions.mix(
         EXTRACT_ID_SYMBOL_MAP.out.versions,
-        SAMTOOLS_FAIDX.out.versions
+        GTFTOOLS_LENGTH.out.versions
     )
 
     emit:
     gene_map = EXTRACT_ID_SYMBOL_MAP.out.feature_annotation
     gene_lengths = GTFTOOLS_LENGTH.out.lengths
-    fai      = SAMTOOLS_FAIDX.out.fai
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
