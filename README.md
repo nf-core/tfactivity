@@ -19,28 +19,26 @@
 
 ## Introduction
 
-**nf-core/tfactivity** is a bioinformatics pipeline that ...
+**nf-core/tfactivity** is a bioinformatics pipeline that can identify the most differentially active transcription factors (TFs) between multiple conditions. It takes a count matrix and open chromatin data (ATAC-seq, DNase-seq, HM-ChIP-seq) as input. It produces a ranking of transcription factors.
+It is strongly based on the TF-Prioritizer, with the following workflow:
 
-<!-- TODO nf-core:
-   Complete this sentence with a 2-3 sentence summary of what types of data the pipeline ingests, a brief overview of the
-   major pipeline sections and the types of output it produces. You're giving an overview to someone new
-   to nf-core here, in 15-20 seconds. For an example, see https://github.com/nf-core/rnaseq/blob/master/README.md#introduction
--->
+![TF-Prioritizer workflow](docs/images/tfprio.jpeg)
 
-<!-- TODO nf-core: Include a figure that guides the user through the major workflow steps. Many nf-core
-     workflows use the "tube map" design for that. See https://nf-co.re/docs/contributing/design_guidelines#examples for examples.   -->
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
-
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+1. Identify accessible regions (can perform footprinting between close ChIP-seq peaks or take ATAC-seq peaks)
+2. Calculate affinity scores for combinations of transcription factors and target genes (TGs) using [STARE](https://doi.org/10.1093/bioinformatics/btad062)
+3. Identify differentially expressed genes between conditions
+4. Utilize linear regression to identify the transcription factors that are most likely to be responsible for the differential gene expression
+5. Calculate the TF-TG score based on:
+   1. Differential expression of the target genes
+   2. Affinity of the transcription factors to the target genes
+   3. The regression coefficient of the transcription factors
+6. Perform a Mann-Whitney U test and create a ranking of the transcription factors
 
 ## Usage
 
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-<!-- TODO nf-core: Describe the minimum required steps to execute the pipeline, e.g. how to prepare samplesheets.
-     Explain what rows and columns represent. For instance (please edit as appropriate):
 
 First, prepare a samplesheet with your input data that looks as follows:
 
@@ -56,9 +54,21 @@ condition3_H3K27ac,condition3,H3K27ac,condition3_H3K27ac.broadPeak
 condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.broadPeak
 ```
 
-Each row represents a fastq file (single-end) or a pair of fastq files (paired end).
+Each row represents a peak file. The `sample` column should contain a unique identifier for each peak file. The `peak_file` column should contain the path to the peak file. Peak files need to be in a format that is compatible with the `bed` format. Only the first three columns of the `bed` format are used.
 
--->
+Second, create a design matrix for the expression data like this:
+
+`design_matrix.csv`:
+
+```csv
+sample,condition
+sample1,condition1
+sample2,condition1
+sample3,condition2
+sample4,condition3
+```
+
+The `sample` column should match the columns in the expression matrix. The `condition` column is needs to match the `condition` column in the samplesheet. Additional covariates can be added to the design matrix and will be used in the differential expression analysis.
 
 Now, you can run the pipeline using:
 
@@ -68,6 +78,9 @@ Now, you can run the pipeline using:
 nextflow run nf-core/tfactivity \
    -profile <docker/singularity/.../institute> \
    --input samplesheet.csv \
+   --genome GRCh38 \
+   --counts <EXPRESSION_MATRIX> \
+   --counts_design design_matrix.csv \
    --outdir <OUTDIR>
 ```
 
@@ -87,9 +100,10 @@ For more details about the output files and reports, please refer to the
 
 nf-core/tfactivity was originally written by Nico Trummer.
 
+<!-- TODO nf-core: 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+If applicable, make list of people who have also contributed -->
 
 ## Contributions and Support
 
