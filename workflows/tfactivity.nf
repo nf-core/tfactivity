@@ -35,6 +35,8 @@ workflow TFACTIVITY {
     window_size
     decay
     merge_samples
+    min_count
+    min_tpm
     ch_versions
 
     main:
@@ -54,7 +56,9 @@ workflow TFACTIVITY {
         gene_lengths,
         gene_map,
         counts,
-        counts_design
+        counts_design,
+        min_count,
+        min_tpm
     )
 
     PEAKS(

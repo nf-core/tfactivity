@@ -96,6 +96,20 @@
                     "description": "Use decay in STARE",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Use decay in STARE. The default value is `true`."
+                },
+                "min_count": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum number of total counts to keep a gene in the analysis.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum number of total counts to keep a gene in the analysis. The default value is 50."
+                },
+                "min_tpm": {
+                    "type": "number",
+                    "default": 0,
+                    "description": "Minimum TPM to keep a gene in the analysis.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum TPM to keep a gene in the analysis. The default value is 0."
                 }
             }
         },

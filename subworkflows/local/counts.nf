@@ -1,5 +1,6 @@
 include { COMBINE_COUNTS } from "../../modules/local/counts/combine"
 include { CALCULATE_TPM } from "../../modules/local/counts/calculate_tpm"
+include { FILTER_GENES } from "../../modules/local/counts/filter_genes"
 
 workflow COUNTS {
 
@@ -8,6 +9,8 @@ workflow COUNTS {
     gene_map
     ch_counts
     ch_counts_design
+    min_count
+    min_tpm
 
     main:
 
@@ -28,9 +31,18 @@ workflow COUNTS {
         ch_gene_lengths
     )
 
-    ch_combined_counts = COMBINE_COUNTS.out.counts
+    FILTER_GENES(
+        COMBINE_COUNTS.out.counts,
+        CALCULATE_TPM.out.tpm,
+        min_count,
+        min_tpm
+    )
 
-    versions = ch_versions.mix(COMBINE_COUNTS.out.versions)
+    versions = ch_versions.mix(
+        COMBINE_COUNTS.out.versions,
+        CALCULATE_TPM.out.versions,
+        FILTER_GENES.out.versions
+    )
 
     emit:
     genes = COMBINE_COUNTS.out.genes

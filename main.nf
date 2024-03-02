@@ -86,6 +86,8 @@ workflow NFCORE_TFACTIVITY {
         params.window_size,
         params.decay,
         params.merge_samples,
+        params.min_count,
+        params.min_tpm,
         ch_versions
     )
 
