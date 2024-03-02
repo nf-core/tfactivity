@@ -1,4 +1,5 @@
-include { PREPROCESS } from '../../modules/local/dynamite/preprocess'
+include { PREPROCESS               }   from '../../modules/local/dynamite/preprocess'
+include { DYNAMITE as RUN_DYNAMITE } from '../../modules/local/dynamite/dynamite'
 
 workflow DYNAMITE {
     take:
@@ -21,6 +22,8 @@ workflow DYNAMITE {
             [meta_affinity, differential, affinity_ratio]}
     
     PREPROCESS(ch_combined)
+
+    RUN_DYNAMITE(PREPROCESS.out.output, ofolds, ifolds, alpha, randomize)
 
     ch_versions = ch_versions.mix(PREPROCESS.out.versions)
 
