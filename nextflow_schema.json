@@ -138,6 +138,13 @@
                     "description": "Randomize the data for dynamite.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Randomize the data for dynamite. The default value is `false`."
+                },
+                "dynamite_min_regression": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Minimum regression value for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum regression value for dynamite. The default value is 0.1."
                 }
             }
         },

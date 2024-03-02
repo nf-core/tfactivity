@@ -26,11 +26,16 @@ workflow DYNAMITE {
 
     RUN_DYNAMITE(PREPROCESS.out.output, ofolds, ifolds, alpha, randomize)
 
-    ch_versions = ch_versions.mix(PREPROCESS.out.versions)
+    FILTER(RUN_DYNAMITE.out, [])
+
+    ch_versions = ch_versions.mix(
+        PREPROCESS.out.versions,
+        FILTER.out.versions
+    )
 
 
     emit:
-
+    FILTER.out.output
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
