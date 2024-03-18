@@ -45,7 +45,7 @@ workflow COUNTS {
 
     DESEQ2_DIFFERENTIAL(
         Channel.value(["condition"]).combine(contrasts)
-            .map{ variable, reference, target -> 
+            .map{ variable, reference, target ->
                 [[id: reference + ":" + target,
                     contrast: reference + ":" + target,
                     condition1: reference,

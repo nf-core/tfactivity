@@ -18,10 +18,10 @@ process TF_TG_SCORE {
     script:
     """
     tf_tg_score.py \\
-     --differential ${differential} \\
-     --affinities ${affinities} \\
-     --regression_coefficients ${regression_coefficients} \\
-     --output ${meta.id}.score.tsv
+        --differential ${differential} \\
+        --affinities ${affinities} \\
+        --regression_coefficients ${regression_coefficients} \\
+        --output ${meta.id}.score.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

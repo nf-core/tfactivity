@@ -4,7 +4,7 @@ process STARE {
 
     conda "bioconda::stare-abc"
     container "biocontainers/stare-abc:1.0.4--haf6292c_1"
-    
+
     input:
     tuple val(meta), path(candidate_regions)
     path(fasta)

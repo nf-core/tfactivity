@@ -57,7 +57,7 @@ workflow TFACTIVITY {
 
     ch_conditions = ch_samplesheet.map { meta, peak_file -> meta.condition }
                         .toSortedList().flatten().unique()
-    
+
     ch_contrasts = ch_conditions.combine(ch_conditions)
                                 .filter { condition1, condition2 -> condition1 < condition2 }
 

@@ -67,8 +67,8 @@ workflow PEAKS {
             .map { meta, affinities -> [meta.condition, meta.assay, affinities] }
             .groupTuple(by: [0, 1])
             .map { condition, assay, affinities -> [[id: condition + "_" + assay,
-                                                     condition: condition,
-                                                     assay: assay], affinities] },
+                                                        condition: condition,
+                                                        assay: assay], affinities] },
             "mean"
         )
 
@@ -95,7 +95,7 @@ workflow PEAKS {
                     condition1: condition1, condition2: condition2,
                     assay: assay1],
                     [affinities1, affinities2]] }
-    
+
     AFFINITY_RATIO(ch_contrast_affinities, "ratio")
     AFFINITY_SUM(ch_contrast_affinities, "sum")
 

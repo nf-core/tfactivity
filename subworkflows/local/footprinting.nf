@@ -10,8 +10,8 @@ workflow FOOTPRINTING {
 
     ch_versions = Channel.empty()
 
-    ch_footprint_split = ch_peaks.branch{ 
-        meta, peaks -> 
+    ch_footprint_split = ch_peaks.branch{
+        meta, peaks ->
             footprinting: meta.footprinting
             as_is: !meta.footprinting
     }
@@ -19,8 +19,8 @@ workflow FOOTPRINTING {
     BEDTOOLS_MERGE( ch_footprint_split.footprinting )
 
     ch_include_original_split = BEDTOOLS_MERGE.out.bed
-        .branch{ 
-            meta, bed -> 
+        .branch{
+            meta, bed ->
                 include: meta.include_original
                 subtract: !meta.include_original
         }
@@ -43,4 +43,3 @@ workflow FOOTPRINTING {
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
-

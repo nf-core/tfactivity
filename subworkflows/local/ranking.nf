@@ -14,7 +14,7 @@ workflow RANKING {
 
     ch_versions = Channel.empty()
 
-    ch_combined = ch_differential.map{meta, differential -> 
+    ch_combined = ch_differential.map{meta, differential ->
             [meta.condition1, meta.condition2, differential]}
         .combine(ch_affinities.map{meta, affinities ->
             [meta.condition1, meta.condition2, meta.assay, affinities]}, by: [0, 1])
@@ -33,8 +33,8 @@ workflow RANKING {
     )
 
     ch_versions = ch_versions.mix(TF_TG_SCORE.out.versions,
-                                  CREATE_RANKING.out.versions,
-                                  COMBINE_RANKINGS.out.versions
+                                    CREATE_RANKING.out.versions,
+                                    COMBINE_RANKINGS.out.versions
     )
 
 
@@ -45,4 +45,3 @@ workflow RANKING {
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
-

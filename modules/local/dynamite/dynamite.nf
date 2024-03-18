@@ -12,10 +12,10 @@ process DYNAMITE {
     val(ifolds)
     val(alpha)
     val(randomize)
-    
+
     output:
     tuple val(meta), path("${meta.id}_dynamite/Regression_Coefficients_Entire_Data_Set_classification.txt")
-    
+
     script:
     """
     DYNAMITE.R \\
