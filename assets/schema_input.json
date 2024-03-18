@@ -30,7 +30,7 @@
                 "format": "file-path",
                 "exists": true,
                 "pattern": "^\\S+\\.(bed|broadPeak)$",
-                "errorMessage": "Peak file must be provided and must be a .bed or .broadPeak file",
+                "errorMessage": "Peak file must be provided and must be a .bed or .broadPeak file"
             },
             "footprinting": {
                 "type": "boolean",
