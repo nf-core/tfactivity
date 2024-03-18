@@ -34,6 +34,8 @@ workflow RANKING {
 
 
     emit:
+    assay_specific = CREATE_RANKING.out.ranking
+    combined       = COMBINE_RANKINGS.out.ranking
 
 
     versions = ch_versions                     // channel: [ versions.yml ]
