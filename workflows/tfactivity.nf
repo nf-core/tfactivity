@@ -37,11 +37,14 @@ workflow TFACTIVITY {
     window_size
     decay
     merge_samples
+    affinity_agg_method
 
     // Counts
     min_count
     min_tpm
     expression_agg_method
+    min_count_tf
+    min_tpm_tf
 
     // Dynamite
     dynamite_ofolds
@@ -70,7 +73,9 @@ workflow TFACTIVITY {
         min_count,
         min_tpm,
         ch_contrasts,
-        expression_agg_method
+        expression_agg_method,
+        min_count_tf,
+        min_tpm_tf
     )
 
     PEAKS(
@@ -82,7 +87,10 @@ workflow TFACTIVITY {
         window_size,
         decay,
         merge_samples,
-        ch_contrasts
+        ch_contrasts,
+        COUNTS.out.tfs,
+        gene_map,
+        affinity_agg_method
     )
 
     DYNAMITE(

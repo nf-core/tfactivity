@@ -10,7 +10,7 @@ process STARE {
     path(fasta)
     path(gtf)
     path(blacklist)
-    path(pwms)
+    tuple val(meta2), path(pwms)
     val(window_size)
     val(decay)
 

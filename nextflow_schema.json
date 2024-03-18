@@ -97,6 +97,20 @@
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Use decay in STARE. The default value is `true`."
                 },
+                "expression_aggregation": {
+                    "type": "string",
+                    "default": "mean",
+                    "description": "Method to aggregate expression values.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Method to aggregate expression values. The default value is `mean`."
+                },
+                "affinity_aggregation": {
+                    "type": "string",
+                    "default": "max",
+                    "description": "Method to aggregate affinity values.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Method to aggregate affinity values. The default value is `max`."
+                },
                 "min_count": {
                     "type": "integer",
                     "default": 50,
@@ -110,6 +124,20 @@
                     "description": "Minimum TPM to keep a gene in the analysis.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Minimum TPM to keep a gene in the analysis. The default value is 1."
+                },
+                "min_count_tf": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum number of total counts to keep a transcription factor in the analysis.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum number of total counts to keep a transcription factor in the analysis. The default value is 50."
+                },
+                "min_tpm_tf": {
+                    "type": "number",
+                    "default": 1,
+                    "description": "Minimum TPM to keep a transcription factor in the analysis.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum TPM to keep a transcription factor in the analysis. The default value is 1."
                 },
                 "dynamite_ofolds": {
                     "type": "integer",

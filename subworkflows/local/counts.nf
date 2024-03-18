@@ -1,6 +1,7 @@
 include { COMBINE_COUNTS } from "../../modules/local/counts/combine"
 include { CALCULATE_TPM } from "../../modules/local/counts/calculate_tpm"
 include { FILTER_GENES } from "../../modules/local/counts/filter_genes"
+include { FILTER_GENES as FILTER_TFS } from "../../modules/local/counts/filter_genes"
 include { PREPARE_DESIGN } from "../../modules/local/counts/prepare_design"
 include { DESEQ2_DIFFERENTIAL } from "../../modules/nf-core/deseq2/differential/main"
 
@@ -15,6 +16,8 @@ workflow COUNTS {
     min_tpm
     contrasts
     agg_method
+    min_count_tf
+    min_tpm_tf
 
     main:
 
@@ -44,6 +47,13 @@ workflow COUNTS {
         min_tpm
     )
 
+    FILTER_TFS(
+        COMBINE_COUNTS.out.counts.map{ meta, counts -> [[id: "TFs"], counts]},
+        CALCULATE_TPM.out.tpm,
+        min_count_tf,
+        min_tpm_tf
+    )
+
     PREPARE_DESIGN(ch_counts_design.map{ design -> [[id: "design"], design]})
 
     DESEQ2_DIFFERENTIAL(
@@ -66,6 +76,7 @@ workflow COUNTS {
         COMBINE_COUNTS.out.versions,
         CALCULATE_TPM.out.versions,
         FILTER_GENES.out.versions,
+        FILTER_TFS.out.versions,
         PREPARE_DESIGN.out.versions,
         DESEQ2_DIFFERENTIAL.out.versions
     )
@@ -73,6 +84,7 @@ workflow COUNTS {
     emit:
     genes = FILTER_GENES.out.genes
     raw_counts = FILTER_GENES.out.counts
+    tfs = FILTER_TFS.out.genes
     tpms = CALCULATE_TPM.out.tpm
     normalized = DESEQ2_DIFFERENTIAL.out.normalised_counts
     differential = DESEQ2_DIFFERENTIAL.out.results

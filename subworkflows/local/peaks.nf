@@ -1,7 +1,9 @@
 // Modules
 include { GAWK as CLEAN_BED               } from '../../modules/nf-core/gawk/main'
 include { BEDTOOLS_SORT as SORT_PEAKS     } from '../../modules/nf-core/bedtools/sort/main'
-include { STARE                           } from '../../modules/local/stare/main'
+include { FILTER_PWMS                     } from '../../modules/local/peaks/filter_pwms'
+include { STARE                           } from '../../modules/local/peaks/stare'
+include { AGGREGATE_SYNONYMS              } from '../../modules/local/peaks/aggregate_synonyms'
 include { COMBINE_TABLES as AFFINITY_MEAN } from '../../modules/local/combine_tables/main'
 include { COMBINE_TABLES as AFFINITY_RATIO} from '../../modules/local/combine_tables/main'
 include { COMBINE_TABLES as AFFINITY_SUM  } from '../../modules/local/combine_tables/main'
@@ -22,6 +24,9 @@ workflow PEAKS {
     decay
     merge_samples
     contrasts
+    tfs
+    gene_map
+    agg_method
 
     main:
 
@@ -50,12 +55,14 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
+    FILTER_PWMS(tfs, pwms)
+
     STARE(
         ch_peaks,
         fasta,
         gtf,
         blacklist,
-        pwms,
+        FILTER_PWMS.out.pwms.collect(),
         window_size,
         decay
     )
@@ -76,7 +83,13 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(AFFINITY_MEAN.out.versions)
     }
 
-    ch_affinities_spread = ch_affinities
+    AGGREGATE_SYNONYMS(
+        ch_affinities,
+        gene_map,
+        agg_method
+    )
+
+    ch_affinities_spread = AGGREGATE_SYNONYMS.out.affinities
         .map { meta, affinities -> [meta.condition, meta.assay, affinities] }
 
     ch_contrast_affinities = contrasts
@@ -100,7 +113,9 @@ workflow PEAKS {
     AFFINITY_SUM(ch_contrast_affinities, "sum")
 
     ch_versions = ch_versions.mix(
+        FILTER_PWMS.out.versions,
         STARE.out.versions,
+        AGGREGATE_SYNONYMS.out.versions,
         AFFINITY_RATIO.out.versions,
         AFFINITY_SUM.out.versions
     )
