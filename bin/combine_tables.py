@@ -29,7 +29,7 @@ else:
     index_intersection = dfs[0].index
     for df in dfs[1:]:
         index_intersection = index_intersection.intersection(df.index)
-    
+
     print(f"Number of rows in intersection: {len(index_intersection)}")
     # Keep row indices which are available in all dataframes
     dfs = [df.loc[index_intersection] for df in dfs]
@@ -54,7 +54,7 @@ elif args.method == "sum":
 elif args.method == "ratio":
     if len(dfs) != 2:
         raise ValueError("The ratio method requires exactly two input files.")
-    
+
     # Replace 0 values with minimal existing float value
     dfs[1] = dfs[1].replace(0, np.finfo(float).eps)
 

@@ -104,24 +104,24 @@ registerDoMC(argsL$cores)
 FileList<-list.files(path=argsL$dataDir)
 print(paste("Samples to analyse:",as.character(length(FileList)),sep=" "))
 for(Sample in FileList){
-	counter<-counter+1
-	print(paste(as.character(counter),unlist(unlist(strsplit(Sample,".txt")))))
-	}
+    counter<-counter+1
+    print(paste(as.character(counter),unlist(unlist(strsplit(Sample,".txt")))))
+    }
 
 #Creating the header for the overview table
 SampleOverview<-c("Name","Mean Test Accuracy","Var Test Accuracy","Mean F1_1","Var F1_1","Mean F1_2","Var F1_2","Mean Training Accuracy","Var Train Accuracy")
 
 #Declare elastic net functions
 elaBinomial<-function(a,x,y,i){
-	print(paste0("Learning model for alpha = ",a))
-	elasticnet<-cv.glmnet(x, y, alpha=a,family="binomial",type.measure="class",parallel=TRUE,nfolds=i)
-	min(elasticnet$cvm)
-	}
+    print(paste0("Learning model for alpha = ",a))
+    elasticnet<-cv.glmnet(x, y, alpha=a,family="binomial",type.measure="class",parallel=TRUE,nfolds=i)
+    min(elasticnet$cvm)
+    }
 elaMultinomial<-function(a,x,y,i){
-	print(paste0("Learning model for alpha = ",a))
-	elasticnet<-cv.glmnet(x, y, alpha=a,family="multinomial",type.measure="class",parallel=TRUE,nfolds=i)
-	min(elasticnet$cvm)
-	}
+    print(paste0("Learning model for alpha = ",a))
+    elasticnet<-cv.glmnet(x, y, alpha=a,family="multinomial",type.measure="class",parallel=TRUE,nfolds=i)
+    min(elasticnet$cvm)
+    }
 
 coefficients<-vector("list",length(FileList))
 
