@@ -32,6 +32,11 @@ workflow RANKING {
                                                 .map{ rankings -> [[id: "all"], rankings]}
     )
 
+    ch_versions = ch_versions.mix(TF_TG_SCORE.out.versions,
+                                  CREATE_RANKING.out.versions,
+                                  COMBINE_RANKINGS.out.versions
+    )
+
 
     emit:
     assay_specific = CREATE_RANKING.out.ranking

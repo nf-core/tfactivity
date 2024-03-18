@@ -1,7 +1,6 @@
 // Modules
 include { GAWK as CLEAN_BED               } from '../../modules/nf-core/gawk/main'
 include { BEDTOOLS_SORT as SORT_PEAKS     } from '../../modules/nf-core/bedtools/sort/main'
-include { BEDTOOLS_SUBTRACT as BLACKLIST  } from '../../modules/nf-core/bedtools/subtract/main'
 include { STARE                           } from '../../modules/local/stare/main'
 include { COMBINE_TABLES as AFFINITY_MEAN } from '../../modules/local/combine_tables/main'
 include { COMBINE_TABLES as AFFINITY_RATIO} from '../../modules/local/combine_tables/main'
