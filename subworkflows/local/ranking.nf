@@ -1,5 +1,6 @@
 include { TF_TG_SCORE               } from '../../modules/local/ranking/tf_tg_score'
 include { RANKING as CREATE_RANKING } from '../../modules/local/ranking/ranking'
+include { COMBINE_RANKINGS          } from '../../modules/local/ranking/combine_rankings'
 
 workflow RANKING {
 
@@ -26,6 +27,10 @@ workflow RANKING {
 
     TF_TG_SCORE(ch_combined)
     CREATE_RANKING(TF_TG_SCORE.out.score, alpha)
+    COMBINE_RANKINGS(CREATE_RANKING.out.ranking .map{ meta, ranking -> ranking }
+                                                .collect()
+                                                .map{ rankings -> [[id: "all"], rankings]}
+    )
 
 
     emit:
