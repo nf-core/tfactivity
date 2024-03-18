@@ -10,6 +10,7 @@ process CALCULATE_TPM {
     input:
     tuple val(meta), path(counts)
     tuple val(meta2), path(lengths)
+    tuple val(meta3), path(gene_map)
 
     output:
     tuple val(meta), path("*.tpm.tsv"), emit: tpm
@@ -18,7 +19,7 @@ process CALCULATE_TPM {
 
     script:
     """
-    calculate_tpm.py --counts ${counts} --lengths ${lengths} --output ${meta.id}.tpm.tsv
+    calculate_tpm.py --counts ${counts} --lengths ${lengths} --gene_map ${gene_map} --output ${meta.id}.tpm.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

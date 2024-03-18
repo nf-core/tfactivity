@@ -41,6 +41,7 @@ workflow TFACTIVITY {
     // Counts
     min_count
     min_tpm
+    expression_agg_method
 
     // Dynamite
     dynamite_ofolds
@@ -68,7 +69,8 @@ workflow TFACTIVITY {
         counts_design,
         min_count,
         min_tpm,
-        ch_contrasts
+        ch_contrasts,
+        expression_agg_method
     )
 
     PEAKS(

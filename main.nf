@@ -86,8 +86,10 @@ workflow NFCORE_TFACTIVITY {
         params.window_size,
         params.decay,
         params.merge_samples,
+
         params.min_count,
         params.min_tpm,
+        params.expression_aggregation,
 
         params.dynamite_ofolds,
         params.dynamite_ifolds,

@@ -6,17 +6,17 @@ import argparse
 parser = argparse.ArgumentParser(description="Calculate TPM from count matrix and length information")
 parser.add_argument("--counts", type=str, help="Path to counts")
 parser.add_argument("--lengths", type=str, help="Path to gene lengths")
+parser.add_argument("--gene_map", type=str, help="Path to geneID - symbol mapping file")
 parser.add_argument("--output", type=str, help="Path to output file")
 args = parser.parse_args()
 
 df_counts = pd.read_csv(args.counts, index_col=0, header=0, sep="\t")
 df_lengths = pd.read_csv(args.lengths, index_col=0, header=0, sep="\t", usecols=["gene", "merged"])
 df_lengths.columns = ["length"]
+df_genes = pd.read_csv(args.gene_map, sep="\t", index_col=0)
 
-def remove_version(gene_id):
-    return gene_id.split(".")[0]
-
-df_lengths.index = df_lengths.index.map(remove_version)
+conversion_dict = df_genes["gene_name"].to_dict()
+df_lengths.index = df_lengths.index.map(conversion_dict).str.upper()
 
 # Mean length for each gene (in kb)
 df_lengths = df_lengths / 1e3

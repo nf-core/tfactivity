@@ -14,6 +14,7 @@ workflow COUNTS {
     min_count
     min_tpm
     contrasts
+    agg_method
 
     main:
 
@@ -26,12 +27,14 @@ workflow COUNTS {
     COMBINE_COUNTS(
         ch_counts.combine(ch_counts_design).map{counts, design -> [[id: "counts"], counts, design]},
         ch_extra_counts,
-        gene_map
+        gene_map,
+        agg_method
     )
 
     CALCULATE_TPM(
         COMBINE_COUNTS.out.counts,
-        ch_gene_lengths
+        ch_gene_lengths,
+        gene_map
     )
 
     FILTER_GENES(

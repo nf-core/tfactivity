@@ -11,6 +11,7 @@ process COMBINE_COUNTS {
     tuple val(meta), path(counts), path(design)
     path(extra_counts)
     tuple val(meta2), path(gene_map)
+    val(agg_method)
 
     output:
     tuple val(meta), path("*.clean.tsv"), emit: counts
@@ -19,7 +20,7 @@ process COMBINE_COUNTS {
 
     script:
     """
-    combine_counts.py --counts ${counts} --genes ${gene_map} --metadata ${design} --output ${meta.id}.clean.tsv
+    combine_counts.py --counts ${counts} --agg_method ${agg_method} --gene_map ${gene_map} --metadata ${design} --output ${meta.id}.clean.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
