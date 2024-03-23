@@ -1,20 +1,14 @@
 process CREATE {
     label "process_low"
 
-    conda "conda-forge::nodejs"
-    container "docker.io/node:20.9.0-bookworm"
-
-    cache false
+    conda "bioconda::mulled-v2-ab48c38c3be93a696d7773767d9287b4a0d3bf19==e3c8a1ac0a27058d7922e8b6d02f303c30d93e3a-0"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/mulled-v2-ab48c38c3be93a696d7773767d9287b4a0d3bf19:e3c8a1ac0a27058d7922e8b6d02f303c30d93e3a-0':
+        'biocontainers/mulled-v2-ab48c38c3be93a696d7773767d9287b4a0d3bf19:e3c8a1ac0a27058d7922e8b6d02f303c30d93e3a-0' }"
 
     output:
     path("report")
 
     script:
-    """
-    cp -r $moduleDir/app ./app
-    cd app
-    npm install && npm run build
-    sed -i 's/type="module"//g' dist/app/browser/index.html
-    cp -r dist/app ../report
-    """
+    template "build.py"
 }
