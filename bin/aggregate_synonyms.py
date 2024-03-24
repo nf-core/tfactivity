@@ -13,6 +13,8 @@ args = parser.parse_args()
 df_affinities = pd.read_csv(args.input, index_col=0, header=0, sep="\t")
 df_genes = pd.read_csv(args.gene_map, sep="\t", index_col=0)
 
+df_affinities = df_affinities.drop(["NumPeaks", "AvgPeakDistance", "AvgPeakSize"], axis=1)
+
 conversion_dict = df_genes["gene_name"].to_dict()
 df_affinities.index = df_affinities.index.map(conversion_dict).str.upper()
 
