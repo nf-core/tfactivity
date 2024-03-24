@@ -11,7 +11,8 @@ process CREATE {
     cache false
 
     input:
-    tuple val(meta), path(assay_ranking)
+    tuple val(meta), path(tf_ranking)
+    tuple val(meta2), path(tg_ranking)
     val(params)
     path(schema)
 

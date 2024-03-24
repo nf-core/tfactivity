@@ -117,7 +117,8 @@ workflow TFACTIVITY {
     )
 
     REPORT(
-        RANKING.out.assay_specific
+        RANKING.out.tf_ranking,
+        RANKING.out.tg_ranking
     )
 
     //
