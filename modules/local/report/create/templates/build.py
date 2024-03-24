@@ -24,8 +24,16 @@ env = Environment(
 
 text = "Hello, World!"
 
-template = env.get_template("index.html")
+tf = env.get_template("tf.html")
+tg = env.get_template("tg.html")
+snp = env.get_template("snp.html")
 
 os.makedirs(out_dir, exist_ok=True)
 with open(os.path.join(out_dir, "index.html"), "w") as f:
-    f.write(template.render(text=text))
+    f.write(tf.render())
+
+with open(os.path.join(out_dir, "target_genes.html"), "w") as f:
+    f.write(tg.render())
+
+with open(os.path.join(out_dir, "snps.html"), "w") as f:
+    f.write(snp.render())
