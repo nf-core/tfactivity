@@ -10,7 +10,7 @@
 <div class="ranking-container">
     <div class="stretch-row">
         {% for assay in assays %}
-        <span class="chip stretchable clickable active">{{ assay }}</span>
+        <span id="assay-{{assay}}" class="chip stretchable clickable active">{{ assay }}</span>
         {% endfor %}
     </div>
     {% for tf, dcgs in ranking.items() %}
@@ -40,4 +40,17 @@
     </div>
     {% endfor %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Add click event to each assay chip
+    // Use all elements with id starting with 'assay-'
+    document.querySelectorAll('[id^="assay-"]').forEach(function (element) {
+        element.addEventListener('click', function () {
+            // Toggle active class
+            element.classList.toggle('active');
+        });
+    });
+</script>
 {% endblock %}
