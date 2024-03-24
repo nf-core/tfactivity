@@ -8,19 +8,19 @@
 {% block content %}
 
 <div class="ranking-container">
-    {% for tf, ranks in ranking.items() %}
+    {% for tf, dcgs in ranking.items() %}
     <div class="card" style="min-width: 300px; width: 70%">
         <div class="accordion">
             <input type="checkbox" id="accordion-{{ tf | lower }}" name="accordion-checkbox" hidden>
             <label class="accordion-header" for="accordion-{{ tf | lower }}">
                 <i class="icon icon-arrow-right mr-1"></i>
                 {{ tf }}
-                {% for assay, size in assay_sizes | dictsort(reverse=true) %}
-                {% if assay not in ranks %}
+                {% for assay in assays %}
+                {% if assay not in dcgs %}
                 {% set color = 'grey' %}
                 {% else %}
-                {% set fraction = ranks[assay] / size %}
-                {% if fraction <= 1/3 %} {% set color='green' %} {% elif fraction <=2/3 %} {% set color='orange' %} {%
+                {% set dcg = dcgs[assay] %}
+                {% if dcg >= 2/3 %} {% set color='green' %} {% elif dcg >=1/3 %} {% set color='orange' %} {%
                     else %} {% set color='red' %} {% endif %} {% endif %} <button
                     class="btn btn-primary btn-sm float-right" style="background-color: {{ color }}">
                     {{ assay }}

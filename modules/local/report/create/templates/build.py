@@ -4,6 +4,7 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 import os
 import shutil
 import json
+import pandas as pd
 
 module_app = os.path.abspath("$moduleDir/app")
 app_dir = "app"
@@ -24,28 +25,25 @@ tg = env.get_template("tg.html")
 snp = env.get_template("snp.html")
 styles = env.get_template("styles.css")
 
-ranking = {
-    "TF1": {
-        "A": 1,
-        "B": 2,
-    },
-    "TF2": {
-        "A": 2,
-        "B": 1,
-    },
-    "TF3": {
-        "A": 3,
-    }
+rankings = {
+    key: pd.read_csv(path, sep="\t", index_col=0, usecols=[0,1], names=["TF", key], header=0) 
+    for key, path in {
+        path[:-len(".ranking.tsv")]: path 
+        for path in r"$assay_ranking".split(" ")
+    }.items()
 }
 
-assay_sizes = {
-    "A": 3,
-    "B": 3,
+df_ranking = pd.concat(rankings.values(), axis=1)
+
+# Remove all NaN values
+ranking = {
+    tf: {assay: rank for assay, rank in ranks.items() if not pd.isna(rank)}
+    for tf, ranks in df_ranking.to_dict(orient="index").items()
 }
 
 os.makedirs(out_dir, exist_ok=True)
 with open(os.path.join(out_dir, "index.html"), "w") as f:
-    f.write(tf.render(ranking=ranking, assay_sizes=assay_sizes))
+    f.write(tf.render(ranking=ranking, assays=df_ranking.columns))
 
 with open(os.path.join(out_dir, "target_genes.html"), "w") as f:
     f.write(tg.render())
