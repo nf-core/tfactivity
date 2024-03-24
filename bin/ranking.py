@@ -43,6 +43,10 @@ df_ranking['dcg'] = 1 - (df_ranking['rank'] - 1) / length
 df_ranking = df_ranking[['dcg']]
 df_ranking.to_csv(args.out_tfs, sep='\t')
 
+# Save gene-wise DCGs per TF
+significant_tfs = df_ranking.index
+df_genes = df_genes[significant_tfs]
+
 # Calculate gene-wise DCGs per TF
 df_genes = 1 - (df_genes.rank(ascending=False).astype(int) / len(df_genes.index))
 df_genes.to_csv(args.out_tgs, sep='\t')
