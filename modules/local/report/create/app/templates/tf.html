@@ -10,14 +10,14 @@
 <div class="ranking-container">
     <div class="stretch-row">
         {% for assay in assays %}
-        <span class="chip stretchable active">{{ assay }}</span>
+        <span class="chip stretchable clickable active">{{ assay }}</span>
         {% endfor %}
     </div>
     {% for tf, dcgs in ranking.items() %}
     <div class="card" style="width: 100%;">
         <div class="accordion">
             <input type="checkbox" id="accordion-{{ tf | lower }}" name="accordion-checkbox" hidden>
-            <label class="accordion-header" for="accordion-{{ tf | lower }}">
+            <label class="accordion-header clickable" for="accordion-{{ tf | lower }}">
                 <i class="icon icon-arrow-right mr-1"></i>
                 {{ tf }}
                 {% for assay in assays %}

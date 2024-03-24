@@ -41,9 +41,12 @@ ranking = {
     for tf, ranks in df_ranking.to_dict(orient="index").items()
 }
 
+assays = df_ranking.columns
+sorted(assays, reverse=True)
+
 os.makedirs(out_dir, exist_ok=True)
 with open(os.path.join(out_dir, "index.html"), "w") as f:
-    f.write(tf.render(ranking=ranking, assays=df_ranking.columns))
+    f.write(tf.render(ranking=ranking, assays=assays))
 
 with open(os.path.join(out_dir, "target_genes.html"), "w") as f:
     f.write(tg.render())
