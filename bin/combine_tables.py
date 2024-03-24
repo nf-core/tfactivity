@@ -24,7 +24,7 @@ if args.method == "sum":
         index_union = index_union.union(df.index)
 
     # Add NA values for missing rows
-    dfs = [df.reindex(index_union) for df in dfs]
+    dfs = [df.reindex(index_union).fillna(0, inplace=False) for df in dfs]
 else:
     index_intersection = dfs[0].index
     for df in dfs[1:]:
