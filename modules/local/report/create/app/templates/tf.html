@@ -30,7 +30,7 @@
                 </div>
             </label>
             <div class="accordion-body">
-                <h2>Top target genes</h2>
+                <h2>Top target genes (<a id="tf-{{tf}}-gprofiler" target="_blank">g:Profiler</a>)</h2>
                 <div style="display: flex; flex-wrap: wrap;">
                     {% set tgs = tg_ranking[tf] %}
                     {% for tg in tgs %}
@@ -95,11 +95,20 @@
                 return acc;
             }, {});
 
+            const showedGenes = []
+
             Object.entries(tgRank).forEach(function ([tg, rank]) {
                 const tgChip = document.getElementById(`tf-${tf}-tg-${tg}`);
                 tgChip.style.order = rank;
                 tgChip.style.display = rank <= 30 ? 'inline-block' : 'none';
+                if (rank <= 30) {
+                    showedGenes.push(tg)
+                }
             });
+
+            const gProfilerLink = `https://biit.cs.ut.ee/gprofiler/gost?query=${showedGenes.join('%0D')}`;
+            const gProfilerLinkElement = document.getElementById(`tf-${tf}-gprofiler`);
+            gProfilerLinkElement.href = gProfilerLink;
         }
     }
 
