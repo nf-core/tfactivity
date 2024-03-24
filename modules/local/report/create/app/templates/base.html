@@ -1,28 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
+  <head>
     <title>Report</title>
-    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body>
-    <div style="display: flex; align-items: center; justify-content: center; height: 150px;">
-        <h1>Report</h1>
-        <a href="https://nf-co.re/tfactivity">
-            <img src="https://raw.githubusercontent.com/nf-core/tfactivity/dev/assets/nf-core-tfactivity_logo_light.png"
-                width="250px" style="max-height: 100px;">
-        </a>
+  <body>
+    <div style="display: flex; align-items: center; justify-content: center; height: 150px">
+      <h1>Report</h1>
+      <a href="https://nf-co.re/tfactivity">
+        <img
+          src="https://raw.githubusercontent.com/nf-core/tfactivity/dev/assets/nf-core-tfactivity_logo_light.png"
+          width="250px"
+          style="max-height: 100px"
+        />
+      </a>
     </div>
     {% block tabs %}{% endblock %}
-    <div class="content">
-        {% block content %}{% endblock %}
-    </div>
+    <div class="content">{% block content %}{% endblock %}</div>
 
     {% block scripts %}{% endblock %}
-</body>
-
+  </body>
 </html>

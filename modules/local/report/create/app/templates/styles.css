@@ -1,39 +1,39 @@
 img {
-    object-fit: contain;
+  object-fit: contain;
 }
 
 .ranking-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    min-width: 300px;
-    width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 300px;
+  width: 70%;
 }
 
 .card {
-    margin: 5px
+  margin: 5px;
 }
 
 button {
-    margin: 2px;
+  margin: 2px;
 }
 
 .stretch-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: stretch;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  width: 100%;
 }
 
 .content {
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
 }
 
 .stretchable {
-    flex: 1;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
+  flex: 1;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
 }

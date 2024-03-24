@@ -1,20 +1,13 @@
-
-{% extends "base.html" %}
-
-{% block tabs %}
-{% from 'macros.html' import tabs %}
-{{ tabs(active="tg") }}
-{% endblock %}
-
+{% extends "base.html" %} {% block tabs %} {% from 'macros.html' import tabs %} {{ tabs(active="tg") }} {% endblock %}
 {% block content %}
 <div class="accordion">
-    <input type="checkbox" id="accordion-1" name="accordion-checkbox" hidden>
-    <label class="accordion-header" for="accordion-1">
-        <i class="icon icon-arrow-right mr-1"></i>
-        TG1
-    </label>
-    <div class="accordion-body">
-        <h2>Hello</h2>
-    </div>
+  <input type="checkbox" id="accordion-1" name="accordion-checkbox" hidden />
+  <label class="accordion-header" for="accordion-1">
+    <i class="icon icon-arrow-right mr-1"></i>
+    TG1
+  </label>
+  <div class="accordion-body">
+    <h2>Hello</h2>
+  </div>
 </div>
 {% endblock %}
