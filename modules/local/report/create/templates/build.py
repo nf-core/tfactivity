@@ -14,6 +14,9 @@ out_dir = "report"
 shutil.copytree(module_app, os.path.join(os.getcwd(), app_dir), dirs_exist_ok=True)
 
 params = json.loads(r'$params_string')
+schema_path = "$schema"
+with open(schema_path) as f:
+    schema = json.load(f)["definitions"]
 
 env = Environment(
     loader=PackageLoader(app_dir),
@@ -62,4 +65,4 @@ with open(os.path.join(out_dir, "params.json"), "w") as f:
     json.dump(params, f, indent=4)
 
 with open(os.path.join(out_dir, "configuration.html"), "w") as f:
-    f.write(configuration.render(params=params))
+    f.write(configuration.render(params=params, schema=schema))

@@ -8,5 +8,5 @@ workflow REPORT {
     CREATE(ch_assay_rankings.map{meta, ranking -> ranking}
                             .collect()
                             .map{rankings -> [[id: "ranking"], rankings]},
-            params)
+            params, Channel.value(file(projectDir + "/nextflow_schema.json")))
 }

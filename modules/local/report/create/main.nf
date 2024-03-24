@@ -13,6 +13,7 @@ process CREATE {
     input:
     tuple val(meta), path(assay_ranking)
     val(params)
+    path(schema)
 
     output:
     path("report")

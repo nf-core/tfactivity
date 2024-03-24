@@ -36,11 +36,3 @@ button {
     display: flex;
     justify-content: center;
 }
-
-.clickable {
-    cursor: pointer;
-}
-
-.forbidden {
-    cursor: not-allowed;
-}
