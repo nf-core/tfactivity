@@ -23,6 +23,7 @@ env = Environment(
 tf = env.get_template("tf.html")
 tg = env.get_template("tg.html")
 snp = env.get_template("snp.html")
+configuration = env.get_template("configuration.html")
 styles = env.get_template("styles.css")
 
 rankings = {
@@ -59,3 +60,6 @@ with open(os.path.join(out_dir, "styles.css"), "w") as f:
 
 with open(os.path.join(out_dir, "params.json"), "w") as f:
     json.dump(params, f, indent=4)
+
+with open(os.path.join(out_dir, "configuration.html"), "w") as f:
+    f.write(configuration.render(params=params))

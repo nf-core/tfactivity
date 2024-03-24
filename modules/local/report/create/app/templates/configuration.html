@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block tabs %}
+{% from 'macros.html' import tabs %}
+{{ tabs(active="conf") }}
+{% endblock %}
+
+{% block content %}
+<div class="ranking-container">
+    {% for key, item in params.items() recursive %}
+    <div class="card" style="width: 100%;">
+        <div class="accordion">
+            <input type="checkbox" id="accordion-{{key}}" name="accordion-params" hidden>
+            <label class="accordion-header" for="accordion-{{key}}">
+                <i class="icon icon-arrow-right mr-1"></i>
+                {{key}}
+            </label>
+            <div class="accordion-body">
+                {% if item is mapping %}
+                {{ loop(item.items()) }}
+                {% else %}
+                {{ item }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
