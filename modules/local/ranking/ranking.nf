@@ -12,13 +12,13 @@ process RANKING {
     val(alpha)
 
     output:
-    tuple val(meta), path("*.ranking.tsv"), emit: ranking
+    tuple val(meta), path("*.tf_ranking.tsv"), emit: tfs
 
-    path  "versions.yml"                  , emit: versions
+    path  "versions.yml"                     , emit: versions
 
     script:
     """
-    ranking.py --input ${tf_tg_score} --alpha ${alpha} --output ${meta.id}.ranking.tsv
+    ranking.py --input ${tf_tg_score} --alpha ${alpha} --out_tfs ${meta.id}.tf_ranking.tsv --out_tgs ${meta.id}.tg_ranking.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

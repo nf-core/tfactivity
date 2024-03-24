@@ -28,7 +28,7 @@ workflow RANKING {
 
     TF_TG_SCORE(ch_combined)
     CREATE_RANKING(TF_TG_SCORE.out.score, alpha)
-    COMBINE_PER_ASSAY(CREATE_RANKING.out.ranking.map{ meta, ranking -> [[id: meta.assay], ranking]}
+    COMBINE_PER_ASSAY(CREATE_RANKING.out.tfs.map{ meta, ranking -> [[id: meta.assay], ranking]}
                                                 .groupTuple())
     COMBINE_ASSAYS(COMBINE_PER_ASSAY.out.ranking.map{ meta, ranking -> ranking }
                                                 .collect()

@@ -19,4 +19,6 @@ df.sort_values(by=['dcg'], ascending=False, inplace=True)
 df['rank'] = range(1, len(df.index) + 1)
 df['dcg'] = 1 - (df['rank'] / len(df.index))
 
+df.drop(columns=['rank'], inplace=True)
+
 df.to_csv(args.output, sep='\t', index=True)

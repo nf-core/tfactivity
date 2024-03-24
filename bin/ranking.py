@@ -8,7 +8,8 @@ import scipy.stats as stats
 parser = argparse.ArgumentParser(description='Create TF ranking')
 parser.add_argument('--input', type=str, help='Score file', required=True)
 parser.add_argument('--alpha', type=float, help='Alpha value', required=True)
-parser.add_argument('--output', type=str, help='Output file', required=True)
+parser.add_argument('--out_tfs', type=str, help='Output tf file', required=True)
+parser.add_argument('--out_tgs', type=str, help='Output gene file', required=True)
 
 args = parser.parse_args()
 
@@ -39,4 +40,8 @@ length = len(df_ranking.index)
 df_ranking['rank'] = range(1, length + 1)
 df_ranking['dcg'] = 1 - (df_ranking['rank'] - 1) / length
 
-df_ranking.to_csv(args.output, sep='\t')
+df_ranking.to_csv(args.out_tfs, sep='\t')
+
+# Calculate gene-wise DCGs per TF
+df_genes = 1 - (df_genes.rank(ascending=False).astype(int) / len(df_genes.index))
+df_genes.to_csv(args.out_tgs, sep='\t')
