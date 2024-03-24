@@ -40,3 +40,7 @@ button {
 .clickable {
     cursor: pointer;
 }
+
+.forbidden {
+    cursor: not-allowed;
+}

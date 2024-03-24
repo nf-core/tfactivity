@@ -14,13 +14,13 @@
         {% endfor %}
     </div>
     {% for tf, dcgs in ranking.items() %}
-    <div class="card" style="width: 100%;">
+    <div class="card tf-card" id="tf-{{tf}}" style="width: 100%;">
         <div class="accordion">
             <input type="checkbox" id="accordion-{{ tf | lower }}" name="accordion-checkbox" hidden>
             <label class="accordion-header clickable" for="accordion-{{ tf | lower }}">
                 <i class="icon icon-arrow-right mr-1"></i>
                 {{ tf }}
-                {% for assay in assays %}
+                {% for assay in assays | reverse %}
                 {% if assay not in dcgs %}
                 {% set color = 'grey' %}
                 {% else %}
@@ -46,10 +46,58 @@
 <script>
     // Add click event to each assay chip
     // Use all elements with id starting with 'assay-'
-    document.querySelectorAll('[id^="assay-"]').forEach(function (element) {
+    const assayChips = document.querySelectorAll('[id^="assay-"]')
+
+    const ranking = {{ ranking | tojson }};
+
+    assayChips.forEach(function (element) {
         element.addEventListener('click', function () {
-            // Toggle active class
+            if (element.classList.contains('forbidden')) {
+                return;
+            }
+
             element.classList.toggle('active');
+
+            const activeAssayChips = Array.from(assayChips).filter(function (chip) {
+                return chip.classList.contains('active');
+            });
+
+            if (activeAssayChips.length === 1) {
+                activeAssayChips[0].classList.remove('clickable');
+                activeAssayChips[0].classList.add('forbidden');
+            } else {
+                activeAssayChips.forEach(function (chip) {
+                    chip.classList.remove('forbidden');
+                    chip.classList.add('clickable');
+                });
+            }
+
+            const activeAssays = activeAssayChips.map(function (chip) {
+                return chip.textContent;
+            });
+
+            const tfScores = Object.entries(ranking).reduce(function (acc, [tf, dcgs]) {
+                const score = activeAssays.reduce(function (acc, assay) {
+                    return acc + (dcgs[assay] || 0);
+                }, 0) / activeAssays.length;
+
+                acc[tf] = score;
+                return acc;
+            }, {});
+
+            const tfOrder = Object.keys(tfScores).sort(function (a, b) {
+                return tfScores[b] - tfScores[a];
+            });
+
+            const tfRank = tfOrder.reduce(function (acc, tf, index) {
+                acc[tf] = index;
+                return acc;
+            }, {});
+
+            Object.entries(tfRank).forEach(function ([tf, rank]) {
+                const tfCard = document.getElementById(`tf-${tf}`);
+                tfCard.style.order = rank;
+            });
         });
     });
 </script>
