@@ -32,7 +32,7 @@ styles = env.get_template("styles.css")
 rankings = {
     key: pd.read_csv(path, sep="\t", index_col=0, usecols=[0,1], names=["TF", key], header=0) 
     for key, path in {
-        path[:-len(".ranking.tsv")]: path 
+        path[:-len(".tsv")]: path 
         for path in r"$assay_ranking".split(" ")
     }.items()
 }

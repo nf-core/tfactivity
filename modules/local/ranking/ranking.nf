@@ -13,6 +13,7 @@ process RANKING {
 
     output:
     tuple val(meta), path("*.tf_ranking.tsv"), emit: tfs
+    tuple val(meta), path("*.tg_ranking.tsv"), emit: tgs
 
     path  "versions.yml"                     , emit: versions
 

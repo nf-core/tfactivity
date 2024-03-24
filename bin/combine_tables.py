@@ -8,7 +8,7 @@ import pandas as pd
 parser = argparse.ArgumentParser(description="Calculate statistics between two multiple files.")
 parser.add_argument("-i", "--input", type=str, nargs='+', help="List of input file paths", required=True)
 parser.add_argument("-o", "--output", type=str, help="Output file path", required=True)
-parser.add_argument("-m", "--method", type=str, choices=["mean", "sum", "ratio"], default="mean", help="Calculation method (mean, sum, ratio)")
+parser.add_argument("-m", "--method", type=str, choices=["mean", "sum", "ratio", "rank"], default="mean", help="Calculation method (mean, sum, ratio)")
 args = parser.parse_args()
 
 # Check if input and output paths are provided
@@ -18,13 +18,16 @@ if not args.input or not args.output:
 # Read all input files into a list of dataframes
 dfs = [pd.read_csv(file, sep='\t', index_col=0) for file in args.input]
 
-if args.method == "sum":
+if args.method in ["sum", "rank"]:
     index_union = dfs[0].index
+    col_union = dfs[0].columns
     for df in dfs[1:]:
         index_union = index_union.union(df.index)
+        col_union = col_union.union(df.columns)
 
-    # Add NA values for missing rows
+    # Add zero values for missing rows
     dfs = [df.reindex(index_union).fillna(0, inplace=False) for df in dfs]
+    dfs = [df.reindex(columns=col_union).fillna(0, inplace=False) for df in dfs]
 else:
     index_intersection = dfs[0].index
     for df in dfs[1:]:
@@ -49,6 +52,8 @@ if not all(df.columns.equals(dfs[0].columns) for df in dfs):
 # Calculate the selected statistic
 if args.method == "mean":
     result = sum(dfs) / len(dfs)
+elif args.method == "rank":
+    result = 1 - (sum(dfs).rank(ascending=False) / len(dfs[0].index))
 elif args.method == "sum":
     result = sum(dfs)
 elif args.method == "ratio":
