@@ -7,6 +7,8 @@
 
 {% block content %}
 <div class="ranking-container">
+    <p>Detailed information about the pipeline and its parameters can be found <a
+            href="https://nf-co.re/tfactivity/dev/parameters">here</a>.</p>
     {% for key, values in schema.items() %}
     <div class="card" style="width: 100%;">
         <div class="accordion">
@@ -37,7 +39,8 @@
                                                     <div class="card-title">{{param}}</div>
                                                     <div class="card-subtitle text-gray">
                                                         {{properties["type"]}}
-                                                        {{ " (" + properties["format"] + ")" if "format" in properties }}
+                                                        {{ " (" + properties["format"] + ")" if "format" in properties
+                                                        }}
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
