@@ -3,6 +3,7 @@
 from jinja2 import Environment, PackageLoader, select_autoescape
 import os
 import shutil
+import json
 
 module_app = os.path.abspath("$moduleDir/app")
 app_dir = "app"
@@ -11,18 +12,12 @@ out_dir = "report"
 # Copy app_dir to current directory
 shutil.copytree(module_app, os.path.join(os.getcwd(), app_dir), dirs_exist_ok=True)
 
-print(os.listdir("."))
-
-print("Hello from build.py")
-print("ModuleDir: $moduleDir")
-print("AppDir: " + app_dir)
+params = json.loads(r'$params_string')
 
 env = Environment(
     loader=PackageLoader(app_dir),
     autoescape=select_autoescape()
 )
-
-text = "Hello, World!"
 
 tf = env.get_template("tf.html")
 tg = env.get_template("tg.html")
@@ -60,3 +55,6 @@ with open(os.path.join(out_dir, "snps.html"), "w") as f:
 
 with open(os.path.join(out_dir, "styles.css"), "w") as f:
     f.write(styles.render())
+
+with open(os.path.join(out_dir, "params.json"), "w") as f:
+    json.dump(params, f, indent=4)

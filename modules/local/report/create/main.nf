@@ -1,3 +1,5 @@
+import groovy.json.JsonOutput
+
 process CREATE {
     label "process_low"
 
@@ -8,9 +10,13 @@ process CREATE {
 
     cache false
 
+    input:
+    val(params)
+
     output:
     path("report")
 
     script:
+    params_string = JsonOutput.toJson(params)
     template "build.py"
 }
