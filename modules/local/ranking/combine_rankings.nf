@@ -11,13 +11,13 @@ process COMBINE_RANKINGS {
     tuple val(meta), path(rankings)
 
     output:
-    tuple val(meta), path("combined.ranking.tsv"), emit: ranking
+    tuple val(meta), path("${meta.id}.ranking.tsv"), emit: ranking
 
     path  "versions.yml"                  , emit: versions
 
     script:
     """
-    combine_rankings.py --input ${rankings} --output combined.ranking.tsv
+    combine_rankings.py --input ${rankings} --output ${meta.id}.ranking.tsv
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

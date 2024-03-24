@@ -116,7 +116,9 @@ workflow TFACTIVITY {
         DYNAMITE.out.versions
     )
 
-    REPORT()
+    REPORT(
+        RANKING.out.assay_specific
+    )
 
     //
     // Collate and save software versions

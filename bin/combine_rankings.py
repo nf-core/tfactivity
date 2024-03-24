@@ -13,6 +13,11 @@ dfs = [pd.read_csv(f, sep='\t', header=0, index_col=0) for f in args.input]
 df = pd.concat([df[['dcg']] for df in dfs])
 
 df = df.groupby(df.index).sum()
+
+# Todo: Check if we should use number of comparisons per assay as weights
+# In this case, the next line should be commented out
+df["dcg"] = df["dcg"] / len(dfs)
+
 df.sort_values(by=['dcg'], ascending=False, inplace=True)
 
 df['rank'] = range(1, len(df.index) + 1)

@@ -11,6 +11,7 @@ process CREATE {
     cache false
 
     input:
+    tuple val(meta), path(assay_ranking)
     val(params)
 
     output:
