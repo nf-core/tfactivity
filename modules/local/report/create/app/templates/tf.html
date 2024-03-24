@@ -27,7 +27,7 @@
                 {% set dcg = dcgs[assay] %}
                 {% if dcg >= 2/3 %} {% set color='green' %} {% elif dcg >=1/3 %} {% set color='orange' %} {%
                 else %} {% set color='red' %} {% endif %} {% endif %} <button class="btn btn-primary btn-sm float-right"
-                    style="background-color: {{ color }}">
+                    style="background-color: {{ color }}; border: none;">
                     {{ assay }}
                 </button>
                 {% endfor %}
@@ -46,9 +46,38 @@
 <script>
     // Add click event to each assay chip
     // Use all elements with id starting with 'assay-'
-    const assayChips = document.querySelectorAll('[id^="assay-"]')
+    const assayChips = Array.from(document.querySelectorAll('[id^="assay-"]'));
 
     const ranking = {{ ranking | tojson }};
+
+    const updateRanking = function (activeAssays) {
+        const tfScores = Object.entries(ranking).reduce(function (acc, [tf, dcgs]) {
+            const score = activeAssays.reduce(function (acc, assay) {
+                return acc + (dcgs[assay] || 0);
+            }, 0) / activeAssays.length;
+
+            acc[tf] = score;
+            return acc;
+        }, {});
+
+        const tfOrder = Object.keys(tfScores).sort(function (a, b) {
+            return tfScores[b] - tfScores[a];
+        });
+
+        const tfRank = tfOrder.reduce(function (acc, tf, index) {
+            acc[tf] = index;
+            return acc;
+        }, {});
+
+        Object.entries(tfRank).forEach(function ([tf, rank]) {
+            const tfCard = document.getElementById(`tf-${tf}`);
+            tfCard.style.order = rank;
+        });
+    };
+
+    updateRanking(assayChips.map(function (chip) {
+        return chip.textContent;
+    }));
 
     assayChips.forEach(function (element) {
         element.addEventListener('click', function () {
@@ -58,7 +87,7 @@
 
             element.classList.toggle('active');
 
-            const activeAssayChips = Array.from(assayChips).filter(function (chip) {
+            const activeAssayChips = assayChips.filter(function (chip) {
                 return chip.classList.contains('active');
             });
 
@@ -76,28 +105,7 @@
                 return chip.textContent;
             });
 
-            const tfScores = Object.entries(ranking).reduce(function (acc, [tf, dcgs]) {
-                const score = activeAssays.reduce(function (acc, assay) {
-                    return acc + (dcgs[assay] || 0);
-                }, 0) / activeAssays.length;
-
-                acc[tf] = score;
-                return acc;
-            }, {});
-
-            const tfOrder = Object.keys(tfScores).sort(function (a, b) {
-                return tfScores[b] - tfScores[a];
-            });
-
-            const tfRank = tfOrder.reduce(function (acc, tf, index) {
-                acc[tf] = index;
-                return acc;
-            }, {});
-
-            Object.entries(tfRank).forEach(function ([tf, rank]) {
-                const tfCard = document.getElementById(`tf-${tf}`);
-                tfCard.style.order = rank;
-            });
+            updateRanking(activeAssays);
         });
     });
 </script>
