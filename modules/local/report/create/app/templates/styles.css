@@ -6,6 +6,8 @@ img {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    min-width: 300px;
+    width: 70%;
 }
 
 .card {
@@ -14,4 +16,23 @@ img {
 
 button {
     margin: 2px;
+}
+
+.stretch-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    width: 100%;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+}
+
+.stretchable {
+    flex: 1;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
 }
