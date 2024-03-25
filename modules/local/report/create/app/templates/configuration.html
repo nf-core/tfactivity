@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% block tabs %} {% from 'macros.html' import tabs %} {{ tabs(active="conf") }} {% endblock %}
+{% block content %}
+<div class="ranking-container">
+  <p>
+    Detailed information about <code>nf-core/tfactivity</code> and its parameters can be found
+    <a href="https://nf-co.re/tfactivity/dev/parameters">here</a>.
+  </p>
+  {% for key, values in schema.items() %}
+  <div class="card" style="width: 100%">
+    <div class="accordion">
+      <input type="checkbox" id="accordion-{{ key | lower }}" name="accordion-checkbox" hidden />
+      <label class="accordion-header c-hand" for="accordion-{{ key | lower }}">
+        <i class="icon icon-arrow-right mr-1"></i>
+        {{ key }}
+      </label>
+      <div class="accordion-body">
+        {{ values["description"] }}
+        <div style="overflow: scroll; max-height: inherit">
+          <table class="table table-striped table-hover" style="margin-bottom: 50px">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for param, properties in values["properties"].items() %}
+              <tr>
+                <td>
+                  <div class="popover popover-right">
+                    <button class="btn">{{param}}</button>
+                    <div class="popover-container">
+                      <div class="card">
+                        <div class="card-header">
+                          <div class="card-title">{{param}}</div>
+                          <div class="card-subtitle text-gray">
+                            {{properties["type"]}} {{ " (" + properties["format"] + ")" if "format" in properties }}
+                          </div>
+                        </div>
+                        <div class="card-body">{{properties["description"]}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                {% if param in params %}
+                <td><code>{{params[param]}}</code></td>
+                {% elif param in params["genomes"][params['genome']] %}
+                <td><code>{{params["genomes"][params['genome']][param]}}</code></td>
+                {% else %}
+                <td><i>Undefined</i></td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -15,6 +15,7 @@ include { COUNTS                 } from '../subworkflows/local/counts'
 include { PEAKS                  } from '../subworkflows/local/peaks'
 include { DYNAMITE               } from '../subworkflows/local/dynamite'
 include { RANKING                } from '../subworkflows/local/ranking'
+include { REPORT                 } from '../subworkflows/local/report'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -113,6 +114,12 @@ workflow TFACTIVITY {
         COUNTS.out.versions,
         PEAKS.out.versions,
         DYNAMITE.out.versions
+    )
+
+    REPORT(
+        RANKING.out.tf_ranking,
+        RANKING.out.tg_ranking,
+        COUNTS.out.differential
     )
 
     //

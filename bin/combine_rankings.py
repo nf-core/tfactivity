@@ -13,8 +13,12 @@ dfs = [pd.read_csv(f, sep='\t', header=0, index_col=0) for f in args.input]
 df = pd.concat([df[['dcg']] for df in dfs])
 
 df = df.groupby(df.index).sum()
+
 df.sort_values(by=['dcg'], ascending=False, inplace=True)
 
 df['rank'] = range(1, len(df.index) + 1)
+df['dcg'] = 1 - (df['rank'] / len(df.index))
+
+df.drop(columns=['rank'], inplace=True)
 
 df.to_csv(args.output, sep='\t', index=True)
