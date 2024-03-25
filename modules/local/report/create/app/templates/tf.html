@@ -29,7 +29,7 @@
                     {% endfor %}
                 </div>
             </label>
-            <div class="accordion-body">
+            <div class="accordion-body" style="overflow: scroll;">
                 <div class="accordion-padding">
                     <h2>Top target genes (<a id="tf-{{tf}}-gprofiler" target="_blank">g:Profiler</a>)</h2>
                     <div style="display: flex; flex-wrap: wrap;">
@@ -49,6 +49,32 @@
                             type: 'bar',
                             orientation: 'h'
                         }], {
+                            margin: { t: 0 }
+                        });
+                    </script>
+                    <div class="divider"></div>
+                    <h2>TPM</h2>
+                    <div id="tf-{{tf}}-tpm"></div>
+                    <script>
+                        Plotly.newPlot(document.getElementById('tf-{{tf}}-tpm'), [{
+                            y: ['giraffes', 'orangutans', 'monkeys'],
+                            x: [20, 14, 23],
+                            type: 'bar',
+                            orientation: 'h'
+                          }], {
+                            margin: { t: 0 }
+                        });
+                    </script>
+                    <div class="divider"></div>
+                    <h2>Mean expression</h2>
+                    <div id="tf-{{tf}}-meanExp"></div>
+                    <script>
+                        Plotly.newPlot(document.getElementById('tf-{{tf}}-meanExp'), [{
+                            y: ['giraffes', 'orangutans', 'monkeys'],
+                            x: [20, 14, 23],
+                            type: 'bar',
+                            orientation: 'h'
+                          }], {
                             margin: { t: 0 }
                         });
                     </script>
