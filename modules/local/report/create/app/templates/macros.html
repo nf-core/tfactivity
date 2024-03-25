@@ -26,13 +26,13 @@
 <div id="tf-{{tf}}-log2fc"></div>
 <script>
   Plotly.newPlot(document.getElementById('tf-{{tf}}-log2fc'), [{
-    y: {{ pairings | tojson}},
-    x: [{% for pairing in pairings %} {{ tfDiffExp[pairing] }} {% if not loop.last %}, {% endif %} {% endfor %}],
-  type: 'bar',
-    orientation: 'h'
-                        }], {
+      y: {{ pairings | tojson}},
+      x: [{% for pairing in pairings %} {{ tfDiffExp[pairing] }} {% if not loop.last %}, {% endif %} {% endfor %}],
+      type: 'bar',
+      orientation: 'h'
+    }], {
     margin: { t: 0 }
-  });
+  }, {responsive: true});
 </script>
 <div class="divider"></div>
 <h2>TPM</h2>
@@ -51,6 +51,7 @@
     {
       margin: { t: 0 },
     },
+    { responsive: true },
   );
 </script>
 <div class="divider"></div>
@@ -70,6 +71,7 @@
     {
       margin: { t: 0 },
     },
+    { responsive: true },
   );
 </script>
 {% endmacro %}
