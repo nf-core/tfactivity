@@ -1,210 +1,161 @@
 {% extends "base.html" %} {% block tabs %} {% from 'macros.html' import tabs %} {{ tabs(active="tf") }} {% endblock %}
-{% block content %}
-
+{% block content %} {% from 'macros.html' import tfGeneral %}
 <div class="ranking-container">
-    <div class="stretch-row">
-        <input class="form-input" type="text" id="filter-tf" placeholder="TF Name" />
-    </div>
-    <div class="stretch-row">
-        {% for assay in assays %}
-        <span id="assay-{{assay}}" class="chip stretchable c-hand active">{{ assay }}</span>
-        {% endfor %}
-    </div>
-    {% for tf, dcgs in tf_ranking.items() %}
-    <div class="card tf-card" id="tf-{{tf}}" style="width: 100%">
-        <div class="accordion">
-            <input type="checkbox" id="accordion-{{ tf | lower }}" name="accordion-checkbox" hidden />
-            <label class="accordion-header c-hand" for="accordion-{{ tf | lower }}">
-                <i class="icon icon-arrow-right mr-1"></i>
-                {{ tf }}
-                <div class="float-right">
-                    <button class="btn btn-primary btn-sm">Details</button>
-                    {% for assay in assays %} {% if assay not in dcgs %} {% set color = '' %} {% else %} {% set dcg =
-                    dcgs[assay]
-                    %} {% if dcg >= 2/3 %} {% set color='label-success' %} {% elif dcg >=1/3 %} {% set
-                    color='label-warning' %} {%
-                    else %} {% set color='label-error' %} {% endif %} {% endif %}
-                    <span class="label label-rounded {{color}}" style="background-color: {{ color }};"> {{ assay }}
-                    </span>
-                    {% endfor %}
-                </div>
-            </label>
-            <div class="accordion-body" style="overflow: scroll;">
-                <div class="accordion-padding">
-                    <h2>Top target genes (<a id="tf-{{tf}}-gprofiler" target="_blank">g:Profiler</a>)</h2>
-                    <div style="display: flex; flex-wrap: wrap;">
-                        {% set tgs = tg_ranking[tf] %}
-                        {% for tg in tgs %}
-                        <span class="chip" id="tf-{{tf}}-tg-{{tg}}">{{ tg }}</span>
-                        {% endfor %}
-                    </div>
-                    <div class="divider"></div>
-                    <h2>Log2fc</h2>
-                    {% set tfDiffExp = differential[tf] %}
-                    <div id="tf-{{tf}}-log2fc"></div>
-                    <script>
-                        Plotly.newPlot(document.getElementById('tf-{{tf}}-log2fc'), [{
-                            y: {{pairings | tojson}},
-                            x: [{% for pairing in pairings %} {{ tfDiffExp[pairing] }}{% if not loop.last %}, {% endif %}{% endfor %}],
-                            type: 'bar',
-                            orientation: 'h'
-                        }], {
-                            margin: { t: 0 }
-                        });
-                    </script>
-                    <div class="divider"></div>
-                    <h2>TPM</h2>
-                    <div id="tf-{{tf}}-tpm"></div>
-                    <script>
-                        Plotly.newPlot(document.getElementById('tf-{{tf}}-tpm'), [{
-                            y: ['giraffes', 'orangutans', 'monkeys'],
-                            x: [20, 14, 23],
-                            type: 'bar',
-                            orientation: 'h'
-                          }], {
-                            margin: { t: 0 }
-                        });
-                    </script>
-                    <div class="divider"></div>
-                    <h2>Mean expression</h2>
-                    <div id="tf-{{tf}}-meanExp"></div>
-                    <script>
-                        Plotly.newPlot(document.getElementById('tf-{{tf}}-meanExp'), [{
-                            y: ['giraffes', 'orangutans', 'monkeys'],
-                            x: [20, 14, 23],
-                            type: 'bar',
-                            orientation: 'h'
-                          }], {
-                            margin: { t: 0 }
-                        });
-                    </script>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="stretch-row">
+    <input class="form-input" type="text" id="filter-tf" placeholder="TF Name" />
+  </div>
+  <div class="stretch-row">
+    {% for assay in assays %}
+    <span id="assay-{{assay}}" class="chip stretchable c-hand active">{{ assay }}</span>
     {% endfor %}
+  </div>
+  {% for tf, dcgs in tf_ranking.items() %}
+  <div class="card tf-card" id="tf-{{tf}}" style="width: 100%">
+    <div class="accordion">
+      <input type="checkbox" id="accordion-{{ tf | lower }}" name="accordion-checkbox" hidden />
+      <label class="accordion-header c-hand" for="accordion-{{ tf | lower }}">
+        <i class="icon icon-arrow-right mr-1"></i>
+        {{ tf }}
+        <div class="float-right">
+          <button class="btn btn-primary btn-sm">Details</button>
+          {% for assay in assays %} {% if assay not in dcgs %} {% set color = '' %} {% else %} {% set dcg = dcgs[assay]
+          %} {% if dcg >= 2/3 %} {% set color='label-success' %} {% elif dcg >=1/3 %} {% set color='label-warning' %} {%
+          else %} {% set color='label-error' %} {% endif %} {% endif %}
+          <span class="label label-rounded {{color}}" style="background-color: {{ color }};"> {{ assay }} </span>
+          {% endfor %}
+        </div>
+      </label>
+      <div class="accordion-body" style="overflow: scroll">
+        <div class="accordion-padding">
+          {% set tgs = tg_ranking[tf] %} {% set tfDiffExp = differential[tf] %} {{ tfGeneral(tf, tgs, pairings,
+          tfDiffExp) }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %} {% block scripts %}
 <script>
-    const assayChips = Array.from(document.querySelectorAll('[id^="assay-"]'));
+  const assayChips = Array.from(document.querySelectorAll('[id^="assay-"]'));
 
-    const tf_ranking = {{ tf_ranking | tojson }};
-    const tg_ranking = {{ tg_ranking | tojson }};
+  const tf_ranking = {{ tf_ranking | tojson }};
+  const tg_ranking = {{ tg_ranking | tojson }};
 
-    const updateTfRanking = async function (activeAssays) {
-        const tfScores = Object.entries(tf_ranking).reduce(function (acc, [tf, dcgs]) {
-            const score = activeAssays.reduce(function (acc, assay) {
-                return acc + (dcgs[assay] || 0);
-            }, 0) / activeAssays.length;
+  const updateTfRanking = async function (activeAssays) {
+      const tfScores = Object.entries(tf_ranking).reduce(function (acc, [tf, dcgs]) {
+          const score = activeAssays.reduce(function (acc, assay) {
+              return acc + (dcgs[assay] || 0);
+          }, 0) / activeAssays.length;
 
-            acc[tf] = score;
-            return acc;
-        }, {});
+          acc[tf] = score;
+          return acc;
+      }, {});
 
-        const tfOrder = Object.keys(tfScores).sort(function (a, b) {
-            return tfScores[b] - tfScores[a];
-        });
+      const tfOrder = Object.keys(tfScores).sort(function (a, b) {
+          return tfScores[b] - tfScores[a];
+      });
 
-        const tfRank = tfOrder.reduce(function (acc, tf, index) {
-            acc[tf] = index;
-            return acc;
-        }, {});
+      const tfRank = tfOrder.reduce(function (acc, tf, index) {
+          acc[tf] = index;
+          return acc;
+      }, {});
 
-        Object.entries(tfRank).forEach(function ([tf, rank]) {
-            const tfCard = document.getElementById(`tf-${tf}`);
-            tfCard.style.order = rank;
-        });
-    };
+      Object.entries(tfRank).forEach(function ([tf, rank]) {
+          const tfCard = document.getElementById(`tf-${tf}`);
+          tfCard.style.order = rank;
+      });
+  };
 
-    const updateTgRanking = async function (activeAssays) {
-        for (const tf in tg_ranking) {
-            const currentRanking = tg_ranking[tf];
-            const tgScores = Object.entries(currentRanking).reduce(function (acc, [tg, dcgs]) {
-                const score = activeAssays.reduce(function (acc, assay) {
-                    return acc + (dcgs[assay] || 0);
-                }, 0) / activeAssays.length;
+  const updateTgRanking = async function (activeAssays) {
+      for (const tf in tg_ranking) {
+          const currentRanking = tg_ranking[tf];
+          const tgScores = Object.entries(currentRanking).reduce(function (acc, [tg, dcgs]) {
+              const score = activeAssays.reduce(function (acc, assay) {
+                  return acc + (dcgs[assay] || 0);
+              }, 0) / activeAssays.length;
 
-                acc[tg] = score;
-                return acc;
-            }, {});
+              acc[tg] = score;
+              return acc;
+          }, {});
 
-            const tgOrder = Object.keys(tgScores).sort(function (a, b) {
-                return tgScores[b] - tgScores[a];
-            });
+          const tgOrder = Object.keys(tgScores).sort(function (a, b) {
+              return tgScores[b] - tgScores[a];
+          });
 
-            const tgRank = tgOrder.reduce(function (acc, tg, index) {
-                acc[tg] = index;
-                return acc;
-            }, {});
+          const tgRank = tgOrder.reduce(function (acc, tg, index) {
+              acc[tg] = index;
+              return acc;
+          }, {});
 
-            const showedGenes = []
+          const showedGenes = []
 
-            Object.entries(tgRank).forEach(function ([tg, rank]) {
-                const tgChip = document.getElementById(`tf-${tf}-tg-${tg}`);
-                tgChip.style.order = rank;
-                tgChip.style.display = rank <= 30 ? 'inline-block' : 'none';
-                if (rank <= 30) {
-                    showedGenes.push(tg)
-                }
-            });
+          Object.entries(tgRank).forEach(function ([tg, rank]) {
+              const tgChip = document.getElementById(`tf-${tf}-tg-${tg}`);
+              tgChip.style.order = rank;
+              tgChip.style.display = rank <= 30 ? 'inline-block' : 'none';
+              if (rank <= 30) {
+                  showedGenes.push(tg)
+              }
+          });
 
-            const gProfilerLink = `https://biit.cs.ut.ee/gprofiler/gost?query=${showedGenes.join('%0D')}`;
-            const gProfilerLinkElement = document.getElementById(`tf-${tf}-gprofiler`);
-            gProfilerLinkElement.href = gProfilerLink;
-        }
-    }
+          const gProfilerLink = `https://biit.cs.ut.ee/gprofiler/gost?query=${showedGenes.join('%0D')}`;
+          const gProfilerLinkElement = document.getElementById(`tf-${tf}-gprofiler`);
+          gProfilerLinkElement.href = gProfilerLink;
+      }
+  }
 
-    const allAssays = assayChips.map(function (chip) {
-        return chip.textContent;
-    });
+  const allAssays = assayChips.map(function (chip) {
+      return chip.textContent;
+  });
 
-    updateTfRanking(allAssays);
-    updateTgRanking(allAssays);
+  updateTfRanking(allAssays);
+  updateTgRanking(allAssays);
 
-    assayChips.forEach(function (element) {
-        element.addEventListener('click', function () {
-            if (element.classList.contains('c-not-allowed')) {
-                return;
-            }
+  assayChips.forEach(function (element) {
+      element.addEventListener('click', function () {
+          if (element.classList.contains('c-not-allowed')) {
+              return;
+          }
 
-            element.classList.toggle('active');
+          element.classList.toggle('active');
 
-            const activeAssayChips = assayChips.filter(function (chip) {
-                return chip.classList.contains('active');
-            });
+          const activeAssayChips = assayChips.filter(function (chip) {
+              return chip.classList.contains('active');
+          });
 
-            if (activeAssayChips.length === 1) {
-                activeAssayChips[0].classList.remove('c-hand');
-                activeAssayChips[0].classList.add('c-not-allowed');
-            } else {
-                activeAssayChips.forEach(function (chip) {
-                    chip.classList.remove('c-not-allowed');
-                    chip.classList.add('c-hand');
-                });
-            }
+          if (activeAssayChips.length === 1) {
+              activeAssayChips[0].classList.remove('c-hand');
+              activeAssayChips[0].classList.add('c-not-allowed');
+          } else {
+              activeAssayChips.forEach(function (chip) {
+                  chip.classList.remove('c-not-allowed');
+                  chip.classList.add('c-hand');
+              });
+          }
 
-            const activeAssays = activeAssayChips.map(function (chip) {
-                return chip.textContent;
-            });
+          const activeAssays = activeAssayChips.map(function (chip) {
+              return chip.textContent;
+          });
 
-            updateTfRanking(activeAssays);
-            updateTgRanking(activeAssays);
-        });
-    });
+          updateTfRanking(activeAssays);
+          updateTgRanking(activeAssays);
+      });
+  });
 
-    const filterTf = document.getElementById('filter-tf');
-    filterTf.addEventListener('input', function () {
-        const filter = filterTf.value.toLowerCase();
-        const tfCards = Array.from(document.querySelectorAll('.tf-card'));
+  const filterTf = document.getElementById('filter-tf');
+  filterTf.addEventListener('input', function () {
+      const filter = filterTf.value.toLowerCase();
+      const tfCards = Array.from(document.querySelectorAll('.tf-card'));
 
-        tfCards.forEach(function (card) {
-            const tf = card.id.replace('tf-', '');
-            if (tf.toLowerCase().includes(filter)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
+      tfCards.forEach(function (card) {
+          const tf = card.id.replace('tf-', '');
+          if (tf.toLowerCase().includes(filter)) {
+              card.style.display = 'block';
+          } else {
+              card.style.display = 'none';
+          }
+      });
+  });
 </script>
 {% endblock %}
