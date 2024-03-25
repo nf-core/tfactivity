@@ -110,16 +110,18 @@ workflow TFACTIVITY {
         alpha
     )
 
-    ch_versions = ch_versions.mix(
-        COUNTS.out.versions,
-        PEAKS.out.versions,
-        DYNAMITE.out.versions
-    )
-
     REPORT(
         RANKING.out.tf_ranking,
         RANKING.out.tg_ranking,
         COUNTS.out.differential
+    )
+
+    ch_versions = ch_versions.mix(
+        COUNTS.out.versions,
+        PEAKS.out.versions,
+        DYNAMITE.out.versions,
+        RANKING.out.versions,
+        REPORT.out.versions
     )
 
     //

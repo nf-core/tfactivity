@@ -51,7 +51,7 @@ workflow RANKING {
                                     COMBINE_TFS_PER_ASSAY.out.versions,
                                     COMBINE_TFS_ACROSS_ASSAYS.out.versions,
                                     COMBINE_TGS_PER_ASSAY.out.versions,
-                                    COMBINE_TGS_PER_ASSAY.out.versions
+                                    COMBINE_TGS_ACROSS_ASSAYS.out.versions
     )
 
 

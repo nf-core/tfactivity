@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
 from jinja2 import Environment, PackageLoader, select_autoescape
+import jinja2
 import os
 import shutil
 import json
 import pandas as pd
+import sys
 from collections import defaultdict
 
 module_app = os.path.abspath("$moduleDir/app")
@@ -121,3 +123,9 @@ with open(os.path.join(out_dir, "configuration.html"), "w") as f:
 
 with open(os.path.join(out_dir, "ranking.js"), "w") as f:
     f.write(ranking_js.render())
+
+with open("versions.yml", "w") as f:
+    f.write('"${task.process}":\\n')
+    f.write(f'  python: "{sys.executable}"\\n')
+    f.write(f'  pandas: "{pd.__version__}"\\n')
+    f.write(f'  jinja2: "{jinja2.__version__}"\\n')

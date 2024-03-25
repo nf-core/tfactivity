@@ -18,7 +18,8 @@ process CREATE {
     path(schema)
 
     output:
-    path("report")
+    path("report")      , emit: report
+    path("versions.yml"), emit: versions
 
     script:
     params_string = JsonOutput.toJson(params)

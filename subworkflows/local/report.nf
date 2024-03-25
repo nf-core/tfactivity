@@ -7,6 +7,8 @@ workflow REPORT {
     ch_differential
 
     main:
+    ch_versions = Channel.empty()
+
     CREATE(ch_tf_ranking.map{meta, ranking -> ranking}
                             .collect()
                             .map{rankings -> [[id: "tfs"], rankings]},
@@ -17,4 +19,9 @@ workflow REPORT {
                             .collect()
                             .map{diffs -> [[id: "diffs"], diffs]},
             params, Channel.value(file(projectDir + "/nextflow_schema.json")))
+
+    ch_versions = ch_versions.mix(CREATE.out.versions)
+
+    emit:
+    versions = ch_versions
 }
