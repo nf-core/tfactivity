@@ -1,24 +1,30 @@
 const initRanking = async function (primary_ranking, secondary_ranking) {
     const assayChips = Array.from(document.querySelectorAll('[id^="assay-"]'));
 
-    const updatePrimaryRanking = async function (activeAssays) {
-        const primaryScores = Object.entries(primary_ranking).reduce(function (acc, [primary, dcgs]) {
-            const score = activeAssays.reduce(function (acc, assay) {
+    const getRanking = function (inputDcgs, assays) {
+        const scores = Object.entries(inputDcgs).reduce(function (acc, [value, dcgs]) {
+            const score = assays.reduce(function (acc, assay) {
                 return acc + (dcgs[assay] || 0);
-            }, 0) / activeAssays.length;
+            }, 0) / assays.length;
 
-            acc[primary] = score;
+            acc[value] = score;
             return acc;
         }, {});
 
-        const primaryOrder = Object.keys(primaryScores).sort(function (a, b) {
-            return primaryScores[b] - primaryScores[a];
+        const order = Object.keys(scores).sort(function (a, b) {
+            return scores[b] - scores[a];
         });
 
-        const primaryRank = primaryOrder.reduce(function (acc, primary, index) {
+        const ranks = order.reduce(function (acc, primary, index) {
             acc[primary] = index;
             return acc;
         }, {});
+
+        return ranks;
+    }
+
+    const updatePrimaryRanking = async function (activeAssays) {
+        const primaryRank = getRanking(primary_ranking, activeAssays);
 
         Object.entries(primaryRank).forEach(function ([primary, rank]) {
             const primaryCard = document.getElementById(`primary-${primary}`);
@@ -29,23 +35,7 @@ const initRanking = async function (primary_ranking, secondary_ranking) {
     const updateSecondaryRanking = async function (activeAssays) {
         for (const primary in secondary_ranking) {
             const currentRanking = secondary_ranking[primary];
-            const secondaryScores = Object.entries(currentRanking).reduce(function (acc, [secondary, dcgs]) {
-                const score = activeAssays.reduce(function (acc, assay) {
-                    return acc + (dcgs[assay] || 0);
-                }, 0) / activeAssays.length;
-
-                acc[secondary] = score;
-                return acc;
-            }, {});
-
-            const tgOrder = Object.keys(secondaryScores).sort(function (a, b) {
-                return secondaryScores[b] - secondaryScores[a];
-            });
-
-            const tgRank = tgOrder.reduce(function (acc, secondary, index) {
-                acc[secondary] = index;
-                return acc;
-            }, {});
+            const tgRank = getRanking(currentRanking, activeAssays);
 
             const showedSecondaries = []
 
