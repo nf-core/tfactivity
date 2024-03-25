@@ -27,9 +27,9 @@ env = Environment(
 )
 
 rankings = {
-    key: pd.read_csv(path, sep="\t", index_col=0, usecols=[0,1], names=["TF", key], header=0) 
+    key: pd.read_csv(path, sep="\t", index_col=0, usecols=[0,1], names=["TF", key], header=0)
     for key, path in {
-        path[:-len(".tf_ranking.tsv")]: path 
+        path[:-len(".tf_ranking.tsv")]: path
         for path in r"$tf_ranking".split(" ")
     }.items()
 }
