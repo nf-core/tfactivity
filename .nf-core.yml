@@ -1,9 +1,9 @@
 repository_type: pipeline
 lint:
   template_strings:
-  - modules/local/report/create/app/templates/tf.html
-  - modules/local/report/create/app/templates/tg.html
-  - modules/local/report/create/app/templates/macros.html
-  - modules/local/report/create/app/templates/configuration.html
-  - modules/local/report/create/app/templates/snp.html
-  - modules/local/report/create/app/templates/base.html
+    - modules/local/report/create/app/templates/tf.html
+    - modules/local/report/create/app/templates/tg.html
+    - modules/local/report/create/app/templates/macros.html
+    - modules/local/report/create/app/templates/configuration.html
+    - modules/local/report/create/app/templates/snp.html
+    - modules/local/report/create/app/templates/base.html
