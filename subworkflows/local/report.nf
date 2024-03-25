@@ -12,7 +12,7 @@ workflow REPORT {
     CREATE(ch_tf_ranking.map{meta, ranking -> ranking}
                             .collect()
                             .map{rankings -> [[id: "tfs"], rankings]},
-              ch_tg_ranking.map{meta, ranking -> ranking}
+                ch_tg_ranking.map{meta, ranking -> ranking}
                             .collect()
                             .map{rankings -> [[id: "tgs"], rankings]},
                 ch_differential.map{meta, diff -> diff}
