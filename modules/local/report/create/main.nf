@@ -13,6 +13,7 @@ process CREATE {
     input:
     tuple val(meta), path(tf_ranking)
     tuple val(meta2), path(tg_ranking)
+    tuple val(meta3), path(differential)
     val(params)
     path(schema)
 

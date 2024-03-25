@@ -57,6 +57,21 @@ for assay, ranking in raw_tg_ranking.items():
         for gene, dcg in genes.items():
             tg_ranking[tf][gene][assay] = dcg
 
+raw_differential = {
+    pairing: pd.read_csv(path, sep="\t", index_col=0, header=0)["log2FoldChange"].to_dict()
+    for pairing, path in {
+        path[:-len(".deseq2.results.tsv")]: path
+        for path in "$differential".replace("\\\\", "").split(" ")
+    }.items()
+}
+
+differential = defaultdict(dict)
+for pairing, values in raw_differential.items():
+    for gene, value in values.items():
+        differential[gene][pairing] = value
+
+pairings = list(raw_differential.keys())
+sorted(pairings)
 
 tf = env.get_template("tf.html")
 tg = env.get_template("tg.html")
@@ -66,7 +81,11 @@ styles = env.get_template("styles.css")
 
 os.makedirs(out_dir, exist_ok=True)
 with open(os.path.join(out_dir, "index.html"), "w") as f:
-    f.write(tf.render(tf_ranking=tf_ranking, assays=assays, tg_ranking=tg_ranking))
+    f.write(tf.render(tf_ranking=tf_ranking,
+                      assays=assays,
+                      tg_ranking=tg_ranking,
+                      differential=differential,
+                      pairings=pairings))
 
 with open(os.path.join(out_dir, "target_genes.html"), "w") as f:
     f.write(tg.render())

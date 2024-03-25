@@ -37,3 +37,12 @@ button {
   display: flex;
   justify-content: center;
 }
+
+.accordion-padding {
+  padding: 10px;
+  width: 100%;
+}
+
+.accordion-body {
+  width: 100%;
+}

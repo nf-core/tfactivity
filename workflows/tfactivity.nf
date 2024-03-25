@@ -118,7 +118,8 @@ workflow TFACTIVITY {
 
     REPORT(
         RANKING.out.tf_ranking,
-        RANKING.out.tg_ranking
+        RANKING.out.tg_ranking,
+        COUNTS.out.differential
     )
 
     //

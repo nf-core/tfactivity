@@ -30,12 +30,28 @@
                 </div>
             </label>
             <div class="accordion-body">
-                <h2>Top target genes (<a id="tf-{{tf}}-gprofiler" target="_blank">g:Profiler</a>)</h2>
-                <div style="display: flex; flex-wrap: wrap;">
-                    {% set tgs = tg_ranking[tf] %}
-                    {% for tg in tgs %}
-                    <span class="chip" id="tf-{{tf}}-tg-{{tg}}">{{ tg }}</span>
-                    {% endfor %}
+                <div class="accordion-padding">
+                    <h2>Top target genes (<a id="tf-{{tf}}-gprofiler" target="_blank">g:Profiler</a>)</h2>
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% set tgs = tg_ranking[tf] %}
+                        {% for tg in tgs %}
+                        <span class="chip" id="tf-{{tf}}-tg-{{tg}}">{{ tg }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="divider"></div>
+                    <h2>Log2fc</h2>
+                    {% set tfDiffExp = differential[tf] %}
+                    <div id="tf-{{tf}}-log2fc"></div>
+                    <script>
+                        Plotly.newPlot(document.getElementById('tf-{{tf}}-log2fc'), [{
+                            y: {{pairings | tojson}},
+                            x: [{% for pairing in pairings %} {{ tfDiffExp[pairing] }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                            type: 'bar',
+                            orientation: 'h'
+                        }], {
+                            margin: { t: 0 }
+                        });
+                    </script>
                 </div>
             </div>
         </div>
