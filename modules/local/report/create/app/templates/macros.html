@@ -14,18 +14,18 @@
   </li>
 </ul>
 {% endmacro %} {% macro tfGeneral(tf, tgs, pairings, tfDiffExp) %}
-<h2>Top target genes (<a id="tf-{{tf}}-gprofiler" target="_blank">g:Profiler</a>)</h2>
+<h2>Top target genes (<a id="primary-{{tf}}-gprofiler" target="_blank">g:Profiler</a>)</h2>
 <div style="display: flex; flex-wrap: wrap">
   {% for tg in tgs %}
-  <span class="chip" id="tf-{{tf}}-tg-{{tg}}">{{ tg }}</span>
+  <span class="chip" id="primary-{{tf}}-secondary-{{tg}}">{{ tg }}</span>
   {% endfor %}
 </div>
 <div class="divider"></div>
 <h2>Log2fc</h2>
 
-<div id="tf-{{tf}}-log2fc"></div>
+<div id="primary-{{tf}}-log2fc"></div>
 <script>
-  Plotly.newPlot(document.getElementById('tf-{{tf}}-log2fc'), [{
+  Plotly.newPlot(document.getElementById('primary-{{tf}}-log2fc'), [{
       y: {{ pairings | tojson}},
       x: [{% for pairing in pairings %} {{ tfDiffExp[pairing] }} {% if not loop.last %}, {% endif %} {% endfor %}],
       type: 'bar',
@@ -36,10 +36,10 @@
 </script>
 <div class="divider"></div>
 <h2>TPM</h2>
-<div id="tf-{{tf}}-tpm"></div>
+<div id="primary-{{tf}}-tpm"></div>
 <script>
   Plotly.newPlot(
-    document.getElementById("tf-{{tf}}-tpm"),
+    document.getElementById("primary-{{tf}}-tpm"),
     [
       {
         y: ["giraffes", "orangutans", "monkeys"],
@@ -56,10 +56,10 @@
 </script>
 <div class="divider"></div>
 <h2>Mean expression</h2>
-<div id="tf-{{tf}}-meanExp"></div>
+<div id="primary-{{tf}}-meanExp"></div>
 <script>
   Plotly.newPlot(
-    document.getElementById("tf-{{tf}}-meanExp"),
+    document.getElementById("primary-{{tf}}-meanExp"),
     [
       {
         y: ["giraffes", "orangutans", "monkeys"],

@@ -9,7 +9,7 @@
     <a href="https://doi.org/10.1093/gigascience/giad026" target="_blank">TF-Prioritizer</a> paper.
   </p>
   <div class="stretch-row">
-    <input class="form-input" type="text" id="filter-tf" placeholder="TF Name" />
+    <input class="form-input" type="text" id="filter-primary" placeholder="TF Name" />
   </div>
   <div class="stretch-row">
     {% for assay in assays %}
@@ -17,7 +17,7 @@
     {% endfor %}
   </div>
   {% for tf, dcgs in tf_ranking.items() %}
-  <div class="card tf-card" id="tf-{{tf}}" style="width: 100%">
+  <div class="card primary-card" id="primary-{{tf}}" style="width: 100%">
     <div class="accordion">
       <input type="checkbox" id="accordion-{{ tf | lower }}" name="accordion-checkbox" hidden />
       <label class="accordion-header c-hand" for="accordion-{{ tf | lower }}">
@@ -46,11 +46,11 @@
 <script>
   const assayChips = Array.from(document.querySelectorAll('[id^="assay-"]'));
 
-  const tf_ranking = {{ tf_ranking | tojson }};
-  const tf_tg_ranking = {{ tf_tg_ranking | tojson }};
+  const primary_ranking = {{ tf_ranking | tojson }};
+  const secondary_ranking = {{ tf_tg_ranking | tojson }};
 
   const updateTfRanking = async function (activeAssays) {
-      const tfScores = Object.entries(tf_ranking).reduce(function (acc, [tf, dcgs]) {
+      const tfScores = Object.entries(primary_ranking).reduce(function (acc, [tf, dcgs]) {
           const score = activeAssays.reduce(function (acc, assay) {
               return acc + (dcgs[assay] || 0);
           }, 0) / activeAssays.length;
@@ -69,14 +69,14 @@
       }, {});
 
       Object.entries(tfRank).forEach(function ([tf, rank]) {
-          const tfCard = document.getElementById(`tf-${tf}`);
+          const tfCard = document.getElementById(`primary-${tf}`);
           tfCard.style.order = rank;
       });
   };
 
   const updateTgRanking = async function (activeAssays) {
-      for (const tf in tf_tg_ranking) {
-          const currentRanking = tf_tg_ranking[tf];
+      for (const tf in secondary_ranking) {
+          const currentRanking = secondary_ranking[tf];
           const tgScores = Object.entries(currentRanking).reduce(function (acc, [tg, dcgs]) {
               const score = activeAssays.reduce(function (acc, assay) {
                   return acc + (dcgs[assay] || 0);
@@ -98,7 +98,7 @@
           const showedGenes = []
 
           Object.entries(tgRank).forEach(function ([tg, rank]) {
-              const tgChip = document.getElementById(`tf-${tf}-tg-${tg}`);
+              const tgChip = document.getElementById(`primary-${tf}-secondary-${tg}`);
               tgChip.style.order = rank;
               tgChip.style.display = rank <= 30 ? 'inline-block' : 'none';
               if (rank <= 30) {
@@ -107,7 +107,7 @@
           });
 
           const gProfilerLink = `https://biit.cs.ut.ee/gprofiler/gost?query=${showedGenes.join('%0D')}`;
-          const gProfilerLinkElement = document.getElementById(`tf-${tf}-gprofiler`);
+          const gProfilerLinkElement = document.getElementById(`primary-${tf}-gprofiler`);
           gProfilerLinkElement.href = gProfilerLink;
       }
   }
@@ -150,13 +150,13 @@
       });
   });
 
-  const filterTf = document.getElementById('filter-tf');
+  const filterTf = document.getElementById('filter-primary');
   filterTf.addEventListener('input', function () {
       const filter = filterTf.value.toLowerCase();
-      const tfCards = Array.from(document.querySelectorAll('.tf-card'));
+      const tfCards = Array.from(document.querySelectorAll('.primary-card'));
 
       tfCards.forEach(function (card) {
-          const tf = card.id.replace('tf-', '');
+          const tf = card.id.replace('primary-', '');
           if (tf.toLowerCase().includes(filter)) {
               card.style.display = 'block';
           } else {
