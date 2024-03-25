@@ -91,7 +91,11 @@ with open(os.path.join(out_dir, "index.html"), "w") as f:
                       pairings=pairings))
 
 with open(os.path.join(out_dir, "target_genes.html"), "w") as f:
-    f.write(tg.render())
+    f.write(tg.render(tf_ranking=tf_ranking,
+                      assays=assays,
+                      tf_tg_ranking=tf_tg_ranking,
+                      differential=differential,
+                      pairings=pairings))
 
 with open(os.path.join(out_dir, "snps.html"), "w") as f:
     f.write(snp.render())
