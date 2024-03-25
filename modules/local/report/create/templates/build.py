@@ -80,6 +80,7 @@ tg = env.get_template("tg.html")
 snp = env.get_template("snp.html")
 configuration = env.get_template("configuration.html")
 styles = env.get_template("styles.css")
+ranking_js = env.get_template("ranking.js")
 
 os.makedirs(out_dir, exist_ok=True)
 with open(os.path.join(out_dir, "index.html"), "w") as f:
@@ -103,3 +104,6 @@ with open(os.path.join(out_dir, "params.json"), "w") as f:
 
 with open(os.path.join(out_dir, "configuration.html"), "w") as f:
     f.write(configuration.render(params=params, schema=schema))
+
+with open(os.path.join(out_dir, "ranking.js"), "w") as f:
+    f.write(ranking_js.render())
