@@ -46,3 +46,7 @@ button {
 .accordion-body {
   width: 100%;
 }
+
+.accordion .accordion-header {
+  font-size: x-large;
+}
