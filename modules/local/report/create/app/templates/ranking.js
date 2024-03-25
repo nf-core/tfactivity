@@ -3,11 +3,14 @@ const initRanking = async function (primary_ranking, secondary_ranking) {
 
     const getRanking = function (inputDcgs, assays) {
         const scores = Object.entries(inputDcgs).reduce(function (acc, [value, dcgs]) {
-            const score = assays.reduce(function (acc, assay) {
-                return acc + (dcgs[assay] || 0);
-            }, 0) / assays.length;
 
-            acc[value] = score;
+            if (assays.some(assay => Object.keys(dcgs).includes(assay))) {
+                acc[value] = assays.reduce(function (acc, assay) {
+                    return acc + (dcgs[assay] || 0);
+                }, 0) / assays.length;
+            } else {
+                acc[value] = -1;
+            }
             return acc;
         }, {});
 
