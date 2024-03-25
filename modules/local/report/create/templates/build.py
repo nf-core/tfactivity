@@ -62,7 +62,7 @@ for assay, ranking in raw_tf_tg_ranking.items():
             tg_ranking[gene][assay] += dcg
 
 df_tg_ranking = pd.DataFrame(tg_ranking).T.rank(ascending=False)
-df_tg_ranking = 1 - (df_tg_ranking / len(df_tg_ranking.index))
+df_tg_ranking = 1 - df_tg_ranking.apply(lambda x: x / x.count())
 
 tg_ranking = {
     gene: {assay: rank for assay, rank in ranks.items() if not pd.isna(rank)}
