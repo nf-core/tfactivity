@@ -1,6 +1,13 @@
 {% extends "base.html" %} {% block tabs %} {% from 'macros.html' import tabs %} {{ tabs(active="tf") }} {% endblock %}
 {% block content %} {% from 'macros.html' import tfGeneral %}
 <div class="ranking-container">
+  <p>
+    This ranking shows the most differentially active transcription factors identified by
+    <code>nf-core/tfactivity</code>. By default, all assays are enabled, but you can easily investigate the results for
+    specific subsets of assays by disabling the assays you are not interested in. The ranking is based on the
+    Transription Factor - Target Gene (TF-TG) score, which was introduced in the
+    <a href="https://doi.org/10.1093/gigascience/giad026" target="_blank">TF-Prioritizer</a> paper.
+  </p>
   <div class="stretch-row">
     <input class="form-input" type="text" id="filter-tf" placeholder="TF Name" />
   </div>

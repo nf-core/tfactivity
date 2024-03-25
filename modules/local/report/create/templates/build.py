@@ -52,10 +52,12 @@ raw_tf_tg_ranking = {
 }
 
 tf_tg_ranking = defaultdict(lambda: defaultdict(dict))
+tg_ranking = defaultdict(lambda: defaultdict(int))
 for assay, ranking in raw_tf_tg_ranking.items():
     for tf, genes in ranking.to_dict().items():
         for gene, dcg in genes.items():
             tf_tg_ranking[tf][gene][assay] = dcg
+            tg_ranking[gene][assay] += dcg
 
 raw_differential = {
     pairing: pd.read_csv(path, sep="\t", index_col=0, header=0)["log2FoldChange"].to_dict()
