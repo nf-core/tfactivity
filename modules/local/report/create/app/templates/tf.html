@@ -9,7 +9,7 @@
     <a href="https://doi.org/10.1093/gigascience/giad026" target="_blank">TF-Prioritizer</a> paper.
   </p>
   <div class="stretch-row">
-    <input class="form-input" type="text" id="filter-primary" placeholder="TF Name" />
+    <input class="form-input" type="text" id="filter-primary" placeholder="TF name" />
   </div>
   <div class="stretch-row">
     {% for assay in assays %}
@@ -45,8 +45,8 @@
 {% endblock %} {% block scripts %}
 <script src="ranking.js"></script>
 <script>
-    const primary_ranking = {{ tf_ranking | tojson }};
-    const secondary_ranking = {{ tf_tg_ranking | tojson }};
-    initRanking(primary_ranking, secondary_ranking);
+  const primary_ranking = {{ tf_ranking | tojson }};
+  const secondary_ranking = {{ tf_tg_ranking | tojson }};
+  initRanking(primary_ranking, secondary_ranking);
 </script>
 {% endblock %}
