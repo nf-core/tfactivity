@@ -49,7 +49,7 @@
     const tf_ranking = {{ tf_ranking | tojson }};
     const tg_ranking = {{ tg_ranking | tojson }};
 
-    const updateTfRanking = function (activeAssays) {
+    const updateTfRanking = async function (activeAssays) {
         const tfScores = Object.entries(tf_ranking).reduce(function (acc, [tf, dcgs]) {
             const score = activeAssays.reduce(function (acc, assay) {
                 return acc + (dcgs[assay] || 0);
@@ -74,7 +74,7 @@
         });
     };
 
-    const updateTgRanking = function (activeAssays) {
+    const updateTgRanking = async function (activeAssays) {
         for (const tf in tg_ranking) {
             const currentRanking = tg_ranking[tf];
             const tgScores = Object.entries(currentRanking).reduce(function (acc, [tg, dcgs]) {
