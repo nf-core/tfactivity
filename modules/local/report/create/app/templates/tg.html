@@ -16,7 +16,7 @@
     <span id="assay-{{assay}}" class="chip stretchable c-hand active">{{ assay }}</span>
     {% endfor %}
   </div>
-  {% for tf, dcgs in tf_ranking.items() %}
+  {% for tf, dcgs in tg_ranking.items() %}
   <div class="card primary-card" id="primary-{{tf}}" style="width: 100%">
     <div class="accordion">
       <input type="checkbox" id="accordion-{{ tf | lower }}" name="accordion-checkbox" hidden />
@@ -34,8 +34,8 @@
       </label>
       <div class="accordion-body" style="overflow: scroll">
         <div class="accordion-padding">
-          {% set tgs = tf_tg_ranking[tf] %} {% set tfDiffExp = differential[tf] %} {{ tfGeneral(tf, tgs, pairings,
-          tfDiffExp) }}
+          {% set tgs = tg_tf_ranking[tf] %} {% set tfDiffExp = differential[tf] %} {{ tfGeneral(tf, tgs, pairings,
+          tfDiffExp, false) }}
         </div>
       </div>
     </div>
@@ -45,8 +45,8 @@
 {% endblock %} {% block scripts %}
 <script src="ranking.js"></script>
 <script>
-    const primary_ranking = {{ tf_ranking | tojson }};
-    const secondary_ranking = {{ tf_tg_ranking | tojson }};
+    const primary_ranking = {{ tg_ranking | tojson }};
+    const secondary_ranking = {{ tg_tf_ranking | tojson }};
     initRanking(primary_ranking, secondary_ranking);
 </script>
 {% endblock %}

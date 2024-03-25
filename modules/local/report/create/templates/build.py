@@ -52,12 +52,22 @@ raw_tf_tg_ranking = {
 }
 
 tf_tg_ranking = defaultdict(lambda: defaultdict(dict))
+tg_tf_ranking = defaultdict(lambda: defaultdict(dict))
 tg_ranking = defaultdict(lambda: defaultdict(int))
 for assay, ranking in raw_tf_tg_ranking.items():
     for tf, genes in ranking.to_dict().items():
         for gene, dcg in genes.items():
             tf_tg_ranking[tf][gene][assay] = dcg
+            tg_tf_ranking[gene][tf][assay] = dcg
             tg_ranking[gene][assay] += dcg
+
+df_tg_ranking = pd.DataFrame(tg_ranking).T.rank(ascending=False)
+df_tg_ranking = 1 - (df_tg_ranking / len(df_tg_ranking.index))
+
+tg_ranking = {
+    gene: {assay: rank for assay, rank in ranks.items() if not pd.isna(rank)}
+    for gene, ranks in df_tg_ranking.to_dict(orient="index").items()
+}
 
 raw_differential = {
     pairing: pd.read_csv(path, sep="\t", index_col=0, header=0)["log2FoldChange"].to_dict()
@@ -91,9 +101,9 @@ with open(os.path.join(out_dir, "index.html"), "w") as f:
                       pairings=pairings))
 
 with open(os.path.join(out_dir, "target_genes.html"), "w") as f:
-    f.write(tg.render(tf_ranking=tf_ranking,
+    f.write(tg.render(tg_ranking=tg_ranking,
                       assays=assays,
-                      tf_tg_ranking=tf_tg_ranking,
+                      tg_tf_ranking=tg_tf_ranking,
                       differential=differential,
                       pairings=pairings))
 

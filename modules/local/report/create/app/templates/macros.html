@@ -13,13 +13,14 @@
     <a href="configuration.html">Configuration</a>
   </li>
 </ul>
-{% endmacro %} {% macro tfGeneral(tf, tgs, pairings, tfDiffExp) %}
+{% endmacro %} {% macro tfGeneral(tf, tgs, pairings, tfDiffExp, plotsEnabled=true) %}
 <h2>Top target genes (<a id="primary-{{tf}}-gprofiler" target="_blank">g:Profiler</a>)</h2>
 <div style="display: flex; flex-wrap: wrap">
   {% for tg in tgs %}
   <span class="chip" id="primary-{{tf}}-secondary-{{tg}}">{{ tg }}</span>
   {% endfor %}
 </div>
+{% if plotsEnabled %}
 <div class="divider"></div>
 <h2>Log2fc</h2>
 
@@ -74,4 +75,5 @@
     { responsive: true },
   );
 </script>
+{% endif %}
 {% endmacro %}

@@ -1,4 +1,4 @@
-const initRanking = function (primary_ranking, secondary_ranking) {
+const initRanking = async function (primary_ranking, secondary_ranking) {
     const assayChips = Array.from(document.querySelectorAll('[id^="assay-"]'));
 
     const updatePrimaryRanking = async function (activeAssays) {
