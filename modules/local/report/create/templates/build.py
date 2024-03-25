@@ -43,19 +43,19 @@ tf_ranking = {
 assays = df_ranking.columns
 sorted(assays, reverse=True)
 
-raw_tg_ranking = {
-    assay: pd.read_csv(path, sep="\t", index_col=0, header=0).to_dict()
+raw_tf_tg_ranking = {
+    assay: pd.read_csv(path, sep="\t", index_col=0, header=0)
     for assay, path in {
         path[:-len(".tg_ranking.tsv")]: path
         for path in r"$tg_ranking".split(" ")
     }.items()
 }
 
-tg_ranking = defaultdict(lambda: defaultdict(dict))
-for assay, ranking in raw_tg_ranking.items():
-    for tf, genes in ranking.items():
+tf_tg_ranking = defaultdict(lambda: defaultdict(dict))
+for assay, ranking in raw_tf_tg_ranking.items():
+    for tf, genes in ranking.to_dict().items():
         for gene, dcg in genes.items():
-            tg_ranking[tf][gene][assay] = dcg
+            tf_tg_ranking[tf][gene][assay] = dcg
 
 raw_differential = {
     pairing: pd.read_csv(path, sep="\t", index_col=0, header=0)["log2FoldChange"].to_dict()
@@ -83,7 +83,7 @@ os.makedirs(out_dir, exist_ok=True)
 with open(os.path.join(out_dir, "index.html"), "w") as f:
     f.write(tf.render(tf_ranking=tf_ranking,
                       assays=assays,
-                      tg_ranking=tg_ranking,
+                      tf_tg_ranking=tf_tg_ranking,
                       differential=differential,
                       pairings=pairings))
 

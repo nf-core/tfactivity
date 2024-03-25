@@ -27,7 +27,7 @@
       </label>
       <div class="accordion-body" style="overflow: scroll">
         <div class="accordion-padding">
-          {% set tgs = tg_ranking[tf] %} {% set tfDiffExp = differential[tf] %} {{ tfGeneral(tf, tgs, pairings,
+          {% set tgs = tf_tg_ranking[tf] %} {% set tfDiffExp = differential[tf] %} {{ tfGeneral(tf, tgs, pairings,
           tfDiffExp) }}
         </div>
       </div>
@@ -40,7 +40,7 @@
   const assayChips = Array.from(document.querySelectorAll('[id^="assay-"]'));
 
   const tf_ranking = {{ tf_ranking | tojson }};
-  const tg_ranking = {{ tg_ranking | tojson }};
+  const tf_tg_ranking = {{ tf_tg_ranking | tojson }};
 
   const updateTfRanking = async function (activeAssays) {
       const tfScores = Object.entries(tf_ranking).reduce(function (acc, [tf, dcgs]) {
@@ -68,8 +68,8 @@
   };
 
   const updateTgRanking = async function (activeAssays) {
-      for (const tf in tg_ranking) {
-          const currentRanking = tg_ranking[tf];
+      for (const tf in tf_tg_ranking) {
+          const currentRanking = tf_tg_ranking[tf];
           const tgScores = Object.entries(currentRanking).reduce(function (acc, [tg, dcgs]) {
               const score = activeAssays.reduce(function (acc, assay) {
                   return acc + (dcgs[assay] || 0);
