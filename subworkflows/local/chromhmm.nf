@@ -3,6 +3,7 @@ include { SAMTOOLS_REHEADER as REHEADER_SIGNAL  } from '../../modules/nf-core/sa
 include { SAMTOOLS_REHEADER as REHEADER_CONTROL } from '../../modules/nf-core/samtools/reheader'
 include { BINARIZE_BAMS                         } from '../../modules/local/chromhmm/binarize_bams'
 include { LEARN_MODEL                           } from '../../modules/local/chromhmm/learn_model'
+include { GET_RESULTS                           } from '../../modules/local/chromhmm/get_results'
  
 workflow CHROMHMM {
 
@@ -51,8 +52,15 @@ workflow CHROMHMM {
 
     LEARN_MODEL.out.transpose().view()
 
+    GET_RESULTS(LEARN_MODEL.out.transpose()
+                                .map{meta, emmisions, bed ->
+                                    [meta + [id: bed.simpleName.split("_")[0]],
+                                    emmisions, bed]})
+    
+    ch_enhancers = GET_RESULTS.out.map{meta, bed -> [meta + [condition: meta.id, assay: "chromHMM_enhancers"], bed]}
 
     emit:
+    enhancers = ch_enhancers
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
