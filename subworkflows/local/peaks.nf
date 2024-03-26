@@ -29,6 +29,7 @@ workflow PEAKS {
     gene_map
     agg_method
     ch_samplesheet_bam
+    chrom_sizes
 
     main:
 
@@ -57,7 +58,7 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
-    CHROMHMM(ch_samplesheet_bam)
+    CHROMHMM(ch_samplesheet_bam, chrom_sizes)
 
     FILTER_PWMS(tfs, pwms)
 

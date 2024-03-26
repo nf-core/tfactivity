@@ -1,11 +1,13 @@
 // Modules
 include { SAMTOOLS_REHEADER as REHEADER_SIGNAL  } from '../../modules/nf-core/samtools/reheader'
 include { SAMTOOLS_REHEADER as REHEADER_CONTROL } from '../../modules/nf-core/samtools/reheader'
+include { BINARIZE_BAMS                         } from '../../modules/local/chromhmm/binarize_bams'
  
 workflow CHROMHMM {
 
     take:
     ch_samplesheet_bam
+    chrom_sizes
 
     main:
 
@@ -21,7 +23,7 @@ workflow CHROMHMM {
 
     def remove_type = {meta, bam -> [[  id: meta.id,
                                         condition: meta.condition,
-                                        antibody: meta.antibody], 
+                                        antibody: meta.antibody],
                                     bam]}
 
     ch_signal  = REHEADER_SIGNAL (ch_bams.signal ).bam.map{meta, bam -> remove_type(meta, bam)}
@@ -30,8 +32,12 @@ workflow CHROMHMM {
     ch_table = ch_combined  .map{meta, signal, control -> [meta.condition, meta.antibody, signal.name, control.name]}
                             .collectFile() {
                                 ["cellmarktable.txt", it.join("\t") + "\n"]
-                            }
-    ch_table.view()
+                            }.map{[[id: it.simpleName], it]}
+    BINARIZE_BAMS(
+        ch_combined.map{meta, signal, control -> [signal, control]}.flatten().collect().map{bams -> [[id: "bams"], bams]},
+        ch_table.collect(),
+        chrom_sizes.collect()
+    )
 
 
     emit:
