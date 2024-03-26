@@ -10,7 +10,7 @@ process BINARIZE_BAMS {
     tuple val(meta2), path(chromsizes)
 
     output:
-    tuple val(meta), path("binarized_bams")
+    tuple val(meta), path("output/*")
 
     script:
     """
@@ -18,6 +18,6 @@ process BINARIZE_BAMS {
        $chromsizes \\
        input \\
        $table \\
-       binarized_bams
+       output
     """
 }
