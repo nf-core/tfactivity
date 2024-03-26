@@ -28,15 +28,21 @@ workflow CHROMHMM {
 
     ch_signal  = REHEADER_SIGNAL (ch_bams.signal ).bam.map{meta, bam -> remove_type(meta, bam)}
     ch_control = REHEADER_CONTROL(ch_bams.control).bam.map{meta, bam -> remove_type(meta, bam)}
-    ch_combined = ch_signal.join(ch_control)
-    ch_table = ch_combined  .map{meta, signal, control -> [meta.condition, meta.antibody, signal.name, control.name]}
-                            .collectFile() {
-                                ["cellmarktable.txt", it.join("\t") + "\n"]
-                            }.map{[[id: it.simpleName], it]}
+    ch_joined  = ch_signal.join(ch_control)
+    ch_mixed   = ch_signal.mix(ch_control)
+
+    ch_condition_table   = ch_joined .map{meta, signal, control -> [meta.condition, meta.antibody, signal.name, control.name]}
+                                    .collectFile() {
+                                        [it[0] + ".tsv", it.join("\t") + "\n"]
+                                    }.map{[it.baseName, it]}
+
+    ch_conditions = ch_condition_table.join(
+        ch_mixed.map{meta, bam -> [meta.condition, bam]}.groupTuple()
+    ).map{condition, table, bams -> [[id: condition], table, bams]}
+
     BINARIZE_BAMS(
-        ch_combined.map{meta, signal, control -> [signal, control]}.flatten().collect().map{bams -> [[id: "bams"], bams]},
-        ch_table.collect(),
-        chrom_sizes.collect()
+        ch_conditions,
+        chrom_sizes
     )
 
 

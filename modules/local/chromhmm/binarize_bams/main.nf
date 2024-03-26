@@ -6,10 +6,8 @@ process BINARIZE_BAMS {
     container "registry.hub.docker.com/leonhafner/openjdk:17"
 
     input:
-    tuple val(meta), path(bams, stageAs: "input/*")
-//    tuple val(meta2), path(bais)
-    tuple val(meta3), path(cellmarkfiletable)
-    tuple val(meta4), path(chromsizes)
+    tuple val(meta), path(table), path(bams, stageAs: "input/*")
+    tuple val(meta2), path(chromsizes)
 
     output:
     tuple val(meta), path("binarized_bams")
@@ -19,7 +17,7 @@ process BINARIZE_BAMS {
     java -jar $moduleDir/ChromHMM.jar BinarizeBam \\
        $chromsizes \\
        input \\
-       $cellmarkfiletable \\
+       $table \\
        binarized_bams
     """
 }

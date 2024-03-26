@@ -30,7 +30,7 @@ workflow PREPARE_GENOME {
     emit:
     gene_map = EXTRACT_ID_SYMBOL_MAP.out.feature_annotation
     gene_lengths = GTFTOOLS_LENGTH.out.lengths
-    chrom_sizes = SAMTOOLS_FAIDX.out.fai
+    chrom_sizes = SAMTOOLS_FAIDX.out.fai.collect()
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
