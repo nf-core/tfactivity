@@ -10,8 +10,7 @@ process LEARN_MODEL {
     val states
 
     output:
-    tuple val(meta), path("output/emissions_${states}.txt"), emit: emissions
-    tuple val(meta), path("output/*_${states}_dense.bed")  , emit: beds
+    tuple val(meta), path("output/emissions_${states}.txt"), path("output/*_${states}_dense.bed")
 
     script:
     """

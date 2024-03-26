@@ -39,15 +39,17 @@ workflow CHROMHMM {
                                     }.map{[it.baseName, it]}.collect()
 
     BINARIZE_BAMS(
-        ch_mixed.map{meta, bam -> bam}.collect().map{files -> [[id: "binarized"], files]},
+        ch_mixed.map{meta, bam -> bam}.collect().map{files -> [[id: "chromHMM"], files]},
         ch_table,
         chrom_sizes
     )
 
     LEARN_MODEL(
-        BINARIZE_BAMS.out.map{meta, files -> files}.flatten().collect().map{files -> [[id: "binarized"], files]},
+        BINARIZE_BAMS.out.map{meta, files -> files}.flatten().collect().map{files -> [[id: "chromHMM"], files]},
         n_states
     )
+
+    LEARN_MODEL.out.transpose().view()
 
 
     emit:
