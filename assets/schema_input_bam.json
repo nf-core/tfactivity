@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/nf-core/tfactivity/master/assets/schema_input.json",
+    "title": "nf-core/tfactivity pipeline - params.input schema",
+    "description": "Schema for the file provided with params.input_bam",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "condition": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Condition name must be provided and cannot contain spaces",
+                "meta": ["condition"]
+            },
+            "antibody": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Antibody name must be provided and cannot contain spaces",
+                "meta": ["antibody"]
+            },
+            "signal": {
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.(bam)$",
+                "errorMessage": "Signal file must be provided and must be a .bam file"
+            },
+            "control": {
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.(bam)$",
+                "errorMessage": "Control file must be provided and must be a .bam file"
+            }
+        },
+        "required": ["condition", "antibody", "signal", "control"]
+    }
+}
