@@ -24,7 +24,8 @@ workflow PREPARE_GENOME {
 
     ch_versions = ch_versions.mix(
         EXTRACT_ID_SYMBOL_MAP.out.versions,
-        GTFTOOLS_LENGTH.out.versions
+        GTFTOOLS_LENGTH.out.versions,
+        SAMTOOLS_FAIDX.out.versions
     )
 
     emit:

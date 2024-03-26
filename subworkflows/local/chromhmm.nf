@@ -58,7 +58,8 @@ workflow CHROMHMM {
                                     [meta + [id: bed.simpleName.split("_")[0]],
                                     emmisions, bed]})
     
-    ch_enhancers = GET_RESULTS.out.map{meta, bed -> [meta + [condition: meta.id, assay: "chromHMM_enhancers"], bed]}
+    ch_enhancers = GET_RESULTS.out.map{meta, bed -> [[condition: meta.id, assay: "chromHMM_enhancers"], bed]}
+                                    .map{meta, bed -> [meta + [id: meta.condition + "_" + meta.assay], bed]}
 
     emit:
     enhancers = ch_enhancers

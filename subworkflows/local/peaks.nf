@@ -67,6 +67,12 @@ workflow PEAKS {
     ch_versions = ch_versions.mix(CHROMHMM.out.versions)
     ch_versions = ch_versions.mix(ROSE.out.versions)
 
+    ch_peaks = ch_peaks .mix(ROSE.out.enhancers)
+                        .map { meta, peaks -> [[
+                            id: meta.id,
+                            condition: meta.condition,
+                            assay: meta.assay], peaks]}
+
     FILTER_PWMS(tfs, pwms)
 
     STARE(
