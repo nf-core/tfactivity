@@ -4,7 +4,7 @@ include { SAMTOOLS_REHEADER as REHEADER_CONTROL } from '../../modules/nf-core/sa
 include { BINARIZE_BAMS                         } from '../../modules/local/chromhmm/binarize_bams'
 include { LEARN_MODEL                           } from '../../modules/local/chromhmm/learn_model'
 include { GET_RESULTS                           } from '../../modules/local/chromhmm/get_results'
- 
+
 workflow CHROMHMM {
 
     take:
@@ -19,7 +19,7 @@ workflow CHROMHMM {
     ch_bams = ch_samplesheet_bam.map{meta, signal, control -> [meta, ["signal", "control"], [signal, control]]}
                                 .transpose()
                                 .map{meta, type, bam -> [meta + [type: type], bam]}
-                                .branch   {meta, bam -> 
+                                .branch   {meta, bam ->
                                     control: meta.type == "control"
                                     signal:  meta.type == "signal"
                                 }
@@ -57,7 +57,7 @@ workflow CHROMHMM {
                                 .map{meta, emmisions, bed ->
                                     [meta + [id: bed.simpleName.split("_")[0]],
                                     emmisions, bed]})
-    
+
     ch_enhancers = GET_RESULTS.out.map{meta, bed -> [[condition: meta.id, assay: "chromHMM_enhancers"], bed]}
                                     .map{meta, bed -> [meta + [id: meta.condition + "_" + meta.assay], bed]}
 
@@ -66,4 +66,3 @@ workflow CHROMHMM {
 
     versions = ch_versions
 }
-

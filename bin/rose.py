@@ -75,7 +75,7 @@ def region_stitching(input_gff, stitch_window, tss_window, annot_file, remove_ts
         return fixed_collection
     else:
         return stitched_collection
-    
+
 
 # ==================================================================
 # ==========================I/O FUNCTIONS===========================
@@ -630,7 +630,7 @@ def main():
     options, args = parser.parse_args()
 
     input_gff_file = options.input
-    
+
     stitch_window = int(options.stitch)
 
     tss_window = int(options.tss)

@@ -7,7 +7,7 @@ process BINARIZE_BAMS {
 
     input:
     tuple val(meta), path(bams, stageAs: "input/*")
-	tuple val(meta2), path(table)
+    tuple val(meta2), path(table)
     tuple val(meta3), path(chromsizes)
 
     output:
@@ -16,9 +16,9 @@ process BINARIZE_BAMS {
     script:
     """
     java -jar $moduleDir/ChromHMM.jar BinarizeBam \\
-       $chromsizes \\
-       input \\
-       $table \\
-       output
+        $chromsizes \\
+        input \\
+        $table \\
+        output
     """
 }
