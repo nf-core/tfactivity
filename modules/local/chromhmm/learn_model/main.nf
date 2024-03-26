@@ -2,8 +2,10 @@ process LEARN_MODEL {
     tag "$meta.id"
     label "process_high"
 
-    // TODO: Update OpenJDK biocontainer to version 17 (https://biocontainers.pro/tools/openjdk)
-    container "registry.hub.docker.com/leonhafner/openjdk:17"
+    conda "bioconda::chromhmm=1.25"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/chromhmm:1.25--hdfd78af_0' :
+        'biocontainers/chromhmm:1.25--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(binarized_bams, stageAs: "input")
@@ -16,7 +18,7 @@ process LEARN_MODEL {
     """
     # Organism (PLACEHOLDER) only needed for downstream analysis of ChromHMM and therefore not supplied
 
-    java -jar $moduleDir/ChromHMM.jar LearnModel \\
+    ChromHMM.sh LearnModel \\
         -p $task.cpus \\
         input \\
         output \\

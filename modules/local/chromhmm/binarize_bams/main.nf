@@ -2,8 +2,10 @@ process BINARIZE_BAMS {
     tag "$meta.id"
     label "process_high"
 
-    // TODO: Update OpenJDK biocontainer to version 17 (https://biocontainers.pro/tools/openjdk)
-    container "registry.hub.docker.com/leonhafner/openjdk:17"
+    conda "bioconda::chromhmm=1.25"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/chromhmm:1.25--hdfd78af_0' :
+        'biocontainers/chromhmm:1.25--hdfd78af_0' }"
 
     input:
     tuple val(meta), path(bams, stageAs: "input/*")
@@ -15,7 +17,7 @@ process BINARIZE_BAMS {
 
     script:
     """
-    java -jar $moduleDir/ChromHMM.jar BinarizeBam \\
+    ChromHMM.sh BinarizeBam \\
         $chromsizes \\
         input \\
         $table \\
