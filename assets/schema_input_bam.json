@@ -7,6 +7,12 @@
     "items": {
         "type": "object",
         "properties": {
+            "sample": {
+                "type": "string",
+                "pattern": "^\\S+$",
+                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "meta": ["id"]
+            },
             "condition": {
                 "type": "string",
                 "pattern": "^\\S+$",
@@ -34,6 +40,6 @@
                 "errorMessage": "Control file must be provided and must be a .bam file"
             }
         },
-        "required": ["condition", "antibody", "signal", "control"]
+        "required": ["sample", "condition", "antibody", "signal", "control"]
     }
 }

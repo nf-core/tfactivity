@@ -11,6 +11,7 @@ include { COMBINE_TABLES as AFFINITY_SUM  } from '../../modules/local/combine_ta
 // Subworkflows
 include { FOOTPRINTING               } from './footprinting'
 include { MERGE_SAMPLES              } from './merge_samples'
+include { CHROMHMM                   } from './chromhmm'
 
 workflow PEAKS {
 
@@ -55,6 +56,8 @@ workflow PEAKS {
         ch_peaks = SORT_PEAKS.out.sorted
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
+
+    CHROMHMM(ch_samplesheet_bam)
 
     FILTER_PWMS(tfs, pwms)
 
