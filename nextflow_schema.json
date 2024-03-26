@@ -122,6 +122,13 @@
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Method to aggregate affinity values. The default value is `max`."
                 },
+                "chromhmm_states": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of ChromHMM states.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Number of ChromHMM states. The default value is 10."
+                },
                 "min_count": {
                     "type": "integer",
                     "default": 50,

@@ -86,6 +86,7 @@ workflow NFCORE_TFACTIVITY {
         ch_counts_design,
         samplesheet_bam,
         PREPARE_GENOME.out.chrom_sizes,
+        params.chromhmm_states,
         params.window_size,
         params.decay,
         params.merge_samples,

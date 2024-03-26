@@ -30,6 +30,7 @@ workflow PEAKS {
     agg_method
     ch_samplesheet_bam
     chrom_sizes
+    chromhmm_states
 
     main:
 
@@ -58,7 +59,7 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
-    CHROMHMM(ch_samplesheet_bam, chrom_sizes)
+    CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states)
 
     FILTER_PWMS(tfs, pwms)
 

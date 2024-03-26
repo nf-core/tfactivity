@@ -2,12 +2,14 @@
 include { SAMTOOLS_REHEADER as REHEADER_SIGNAL  } from '../../modules/nf-core/samtools/reheader'
 include { SAMTOOLS_REHEADER as REHEADER_CONTROL } from '../../modules/nf-core/samtools/reheader'
 include { BINARIZE_BAMS                         } from '../../modules/local/chromhmm/binarize_bams'
+include { LEARN_MODEL                           } from '../../modules/local/chromhmm/learn_model'
  
 workflow CHROMHMM {
 
     take:
     ch_samplesheet_bam
     chrom_sizes
+    n_states
 
     main:
 
@@ -31,18 +33,20 @@ workflow CHROMHMM {
     ch_joined  = ch_signal.join(ch_control)
     ch_mixed   = ch_signal.mix(ch_control)
 
-    ch_condition_table   = ch_joined .map{meta, signal, control -> [meta.condition, meta.antibody, signal.name, control.name]}
+    ch_table   = ch_joined .map{meta, signal, control -> [meta.condition, meta.antibody, signal.name, control.name]}
                                     .collectFile() {
-                                        [it[0] + ".tsv", it.join("\t") + "\n"]
-                                    }.map{[it.baseName, it]}
-
-    ch_conditions = ch_condition_table.join(
-        ch_mixed.map{meta, bam -> [meta.condition, bam]}.groupTuple()
-    ).map{condition, table, bams -> [[id: condition], table, bams]}
+                                        ["cellmarkfiletable.tsv", it.join("\t") + "\n"]
+                                    }.map{[it.baseName, it]}.collect()
 
     BINARIZE_BAMS(
-        ch_conditions,
+        ch_mixed.map{meta, bam -> bam}.collect().map{files -> [[id: "binarized"], files]},
+        ch_table,
         chrom_sizes
+    )
+
+    LEARN_MODEL(
+        BINARIZE_BAMS.out.map{meta, files -> files}.flatten().collect().map{files -> [[id: "binarized"], files]},
+        n_states
     )
 
 

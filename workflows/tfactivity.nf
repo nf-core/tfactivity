@@ -37,6 +37,7 @@ workflow TFACTIVITY {
     counts_design
     ch_samplesheet_bam
     chrom_sizes
+    chromhmm_states
 
     window_size
     decay
@@ -96,7 +97,8 @@ workflow TFACTIVITY {
         gene_map,
         affinity_agg_method,
         ch_samplesheet_bam,
-        chrom_sizes
+        chrom_sizes,
+        chromhmm_states
     )
 
     DYNAMITE(
