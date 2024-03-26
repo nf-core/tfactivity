@@ -38,6 +38,7 @@ workflow TFACTIVITY {
     ch_samplesheet_bam
     chrom_sizes
     chromhmm_states
+    rose_ucsc
 
     window_size
     decay
@@ -98,7 +99,8 @@ workflow TFACTIVITY {
         affinity_agg_method,
         ch_samplesheet_bam,
         chrom_sizes,
-        chromhmm_states
+        chromhmm_states,
+        rose_ucsc
     )
 
     DYNAMITE(

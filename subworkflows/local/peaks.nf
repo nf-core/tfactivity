@@ -12,6 +12,7 @@ include { COMBINE_TABLES as AFFINITY_SUM  } from '../../modules/local/combine_ta
 include { FOOTPRINTING               } from './footprinting'
 include { MERGE_SAMPLES              } from './merge_samples'
 include { CHROMHMM                   } from './chromhmm'
+include { ROSE                       } from './rose'
 
 workflow PEAKS {
 
@@ -31,6 +32,7 @@ workflow PEAKS {
     ch_samplesheet_bam
     chrom_sizes
     chromhmm_states
+    rose_ucsc
 
     main:
 
@@ -60,6 +62,10 @@ workflow PEAKS {
     }
 
     CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states)
+    ROSE(CHROMHMM.out.enhancers, rose_ucsc)
+
+    ch_versions = ch_versions.mix(CHROMHMM.out.versions)
+    ch_versions = ch_versions.mix(ROSE.out.versions)
 
     FILTER_PWMS(tfs, pwms)
 

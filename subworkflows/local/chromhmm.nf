@@ -34,6 +34,9 @@ workflow CHROMHMM {
     ch_joined  = ch_signal.join(ch_control)
     ch_mixed   = ch_signal.mix(ch_control)
 
+    ch_versions = ch_versions.mix(REHEADER_SIGNAL.out.versions)
+    ch_versions = ch_versions.mix(REHEADER_CONTROL.out.versions)
+
     ch_table   = ch_joined .map{meta, signal, control -> [meta.condition, meta.antibody, signal.name, control.name]}
                                     .collectFile() {
                                         ["cellmarkfiletable.tsv", it.join("\t") + "\n"]
@@ -50,8 +53,6 @@ workflow CHROMHMM {
         n_states
     )
 
-    LEARN_MODEL.out.transpose().view()
-
     GET_RESULTS(LEARN_MODEL.out.transpose()
                                 .map{meta, emmisions, bed ->
                                     [meta + [id: bed.simpleName.split("_")[0]],
@@ -62,6 +63,6 @@ workflow CHROMHMM {
     emit:
     enhancers = ch_enhancers
 
-    versions = ch_versions                     // channel: [ versions.yml ]
+    versions = ch_versions
 }
 
