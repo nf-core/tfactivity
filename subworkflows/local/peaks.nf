@@ -27,6 +27,7 @@ workflow PEAKS {
     tfs
     gene_map
     agg_method
+    ch_samplesheet_bam
 
     main:
 

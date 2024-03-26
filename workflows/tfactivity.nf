@@ -35,6 +35,7 @@ workflow TFACTIVITY {
     gene_map
     counts
     counts_design
+    ch_samplesheet_bam
     window_size
     decay
     merge_samples
@@ -91,7 +92,8 @@ workflow TFACTIVITY {
         ch_contrasts,
         COUNTS.out.tfs,
         gene_map,
-        affinity_agg_method
+        affinity_agg_method,
+        ch_samplesheet_bam
     )
 
     DYNAMITE(

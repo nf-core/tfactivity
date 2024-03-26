@@ -48,6 +48,7 @@ workflow NFCORE_TFACTIVITY {
 
     take:
     samplesheet // channel: samplesheet read in from --input
+    samplesheet_bam // channel: samplesheet read in from --input_bam
 
     main:
 
@@ -83,6 +84,7 @@ workflow NFCORE_TFACTIVITY {
         PREPARE_GENOME.out.gene_map,
         ch_counts,
         ch_counts_design,
+        samplesheet_bam,
         params.window_size,
         params.decay,
         params.merge_samples,
@@ -135,7 +137,8 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_TFACTIVITY (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.samplesheet,
+        PIPELINE_INITIALISATION.out.samplesheet_bam
     )
 
     //
