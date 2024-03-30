@@ -112,6 +112,12 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
+> **TF-Prioritizer: a Java pipeline to prioritize condition-specific transcription factors**
+>
+> Markus Hoffmann, Nico Trummer, Leon Schwartz, Jakub Jankowski, Hye Kyung Lee, Lina-Liv Willruth, Olga Lazareva, Kevin Yuan, Nina Baumgarten, Florian Schmidt, Jan Baumbach, Marcel H Schulz, David B Blumenthal, Lothar Hennighausen & Markus List
+>
+> GigaScience, Volume 12, 2023, giad026, https://doi.org/10.1093/gigascience/giad026
+
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use nf-core/tfactivity for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
 
