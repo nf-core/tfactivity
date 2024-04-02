@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block tabs %} {% from 'macros.html' import tabs %} {{ tabs(active="net") }} {% endblock %}
+{% block content %}
+<div id="3d-graph"></div>
+{% endblock %} {% block scripts %}
+<script src="ranking.js"></script>
+<script src="dependencies/3d-force-graph.js"></script>
+<script>
+    const tf_tg_ranking = {{ tf_tg_ranking | tojson }};
+    const assays = {{ assays | tojson }};
+    const secondary_ranking = getSecondaryRanking(assays, tf_tg_ranking);
+    const top_k_tgs = 20;
+
+    const filtered_ranking = Object.entries(secondary_ranking)
+        .reduce(function (acc, [tf, tg_rank]) {
+            return {
+                ...acc, [tf]: Object.entries(tg_rank)
+                    .filter(([tg, rank]) => rank < top_k_tgs)
+                    .reduce(function (acc, [tg, rank]) {
+                        return { ...acc, [tg]: rank }
+                    }, {})
+            }
+        }, {})
+
+    let tfs = Object.keys(filtered_ranking);
+    let tgs = [...new Set(Object.values(filtered_ranking)
+        .map(tg_rank => Object.entries(tg_rank))
+        .flat()
+        .map(([tg, rank]) => tg))];
+
+    let autoRegulating = tfs.filter(tf => tgs.includes(tf))
+    tfs = tfs.filter(tf => !autoRegulating.includes(tf)).map(tf => ({ id: tf, color: 'red' }));
+    tgs = tgs.filter(tg => !autoRegulating.includes(tg)).map(tg => ({ id: tg, color: 'blue' }));
+    autoRegulating = autoRegulating.map(tf => ({ id: tf, color: 'green' }));
+
+    const nodes = tfs.concat(tgs).concat(autoRegulating);
+    const links = Object.entries(filtered_ranking)
+        .map(([tf, tgs]) => Object.keys(tgs)
+            .map(tg => ({ source: tf, target: tg, curvature: tf == tg ? 0.5 : 0 })))
+        .flat();
+
+    const gData = {
+        nodes: nodes,
+        links: links
+    };
+
+    const Graph = ForceGraph3D()
+        (document.getElementById('3d-graph'))
+        .graphData(gData)
+        .linkCurvature('curvature')
+        .linkDirectionalArrowLength(3)
+        .linkDirectionalParticles(1)
+        .linkDirectionalParticleSpeed(0.005)
+        .linkDirectionalParticleWidth(2)
+        .d3Force('charge').strength(-120);
+</script>
+{% endblock %}

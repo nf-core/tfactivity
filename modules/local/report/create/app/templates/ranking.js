@@ -1,30 +1,36 @@
+const getRanking = function (inputDcgs, assays) {
+  const scores = Object.entries(inputDcgs).reduce(function (acc, [value, dcgs]) {
+    if (assays.some((assay) => Object.keys(dcgs).includes(assay))) {
+      acc[value] =
+        assays.reduce(function (acc, assay) {
+          return acc + (dcgs[assay] || 0);
+        }, 0) / assays.length;
+    } else {
+      acc[value] = -1;
+    }
+    return acc;
+  }, {});
+
+  const order = Object.keys(scores).sort(function (a, b) {
+    return scores[b] - scores[a];
+  });
+
+  const ranks = order.reduce(function (acc, primary, index) {
+    acc[primary] = index;
+    return acc;
+  }, {});
+
+  return ranks;
+};
+
+const getSecondaryRanking = function (activeAssays, secondary_ranking) {
+  return Object.entries(secondary_ranking).reduce(function (acc, [primary, currentRanking]) {
+    return {...acc, [primary]: getRanking(currentRanking, activeAssays)};
+  }, {});
+}
+
 const initRanking = async function (primary_ranking, secondary_ranking) {
   const assayChips = Array.from(document.querySelectorAll('[id^="assay-"]'));
-
-  const getRanking = function (inputDcgs, assays) {
-    const scores = Object.entries(inputDcgs).reduce(function (acc, [value, dcgs]) {
-      if (assays.some((assay) => Object.keys(dcgs).includes(assay))) {
-        acc[value] =
-          assays.reduce(function (acc, assay) {
-            return acc + (dcgs[assay] || 0);
-          }, 0) / assays.length;
-      } else {
-        acc[value] = -1;
-      }
-      return acc;
-    }, {});
-
-    const order = Object.keys(scores).sort(function (a, b) {
-      return scores[b] - scores[a];
-    });
-
-    const ranks = order.reduce(function (acc, primary, index) {
-      acc[primary] = index;
-      return acc;
-    }, {});
-
-    return ranks;
-  };
 
   const updatePrimaryRanking = async function (activeAssays) {
     const primaryRank = getRanking(primary_ranking, activeAssays);
@@ -36,10 +42,9 @@ const initRanking = async function (primary_ranking, secondary_ranking) {
   };
 
   const updateSecondaryRanking = async function (activeAssays) {
-    for (const primary in secondary_ranking) {
-      const currentRanking = secondary_ranking[primary];
-      const tgRank = getRanking(currentRanking, activeAssays);
-
+    const ranking = getSecondaryRanking(activeAssays, secondary_ranking);
+    for (const primary in ranking) {
+      const tgRank = ranking[primary];
       const showedSecondaries = [];
 
       Object.entries(tgRank).forEach(function ([secondary, rank]) {

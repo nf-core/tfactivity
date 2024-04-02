@@ -16,6 +16,9 @@ out_dir = "report"
 # Copy app_dir to current directory
 shutil.copytree(module_app, os.path.join(os.getcwd(), app_dir), dirs_exist_ok=True)
 
+# Copy dependencies to report
+shutil.copytree(os.path.join(app_dir, "dependencies"), os.path.join(out_dir, "dependencies"), dirs_exist_ok=True)
+
 params = json.loads(r'$params_string')
 schema_path = "$schema"
 with open(schema_path) as f:
@@ -42,7 +45,7 @@ tf_ranking = {
     for tf, ranks in df_ranking.to_dict(orient="index").items()
 }
 
-assays = df_ranking.columns
+assays = df_ranking.columns.tolist()
 sorted(assays, reverse=True)
 
 raw_tf_tg_ranking = {
@@ -89,6 +92,7 @@ sorted(pairings)
 
 tf = env.get_template("tf.html")
 tg = env.get_template("tg.html")
+network = env.get_template("network.html")
 snp = env.get_template("snp.html")
 configuration = env.get_template("configuration.html")
 styles = env.get_template("styles.css")
@@ -108,6 +112,11 @@ with open(os.path.join(out_dir, "target_genes.html"), "w") as f:
                       tg_tf_ranking=tg_tf_ranking,
                       differential=differential,
                       pairings=pairings))
+
+with open(os.path.join(out_dir, "network.html"), "w") as f:
+    f.write(network.render(tf_tg_ranking=tf_tg_ranking,
+                           assays=assays,
+                           ))
 
 with open(os.path.join(out_dir, "snps.html"), "w") as f:
     f.write(snp.render())
