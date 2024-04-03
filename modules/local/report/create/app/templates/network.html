@@ -58,6 +58,7 @@
     const highlightNodes = new Set();
     const highlightLinks = new Set();
     let hoverNode = null;
+    let hoverLink = null;
 
     getColor = (node) => {
         if (highlightNodes.size && !highlightNodes.has(node)) {
@@ -111,6 +112,9 @@
             updateHighlight();
         })
         .onLinkHover(link => {
+            // no state change
+            if ((!link && !highlightLinks.size) || (link && hoverLink === link)) return;
+
             highlightNodes.clear();
             highlightLinks.clear();
 
@@ -119,6 +123,8 @@
                 highlightNodes.add(link.source);
                 highlightNodes.add(link.target);
             }
+
+            hoverLink = link || null;
 
             updateHighlight();
         })
