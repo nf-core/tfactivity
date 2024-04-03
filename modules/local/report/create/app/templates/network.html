@@ -28,41 +28,95 @@
         .map(([tg, rank]) => tg))];
 
     let autoRegulating = tfs.filter(tf => tgs.includes(tf))
-    tfs = tfs.filter(tf => !autoRegulating.includes(tf)).map(tf => ({ id: tf, color: 'red' }));
-    tgs = tgs.filter(tg => !autoRegulating.includes(tg)).map(tg => ({ id: tg, color: 'blue' }));
-    autoRegulating = autoRegulating.map(tf => ({ id: tf, color: 'green' }));
+    tfs = tfs.filter(tf => !autoRegulating.includes(tf)).map(tf => ({ id: tf, type: 'tf' }));
+    tgs = tgs.filter(tg => !autoRegulating.includes(tg)).map(tg => ({ id: tg, type: 'tg' }));
+    autoRegulating = autoRegulating.map(tf => ({ id: tf, type: 'auto' }));
 
-    const nodes = tfs.concat(tgs).concat(autoRegulating);
-    const links = Object.entries(filtered_ranking)
-        .map(([tf, tgs]) => Object.keys(tgs)
-            .map(tg => ({ source: tf, target: tg, curvature: tf == tg ? 0.5 : 0 })))
-        .flat();
+    const nodes = tfs.concat(tgs).concat(autoRegulating).map(node => ({ ...node, links: [], neighbors: [] }))
+    const links = []
+
+    for (const tf in filtered_ranking) {
+        for (const tg in filtered_ranking[tf]) {
+            const link = { source: tf, target: tg, curvature: tf === tg ? 0.5 : 0 };
+            links.push(link);
+
+            source_node = nodes.find(node => node.id === tf);
+            target_node = nodes.find(node => node.id === tg);
+
+            source_node.links.push(link);
+            target_node.links.push(link);
+            source_node.neighbors.push(target_node);
+            target_node.neighbors.push(source_node);
+        }
+    }
 
     const gData = {
         nodes: nodes,
         links: links
     };
 
+    const highlightNodes = new Set();
+    const highlightLinks = new Set();
+    let hoverNode = null;
+
     const Graph = lib.ForceGraph3D()
         (document.getElementById('3d-graph'))
         .graphData(gData)
         .linkCurvature('curvature')
+        .linkWidth(link => highlightLinks.has(link) ? 4 : 1)
+        .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 1)
+        .linkDirectionalParticleWidth(4)
         .linkDirectionalArrowLength(3)
-        .linkDirectionalParticles(1)
         .linkDirectionalParticleSpeed(0.005)
-        .linkDirectionalParticleWidth(2)
         .nodeThreeObject(node => {
             const sprite = new lib.SpriteText(node.id);
             sprite.material.depthWrite = false; // make sprite background transparent
-            sprite.color = node.color;
+            sprite.color = highlightNodes.has(node) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' : 'rgba(0,255,255,0.6)';
             sprite.textHeight = 8;
             return sprite;
-          })
+        })
         .onNodeDragEnd(node => {
             node.fx = node.x;
             node.fy = node.y;
             node.fz = node.z;
-          })
-        .d3Force('charge').strength(-120);
+        })
+        .onNodeHover(node => {
+            // no state change
+            if ((!node && !highlightNodes.size) || (node && hoverNode === node)) return;
+
+            highlightNodes.clear();
+            highlightLinks.clear();
+            if (node) {
+                highlightNodes.add(node);
+                node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
+                node.links.forEach(link => highlightLinks.add(link));
+            }
+
+            hoverNode = node || null;
+
+            updateHighlight();
+        })
+        .onLinkHover(link => {
+            highlightNodes.clear();
+            highlightLinks.clear();
+
+            if (link) {
+                highlightLinks.add(link);
+                highlightNodes.add(link.source);
+                highlightNodes.add(link.target);
+            }
+
+            updateHighlight();
+        })
+        
+    Graph.d3Force('charge').strength(-120);
+
+    function updateHighlight() {
+        // trigger update of highlighted objects in scene
+        Graph
+            .linkWidth(Graph.linkWidth())
+            .linkDirectionalParticles(Graph.linkDirectionalParticles())
+            .nodeThreeObject(Graph.nodeThreeObject());
+    }
 </script>
 {% endblock %}
