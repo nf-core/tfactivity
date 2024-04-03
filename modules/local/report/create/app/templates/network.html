@@ -3,7 +3,7 @@
 <div id="3d-graph"></div>
 {% endblock %} {% block scripts %}
 <script src="ranking.js"></script>
-<script src="dependencies/3d-force-graph.js"></script>
+<script src="dependencies/lib.js"></script>
 <script>
     const tf_tg_ranking = {{ tf_tg_ranking | tojson }};
     const assays = {{ assays | tojson }};
@@ -43,7 +43,7 @@
         links: links
     };
 
-    const Graph = ForceGraph3D()
+    const Graph = lib.ForceGraph3D()
         (document.getElementById('3d-graph'))
         .graphData(gData)
         .linkCurvature('curvature')
@@ -51,6 +51,13 @@
         .linkDirectionalParticles(1)
         .linkDirectionalParticleSpeed(0.005)
         .linkDirectionalParticleWidth(2)
+        .nodeThreeObject(node => {
+            const sprite = new lib.SpriteText(node.id);
+            sprite.material.depthWrite = false; // make sprite background transparent
+            sprite.color = node.color;
+            sprite.textHeight = 8;
+            return sprite;
+          })
         .d3Force('charge').strength(-120);
 </script>
 {% endblock %}
