@@ -1,3 +1,3 @@
 #!/bin/bash
 
-esbuild --bundle lib.js --format=iife --global-name=lib --outfile=../dependencies/lib.js
+esbuild --bundle --minify lib.js --format=iife --global-name=lib --outfile=../dependencies/lib.js
