@@ -59,19 +59,33 @@
     const highlightLinks = new Set();
     let hoverNode = null;
 
+    getColor = (node) => {
+        if (highlightNodes.size && !highlightNodes.has(node)) {
+            return 'gray';
+        }
+
+        if (node.type === 'tf') {
+            return 'red';
+        } else if (node.type === 'tg') {
+            return 'blue';
+        } else {
+            return 'green';
+        }
+    }
+
     const Graph = lib.ForceGraph3D()
         (document.getElementById('3d-graph'))
         .graphData(gData)
         .linkCurvature('curvature')
-        .linkWidth(link => highlightLinks.has(link) ? 4 : 1)
+        .linkWidth(link => highlightLinks.has(link) ? 2 : 0.5)
         .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 1)
-        .linkDirectionalParticleWidth(4)
+        .linkDirectionalParticleWidth(2.5)
         .linkDirectionalArrowLength(3)
         .linkDirectionalParticleSpeed(0.005)
         .nodeThreeObject(node => {
             const sprite = new lib.SpriteText(node.id);
             sprite.material.depthWrite = false; // make sprite background transparent
-            sprite.color = highlightNodes.has(node) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' : 'rgba(0,255,255,0.6)';
+            sprite.color = getColor(node);
             sprite.textHeight = 8;
             return sprite;
         })
@@ -108,7 +122,7 @@
 
             updateHighlight();
         })
-        
+
     Graph.d3Force('charge').strength(-120);
 
     function updateHighlight() {
