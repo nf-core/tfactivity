@@ -82,7 +82,7 @@ sample3,condition2
 sample4,condition3
 ```
 
-The `sample` column should match the columns in the expression matrix. The `condition` column is needs to match the `condition` column in the samplesheet. Additional covariates can be added to the design matrix and will be used in the differential expression analysis.
+The `sample` column should match the columns in the expression matrix. The `condition` column is needs to match the `condition` column in the samplesheet. Additionally,batches can be added to the design matrix and will be considered in the differential expression analysis.
 
 Now, you can run the pipeline using:
 

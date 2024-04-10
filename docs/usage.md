@@ -6,56 +6,133 @@
 
 ## Introduction
 
-## Samplesheet input
+The following inputs can be processed by the pipeline:
+- Chromatin accessibility data (at least one of the following)
+  - Peaks in BED3-compatible format (e.g. broadPeak), parameter `--input`
+  - BAM files, parameter `--input_bam`
+- Gene expression data (all of the following)
+  - Raw count matrix (e.g. from nf-core/rnaseq), parameter `--counts`
+  - Design matrix assigning conditions and optionally batch information to the samples provided in the count matrix, parameter `--counts_design`
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+The conditions in the peak/BAM samplesheets need to match the conditions in the design matrix.
 
-```bash
---input '[path to samplesheet file]'
+### Peaks samplesheet
+
+The samplesheet for peak files can look as follows:
+
+```csv
+sample,condition,assay,peak_file
+condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.broadPeak
+condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.broadPeak
+condition1_H3K4me3,condition1,H3K4me3,condition1_H3K4me3.broadPeak
+condition2_H3K27ac,condition2,H3K27ac,condition2_H3K27ac.broadPeak
+condition3_H3K27ac,condition3,H3K27ac,condition3_H3K27ac.broadPeak
+condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.broadPeak
+```
+Note, that only the first three columns (chromosome, start, end) of the `bed` format are used.
+
+There are some optional columns which can be added to the samplesheet to configure the footprinting:
+
+```csv
+sample,condition,assay,peak_file,footprinting,include_original,max_peak_gap
+condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.broadPeak,true,true,500
+condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.broadPeak,true,true,500
+condition1_H3K4me3,condition1,H3K4me3,condition1_H3K4me3.broadPeak,true,true,500
+condition2_H3K27ac,condition2,H3K27ac,condition2_H3K27ac.broadPeak,true,true,500
+condition3_H3K27ac,condition3,H3K27ac,condition3_H3K27ac.broadPeak,true,true,500
+condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.broadPeak,true,true,500
+condition1_ATAC-seq,condition1,ATAC-seq,condition1_ATAC-seq.broadPeak,false,,
 ```
 
-### Multiple runs of the same sample
+- `footprinting`: Whether to perform footprinting analysis on the peaks. If enabled, the regions between close peaks will be scanned for transcription factor affinity. This is recommended for Histone modification ChIP-seq data, but not for ATAC-Seq and DNase-Seq data. Default: `true`
+- `include_original`: Whether to include the original peaks in the footprinting analysis. Default: `true`
+- `max_peak_gap`: Maximum number of base pairs between two peaks to be considered as a single region for footprinting analysis. Default: `500`
 
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+### BAM samplesheet
 
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
+The samplesheet for BAM files can look as follows:
+
+```csv
+sample,condition,assay,signal,control
+condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.bam,condition1_control.bam
+condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.bam,condition1_control.bam
+condition1_H3K4me3,condition1,H3K4me3,condition1_H3K4me3.bam,condition1_control.bam
+condition2_H3K27ac,condition2,H3K27ac,condition2_H3K27ac.bam,condition2_control.bam
+condition3_H3K27ac,condition3,H3K27ac,condition3_H3K27ac.bam,condition3_control.bam
+condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.bam,condition3_control.bam
 ```
 
-### Full samplesheet
+The first three columns are the same as in the peak file samplesheet. The `signal` column should contain the path to the signal BAM file. The `control` column should contain the path to the control BAM file.
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
+These files are used to predict enhancer regions in the following way:
+- Train chromHMM on the signal and control BAM files
+- Identify states that are enriched for either `H3K27ac` or `H3K4me3`
+- Extract the regions of these states
+- Merge close regions to enhancer regions using the ROSE algorithm
 
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
+The resulting enhancer regions are then used as if they were peak files provided in the peak samplesheet. However, footprinting analysis is not performed on these regions.
 
-```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+### Gene expression data
+Gene expression data can be provided in two ways. In both ways, it should be raw counts per gene ID across samples.
+1. A single count matrix with gene IDs as rows and samples as columns. This matrix should be provided with the `--counts` parameter. The `--counts_design` parameter is used to match samples in the count matrix to conditions (and optionally batches).
+2. A gene list file and one count file per sample. In this case, provide the gene list file with the `--counts` parameter and use the `counts_file` column in `--counts_design` to specify the count files. The files will be merged into a single count matrix (as in the first option) before further processing.
+
+#### Single count matrix
+
+The count matrix (`--counts`) should look like this:
+
+```csv
+gene_id,sample1,sample2,sample3
+ENSG00000000001,10,20,30
+ENSG00000000002,5,10,15
+ENSG00000000003,2,4,6
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+The design matrix (`--counts_design`) should look like this:
 
-An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+```csv
+sample,condition
+sample1,condition1
+sample2,condition1
+sample3,condition2
+```
+
+#### Gene list and multiple count files
+
+The gene list file (`--counts`) should look like this:
+
+```csv
+ENSG00000000001
+ENSG00000000002
+ENSG00000000003
+```
+
+The design matrix (`--counts_design`) should look like this:
+
+```csv
+sample,condition,counts_file
+sample1,condition1,sample1_counts.txt
+sample2,condition1,sample2_counts.txt
+sample3,condition2,sample3_counts.txt
+```
+
+#### Batch effect correction
+
+Optionally, you can specify a column `batch` in the design matrix to correct for batch effects. The batch effect correction is performed using DESeq2. This is possible for both the single count matrix and the gene list with multiple count files.
+
+```csv
+sample,condition,batch
+sample1,condition1,batch1
+sample2,condition1,batch2
+sample3,condition2,batch2
+```
 
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/tfactivity --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
+nextflow run nf-core/tfactivity --input ./samplesheet.csv --counts ./count_matrix.csv --counts_design ./counts_design.csv --outdir ./results --genome GRCh37 -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
