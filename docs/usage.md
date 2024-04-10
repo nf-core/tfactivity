@@ -116,6 +116,14 @@ sample2,condition1,sample2_counts.txt
 sample3,condition2,sample3_counts.txt
 ```
 
+In this case, the count files should look like this:
+```
+10
+20
+30
+```
+The number of rows in each count file needs to match the number of rows in the gene list file.
+
 #### Batch effect correction
 
 Optionally, you can specify a column `batch` in the design matrix to correct for batch effects. The batch effect correction is performed using DESeq2. This is possible for both the single count matrix and the gene list with multiple count files.
