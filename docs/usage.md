@@ -20,7 +20,7 @@ The conditions in the peak/BAM samplesheets need to match the conditions in the 
 
 The samplesheet for peak files can look as follows:
 
-```csv
+```csv title="samplesheet.csv" caption="Required columns for peak files"
 sample,condition,assay,peak_file
 condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.broadPeak
 condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.broadPeak
@@ -29,11 +29,13 @@ condition2_H3K27ac,condition2,H3K27ac,condition2_H3K27ac.broadPeak
 condition3_H3K27ac,condition3,H3K27ac,condition3_H3K27ac.broadPeak
 condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.broadPeak
 ```
-Note, that only the first three columns (chromosome, start, end) of the `bed` format are used.
+:::note
+Only the first three columns (chromosome, start, end) of the `bed` format are used.
+:::
 
 There are some optional columns which can be added to the samplesheet to configure the footprinting:
 
-```csv
+```csv title="samplesheet.csv" caption="Optional columns for footprinting"
 sample,condition,assay,peak_file,footprinting,include_original,max_peak_gap
 condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.broadPeak,true,true,500
 condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.broadPeak,true,true,500
@@ -52,7 +54,7 @@ condition1_ATAC-seq,condition1,ATAC-seq,condition1_ATAC-seq.broadPeak,false,,
 
 The samplesheet for BAM files can look as follows:
 
-```csv
+```csv title="samplesheet_bam.csv" caption="Required columns for BAM files"
 sample,condition,assay,signal,control
 condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.bam,condition1_control.bam
 condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.bam,condition1_control.bam
@@ -122,7 +124,9 @@ In this case, the count files should look like this:
 20
 30
 ```
+:::warning
 The number of rows in each count file needs to match the number of rows in the gene list file.
+:::
 
 #### Batch effect correction
 

@@ -41,9 +41,7 @@ It is strongly based on the TF-Prioritizer, with the following workflow:
 
 The pipeline supports processing of previously called peaks from ATAC-seq, DNase-seq, or histone modification ChIP-seq data. The peaks can then either be used as-is or be subjected to footprinting analysis. Additionally, BAM files can be provided in a separate samplesheet, which will be used to predict enhancer regions.
 
-Here an example `samplesheet.csv` for peak files:
-
-```csv
+```csv title="samplesheet.csv"
 sample,condition,assay,peak_file
 condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.broadPeak
 condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.broadPeak
@@ -55,9 +53,7 @@ condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.broadPeak
 
 Each row represents a peak file. The `sample` column should contain a unique identifier for each peak file. The `peak_file` column should contain the path to the peak file. Peak files need to be in a format that is compatible with the `bed` format. Only the first three columns of the `bed` format are used.
 
-And here an example `samplesheet.csv` for BAM files:
-
-```csv
+```csv title="samplesheet_bam.csv"
 sample,condition,assay,signal,control
 condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.bam,condition1_control.bam
 condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.bam,condition1_control.bam
@@ -72,9 +68,7 @@ The first three columns are the same as in the peak file samplesheet. The `signa
 
 Second, you need a raw count matrix (e.g. from [nf-core/rnaseq](https://nf-co.re/rnaseq)) with gene IDs as rows and samples as columns. You also need a design matrix that specifies the conditions of the samples in the count matrix. The design matrix should look as follows:
 
-`design_matrix.csv`:
-
-```csv
+```csv title="design_matrix.csv"
 sample,condition
 sample1,condition1
 sample2,condition1
@@ -83,6 +77,10 @@ sample4,condition3
 ```
 
 The `sample` column should match the columns in the expression matrix. The `condition` column is needs to match the `condition` column in the samplesheet. Additionally,batches can be added to the design matrix and will be considered in the differential expression analysis.
+
+:::tip
+There is an alternative way of providing expression values. Instead of providing a single count matrix for all samples, you can provide a gene list and one count file per sample. Details can be found in the [usage documentation](https://nf-co.re/tfactivity/usage).
+:::
 
 Now, you can run the pipeline using:
 
