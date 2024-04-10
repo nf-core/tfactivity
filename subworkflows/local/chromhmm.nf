@@ -26,7 +26,7 @@ workflow CHROMHMM {
 
     def remove_type = {meta, bam -> [[  id: meta.id,
                                         condition: meta.condition,
-                                        antibody: meta.antibody],
+                                        assay: meta.assay],
                                     bam]}
 
     ch_signal  = REHEADER_SIGNAL (ch_bams.signal ).bam.map{meta, bam -> remove_type(meta, bam)}
@@ -37,7 +37,7 @@ workflow CHROMHMM {
     ch_versions = ch_versions.mix(REHEADER_SIGNAL.out.versions)
     ch_versions = ch_versions.mix(REHEADER_CONTROL.out.versions)
 
-    ch_table   = ch_joined .map{meta, signal, control -> [meta.condition, meta.antibody, signal.name, control.name]}
+    ch_table   = ch_joined .map{meta, signal, control -> [meta.condition, meta.assay, signal.name, control.name]}
                                     .collectFile() {
                                         ["cellmarkfiletable.tsv", it.join("\t") + "\n"]
                                     }.map{[it.baseName, it]}.collect()

@@ -39,9 +39,9 @@ It is strongly based on the TF-Prioritizer, with the following workflow:
 > [!NOTE]
 > If you are new to Nextflow and nf-core, please refer to [this page](https://nf-co.re/docs/usage/installation) on how to set-up Nextflow. Make sure to [test your setup](https://nf-co.re/docs/usage/introduction#how-to-run-a-pipeline) with `-profile test` before running the workflow on actual data.
 
-First, prepare a samplesheet with your input data that looks as follows:
+The pipeline supports processing of previously called peaks from ATAC-seq, DNase-seq, or histone modification ChIP-seq data. The peaks can then either be used as-is or be subjected to footprinting analysis. Additionally, BAM files can be provided in a separate samplesheet, which will be used to predict enhancer regions.
 
-`samplesheet.csv`:
+Here an example `samplesheet.csv` for peak files:
 
 ```csv
 sample,condition,assay,peak_file
@@ -54,6 +54,21 @@ condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.broadPeak
 ```
 
 Each row represents a peak file. The `sample` column should contain a unique identifier for each peak file. The `peak_file` column should contain the path to the peak file. Peak files need to be in a format that is compatible with the `bed` format. Only the first three columns of the `bed` format are used.
+
+And here an example `samplesheet.csv` for BAM files:
+
+```csv
+sample,condition,assay,signal,control
+condition1_H3K27ac_1,condition1,H3K27ac,condition1_H3K27ac_1.bam,condition1_control.bam
+condition1_H3K27ac_2,condition1,H3K27ac,condition1_H3K27ac_2.bam,condition1_control.bam
+condition1_H3K4me3,condition1,H3K4me3,condition1_H3K4me3.bam,condition1_control.bam
+condition2_H3K27ac,condition2,H3K27ac,condition2_H3K27ac.bam,condition2_control.bam
+condition3_H3K27ac,condition3,H3K27ac,condition3_H3K27ac.bam,condition3_control.bam
+condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.bam,condition3_control.bam
+```
+
+The first three columns are the same as in the peak file samplesheet. The `signal` column should contain the path to the signal BAM file. The `control` column should contain the path to the control BAM file.
+
 
 Second, you need a raw count matrix (e.g. from [nf-core/rnaseq](https://nf-co.re/rnaseq)) with gene IDs as rows and samples as columns. You also need a design matrix that specifies the conditions of the samples in the count matrix. The design matrix should look as follows:
 
