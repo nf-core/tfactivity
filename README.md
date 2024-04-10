@@ -55,7 +55,7 @@ condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.broadPeak
 
 Each row represents a peak file. The `sample` column should contain a unique identifier for each peak file. The `peak_file` column should contain the path to the peak file. Peak files need to be in a format that is compatible with the `bed` format. Only the first three columns of the `bed` format are used.
 
-Second, create a design matrix for the expression data like this:
+Second, you need a raw count matrix (e.g. from [nf-core/rnaseq](https://nf-co.re/rnaseq)) with gene IDs as rows and samples as columns. You also need a design matrix that specifies the conditions of the samples in the count matrix. The design matrix should look as follows:
 
 `design_matrix.csv`:
 
@@ -70,8 +70,6 @@ sample4,condition3
 The `sample` column should match the columns in the expression matrix. The `condition` column is needs to match the `condition` column in the samplesheet. Additional covariates can be added to the design matrix and will be used in the differential expression analysis.
 
 Now, you can run the pipeline using:
-
-<!-- TODO nf-core: update the following command to include all required parameters for a minimal example -->
 
 ```bash
 nextflow run nf-core/tfactivity \
