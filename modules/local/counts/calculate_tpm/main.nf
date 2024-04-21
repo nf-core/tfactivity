@@ -18,14 +18,5 @@ process CALCULATE_TPM {
     path  "versions.yml"              , emit: versions
 
     script:
-    """
-    calculate_tpm.py --counts ${counts} --lengths ${lengths} --gene_map ${gene_map} --output ${meta.id}.tpm.tsv
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-        pandas: \$(python -c "import pandas; print(pandas.__version__)")
-        numpy: \$(python -c "import numpy; print(numpy.__version__)")
-    END_VERSIONS
-    """
+    template "calculate_tpm.py"
 }

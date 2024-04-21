@@ -1,5 +1,5 @@
 include { COMBINE_COUNTS } from "../../modules/local/counts/combine/main"
-include { CALCULATE_TPM } from "../../modules/local/counts/calculate_tpm"
+include { CALCULATE_TPM } from "../../modules/local/counts/calculate_tpm/main"
 include { FILTER_GENES } from "../../modules/local/counts/filter_genes"
 include { FILTER_GENES as FILTER_TFS } from "../../modules/local/counts/filter_genes"
 include { PREPARE_DESIGN } from "../../modules/local/counts/prepare_design"

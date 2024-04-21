@@ -3,7 +3,7 @@ include { GAWK as CLEAN_BED               } from '../../modules/nf-core/gawk/mai
 include { BEDTOOLS_SORT as SORT_PEAKS     } from '../../modules/nf-core/bedtools/sort/main'
 include { FILTER_PWMS                     } from '../../modules/local/peaks/filter_pwms'
 include { STARE                           } from '../../modules/local/peaks/stare'
-include { AGGREGATE_SYNONYMS              } from '../../modules/local/peaks/aggregate_synonyms'
+include { AGGREGATE_SYNONYMS              } from '../../modules/local/peaks/aggregate_synonyms/main'
 include { COMBINE_TABLES as AFFINITY_MEAN } from '../../modules/local/combine_tables/main'
 include { COMBINE_TABLES as AFFINITY_RATIO} from '../../modules/local/combine_tables/main'
 include { COMBINE_TABLES as AFFINITY_SUM  } from '../../modules/local/combine_tables/main'
