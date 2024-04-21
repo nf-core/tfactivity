@@ -11,6 +11,8 @@ workflow CHROMHMM {
     ch_samplesheet_bam
     chrom_sizes
     n_states
+    threshold
+    marks
 
     main:
 
@@ -56,7 +58,7 @@ workflow CHROMHMM {
     GET_RESULTS(LEARN_MODEL.out.transpose()
                                 .map{meta, emmisions, bed ->
                                     [meta + [id: bed.simpleName.split("_")[0]],
-                                    emmisions, bed]})
+                                    emmisions, bed]}, threshold, marks)
 
     ch_enhancers = GET_RESULTS.out.map{meta, bed -> [[condition: meta.id, assay: "chromHMM_enhancers"], bed]}
                                     .map{meta, bed -> [meta + [id: meta.condition + "_" + meta.assay], bed]}

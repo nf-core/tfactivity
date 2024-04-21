@@ -8,8 +8,8 @@ process COMBINE_COUNTS {
         'biocontainers/mulled-v2-2076f4a3fb468a04063c9e6b7747a630abb457f6:fccb0c41a243c639e11dd1be7b74f563e624fcca-0' }"
 
     input:
-    tuple val(meta), path(counts), path(design)
-    path(extra_counts)
+    tuple val(meta), path(counts)
+    tuple val(samples), path(extra_files)
     tuple val(meta2), path(gene_map)
     val(agg_method)
 
@@ -19,13 +19,5 @@ process COMBINE_COUNTS {
     path  "versions.yml"                , emit: versions
 
     script:
-    """
-    combine_counts.py --counts ${counts} --agg_method ${agg_method} --gene_map ${gene_map} --metadata ${design} --output ${meta.id}.clean.tsv
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-        pandas: \$(python -c "import pandas; print(pandas.__version__)")
-    END_VERSIONS
-    """
+    template "combine.py"
 }

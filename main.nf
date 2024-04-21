@@ -50,6 +50,7 @@ workflow NFCORE_TFACTIVITY {
     take:
     samplesheet // channel: samplesheet read in from --input
     samplesheet_bam // channel: samplesheet read in from --input_bam
+    counts_design // channel: counts design file read in from --counts_design
 
     main:
 
@@ -60,7 +61,6 @@ workflow NFCORE_TFACTIVITY {
     ch_blacklist = Channel.value(file(params.blacklist))
     ch_pwms  = Channel.value(file(params.pwms))
     ch_counts = Channel.value(file(params.counts))
-    ch_counts_design = Channel.value(file(params.counts_design))
 
     //
     // SUBWORKFLOW: Prepare genome
@@ -69,6 +69,8 @@ workflow NFCORE_TFACTIVITY {
         ch_fasta,
         ch_gtf
     )
+
+    ch_extra_counts = counts_design.filter{ meta, file -> file }
 
     ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
 
@@ -84,10 +86,14 @@ workflow NFCORE_TFACTIVITY {
         PREPARE_GENOME.out.gene_lengths,
         PREPARE_GENOME.out.gene_map,
         ch_counts,
-        ch_counts_design,
+        ch_extra_counts,
+        Channel.value(file(params.counts_design, checkIfExists: true))
+            .map{ design -> [[id: "design"], design]},
         samplesheet_bam,
         PREPARE_GENOME.out.chrom_sizes,
         params.chromhmm_states,
+        params.chromhmm_threshold,
+        params.chromhmm_marks,
         params.rose_ucsc,
         params.window_size,
         params.decay,
@@ -142,7 +148,8 @@ workflow {
     //
     NFCORE_TFACTIVITY (
         PIPELINE_INITIALISATION.out.samplesheet,
-        PIPELINE_INITIALISATION.out.samplesheet_bam
+        PIPELINE_INITIALISATION.out.samplesheet_bam,
+        PIPELINE_INITIALISATION.out.counts_design
     )
 
     //

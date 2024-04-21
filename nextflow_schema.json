@@ -129,6 +129,20 @@
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Number of ChromHMM states. The default value is 10."
                 },
+                "chromhmm_threshold": {
+                    "type": "number",
+                    "default": 0.9,
+                    "description": "Threshold for ChromHMM enhancer detection.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Threshold for ChromHMM enhancer detection. The default value is 0.9."
+                },
+                "chromhmm_marks": {
+                    "type": "array",
+                    "default": ["H3K27ac", "H3K4me3"],
+                    "description": "ChromHMM enhancer marks.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ChromHMM enhancer marks. The default value is `['H3K27ac', 'H3K4me3']`."
+                },
                 "min_count": {
                     "type": "integer",
                     "default": 50,

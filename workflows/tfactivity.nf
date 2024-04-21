@@ -34,10 +34,13 @@ workflow TFACTIVITY {
     gene_lengths
     gene_map
     counts
+    extra_counts
     counts_design
     ch_samplesheet_bam
     chrom_sizes
     chromhmm_states
+    chromhmm_threshold
+    chromhmm_marks
     rose_ucsc
 
     window_size
@@ -75,6 +78,7 @@ workflow TFACTIVITY {
         gene_lengths,
         gene_map,
         counts,
+        extra_counts,
         counts_design,
         min_count,
         min_tpm,
@@ -100,6 +104,8 @@ workflow TFACTIVITY {
         ch_samplesheet_bam,
         chrom_sizes,
         chromhmm_states,
+        chromhmm_threshold,
+        chromhmm_marks,
         rose_ucsc
     )
 

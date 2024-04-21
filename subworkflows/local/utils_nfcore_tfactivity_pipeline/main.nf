@@ -88,10 +88,12 @@ workflow PIPELINE_INITIALISATION {
         .set { ch_samplesheet }
 
     ch_samplesheet_bam = params.input_bam ? Channel.fromSamplesheet("input_bam") : Channel.empty()
+    ch_counts_design = Channel.fromSamplesheet("counts_design")
 
     emit:
     samplesheet     = ch_samplesheet
     samplesheet_bam = ch_samplesheet_bam
+    counts_design   = ch_counts_design
     versions        = ch_versions
 }
 

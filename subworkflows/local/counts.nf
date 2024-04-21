@@ -1,4 +1,4 @@
-include { COMBINE_COUNTS } from "../../modules/local/counts/combine"
+include { COMBINE_COUNTS } from "../../modules/local/counts/combine/main"
 include { CALCULATE_TPM } from "../../modules/local/counts/calculate_tpm"
 include { FILTER_GENES } from "../../modules/local/counts/filter_genes"
 include { FILTER_GENES as FILTER_TFS } from "../../modules/local/counts/filter_genes"
@@ -11,6 +11,7 @@ workflow COUNTS {
     ch_gene_lengths
     gene_map
     ch_counts
+    ch_extra_counts
     ch_counts_design
     min_count
     min_tpm
@@ -23,13 +24,12 @@ workflow COUNTS {
 
     ch_versions = Channel.empty()
 
-    ch_extra_counts = ch_counts_design.splitCsv(header:true)
-                            .filter{it["counts_file"]}
-                            .map{it["counts_file"]}.collect()
+    
 
     COMBINE_COUNTS(
-        ch_counts.combine(ch_counts_design).map{counts, design -> [[id: "counts"], counts, design]},
-        ch_extra_counts,
+        ch_counts.map{counts -> [[id: "counts"], counts]},
+        ch_extra_counts.map{ meta, file -> [meta.id, file] }
+                        .reduce([[], []]) { accum, it -> [accum[0] + [it[0]], accum[1] + [it[1]]] },
         gene_map,
         agg_method
     )
@@ -54,7 +54,7 @@ workflow COUNTS {
         min_tpm_tf
     )
 
-    PREPARE_DESIGN(ch_counts_design.map{ design -> [[id: "design"], design]})
+    PREPARE_DESIGN(ch_counts_design)
 
     DESEQ2_DIFFERENTIAL(
         Channel.value(["condition"]).combine(contrasts)

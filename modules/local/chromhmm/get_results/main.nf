@@ -9,16 +9,13 @@ process GET_RESULTS {
 
     input:
     tuple val(meta), path(emissions), path(bed)
+    val(threshold)
+    val(marks)
 
     output:
     tuple val(meta), path("$output_file")
 
     script:
     output_file = "enhancers_${meta.id}.bed"
-    """
-    get_chromhmm_results.py \\
-        --emissions $emissions \\
-        --bed $bed \\
-        --output $output_file
-    """
+    template "get_results.py"
 }
