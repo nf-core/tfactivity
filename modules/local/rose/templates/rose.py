@@ -1,8 +1,26 @@
 #!/usr/bin/env python3
 
 import os
-from optparse import OptionParser
+import platform
 
+def format_yaml_like(data: dict, indent: int = 0) -> str:
+    """Formats a dictionary to a YAML-like string.
+
+    Args:
+        data (dict): The dictionary to format.
+        indent (int): The current indentation level.
+
+    Returns:
+        str: A string formatted as YAML.
+    """
+    yaml_str = ""
+    for key, value in data.items():
+        spaces = "  " * indent
+        if isinstance(value, dict):
+            yaml_str += f"{spaces}{key}:\\n{format_yaml_like(value, indent + 1)}"
+        else:
+            yaml_str += f"{spaces}{key}: {value}\\n"
+    return yaml_str
 
 def region_stitching(input_gff, stitch_window, tss_window, annot_file, remove_tss=True):
     print('Performing region stitching...')
@@ -91,14 +109,14 @@ def unparse_table(table, output, sep):
     if len(sep) == 0:
         for i in table:
             fh_out.write(str(i))
-            fh_out.write('\n')
+            fh_out.write('\\n')
     else:
         for line in table:
             line = [str(x) for x in line]
             line = sep.join(line)
 
             fh_out.write(line)
-            fh_out.write('\n')
+            fh_out.write('\\n')
 
     fh_out.close()
 
@@ -113,9 +131,9 @@ def parse_table(fn, sep, header=False, excel=False):
     lines = fh.readlines()
     fh.close()
     if excel:
-        lines = lines[0].split('\r')
-    if lines[0].count('\r') > 0:
-        lines = lines[0].split('\r')
+        lines = lines[0].split('\\r')
+    if lines[0].count('\\r') > 0:
+        lines = lines[0].split('\\r')
     table = []
     if header:
         lines = lines[1:]
@@ -160,7 +178,7 @@ def make_start_dict(annot_file, gene_list=[]):
     """
 
     if type(gene_list) == str:
-        gene_list = parse_table(gene_list, '\t')
+        gene_list = parse_table(gene_list, '\\t')
         gene_list = [line[0] for line in gene_list]
 
     if annot_file.upper().count('REFSEQ') == 1:
@@ -219,7 +237,7 @@ def import_refseq(refseq_file, return_multiples=False):
     """
     opens up a refseq file downloaded by UCSC
     """
-    refseq_table = parse_table(refseq_file, '\t')
+    refseq_table = parse_table(refseq_file, '\\t')
     refseq_dict = {}
     ticker = 1
     for line in refseq_table[1:]:
@@ -557,7 +575,7 @@ def gff_to_locus_collection(gff, window=500):
 
     loci_list = []
     if type(gff) == str:
-        gff = parse_table(gff, '\t')
+        gff = parse_table(gff, '\\t')
 
     for line in gff:
         # USE line[2] as the locus id.  If that is empty use line[8]
@@ -610,57 +628,41 @@ def uniquify(seq, idfun=None):
         result.append(item)
     return result
 
+input_gff_file = "$gff"
+stitched_gff_file = "${gff.baseName}_STITCHED.gff"
+annot_file = "$ucsc_file"
 
+stitch_window = int("$stitch")
+tss_window = int("$tss_dist")
 
+if tss_window != 0:
+    remove_tss = True
+else:
+    remove_tss = False
 
-def main():
-    parser = OptionParser(usage="usage: %prog [options] -g [GENOME] -i [INPUT_REGION_GFF] -o [OUTPUT_FOLDER]")
+# GETTING THE BOUND REGION FILE USED TO DEFINE ENHANCERS
+print(f'Using {input_gff_file} as the input gff')
+input_name = input_gff_file.split('/')[-1].split('.')[0]
 
-    parser.add_option("-i", "--i", dest="input", nargs=1, default=None,
-                      help="Enter a .gff or .bed file of binding sites used to make enhancers")
-    parser.add_option("-o", "--out", dest="out", nargs=1, default=None,
-                      help="Enter an output folder")
-    parser.add_option("-g", "--genome", dest="genome", default=None,
-                      help="Enter the genome build (MM9,MM8,HG18,HG19,HG38)")
-    parser.add_option("-s", "--stitch", dest="stitch", nargs=1, default=12500,
-                      help="Enter a max linking distance for stitching")
-    parser.add_option("-t", "--tss", dest="tss", nargs=1, default=0,
-                      help="Enter a distance from TSS to exclude. 0 = no TSS exclusion")
+print(f'Using {annot_file} as the genome')
+print('Making start dict')
+start_dict = make_start_dict(annot_file)
 
-    options, args = parser.parse_args()
+print('Stitching regions together')
+stitched_collection = region_stitching(input_gff_file, stitch_window, tss_window, annot_file, remove_tss)
 
-    input_gff_file = options.input
+print('Making GFF from stitched collection')
+stitched_gff = locus_collection_to_gff(stitched_collection)
 
-    stitch_window = int(options.stitch)
+print(f'Writing stitched GFF to disk as {stitched_gff_file}')
+unparse_table(stitched_gff, stitched_gff_file, '\\t')
 
-    tss_window = int(options.tss)
-    if tss_window != 0:
-        remove_tss = True
-    else:
-        remove_tss = False
+# Create version file
+versions = {
+    "${task.process}" : {
+        "python": platform.python_version()
+    }
+}
 
-    # GETTING THE BOUND REGION FILE USED TO DEFINE ENHANCERS
-    print(f'Using {input_gff_file} as the input gff')
-    input_name = input_gff_file.split('/')[-1].split('.')[0]
-
-    # Get annotation file
-    annot_file = options.genome
-    print(f'Using {annot_file} as the genome')
-
-    print('Making start dict')
-    start_dict = make_start_dict(annot_file)
-
-    print('Stitching regions together')
-    stitched_collection = region_stitching(input_gff_file, stitch_window, tss_window, annot_file, remove_tss)
-
-    print('Making GFF from stitched collection')
-    stitched_gff = locus_collection_to_gff(stitched_collection)
-
-    stitched_gff_file = options.out
-
-    print(f'Writing stitched GFF to disk as {stitched_gff_file}')
-    unparse_table(stitched_gff, stitched_gff_file, '\t')
-
-
-if __name__ == '__main__':
-    main()
+with open("versions.yml", "w") as f:
+    f.write(format_yaml_like(versions))

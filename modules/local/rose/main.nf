@@ -15,14 +15,9 @@ process ROSE {
     tuple val(meta), path("${gff.baseName}_STITCHED.gff")
 
     script:
-    """
-    rose.py \
-    -g ${ucsc_file} \
-    -i ${gff} \
-    -o ${gff.baseName}_STITCHED.gff \
-    -s 12500 \
-    -t 2500
-    """
+    stitch = 12500
+    tss_dist = 2500
+    template "rose.py"
 
     stub:
     """
