@@ -14,18 +14,8 @@ process AGGREGATE_SYNONYMS {
 
     output:
     tuple val(meta), path("${meta.id}.agg_affinities.tsv"), emit: affinities
-
     path  "versions.yml"                                  , emit: versions
 
     script:
-    """
-    aggregate_synonyms.py --input ${affinities} --gene_map ${gene_map} --agg_method ${agg_method} --output ${meta.id}.agg_affinities.tsv
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-        pandas: \$(python -c "import pandas; print(pandas.__version__)")
-        numpy: \$(python -c "import numpy; print(numpy.__version__)")
-    END_VERSIONS
-    """
+    template "aggregate_synonyms.py"
 }
