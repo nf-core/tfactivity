@@ -1,24 +1,36 @@
 #!/usr/bin/env python3
 
-import argparse
 import numpy as np
 import pandas as pd
+import platform
 
-# Define the command-line arguments
-parser = argparse.ArgumentParser(description="Calculate statistics between two multiple files.")
-parser.add_argument("-i", "--input", type=str, nargs='+', help="List of input file paths", required=True)
-parser.add_argument("-o", "--output", type=str, help="Output file path", required=True)
-parser.add_argument("-m", "--method", type=str, choices=["mean", "sum", "ratio", "rank"], default="mean", help="Calculation method (mean, sum, ratio)")
-args = parser.parse_args()
+def format_yaml_like(data: dict, indent: int = 0) -> str:
+    """Formats a dictionary to a YAML-like string.
 
-# Check if input and output paths are provided
-if not args.input or not args.output:
-    parser.error("Input and output paths are required.")
+    Args:
+        data (dict): The dictionary to format.
+        indent (int): The current indentation level.
+
+    Returns:
+        str: A string formatted as YAML.
+    """
+    yaml_str = ""
+    for key, value in data.items():
+        spaces = "  " * indent
+        if isinstance(value, dict):
+            yaml_str += f"{spaces}{key}:\\n{format_yaml_like(value, indent + 1)}"
+        else:
+            yaml_str += f"{spaces}{key}: {value}\\n"
+    return yaml_str
+
+method = "$method"
+if method not in ["mean", "sum", "ratio", "rank"]:
+    raise ValueError("Invalid method. Must be one of 'mean', 'sum', 'ratio', 'rank'.")
 
 # Read all input files into a list of dataframes
-dfs = [pd.read_csv(file, sep='\t', index_col=0) for file in args.input]
+dfs = [pd.read_csv(file, sep='\\t', index_col=0) for file in "${files.join(' ')}".split()]
 
-if args.method in ["sum", "rank"]:
+if method in ["sum", "rank"]:
     index_union = dfs[0].index
     col_union = dfs[0].columns
     for df in dfs[1:]:
@@ -50,13 +62,13 @@ if not all(df.columns.equals(dfs[0].columns) for df in dfs):
     raise ValueError("The input files must have the same column names.")
 
 # Calculate the selected statistic
-if args.method == "mean":
+if method == "mean":
     result = sum(dfs) / len(dfs)
-elif args.method == "rank":
+elif method == "rank":
     result = 1 - (sum(dfs).rank(ascending=False) / len(dfs[0].index))
-elif args.method == "sum":
+elif method == "sum":
     result = sum(dfs)
-elif args.method == "ratio":
+elif method == "ratio":
     if len(dfs) != 2:
         raise ValueError("The ratio method requires exactly two input files.")
 
@@ -73,4 +85,16 @@ elif args.method == "ratio":
     print(f"Number of rows after dropping NA or inf values: {len(result)}")
 
 # Write the result to a file
-result.to_csv(args.output, sep='\t', index=True, quoting=0)
+result.to_csv("${prefix}.${extension}", sep='\\t', index=True, quoting=0)
+
+# Create version file
+versions = {
+    "${task.process}" : {
+        "python": platform.python_version(),
+        "pandas": pd.__version__,
+        "numpy": np.__version__
+    }
+}
+
+with open("versions.yml", "w") as f:
+    f.write(format_yaml_like(versions))
