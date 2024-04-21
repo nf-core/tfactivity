@@ -21,19 +21,5 @@ process FILTER_GENES {
     path  "versions.yml"                            , emit: versions
 
     script:
-    """
-    filter_genes.py    --counts ${counts} \\
-                        --tpms ${tpms} \\
-                        --min_count ${min_count} \\
-                        --min_tpm ${min_tpm} \\
-                        --counts_output ${meta.id}.counts_filtered.tsv \\
-                        --tpms_output ${meta.id}.tpm_filtered.tsv \\
-                        --genes_output ${meta.id}.genes_filtered.txt
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-        pandas: \$(python -c "import pandas; print(pandas.__version__)")
-    END_VERSIONS
-    """
+    template "filter_genes.py"
 }

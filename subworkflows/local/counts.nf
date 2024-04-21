@@ -1,9 +1,9 @@
-include { COMBINE_COUNTS } from "../../modules/local/counts/combine/main"
-include { CALCULATE_TPM } from "../../modules/local/counts/calculate_tpm/main"
+include { COMBINE_COUNTS } from "../../modules/local/counts/combine"
+include { CALCULATE_TPM } from "../../modules/local/counts/calculate_tpm"
 include { FILTER_GENES } from "../../modules/local/counts/filter_genes"
 include { FILTER_GENES as FILTER_TFS } from "../../modules/local/counts/filter_genes"
 include { PREPARE_DESIGN } from "../../modules/local/counts/prepare_design"
-include { DESEQ2_DIFFERENTIAL } from "../../modules/nf-core/deseq2/differential/main"
+include { DESEQ2_DIFFERENTIAL } from "../../modules/nf-core/deseq2/differential"
 
 workflow COUNTS {
 
