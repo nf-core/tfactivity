@@ -12,20 +12,8 @@ process PREPROCESS {
 
     output:
     tuple val(meta), path("*.preprocessed.tsv"), emit: output
-
-    path  "versions.yml"                     , emit: versions
+    path  "versions.yml"                       , emit: versions
 
     script:
-    """
-    dynamite_preprocess.py \\
-        --affinities ${affinity_ratio} \\
-        --expression ${differential_expression} \\
-        --output ${meta.id}.preprocessed.tsv
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-        pandas: \$(python -c "import pandas; print(pandas.__version__)")
-    END_VERSIONS
-    """
+    template "dynamite_preprocess.py"
 }
