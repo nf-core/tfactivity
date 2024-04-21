@@ -15,13 +15,5 @@ process PREPARE_DESIGN {
     path  "versions.yml"                 , emit: versions
 
     script:
-    """
-    prepare_design.py --input ${samplesheet} --output ${meta.id}.design.csv
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        python: \$(python --version | sed 's/Python //g')
-        pandas: \$(python -c "import pandas; print(pandas.__version__)")
-    END_VERSIONS
-    """
+    template "prepare_design.py"
 }
