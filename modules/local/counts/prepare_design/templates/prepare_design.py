@@ -25,7 +25,8 @@ def format_yaml_like(data: dict, indent: int = 0) -> str:
 df = pd.read_csv("$samplesheet", index_col=0, header=0)
 
 df.index.name = "experiment_accession"
-df = df.drop("counts_file", axis=1)
+if "counts_file" in df.columns:
+    df = df.drop("counts_file", axis=1)
 
 # Keep only columns with more than one unique value
 df = df.loc[:, df.nunique() > 1]
