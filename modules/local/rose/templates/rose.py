@@ -270,7 +270,7 @@ class Locus:
     # sense = '+' or '-' (or '.' for an ambidextrous locus)
     # start,end = ints of the start and end coords of the locus
     #      end coord is the coord of the last nucleotide.
-    def __init__(self, chr, start, end, sense, id=''):
+    def __init__(self, chr, start, end, sense, id='', score=0):
         coords = [int(start), int(end)]
         coords.sort()
         # this method for assigning chromosome should help avoid storage of
@@ -282,6 +282,7 @@ class Locus:
         self._start = int(coords[0])
         self._end = int(coords[1])
         self._id = id
+        self._score = score
 
     def id(self):
         return self._id
@@ -310,6 +311,9 @@ class Locus:
 
     def sense(self):
         return self._sense
+
+    def score(self):
+        return self._score
 
     # returns boolean; True if two loci share any coordinates in common
     def overlaps(self, other_locus):
@@ -551,37 +555,25 @@ class LocusCollection:
 # ========================LOCUS FUNCTIONS===========================
 # ==================================================================
 # 06/11/09
-# turns a locusCollection into a gff
+# turns a locusCollection into a bed
 # does not write to disk though
-def locus_collection_to_gff(locus_collection):
+def locus_collection_to_bed(locus_collection):
     loci_list = locus_collection.get_loci()
-    gff = []
+    bed = []
     for locus in loci_list:
-        new_line = [locus.chr(), locus.id(), '', locus.coords()[0], locus.coords()[1], '', locus.sense(), '',
-                    locus.id()]
-        gff.append(new_line)
-    return gff
+        new_line = [locus.chr(), locus.coords()[0], locus.coords()[1], locus.id(), locus.score(), locus.sense()]
+        bed.append(new_line)
+    return bed
 
 
-def gff_to_locus_collection(gff, window=500):
+def bed_to_locus_collection(bed, window=500):
     """
-    opens up a gff file and turns it into a LocusCollection instance
+    opens up a bed file and turns it into a LocusCollection instance
     """
 
-    loci_list = []
-    if type(gff) == str:
-        gff = parse_table(gff, '\\t')
+    loci_list = [Locus(line[0], line[1], line[2], line[5], line[3])
+                    for line in parse_table(bed, '\\t')]
 
-    for line in gff:
-        # USE line[2] as the locus id.  If that is empty use line[8]
-        if len(line[2]) > 0:
-            name = line[2]
-        elif len(line[8]) > 0:
-            name = line[8]
-        else:
-            name = f'{line[0]}:{line[6]}:{line[3]}-{line[4]}'
-
-        loci_list.append(Locus(line[0], line[3], line[4], line[6], name))
     return LocusCollection(loci_list, window)
 
 
@@ -625,10 +617,10 @@ def uniquify(seq, idfun=None):
 
 
 start_dict = make_start_dict("$ucsc_file")
-locus_collection = gff_to_locus_collection("$gff")
+locus_collection = bed_to_locus_collection("$bed")
 stitched_collection = region_stitching(locus_collection, int("$stitch"), int("$tss_dist"), start_dict)
-stitched_gff = locus_collection_to_gff(stitched_collection)
-unparse_table(stitched_gff, "${meta.id}.rose.gff", '\\t')
+stitched = locus_collection_to_bed(stitched_collection)
+unparse_table(stitched, "${meta.id}.rose.bed", '\\t')
 
 # Create version file
 versions = {

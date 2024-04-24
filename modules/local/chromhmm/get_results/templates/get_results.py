@@ -15,15 +15,18 @@ bed = pd.read_csv("$bed",
                   sep="\\t",
                   skiprows=1,
                   names=["chr", "start", "end", "state", "score", "strand", "start_1", "end_1", "rgb"]
-                 ).drop(columns=["strand", "score", "start_1", "end_1", "rgb"])
+                 )
 
 
 # Keep state if any of the marks is enriched > threshold for this state
-states = emissions[np.any([emissions[mark] >= $threshold for mark in marks], axis=0)]["State"].tolist()
+states = emissions[np.any([emissions[mark] >= float("$threshold") for mark in marks], axis=0)]["State"].tolist()
 
 
 # Subset bed file for selected states
-out_bed = bed[np.isin(bed["state"], states)].drop(columns=["state"])
+bed = bed[np.isin(bed["state"], states)].drop(columns=["state"])
+bed["name"] = bed["chr"] + ":" + bed["start"].astype(str) + "-" + bed["end"].astype(str)
+
+bed = bed[["chr", "start", "end", "name", "score", "strand"]]
 
 # Write output
-out_bed.to_csv("$output_file", index=False, sep="\\t", header=False)
+bed.to_csv("$output_file", index=False, sep="\\t", header=False)
