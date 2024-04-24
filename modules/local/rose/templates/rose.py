@@ -22,18 +22,13 @@ def format_yaml_like(data: dict, indent: int = 0) -> str:
             yaml_str += f"{spaces}{key}: {value}\\n"
     return yaml_str
 
-def region_stitching(input_gff, stitch_window, tss_window, annot_file, remove_tss=True):
+def region_stitching(bound_collection, stitch_window, tss_window, start_dict):
     print('Performing region stitching...')
-    # first have to turn bound region file into a locus collection
 
-    # need to make sure this names correctly... each region should have a unique name
-    bound_collection = gff_to_locus_collection(input_gff)
+    remove_tss = tss_window != 0
 
     # filter out all bound regions that overlap the TSS of an ACTIVE GENE
     if remove_tss:
-        # first make a locus collection of TSS
-        start_dict = make_start_dict(annot_file)
-
         # now makeTSS loci for active genes
         remove_ticker = 0
         # this loop makes a locus centered around +/- tss_window of transcribed genes
@@ -628,34 +623,12 @@ def uniquify(seq, idfun=None):
         result.append(item)
     return result
 
-input_gff_file = "$gff"
-stitched_gff_file = "${gff.baseName}_STITCHED.gff"
-annot_file = "$ucsc_file"
 
-stitch_window = int("$stitch")
-tss_window = int("$tss_dist")
-
-if tss_window != 0:
-    remove_tss = True
-else:
-    remove_tss = False
-
-# GETTING THE BOUND REGION FILE USED TO DEFINE ENHANCERS
-print(f'Using {input_gff_file} as the input gff')
-input_name = input_gff_file.split('/')[-1].split('.')[0]
-
-print(f'Using {annot_file} as the genome')
-print('Making start dict')
-start_dict = make_start_dict(annot_file)
-
-print('Stitching regions together')
-stitched_collection = region_stitching(input_gff_file, stitch_window, tss_window, annot_file, remove_tss)
-
-print('Making GFF from stitched collection')
+start_dict = make_start_dict("$ucsc_file")
+locus_collection = gff_to_locus_collection("$gff")
+stitched_collection = region_stitching(locus_collection, int("$stitch"), int("$tss_dist"), start_dict)
 stitched_gff = locus_collection_to_gff(stitched_collection)
-
-print(f'Writing stitched GFF to disk as {stitched_gff_file}')
-unparse_table(stitched_gff, stitched_gff_file, '\\t')
+unparse_table(stitched_gff, "${meta.id}.rose.gff", '\\t')
 
 # Create version file
 versions = {

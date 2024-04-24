@@ -12,7 +12,7 @@ process ROSE {
     path ucsc_file
 
     output:
-    tuple val(meta), path("${gff.baseName}_STITCHED.gff")
+    tuple val(meta), path("${meta.id}.rose.gff")
 
     script:
     stitch = 12500
@@ -21,6 +21,6 @@ process ROSE {
 
     stub:
     """
-    touch "${gff.baseName}_STITCHED.gff"
+    touch "${meta.id}.rose.gff"
     """
 }
