@@ -34,7 +34,6 @@ workflow PEAKS {
     chromhmm_states
     chromhmm_threshold
     chromhmm_marks
-    rose_ucsc
 
     main:
 
