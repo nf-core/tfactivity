@@ -24,7 +24,7 @@ workflow COUNTS {
 
     ch_versions = Channel.empty()
 
-    
+
 
     COMBINE_COUNTS(
         ch_counts.map{counts -> [[id: "counts"], counts]},
