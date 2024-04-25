@@ -65,7 +65,6 @@ condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.bam,condition3_control.
 
 The first three columns are the same as in the peak file samplesheet. The `signal` column should contain the path to the signal BAM file. The `control` column should contain the path to the control BAM file.
 
-
 Second, you need a raw count matrix (e.g. from [nf-core/rnaseq](https://nf-co.re/rnaseq)) with gene IDs as rows and samples as columns. You also need a design matrix that specifies the conditions of the samples in the count matrix. The design matrix should look as follows:
 
 ```csv title="design_matrix.csv"

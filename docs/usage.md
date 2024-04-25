@@ -7,6 +7,7 @@
 ## Introduction
 
 The following inputs can be processed by the pipeline:
+
 - Chromatin accessibility data (at least one of the following)
   - Peaks in BED3-compatible format (e.g. broadPeak), parameter `--input`
   - BAM files, parameter `--input_bam`
@@ -29,6 +30,7 @@ condition2_H3K27ac,condition2,H3K27ac,condition2_H3K27ac.broadPeak
 condition3_H3K27ac,condition3,H3K27ac,condition3_H3K27ac.broadPeak
 condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.broadPeak
 ```
+
 :::note
 Only the first three columns (chromosome, start, end) of the `bed` format are used.
 :::
@@ -67,6 +69,7 @@ condition3_H3K4me3,condition3,H3K4me3,condition3_H3K4me3.bam,condition3_control.
 The first three columns are the same as in the peak file samplesheet. The `signal` column should contain the path to the signal BAM file. The `control` column should contain the path to the control BAM file.
 
 These files are used to predict enhancer regions in the following way:
+
 - Train chromHMM on the signal and control BAM files
 - Identify states that are enriched for either `H3K27ac` or `H3K4me3`
 - Extract the regions of these states
@@ -75,7 +78,9 @@ These files are used to predict enhancer regions in the following way:
 The resulting enhancer regions are then used as if they were peak files provided in the peak samplesheet. However, footprinting analysis is not performed on these regions.
 
 ### Gene expression data
+
 Gene expression data can be provided in two ways. In both ways, it should be raw counts per gene ID across samples.
+
 1. A single count matrix with gene IDs as rows and samples as columns. This matrix should be provided with the `--counts` parameter. The `--counts_design` parameter is used to match samples in the count matrix to conditions (and optionally batches).
 2. A gene list file and one count file per sample. In this case, provide the gene list file with the `--counts` parameter and use the `counts_file` column in `--counts_design` to specify the count files. The files will be merged into a single count matrix (as in the first option) before further processing.
 
@@ -119,11 +124,13 @@ sample3,condition2,sample3_counts.txt
 ```
 
 In this case, the count files should look like this:
+
 ```
 10
 20
 30
 ```
+
 :::warning
 The number of rows in each count file needs to match the number of rows in the gene list file.
 :::

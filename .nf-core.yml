@@ -7,3 +7,4 @@ lint:
     - modules/local/report/create/app/templates/configuration.html
     - modules/local/report/create/app/templates/snp.html
     - modules/local/report/create/app/templates/base.html
+    - modules/local/report/create/app/templates/network.html

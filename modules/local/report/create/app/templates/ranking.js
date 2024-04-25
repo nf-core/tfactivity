@@ -25,9 +25,9 @@ const getRanking = function (inputDcgs, assays) {
 
 const getSecondaryRanking = function (activeAssays, secondary_ranking) {
   return Object.entries(secondary_ranking).reduce(function (acc, [primary, currentRanking]) {
-    return {...acc, [primary]: getRanking(currentRanking, activeAssays)};
+    return { ...acc, [primary]: getRanking(currentRanking, activeAssays) };
   }, {});
-}
+};
 
 const initRanking = async function (primary_ranking, secondary_ranking) {
   const assayChips = Array.from(document.querySelectorAll('[id^="assay-"]'));
