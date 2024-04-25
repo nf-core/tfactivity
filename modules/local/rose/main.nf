@@ -9,7 +9,7 @@ process ROSE {
 
     input:
     tuple val(meta), path(bed)
-    path ucsc_file
+    tuple val(meta2), path(genepred)
 
     output:
     tuple val(meta), path("${meta.id}.rose.bed"), emit: stitched

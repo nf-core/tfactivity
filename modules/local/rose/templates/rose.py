@@ -166,33 +166,31 @@ def format_folder(folder_name, create=False):
 # ==================================================================
 
 
-def make_start_dict(annot_file, gene_list=[]):
+def make_start_dict(annot_file):
     """
     makes a dictionary keyed by refseq ID that contains information about
     chrom/start/stop/strand/common name
     """
 
-    if type(gene_list) == str:
-        gene_list = parse_table(gene_list, '\\t')
-        gene_list = [line[0] for line in gene_list]
+    transcripts = []
 
-    if annot_file.upper().count('REFSEQ') == 1:
-        refseq_table, refseq_dict = import_refseq(annot_file)
-        if len(gene_list) == 0:
-            gene_list = list(refseq_dict.keys())
-        start_dict = {}
-        for gene in gene_list:
-            if gene not in refseq_dict:
-                continue
-            start_dict[gene] = {}
-            start_dict[gene]['sense'] = refseq_table[refseq_dict[gene][0]][3]
-            start_dict[gene]['chr'] = refseq_table[refseq_dict[gene][0]][2]
-            start_dict[gene]['start'] = get_tsss([gene], refseq_table, refseq_dict)
-            if start_dict[gene]['sense'] == '+':
-                start_dict[gene]['end'] = [int(refseq_table[refseq_dict[gene][0]][5])]
-            else:
-                start_dict[gene]['end'] = [int(refseq_table[refseq_dict[gene][0]][4])]
-            start_dict[gene]['name'] = refseq_table[refseq_dict[gene][0]][12]
+    refseq_table, refseq_dict = import_refseq(annot_file)
+    if len(transcripts) == 0:
+        transcripts = list(refseq_dict.keys())
+    start_dict = {}
+    for transcript in transcripts:
+        if transcript not in refseq_dict:
+            continue
+        start_dict[transcript] = {}
+        start_dict[transcript]['sense'] = refseq_table[refseq_dict[transcript][0]][2]
+        start_dict[transcript]['chr'] = refseq_table[refseq_dict[transcript][0]][1]
+        start_dict[transcript]['start'] = get_tsss([transcript], refseq_table, refseq_dict)
+        if start_dict[transcript]['sense'] == '+':
+            start_dict[transcript]['end'] = [int(refseq_table[refseq_dict[transcript][0]][4])]
+        else:
+            start_dict[transcript]['end'] = [int(refseq_table[refseq_dict[transcript][0]][3])]
+        start_dict[transcript]['name'] = refseq_table[refseq_dict[transcript][0]][11]
+
     return start_dict
 
 
@@ -204,10 +202,10 @@ def get_tsss(gene_list, refseq_table, refseq_dict):
         refseq = refseq_from_key(gene_list, refseq_dict, refseq_table)
     tss = []
     for line in refseq:
-        if line[3] == '+':
+        if line[2] == '+':
+            tss.append(line[3])
+        if line[2] == '-':
             tss.append(line[4])
-        if line[3] == '-':
-            tss.append(line[5])
     tss = list(map(int, tss))
 
     return tss
@@ -234,12 +232,13 @@ def import_refseq(refseq_file, return_multiples=False):
     """
     refseq_table = parse_table(refseq_file, '\\t')
     refseq_dict = {}
-    ticker = 1
-    for line in refseq_table[1:]:
-        if line[1] in refseq_dict:
-            refseq_dict[line[1]].append(ticker)
+    ticker = 0
+    for line in refseq_table:
+        transcript = line[0]
+        if transcript in refseq_dict:
+            refseq_dict[transcript].append(ticker)
         else:
-            refseq_dict[line[1]] = [ticker]
+            refseq_dict[transcript] = [ticker]
         ticker = ticker + 1
 
     multiples = []
@@ -616,7 +615,7 @@ def uniquify(seq, idfun=None):
     return result
 
 
-start_dict = make_start_dict("$ucsc_file")
+start_dict = make_start_dict("$genepred")
 locus_collection = bed_to_locus_collection("$bed")
 stitched_collection = region_stitching(locus_collection, int("$stitch"), int("$tss_dist"), start_dict)
 stitched = locus_collection_to_bed(stitched_collection)
