@@ -167,41 +167,36 @@ def format_folder(folder_name, create=False):
 
 
 def make_start_dict(annot_file):
-    """
-    makes a dictionary keyed by refseq ID that contains information about
-    chrom/start/stop/strand/common name
-    """
-
     transcripts = []
 
-    refseq_table, refseq_dict = import_refseq(annot_file)
+    genepred_table, genepred_dict = import_genepred(annot_file)
     if len(transcripts) == 0:
-        transcripts = list(refseq_dict.keys())
+        transcripts = list(genepred_dict.keys())
     start_dict = {}
     for transcript in transcripts:
-        if transcript not in refseq_dict:
+        if transcript not in genepred_dict:
             continue
         start_dict[transcript] = {}
-        start_dict[transcript]['sense'] = refseq_table[refseq_dict[transcript][0]][2]
-        start_dict[transcript]['chr'] = refseq_table[refseq_dict[transcript][0]][1]
-        start_dict[transcript]['start'] = get_tsss([transcript], refseq_table, refseq_dict)
+        start_dict[transcript]['sense'] = genepred_table[genepred_dict[transcript][0]][2]
+        start_dict[transcript]['chr'] = genepred_table[genepred_dict[transcript][0]][1]
+        start_dict[transcript]['start'] = get_tsss([transcript], genepred_table, genepred_dict)
         if start_dict[transcript]['sense'] == '+':
-            start_dict[transcript]['end'] = [int(refseq_table[refseq_dict[transcript][0]][4])]
+            start_dict[transcript]['end'] = [int(genepred_table[genepred_dict[transcript][0]][4])]
         else:
-            start_dict[transcript]['end'] = [int(refseq_table[refseq_dict[transcript][0]][3])]
-        start_dict[transcript]['name'] = refseq_table[refseq_dict[transcript][0]][11]
+            start_dict[transcript]['end'] = [int(genepred_table[genepred_dict[transcript][0]][3])]
+        start_dict[transcript]['name'] = genepred_table[genepred_dict[transcript][0]][11]
 
     return start_dict
 
 
 # generic function to get the TSS of any gene
-def get_tsss(gene_list, refseq_table, refseq_dict):
+def get_tsss(gene_list, genepred_table, genepred_dict):
     if len(gene_list) == 0:
-        refseq = refseq_table
+        genepred = genepred_table
     else:
-        refseq = refseq_from_key(gene_list, refseq_dict, refseq_table)
+        genepred = genepred_from_key(gene_list, genepred_dict, genepred_table)
     tss = []
-    for line in refseq:
+    for line in genepred:
         if line[2] == '+':
             tss.append(line[3])
         if line[2] == '-':
@@ -212,44 +207,38 @@ def get_tsss(gene_list, refseq_table, refseq_dict):
 
 
 # 12/29/08
-# refseq_from_key(refseqKeyList,refseq_dict,refseq_table)
-# function that grabs refseq lines from refseq IDs
-def refseq_from_key(refseq_key_list, refseq_dict, refseq_table):
-    type_refseq = []
-    for name in refseq_key_list:
-        if name in refseq_dict:
-            type_refseq.append(refseq_table[refseq_dict[name][0]])
-    return type_refseq
+# genepred_from_key(genepredKeyList,genepred_dict,genepred_table)
+# function that grabs genepred lines from genepred IDs
+def genepred_from_key(genepred_key_list, genepred_dict, genepred_table):
+    type_genepred = []
+    for name in genepred_key_list:
+        if name in genepred_dict:
+            type_genepred.append(genepred_table[genepred_dict[name][0]])
+    return type_genepred
 
 
-# 10/13/08
-# import_refseq
-# takes in a refseq table and makes a refseq table and a refseq dictionary for keying the table
 
-def import_refseq(refseq_file, return_multiples=False):
-    """
-    opens up a refseq file downloaded by UCSC
-    """
-    refseq_table = parse_table(refseq_file, '\\t')
-    refseq_dict = {}
+def import_genepred(genepred_file, return_multiples=False):
+    genepred_table = parse_table(genepred_file, '\\t')
+    genepred_dict = {}
     ticker = 0
-    for line in refseq_table:
+    for line in genepred_table:
         transcript = line[0]
-        if transcript in refseq_dict:
-            refseq_dict[transcript].append(ticker)
+        if transcript in genepred_dict:
+            genepred_dict[transcript].append(ticker)
         else:
-            refseq_dict[transcript] = [ticker]
+            genepred_dict[transcript] = [ticker]
         ticker = ticker + 1
 
     multiples = []
-    for i in refseq_dict:
-        if len(refseq_dict[i]) > 1:
+    for i in genepred_dict:
+        if len(genepred_dict[i]) > 1:
             multiples.append(i)
 
     if return_multiples:
-        return refseq_table, refseq_dict, multiples
+        return genepred_table, genepred_dict, multiples
     else:
-        return refseq_table, refseq_dict
+        return genepred_table, genepred_dict
 
 
 # ==================================================================
