@@ -15,6 +15,7 @@ include { COUNTS                 } from '../subworkflows/local/counts'
 include { PEAKS                  } from '../subworkflows/local/peaks'
 include { DYNAMITE               } from '../subworkflows/local/dynamite'
 include { RANKING                } from '../subworkflows/local/ranking'
+include { FIMO                   } from '../subworkflows/local/fimo'
 include { REPORT                 } from '../subworkflows/local/report'
 
 /*
@@ -123,6 +124,13 @@ workflow TFACTIVITY {
         PEAKS.out.affinity_sum,
         DYNAMITE.out.regression_coefficients,
         alpha
+    )
+
+    FIMO(
+        fasta,
+        RANKING.out.tf_total_ranking,
+        PEAKS.out.enhancers,
+        pwms
     )
 
     REPORT(

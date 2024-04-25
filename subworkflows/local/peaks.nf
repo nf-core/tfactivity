@@ -143,6 +143,7 @@ workflow PEAKS {
     emit:
     affinity_ratio = AFFINITY_RATIO.out.combined
     affinity_sum = AFFINITY_SUM.out.combined
+    enhancers = ROSE.out.enhancers
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
