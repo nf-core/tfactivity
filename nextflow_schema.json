@@ -137,11 +137,11 @@
                     "help_text": "Threshold for ChromHMM enhancer detection. The default value is 0.9."
                 },
                 "chromhmm_marks": {
-                    "type": "array",
-                    "default": ["H3K27ac", "H3K4me3"],
-                    "description": "ChromHMM enhancer marks.",
+                    "type": "string",
+                    "default": "H3K27ac,H3K4me3",
+                    "description": "Comma-separated ChromHMM enhancer marks.",
                     "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "ChromHMM enhancer marks. The default value is `['H3K27ac', 'H3K4me3']`."
+                    "help_text": "ChromHMM enhancer marks. The default value is `H3K27acH3K4me3`."
                 },
                 "min_count": {
                     "type": "integer",

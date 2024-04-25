@@ -93,7 +93,7 @@ workflow NFCORE_TFACTIVITY {
         PREPARE_GENOME.out.chrom_sizes,
         params.chromhmm_states,
         params.chromhmm_threshold,
-        params.chromhmm_marks,
+        params.chromhmm_marks.split(','),
         params.rose_ucsc,
         params.window_size,
         params.decay,
