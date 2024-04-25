@@ -9,7 +9,7 @@ include { RUN_FIMO                              } from "../../modules/local/fimo
 include { COMBINE_RESULTS                       } from "../../modules/local/fimo/combine_results/main"
 
 workflow FIMO {
-    
+
     take:
         fasta
         tf_ranking
@@ -18,22 +18,22 @@ workflow FIMO {
 
     main:
         JASPAR_MAPPING(tf_ranking, pwm)
-        
+
         JASPAR_DOWNLOAD()
 
         FILTER_MOTIFS(JASPAR_MAPPING.out, JASPAR_DOWNLOAD.out)
-        
+
         ch_cat_input = enhancer_regions
-			.map{
-				meta, file -> file
-			}
-			.collect()
-			.map{
-				item -> [[id: "enhancer_regions"], item]
-			}
+            .map{
+                meta, file -> file
+            }
+            .collect()
+            .map{
+                item -> [[id: "enhancer_regions"], item]
+            }
 
         CONCAT_BEDS(ch_cat_input)
-        
+
         SORT_REGIONS(CONCAT_BEDS.out.file_out, [])
 
         MERGE_REGIONS(SORT_REGIONS.out.sorted)
@@ -41,20 +41,20 @@ workflow FIMO {
         ch_bed = MERGE_REGIONS.out.bed.map{meta, bed -> bed}
 
         EXTRACT_SEQUENCE(ch_bed, fasta)
-        
+
         ch_filtered_motifs = FILTER_MOTIFS.out
-			.flatten()
+            .flatten()
             .filter(Path)
-			.map{file -> [[motif: file.baseName], file]}
+            .map{file -> [[motif: file.baseName], file]}
 
         RUN_FIMO(ch_filtered_motifs, EXTRACT_SEQUENCE.out.fasta)
 
         ch_combine_results = RUN_FIMO.out
             .map{meta, path -> path}
             .collect()
-        
+
         COMBINE_RESULTS(ch_combine_results)
-    
+
     emit:
         tsv = COMBINE_RESULTS.out.tsv
         gff = COMBINE_RESULTS.out.gff

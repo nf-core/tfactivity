@@ -12,7 +12,7 @@ process JASPAR_MAPPING {
 
     output:
         tuple val(meta), path("tfs_jaspar_ids.txt")
-    
+
     script:
     """
         #!/usr/bin/env python3

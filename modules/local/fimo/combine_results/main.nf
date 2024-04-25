@@ -8,18 +8,18 @@ process COMBINE_RESULTS {
 
     input:
         path motif_files
-    
+
     output:
         path "fimo.tsv", emit: tsv
         path "fimo.gff", emit: gff
-    
+
     script:
     motif_files = motif_files.join(",")
     """
     #!/usr/bin/env python3
 
     output_dirs = "${motif_files}".split(',')
-    
+
     tsvs = []
     gffs = []
     for output in output_dirs:
@@ -27,7 +27,7 @@ process COMBINE_RESULTS {
             tsv = f.read().split('\\n')
         with open(f'{output}/fimo.gff', 'r') as f:
             gff = f.read().split('\\n')
-        
+
         tsvs.extend(tsv)
         gffs.extend(gff)
 
@@ -48,6 +48,4 @@ process COMBINE_RESULTS {
     touch fimo.tsv
     touch fimo.gff
     """
-
-    
 }

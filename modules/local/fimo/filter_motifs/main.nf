@@ -1,5 +1,5 @@
 process FILTER_MOTIFS {
-    
+
     conda 'conda-forge::python==3.9.5'
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/python:3.9--1':
@@ -8,10 +8,10 @@ process FILTER_MOTIFS {
     input:
         tuple val(meta), path(tfs_jaspar_ids)
         path jaspar_motifs
-    
+
     output:
         tuple val(meta), path("sign_motifs/*.meme")
-    
+
     script:
     """
         #!/usr/bin/env python3
