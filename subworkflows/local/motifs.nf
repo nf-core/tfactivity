@@ -1,3 +1,5 @@
+include { CONVERT_MOTIFS as CONVERT_TO_UNIVERSAL} from '../../modules/local/motifs/convert_motifs'
+include { FILTER_MOTIFS                         } from '../../modules/local/motifs/filter_motifs'
 include { CONVERT_MOTIFS as CONVERT_TO_MEME     } from '../../modules/local/motifs/convert_motifs'
 include { CONVERT_MOTIFS as CONVERT_TO_TRANSFAC } from '../../modules/local/motifs/convert_motifs'
 include { TRANSFAC_TO_PSEM                      } from '../../modules/local/motifs/transfac_to_psem'
@@ -5,13 +7,19 @@ include { TRANSFAC_TO_PSEM                      } from '../../modules/local/moti
 workflow MOTIFS {
     take:
     ch_input_motifs
+    ch_tfs
     ch_taxon_id
     
     main:
-    ch_motifs_type = ch_input_motifs.map { motifs -> [[id: 'motifs'], motifs, motifs.extension] }
+    CONVERT_TO_UNIVERSAL(ch_input_motifs
+        .map { motifs -> [[id: 'motifs'], motifs, motifs.extension] },
+        "universal")
 
-    CONVERT_TO_MEME(ch_motifs_type, "meme")
-    CONVERT_TO_TRANSFAC(ch_motifs_type, "transfac")
+    ch_filtered = FILTER_MOTIFS(CONVERT_TO_UNIVERSAL.out, ch_tfs)
+        .map{meta, motifs -> [meta, motifs, "universal"]}
+
+    CONVERT_TO_MEME(ch_filtered, "meme")
+    CONVERT_TO_TRANSFAC(ch_filtered, "transfac")
     TRANSFAC_TO_PSEM(CONVERT_TO_TRANSFAC.out)
 
     emit:

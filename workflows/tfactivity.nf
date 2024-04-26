@@ -97,6 +97,7 @@ workflow TFACTIVITY {
 
     MOTIFS(
         ch_motifs,
+        COUNTS.out.tfs,
         ch_taxon_id
     )
 
@@ -110,7 +111,6 @@ workflow TFACTIVITY {
         decay,
         merge_samples,
         ch_contrasts,
-        COUNTS.out.tfs,
         gene_map,
         affinity_agg_method,
         ch_samplesheet_bam,

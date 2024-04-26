@@ -25,7 +25,6 @@ workflow PEAKS {
     decay
     merge_samples
     contrasts
-    tfs
     gene_map
     agg_method
     ch_samplesheet_bam
