@@ -1,3 +1,4 @@
+include { FETCH_JASPAR                          } from '../../modules/local/motifs/fetch_jaspar'
 include { CONVERT_MOTIFS as CONVERT_TO_UNIVERSAL} from '../../modules/local/motifs/convert_motifs'
 include { FILTER_MOTIFS                         } from '../../modules/local/motifs/filter_motifs'
 include { CONVERT_MOTIFS as CONVERT_TO_MEME     } from '../../modules/local/motifs/convert_motifs'
@@ -13,13 +14,19 @@ workflow MOTIFS {
     main:
     ch_versions = Channel.empty()
 
-    CONVERT_TO_UNIVERSAL(ch_input_motifs
+    FETCH_JASPAR(ch_taxon_id)
+
+    // ch_taxon_id and ch_input_motifs are mutually exclusive
+    ch_motifs = FETCH_JASPAR.out.motifs.mix(ch_input_motifs).first()
+
+    CONVERT_TO_UNIVERSAL(ch_motifs
         .map { motifs -> [[id: 'motifs'], motifs, motifs.extension] },
         "universal")
 
     ch_filtered = FILTER_MOTIFS(CONVERT_TO_UNIVERSAL.out.converted, ch_tfs)
         .filtered.map{meta, motifs -> [meta, motifs, "universal"]}
 
+    ch_versions = ch_versions.mix(FETCH_JASPAR.out.versions)
     ch_versions = ch_versions.mix(CONVERT_TO_UNIVERSAL.out.versions)
     ch_versions = ch_versions.mix(FILTER_MOTIFS.out.versions)
 
