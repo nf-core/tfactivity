@@ -29,7 +29,7 @@ motifs = jdb.fetch_motifs(species=int("$taxon_id"))
 
 with open("motifs.jaspar", "w+") as f:
     for motif in motifs:
-        f.write(f">{motif.matrix_id} {motif.name}\\n")
+        f.write(f">{motif.matrix_id} {motif.name.upper()}\\n")
         for base in ["A", "C", "G", "T"]:
             f.write(f"{base} [ {' '.join([str(int(x)) for x in motif.counts[base]])} ]\\n")
         f.write("\\n")
