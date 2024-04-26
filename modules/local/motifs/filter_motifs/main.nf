@@ -13,6 +13,7 @@ process FILTER_MOTIFS {
     
     output:
     tuple val(meta), path("${out_file}"), emit: filtered
+    path "versions.yml"                 , emit: versions
     
     script:
     out_file = "${meta.id}.filtered.RDS"

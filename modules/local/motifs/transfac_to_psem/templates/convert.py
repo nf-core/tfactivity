@@ -1,6 +1,26 @@
 #!/usr/bin/env python3
 
 import numpy as np
+import platform
+
+def format_yaml_like(data: dict, indent: int = 0) -> str:
+    """Formats a dictionary to a YAML-like string.
+
+    Args:
+        data (dict): The dictionary to format.
+        indent (int): The current indentation level.
+
+    Returns:
+        str: A string formatted as YAML.
+    """
+    yaml_str = ""
+    for key, value in data.items():
+        spaces = "  " * indent
+        if isinstance(value, dict):
+            yaml_str += f"{spaces}{key}:\\n{format_yaml_like(value, indent + 1)}"
+        else:
+            yaml_str += f"{spaces}{key}: {value}\\n"
+    return yaml_str
 
 transfac_path = "$transfac"
 pseudocount = 1
@@ -66,3 +86,14 @@ with open(transfac_path, 'r') as f_in, open("${meta.id}.psem", "w") as f_out:
             matrix = np.array(cur_matrix)
             write_pwm(f_out, matrix, cur_name, cur_id)
             cur_id, cur_name, cur_matrix = None, None, []
+
+# Create version file
+versions = {
+    "${task.process}" : {
+        "python": platform.python_version(),
+        "numpy": np.__version__
+    }
+}
+
+with open("versions.yml", "w") as f:
+    f.write(format_yaml_like(versions))

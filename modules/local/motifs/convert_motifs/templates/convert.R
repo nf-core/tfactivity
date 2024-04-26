@@ -35,3 +35,11 @@ switch(out_type,
   transfac = write_transfac,
   universal = saveRDS
 )(u.motif, "$out_file")
+
+writeLines(
+    c(
+        '"${task.process}":',
+        paste('    r-base:', strsplit(version[['version.string']], ' ')[[1]][3]),
+        paste('    bioconductor-universalmotif:', packageVersion("universalmotif"))
+    ),
+'versions.yml')

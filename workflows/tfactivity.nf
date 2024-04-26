@@ -151,6 +151,7 @@ workflow TFACTIVITY {
 
     ch_versions = ch_versions.mix(
         COUNTS.out.versions,
+        MOTIFS.out.versions,
         PEAKS.out.versions,
         DYNAMITE.out.versions,
         RANKING.out.versions,

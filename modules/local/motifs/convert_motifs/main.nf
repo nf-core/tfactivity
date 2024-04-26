@@ -13,6 +13,7 @@ process CONVERT_MOTIFS {
     
     output:
     tuple val(meta), path("${out_file}"), emit: converted
+    path "versions.yml"                 , emit: versions
     
     script:
     out_file = "${meta.id}.converted.${out_type}"
