@@ -39,7 +39,7 @@ def write_pwm(f, matrix, name, ma_id):
     lnR0 = len(matrix) * slope + intercept
 
     decimals = 6
-    f.write(f"> {name} ({ma_id})\\tlnR0: {(round(lnR0, decimals))}\\n")
+    f.write(f">{ma_id}\\t{name}\\tlnR0: {(round(lnR0, decimals))}\\n")
     for row in pwm:
         f.write("\\t".join([f"{round(x, decimals)}" for x in row]) + "\\n")
 
