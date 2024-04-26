@@ -55,7 +55,7 @@ def write_pwm(f, matrix, name, ma_id):
                     np.log((other / other_content) * (active_content / matrix[:, i])) / lamda,
                     np.log(active / matrix[:, i]) / lamda
                 )
-    
+
     lnR0 = len(matrix) * slope + intercept
 
     decimals = 6
