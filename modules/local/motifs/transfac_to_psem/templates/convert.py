@@ -17,12 +17,36 @@ at_content = 1 - gc_content
 slope = 0.584
 intercept = -5.66
 
-matrix_tf = {}
-matrices = {}
+def write_pwm(f, matrix, name, ma_id):
+    matrix = matrix + pseudocount
+    matrix = matrix / matrix.sum(axis=1, keepdims=True)
 
-with open(transfac_path, 'r') as f:
+    maxGC = np.maximum(matrix[:, G], matrix[:, C])
+    maxAT = np.maximum(matrix[:, A], matrix[:, T])
+
+    pwm = np.zeros_like(matrix)
+
+    for i, active, active_content, other, other_content in zip([A, C, G, T], 
+                                            [maxAT, maxGC, maxGC, maxAT], 
+                                            [at_content, gc_content, gc_content, at_content],
+                                            [maxGC, maxAT, maxAT, maxGC], 
+                                            [gc_content, at_content, at_content, gc_content]):
+        pwm[:, i] = np.where(active<other,
+                    np.log((other / other_content) * (active_content / matrix[:, i])) / lamda,
+                    np.log(active / matrix[:, i]) / lamda
+                )
+    
+    lnR0 = len(matrix) * slope + intercept
+
+    decimals = 6
+    f.write(f"> {name} ({ma_id})\\tlnR0: {(round(lnR0, decimals))}\\n")
+    for row in pwm:
+        f.write("\\t".join([f"{round(x, decimals)}" for x in row]) + "\\n")
+
+
+with open(transfac_path, 'r') as f_in, open("${meta.id}.psem", "w") as f_out:
     cur_id, cur_name, cur_matrix = None, None, []
-    for line in f:
+    for line in f_in:
         splitted = line.strip().split()
         prefix = splitted[0]
 
@@ -40,34 +64,5 @@ with open(transfac_path, 'r') as f:
             if not cur_id or not cur_name or not cur_matrix:
                 raise ValueError("Invalid transfac file")
             matrix = np.array(cur_matrix)
-            matrix_tf[cur_id] = cur_name
-            matrices[cur_id] = matrix
+            write_pwm(f_out, matrix, cur_name, cur_id)
             cur_id, cur_name, cur_matrix = None, None, []
-
-with open("${meta.id}.psem", "w") as f:
-    for cur_id, matrix in matrices.items():
-        matrix = matrix + pseudocount
-        matrix = matrix / matrix.sum(axis=1, keepdims=True)
-        entropy = -np.sum(matrix * np.log2(matrix), axis=1)
-
-        maxGC = np.maximum(matrix[:, G], matrix[:, C])
-        maxAT = np.maximum(matrix[:, A], matrix[:, T])
-
-        pwm = np.zeros_like(matrix)
-
-        for i, active, active_content, other, other_content in zip([A, C, G, T], 
-                                                [maxAT, maxGC, maxGC, maxAT], 
-                                                [at_content, gc_content, gc_content, at_content],
-                                                [maxGC, maxAT, maxAT, maxGC], 
-                                                [gc_content, at_content, at_content, gc_content]):
-            pwm[:, i] = np.where(active<other,
-                        np.log((other / other_content) * (active_content / matrix[:, i])) / lamda,
-                        np.log(active / matrix[:, i]) / lamda
-                    )
-        
-        lnR0 = len(matrix) * slope + intercept
-
-        decimals = 6
-        f.write(f"> {matrix_tf[cur_id]} ({cur_id})\\tlnR0: {(round(lnR0, decimals))}\\n")
-        for row in pwm:
-            f.write("\\t".join([f"{round(x, decimals)}" for x in row]) + "\\n")
