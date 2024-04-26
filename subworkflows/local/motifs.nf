@@ -1,5 +1,6 @@
 include { CONVERT_MOTIFS as CONVERT_TO_MEME     } from '../../modules/local/motifs/convert_motifs'
 include { CONVERT_MOTIFS as CONVERT_TO_TRANSFAC } from '../../modules/local/motifs/convert_motifs'
+include { TRANSFAC_TO_PSEM                      } from '../../modules/local/motifs/transfac_to_psem'
 
 workflow MOTIFS {
     take:
@@ -11,8 +12,9 @@ workflow MOTIFS {
 
     CONVERT_TO_MEME(ch_motifs_type, "meme")
     CONVERT_TO_TRANSFAC(ch_motifs_type, "transfac")
+    TRANSFAC_TO_PSEM(CONVERT_TO_TRANSFAC.out)
 
     emit:
     meme = CONVERT_TO_MEME.out
-    psem = CONVERT_TO_TRANSFAC.out
+    psem = TRANSFAC_TO_PSEM.out
 }
