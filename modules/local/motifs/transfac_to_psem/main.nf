@@ -14,8 +14,5 @@ process TRANSFAC_TO_PSEM {
     tuple val(meta), path("*.psem")
     
     script:
-    """
-    g++ ${moduleDir}/convert.cpp -o convert
-    ./convert ${transfac} > ${meta.id}.psem
-    """
+    template "convert.py"
 }

@@ -1,8 +1,6 @@
-# %%
 import numpy as np
 
-# %%
-transfac_path = "/nfs/scratch/nf-core_work/aeee2d942df5bc4f8d25efcbbe473487/72/b956bdb8b236f7dadb4a93c71c928a/motifs.converted.transfac"
+transfac_path = "$transfac"
 pseudocount = 1
 A = 0
 C = 1
@@ -17,7 +15,6 @@ at_content = 1 - gc_content
 slope = 0.584
 intercept = -5.66
 
-# %%
 matrix_tf = {}
 matrices = {}
 
@@ -45,8 +42,7 @@ with open(transfac_path, 'r') as f:
             matrices[cur_id] = matrix
             cur_id, cur_name, cur_matrix = None, None, []
 
-# %%
-with open("output.txt", "w") as f:
+with open("${meta.id}.psem", "w") as f:
     for cur_id, matrix in matrices.items():
         matrix = matrix + pseudocount
         matrix = matrix / matrix.sum(axis=1, keepdims=True)
@@ -74,5 +70,3 @@ with open("output.txt", "w") as f:
         for row in pwm:
             # Round to max 6 decimal places
             f.write("\t".join([f"{round(x, decimals)}" for x in row]) + "\n")
-
-
