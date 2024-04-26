@@ -2,10 +2,10 @@ process TRANSFAC_TO_PSEM {
     tag "$meta.id"
     label "process_single"
     
-    conda "${moduleDir}/environment.yml"
+    conda "conda-forge::pandas==1.5.2"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ubuntu:20.04' :
-        'nf-core/ubuntu:20.04' }"
+        'https://depot.galaxyproject.org/singularity/pandas:1.5.2':
+        'biocontainers/pandas:1.5.2' }"
 
     input:
     tuple val(meta), path(transfac)

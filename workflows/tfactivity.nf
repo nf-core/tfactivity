@@ -140,7 +140,7 @@ workflow TFACTIVITY {
         fasta,
         RANKING.out.tf_total_ranking,
         PEAKS.out.enhancers,
-        pwms
+        MOTIFS.out.psem
     )
 
     REPORT(

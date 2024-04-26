@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import numpy as np
 
 transfac_path = "$transfac"
@@ -66,7 +68,6 @@ with open("${meta.id}.psem", "w") as f:
         lnR0 = len(matrix) * slope + intercept
 
         decimals = 6
-        f.write(f"> {matrix_tf[cur_id]} ({cur_id})\tlnR0: {(round(lnR0, decimals))}\n")
+        f.write(f"> {matrix_tf[cur_id]} ({cur_id})\\tlnR0: {(round(lnR0, decimals))}\\n")
         for row in pwm:
-            # Round to max 6 decimal places
-            f.write("\t".join([f"{round(x, decimals)}" for x in row]) + "\n")
+            f.write("\\t".join([f"{round(x, decimals)}" for x in row]) + "\\n")
