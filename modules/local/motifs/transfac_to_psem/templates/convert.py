@@ -46,10 +46,10 @@ def write_pwm(f, matrix, name, ma_id):
 
     pwm = np.zeros_like(matrix)
 
-    for i, active, active_content, other, other_content in zip([A, C, G, T], 
-                                            [maxAT, maxGC, maxGC, maxAT], 
+    for i, active, active_content, other, other_content in zip([A, C, G, T],
+                                            [maxAT, maxGC, maxGC, maxAT],
                                             [at_content, gc_content, gc_content, at_content],
-                                            [maxGC, maxAT, maxAT, maxGC], 
+                                            [maxGC, maxAT, maxAT, maxGC],
                                             [gc_content, at_content, at_content, gc_content]):
         pwm[:, i] = np.where(active<other,
                     np.log((other / other_content) * (active_content / matrix[:, i])) / lamda,

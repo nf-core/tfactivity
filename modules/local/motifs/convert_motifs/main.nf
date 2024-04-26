@@ -10,11 +10,11 @@ process CONVERT_MOTIFS {
     input:
     tuple val(meta), path(in_file), val(in_type)
     val(out_type)
-    
+
     output:
     tuple val(meta), path("${out_file}"), emit: converted
     path "versions.yml"                 , emit: versions
-    
+
     script:
     out_file = "${meta.id}.converted.${out_type}"
     template "convert.R"

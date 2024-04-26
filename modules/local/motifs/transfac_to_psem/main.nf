@@ -9,11 +9,11 @@ process TRANSFAC_TO_PSEM {
 
     input:
     tuple val(meta), path(transfac)
-    
+
     output:
     tuple val(meta), path("*.psem"), emit: psem
     path "versions.yml"            , emit: versions
-    
+
     script:
     template "convert.py"
 }

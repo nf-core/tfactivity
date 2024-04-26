@@ -10,7 +10,7 @@ workflow MOTIFS {
     ch_input_motifs
     ch_tfs
     ch_taxon_id
-    
+
     main:
     ch_versions = Channel.empty()
 

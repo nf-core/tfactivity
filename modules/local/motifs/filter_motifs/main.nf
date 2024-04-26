@@ -10,11 +10,11 @@ process FILTER_MOTIFS {
     input:
     tuple val(meta), path(in_file)
     tuple val(meta2), path(tfs)
-    
+
     output:
     tuple val(meta), path("${out_file}"), emit: filtered
     path "versions.yml"                 , emit: versions
-    
+
     script:
     out_file = "${meta.id}.filtered.RDS"
     template "filter_motifs.R"
