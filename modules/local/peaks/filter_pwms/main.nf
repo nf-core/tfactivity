@@ -9,7 +9,7 @@ process FILTER_PWMS {
 
     input:
     tuple val(meta), path(genes)
-    path(pwms)
+    tuple val(meta2), path(pwms)
 
     output:
     tuple val(meta), path("pwms.txt")  , emit: pwms

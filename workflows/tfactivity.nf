@@ -12,6 +12,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_tfac
 
 include { PREPARE_GENOME         } from '../subworkflows/local/prepare_genome'
 include { COUNTS                 } from '../subworkflows/local/counts'
+include { MOTIFS                 } from '../subworkflows/local/motifs'
 include { PEAKS                  } from '../subworkflows/local/peaks'
 include { DYNAMITE               } from '../subworkflows/local/dynamite'
 include { RANKING                } from '../subworkflows/local/ranking'
@@ -28,27 +29,33 @@ workflow TFACTIVITY {
 
     take:
     ch_samplesheet // channel: samplesheet read in from --input
+
+    // Genome
     fasta
     gtf
     blacklist
-    pwms
+    ch_motifs
+    ch_taxon_id
     gene_lengths
     gene_map
-    counts
-    extra_counts
-    counts_design
-    ch_samplesheet_bam
     chrom_sizes
+
+    // ChromHMM
+    ch_samplesheet_bam
     chromhmm_states
     chromhmm_threshold
     chromhmm_marks
 
+    // Peaks
     window_size
     decay
     merge_samples
     affinity_agg_method
 
     // Counts
+    counts
+    extra_counts
+    counts_design
     min_count
     min_tpm
     expression_agg_method
@@ -88,12 +95,17 @@ workflow TFACTIVITY {
         min_tpm_tf
     )
 
+    MOTIFS(
+        ch_motifs,
+        ch_taxon_id
+    )
+
     PEAKS(
         ch_samplesheet,
         fasta,
         gtf,
         blacklist,
-        pwms,
+        MOTIFS.out.psem,
         window_size,
         decay,
         merge_samples,
