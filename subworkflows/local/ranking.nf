@@ -58,6 +58,7 @@ workflow RANKING {
     emit:
     tf_ranking = COMBINE_TFS_PER_ASSAY.out.combined
     tg_ranking = COMBINE_TGS_PER_ASSAY.out.combined
+    tf_total_ranking = COMBINE_TFS_ACROSS_ASSAYS.out.combined
 
 
     versions = ch_versions                     // channel: [ versions.yml ]
