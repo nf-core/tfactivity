@@ -11,11 +11,17 @@ process RUN_FIMO {
         path sequence_file
 
     output:
-        tuple val(meta), path("fimo_${meta.motif}")
+        tuple val(meta), path("fimo_${meta.motif}"), emit: results
+        path "versions.yml",                         emit: versions
 
     script:
     """
     fimo --o fimo_${meta.motif} --max-stored-scores 1000000 ${motif_file} ${sequence_file}
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        fimo: \$( fimo -version )
+    END_VERSIONS
     """
 
     stub:

@@ -144,6 +144,7 @@ workflow TFACTIVITY {
         PEAKS.out.versions,
         DYNAMITE.out.versions,
         RANKING.out.versions,
+        FIMO.out.versions,
         REPORT.out.versions
     )
 

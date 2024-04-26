@@ -17,11 +17,13 @@ workflow FIMO {
         pwm
 
     main:
+        ch_versions = Channel.empty()
+
         JASPAR_MAPPING(tf_ranking, pwm)
 
         JASPAR_DOWNLOAD()
 
-        FILTER_MOTIFS(JASPAR_MAPPING.out, JASPAR_DOWNLOAD.out)
+        FILTER_MOTIFS(JASPAR_MAPPING.out.jaspar_ids, JASPAR_DOWNLOAD.out.motifs)
 
         ch_cat_input = enhancer_regions
             .map{
@@ -42,20 +44,33 @@ workflow FIMO {
 
         EXTRACT_SEQUENCE(ch_bed, fasta)
 
-        ch_filtered_motifs = FILTER_MOTIFS.out
+        ch_filtered_motifs = FILTER_MOTIFS.out.motifs
             .flatten()
             .filter(Path)
             .map{file -> [[motif: file.baseName], file]}
 
         RUN_FIMO(ch_filtered_motifs, EXTRACT_SEQUENCE.out.fasta)
 
-        ch_combine_results = RUN_FIMO.out
+        ch_combine_results = RUN_FIMO.out.results
             .map{meta, path -> path}
             .collect()
 
         COMBINE_RESULTS(ch_combine_results)
 
+        ch_versions = ch_versions.mix(
+            JASPAR_MAPPING.out.versions,
+            JASPAR_DOWNLOAD.out.versions,
+            FILTER_MOTIFS.out.versions,
+            CONCAT_BEDS.out.versions,
+            SORT_REGIONS.out.versions,
+            MERGE_REGIONS.out.versions,
+            EXTRACT_SEQUENCE.out.versions,
+            RUN_FIMO.out.versions,
+            COMBINE_RESULTS.out.versions
+        )
+
     emit:
         tsv = COMBINE_RESULTS.out.tsv
         gff = COMBINE_RESULTS.out.gff
+        versions = ch_versions
 }
