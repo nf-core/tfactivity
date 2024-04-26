@@ -257,15 +257,21 @@
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
                     "fa_icon": "far fa-file-code"
                 },
-                "pwms": {
+                "motifs": {
                     "type": "string",
                     "format": "file-path",
                     "exists": true,
                     "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.txt(\\.gz)?$",
-                    "description": "Path to PWMs file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "pattern": "^\\S+\\.(cisbp|homer|jaspar|meme|transfac|uniprobe)?$",
+                    "description": "Path to transcription factor motifs file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. Alternatively, you can use the `--taxon_id` parameter to fetch the motifs from the JASPAR database.",
                     "fa_icon": "far fa-file-code"
+                },
+                "taxon_id": {
+                    "type": "integer",
+                    "description": "NCBI Taxonomy ID.",
+                    "fa_icon": "fas fa-dna",
+                    "help_text": "This parameter is *mandatory* if `--genome` and `--motifs` are not specified. Use this parameter to fetch the motifs from the JASPAR database."
                 },
                 "igenomes_ignore": {
                     "type": "boolean",
