@@ -1,7 +1,6 @@
 // Modules
 include { GAWK as CLEAN_BED               } from '../../modules/nf-core/gawk/main'
 include { BEDTOOLS_SORT as SORT_PEAKS     } from '../../modules/nf-core/bedtools/sort/main'
-include { FILTER_PWMS                     } from '../../modules/local/peaks/filter_pwms'
 include { STARE                           } from '../../modules/local/peaks/stare'
 include { AGGREGATE_SYNONYMS              } from '../../modules/local/peaks/aggregate_synonyms/main'
 include { COMBINE_TABLES as AFFINITY_MEAN } from '../../modules/local/combine_tables/main'
@@ -74,14 +73,12 @@ workflow PEAKS {
                             condition: meta.condition,
                             assay: meta.assay], peaks]}
 
-    FILTER_PWMS(tfs, pwms)
-
     STARE(
         ch_peaks,
         fasta,
         gtf,
         blacklist,
-        FILTER_PWMS.out.pwms.collect(),
+        pwms.collect(),
         window_size,
         decay
     )
@@ -132,7 +129,6 @@ workflow PEAKS {
     AFFINITY_SUM(ch_contrast_affinities, "sum")
 
     ch_versions = ch_versions.mix(
-        FILTER_PWMS.out.versions,
         STARE.out.versions,
         AGGREGATE_SYNONYMS.out.versions,
         AFFINITY_RATIO.out.versions,
