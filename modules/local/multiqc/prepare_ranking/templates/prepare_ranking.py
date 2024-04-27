@@ -37,15 +37,43 @@ merged_df = pd.concat(assay_series,
                       axis=1,
                       sort=True,
                       join="outer")
+merged_df.fillna(0, inplace=True)
+
+main_id = "tf_ranking"
+main_name = "Transcription Factors"
+main_description = "This section contains the ranking of transcription factors based on the provided assays."
 
 with open("tf_ranking_mqc.json", "w+") as f:
     json.dump({
-        "id": "tf_ranking",
-        "section_name": "Ranking of Transcription Factors",
-        "description": "This section contains the ranking of transcription factors based on the provided assays.",
+        "id": main_id,
+        "section_name": main_name,
+        "description": main_description
+    }, f, indent=4)
+
+with open("overview_mqc.json", "w+") as f:
+    json.dump({
+        "id": f"tf_overview",
+        "parent_id": main_id,
+        "parent_name": main_name,
+        "parent_description": main_description,
+        "section_name": "Ranking",
+        "description": "This section contains the ranking of all transcription factors based on the provided assays.",
         "plot_type": "table",
         "data": merged_df.to_dict(orient="index")
-    }, f)
+    }, f, indent=4)
+
+for tf in merged_df.index:
+    with open(f"tf_{tf}_mqc.json", "w+") as f:
+        json.dump({
+            "id": f"tf_{tf}",
+            "parent_id": main_id,
+            "parent_name": main_name,
+            "parent_description": main_description,
+            "section_name": tf,
+            "description": f"This section contains the ranking of {tf} based on the provided assays.",
+            "plot_type": "bargraph",
+            "data": merged_df.loc[[tf]].to_dict()
+        }, f, indent=4)
 
 # Create version file
 versions = {

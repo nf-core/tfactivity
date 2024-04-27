@@ -16,9 +16,4 @@ process PREPARE_RANKING {
 
     script:
     template "prepare_ranking.py"
-
-    stub:
-    """
-    touch tfs_jaspar_ids.txt
-    """
 }

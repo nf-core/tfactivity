@@ -40,11 +40,16 @@ workflow RANKING {
                                                 "rank"
     )
 
-    TF_MULTIQC(COMBINE_TFS_PER_ASSAY.out.combined.mix(
-                    COMBINE_TFS_ACROSS_ASSAYS.out.combined
-                ).map{ meta, table -> [[id: "tf"], meta.id, table]}
-                .groupTuple()
-    )
+    ch_tf_assay_rankings = COMBINE_TFS_PER_ASSAY.out.combined.mix(
+                        COMBINE_TFS_ACROSS_ASSAYS.out.combined
+                    ).map{ meta, table -> [[id: "tf"], meta.id, table]}
+                    .groupTuple()
+                    .collect()
+
+    tfs = COMBINE_TFS_ACROSS_ASSAYS.out.combined.map{ meta, table -> table }
+        .splitCsv(skip: 1, sep: "\t").map{ row -> row[0] }
+
+    TF_MULTIQC(ch_tf_assay_rankings)
     ch_multiqc_files = ch_multiqc_files.mix(TF_MULTIQC.out.multiqc_files)
 
     COMBINE_TGS_PER_ASSAY(CREATE_RANKING.out.tgs.map{ meta, table -> [[id: meta.assay], table]}
