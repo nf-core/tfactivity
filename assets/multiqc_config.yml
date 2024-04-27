@@ -10,6 +10,11 @@ report_section_order:
   "nf-core-tfactivity-summary":
     order: -1002
 
+top_modules:
+  - "tf_ranking"
+  - "tg_ranking"
+  - "network"
+
 export_plots: true
 
 disable_version_detection: true

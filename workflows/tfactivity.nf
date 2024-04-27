@@ -151,6 +151,10 @@ workflow TFACTIVITY {
         alpha
     )
 
+    ch_multiqc_files = ch_multiqc_files.mix(
+        RANKING.out.multiqc_files
+    )
+
     FIMO(
         fasta,
         RANKING.out.tf_total_ranking,
