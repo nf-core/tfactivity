@@ -19,13 +19,13 @@ workflow PREPARE_GENOME {
     ch_gtf   = gtf.map { gtf -> [[id: 'gtf'], gtf] }
 
     ch_fasta_branched = ch_fasta.branch {
-        gzip: it[1].extension == '.gz'
-        standard: it[1].extension != '.gz'
+        gzip: it[1].extension == 'gz'
+        standard: it[1].extension != 'gz'
     }
 
     ch_gtf_branched = ch_gtf.branch {
-        gzip: it[1].extension == '.gz'
-        standard: it[1].extension != '.gz'
+        gzip: it[1].extension == 'gz'
+        standard: it[1].extension != 'gz'
     }
 
     // Unzip fasta and gtf
