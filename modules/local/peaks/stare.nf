@@ -7,10 +7,10 @@ process STARE {
 
     input:
     tuple val(meta), path(candidate_regions)
-    path(fasta)
-    path(gtf)
+    tuple val(meta2), path(fasta)
+    tuple val(meta3), path(gtf)
     path(blacklist)
-    tuple val(meta2), path(pwms)
+    tuple val(meta4), path(pwms)
     val(window_size)
     val(decay)
 
