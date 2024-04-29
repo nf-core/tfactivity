@@ -63,7 +63,7 @@ workflow PEAKS {
     }
 
     CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_marks)
-    ROSE(CHROMHMM.out.enhancers, gtf.map{gtf -> [[id: "gtf"], gtf]})
+    ROSE(CHROMHMM.out.enhancers, gtf)
 
     ch_versions = ch_versions.mix(CHROMHMM.out.versions)
     ch_versions = ch_versions.mix(ROSE.out.versions)
