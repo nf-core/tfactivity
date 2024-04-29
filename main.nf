@@ -79,8 +79,8 @@ workflow NFCORE_TFACTIVITY {
     //
     TFACTIVITY (
         samplesheet,
-        ch_fasta,
-        ch_gtf,
+        PREPARE_GENOME.out.fasta,
+        PREPARE_GENOME.out.gtf,
         ch_blacklist,
         ch_pwms,
         PREPARE_GENOME.out.gene_lengths,

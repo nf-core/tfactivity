@@ -42,7 +42,7 @@ workflow FIMO {
 
         ch_bed = MERGE_REGIONS.out.bed.map{meta, bed -> bed}
 
-        EXTRACT_SEQUENCE(ch_bed, fasta)
+        EXTRACT_SEQUENCE(ch_bed, fasta.map{meta, fasta -> fasta})
 
         ch_filtered_motifs = FILTER_MOTIFS.out.motifs
             .flatten()

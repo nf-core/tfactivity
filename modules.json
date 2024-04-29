@@ -45,6 +45,11 @@
                         "git_sha": "dc3527855e7358c6d8400828754c0caa5f11698f",
                         "installed_by": ["modules"]
                     },
+                    "gunzip": {
+                        "branch": "master",
+                        "git_sha": "3a5fef109d113b4997c9822198664ca5f2716208",
+                        "installed_by": ["modules"]
+                    },
                     "samtools/faidx": {
                         "branch": "master",
                         "git_sha": "aeb02a39d4c463598bfdcb2d964dbb7acbcf1298",
