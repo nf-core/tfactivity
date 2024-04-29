@@ -10,7 +10,7 @@ marks = "${marks.join(' ')}".split()
 emissions = pd.read_csv("$emissions", sep = "\\t")[["State (Emission order)"] + marks].rename(columns={"State (Emission order)": "State"})
 
 
-# Read input bed file and remove unecessary columns
+# Read input bed file
 bed = pd.read_csv("$bed",
                   sep="\\t",
                   skiprows=1,
