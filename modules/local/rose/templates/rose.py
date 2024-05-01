@@ -22,18 +22,13 @@ def format_yaml_like(data: dict, indent: int = 0) -> str:
             yaml_str += f"{spaces}{key}: {value}\\n"
     return yaml_str
 
-def region_stitching(input_gff, stitch_window, tss_window, annot_file, remove_tss=True):
+def region_stitching(bound_collection, stitch_window, tss_window, start_dict):
     print('Performing region stitching...')
-    # first have to turn bound region file into a locus collection
 
-    # need to make sure this names correctly... each region should have a unique name
-    bound_collection = gff_to_locus_collection(input_gff)
+    remove_tss = tss_window != 0
 
     # filter out all bound regions that overlap the TSS of an ACTIVE GENE
     if remove_tss:
-        # first make a locus collection of TSS
-        start_dict = make_start_dict(annot_file)
-
         # now makeTSS loci for active genes
         remove_ticker = 0
         # this loop makes a locus centered around +/- tss_window of transcribed genes
@@ -171,91 +166,79 @@ def format_folder(folder_name, create=False):
 # ==================================================================
 
 
-def make_start_dict(annot_file, gene_list=[]):
-    """
-    makes a dictionary keyed by refseq ID that contains information about
-    chrom/start/stop/strand/common name
-    """
+def make_start_dict(annot_file):
+    transcripts = []
 
-    if type(gene_list) == str:
-        gene_list = parse_table(gene_list, '\\t')
-        gene_list = [line[0] for line in gene_list]
+    genepred_table, genepred_dict = import_genepred(annot_file)
+    if len(transcripts) == 0:
+        transcripts = list(genepred_dict.keys())
+    start_dict = {}
+    for transcript in transcripts:
+        if transcript not in genepred_dict:
+            continue
+        start_dict[transcript] = {}
+        start_dict[transcript]['sense'] = genepred_table[genepred_dict[transcript][0]][2]
+        start_dict[transcript]['chr'] = genepred_table[genepred_dict[transcript][0]][1]
+        start_dict[transcript]['start'] = get_tsss([transcript], genepred_table, genepred_dict)
+        if start_dict[transcript]['sense'] == '+':
+            start_dict[transcript]['end'] = [int(genepred_table[genepred_dict[transcript][0]][4])]
+        else:
+            start_dict[transcript]['end'] = [int(genepred_table[genepred_dict[transcript][0]][3])]
+        start_dict[transcript]['name'] = genepred_table[genepred_dict[transcript][0]][11]
 
-    if annot_file.upper().count('REFSEQ') == 1:
-        refseq_table, refseq_dict = import_refseq(annot_file)
-        if len(gene_list) == 0:
-            gene_list = list(refseq_dict.keys())
-        start_dict = {}
-        for gene in gene_list:
-            if gene not in refseq_dict:
-                continue
-            start_dict[gene] = {}
-            start_dict[gene]['sense'] = refseq_table[refseq_dict[gene][0]][3]
-            start_dict[gene]['chr'] = refseq_table[refseq_dict[gene][0]][2]
-            start_dict[gene]['start'] = get_tsss([gene], refseq_table, refseq_dict)
-            if start_dict[gene]['sense'] == '+':
-                start_dict[gene]['end'] = [int(refseq_table[refseq_dict[gene][0]][5])]
-            else:
-                start_dict[gene]['end'] = [int(refseq_table[refseq_dict[gene][0]][4])]
-            start_dict[gene]['name'] = refseq_table[refseq_dict[gene][0]][12]
     return start_dict
 
 
 # generic function to get the TSS of any gene
-def get_tsss(gene_list, refseq_table, refseq_dict):
+def get_tsss(gene_list, genepred_table, genepred_dict):
     if len(gene_list) == 0:
-        refseq = refseq_table
+        genepred = genepred_table
     else:
-        refseq = refseq_from_key(gene_list, refseq_dict, refseq_table)
+        genepred = genepred_from_key(gene_list, genepred_dict, genepred_table)
     tss = []
-    for line in refseq:
-        if line[3] == '+':
+    for line in genepred:
+        if line[2] == '+':
+            tss.append(line[3])
+        if line[2] == '-':
             tss.append(line[4])
-        if line[3] == '-':
-            tss.append(line[5])
     tss = list(map(int, tss))
 
     return tss
 
 
 # 12/29/08
-# refseq_from_key(refseqKeyList,refseq_dict,refseq_table)
-# function that grabs refseq lines from refseq IDs
-def refseq_from_key(refseq_key_list, refseq_dict, refseq_table):
-    type_refseq = []
-    for name in refseq_key_list:
-        if name in refseq_dict:
-            type_refseq.append(refseq_table[refseq_dict[name][0]])
-    return type_refseq
+# genepred_from_key(genepredKeyList,genepred_dict,genepred_table)
+# function that grabs genepred lines from genepred IDs
+def genepred_from_key(genepred_key_list, genepred_dict, genepred_table):
+    type_genepred = []
+    for name in genepred_key_list:
+        if name in genepred_dict:
+            type_genepred.append(genepred_table[genepred_dict[name][0]])
+    return type_genepred
 
 
-# 10/13/08
-# import_refseq
-# takes in a refseq table and makes a refseq table and a refseq dictionary for keying the table
 
-def import_refseq(refseq_file, return_multiples=False):
-    """
-    opens up a refseq file downloaded by UCSC
-    """
-    refseq_table = parse_table(refseq_file, '\\t')
-    refseq_dict = {}
-    ticker = 1
-    for line in refseq_table[1:]:
-        if line[1] in refseq_dict:
-            refseq_dict[line[1]].append(ticker)
+def import_genepred(genepred_file, return_multiples=False):
+    genepred_table = parse_table(genepred_file, '\\t')
+    genepred_dict = {}
+    ticker = 0
+    for line in genepred_table:
+        transcript = line[0]
+        if transcript in genepred_dict:
+            genepred_dict[transcript].append(ticker)
         else:
-            refseq_dict[line[1]] = [ticker]
+            genepred_dict[transcript] = [ticker]
         ticker = ticker + 1
 
     multiples = []
-    for i in refseq_dict:
-        if len(refseq_dict[i]) > 1:
+    for i in genepred_dict:
+        if len(genepred_dict[i]) > 1:
             multiples.append(i)
 
     if return_multiples:
-        return refseq_table, refseq_dict, multiples
+        return genepred_table, genepred_dict, multiples
     else:
-        return refseq_table, refseq_dict
+        return genepred_table, genepred_dict
 
 
 # ==================================================================
@@ -275,7 +258,7 @@ class Locus:
     # sense = '+' or '-' (or '.' for an ambidextrous locus)
     # start,end = ints of the start and end coords of the locus
     #      end coord is the coord of the last nucleotide.
-    def __init__(self, chr, start, end, sense, id=''):
+    def __init__(self, chr, start, end, sense, id='', score=0):
         coords = [int(start), int(end)]
         coords.sort()
         # this method for assigning chromosome should help avoid storage of
@@ -287,6 +270,7 @@ class Locus:
         self._start = int(coords[0])
         self._end = int(coords[1])
         self._id = id
+        self._score = score
 
     def id(self):
         return self._id
@@ -315,6 +299,9 @@ class Locus:
 
     def sense(self):
         return self._sense
+
+    def score(self):
+        return self._score
 
     # returns boolean; True if two loci share any coordinates in common
     def overlaps(self, other_locus):
@@ -556,37 +543,25 @@ class LocusCollection:
 # ========================LOCUS FUNCTIONS===========================
 # ==================================================================
 # 06/11/09
-# turns a locusCollection into a gff
+# turns a locusCollection into a bed
 # does not write to disk though
-def locus_collection_to_gff(locus_collection):
+def locus_collection_to_bed(locus_collection):
     loci_list = locus_collection.get_loci()
-    gff = []
+    bed = []
     for locus in loci_list:
-        new_line = [locus.chr(), locus.id(), '', locus.coords()[0], locus.coords()[1], '', locus.sense(), '',
-                    locus.id()]
-        gff.append(new_line)
-    return gff
+        new_line = [locus.chr(), locus.coords()[0], locus.coords()[1], locus.id(), locus.score(), locus.sense()]
+        bed.append(new_line)
+    return bed
 
 
-def gff_to_locus_collection(gff, window=500):
+def bed_to_locus_collection(bed, window=500):
     """
-    opens up a gff file and turns it into a LocusCollection instance
+    opens up a bed file and turns it into a LocusCollection instance
     """
 
-    loci_list = []
-    if type(gff) == str:
-        gff = parse_table(gff, '\\t')
+    loci_list = [Locus(line[0], line[1], line[2], line[5], line[3])
+                    for line in parse_table(bed, '\\t')]
 
-    for line in gff:
-        # USE line[2] as the locus id.  If that is empty use line[8]
-        if len(line[2]) > 0:
-            name = line[2]
-        elif len(line[8]) > 0:
-            name = line[8]
-        else:
-            name = f'{line[0]}:{line[6]}:{line[3]}-{line[4]}'
-
-        loci_list.append(Locus(line[0], line[3], line[4], line[6], name))
     return LocusCollection(loci_list, window)
 
 
@@ -628,34 +603,12 @@ def uniquify(seq, idfun=None):
         result.append(item)
     return result
 
-input_gff_file = "$gff"
-stitched_gff_file = "${gff.baseName}_STITCHED.gff"
-annot_file = "$ucsc_file"
 
-stitch_window = int("$stitch")
-tss_window = int("$tss_dist")
-
-if tss_window != 0:
-    remove_tss = True
-else:
-    remove_tss = False
-
-# GETTING THE BOUND REGION FILE USED TO DEFINE ENHANCERS
-print(f'Using {input_gff_file} as the input gff')
-input_name = input_gff_file.split('/')[-1].split('.')[0]
-
-print(f'Using {annot_file} as the genome')
-print('Making start dict')
-start_dict = make_start_dict(annot_file)
-
-print('Stitching regions together')
-stitched_collection = region_stitching(input_gff_file, stitch_window, tss_window, annot_file, remove_tss)
-
-print('Making GFF from stitched collection')
-stitched_gff = locus_collection_to_gff(stitched_collection)
-
-print(f'Writing stitched GFF to disk as {stitched_gff_file}')
-unparse_table(stitched_gff, stitched_gff_file, '\\t')
+start_dict = make_start_dict("$genepred")
+locus_collection = bed_to_locus_collection("$bed")
+stitched_collection = region_stitching(locus_collection, int("$stitch"), int("$tss_dist"), start_dict)
+stitched = locus_collection_to_bed(stitched_collection)
+unparse_table(stitched, "${meta.id}.rose.bed", '\\t')
 
 # Create version file
 versions = {

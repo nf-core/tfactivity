@@ -8,11 +8,12 @@ process ROSE {
         'biocontainers/mulled-v2-2076f4a3fb468a04063c9e6b7747a630abb457f6:fccb0c41a243c639e11dd1be7b74f563e624fcca-0' }"
 
     input:
-    tuple val(meta), path(gff)
-    path ucsc_file
+    tuple val(meta), path(bed)
+    tuple val(meta2), path(genepred)
 
     output:
-    tuple val(meta), path("${gff.baseName}_STITCHED.gff")
+    tuple val(meta), path("${meta.id}.rose.bed"), emit: stitched
+    path("versions.yml")                        , emit: versions
 
     script:
     stitch = 12500
@@ -21,6 +22,6 @@ process ROSE {
 
     stub:
     """
-    touch "${gff.baseName}_STITCHED.gff"
+    touch "${meta.id}.rose.bed"
     """
 }

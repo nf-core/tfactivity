@@ -267,16 +267,6 @@
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
                     "fa_icon": "far fa-file-code"
                 },
-                "rose_ucsc": {
-                    "type": "string",
-                    "format": "file-path",
-                    "exists": true,
-                    "mimetype": "text/plain",
-                    "pattern": "^\\S+\\.ucsc$",
-                    "description": "Path to ROSE UCSC file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified and input_bam is defined.",
-                    "fa_icon": "far fa-file-code"
-                },
                 "igenomes_ignore": {
                     "type": "boolean",
                     "description": "Do not load the iGenomes reference config.",

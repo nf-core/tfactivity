@@ -42,7 +42,6 @@ workflow TFACTIVITY {
     chromhmm_states
     chromhmm_threshold
     chromhmm_marks
-    rose_ucsc
 
     window_size
     decay
@@ -106,8 +105,7 @@ workflow TFACTIVITY {
         chrom_sizes,
         chromhmm_states,
         chromhmm_threshold,
-        chromhmm_marks,
-        rose_ucsc
+        chromhmm_marks
     )
 
     DYNAMITE(

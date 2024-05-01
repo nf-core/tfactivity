@@ -34,7 +34,6 @@ params.fasta     = getGenomeAttribute('fasta')
 params.gtf       = getGenomeAttribute('gtf')
 params.blacklist = getGenomeAttribute('blacklist')
 params.pwms      = getGenomeAttribute('pwms')
-params.rose_ucsc = getGenomeAttribute('rose_ucsc')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,7 +93,6 @@ workflow NFCORE_TFACTIVITY {
         params.chromhmm_states,
         params.chromhmm_threshold,
         params.chromhmm_marks.split(','),
-        params.rose_ucsc,
         params.window_size,
         params.decay,
         params.merge_samples,
