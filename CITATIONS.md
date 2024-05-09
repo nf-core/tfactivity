@@ -10,13 +10,21 @@
 
 ## Pipeline tools
 
-- [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+- [DeSeq2](https://doi.org/10.1186/s13059-014-0550-8)
 
-  > Andrews, S. (2010). FastQC: A Quality Control Tool for High Throughput Sequence Data [Online].
+  > Love, M.I., Huber, W. & Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol 15, 550 (2014).
 
-- [MultiQC](https://pubmed.ncbi.nlm.nih.gov/27312411/)
+- [STARE](https://doi.org/10.1093/bioinformatics/btad062)
 
-  > Ewels P, Magnusson M, Lundin S, Käller M. MultiQC: summarize analysis results for multiple tools and samples in a single report. Bioinformatics. 2016 Oct 1;32(19):3047-8. doi: 10.1093/bioinformatics/btw354. Epub 2016 Jun 16. PubMed PMID: 27312411; PubMed Central PMCID: PMC5039924.
+  > Dennis Hecker, Fatemeh Behjati Ardakani, Alexander Karollus, Julien Gagneur, Marcel H Schulz, The adapted Activity-By-Contact model for enhancer–gene assignment and its application to single-cell data, Bioinformatics, Volume 39, Issue 2, February 2023
+
+- [Bedtools](https://doi.org/10.1093%2Fbioinformatics%2Fbtq033)
+
+  > Quinlan AR, Hall IM. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics. 2010 Mar 15;26(6):841-2. doi: 10.1093/bioinformatics/btq033. Epub 2010 Jan 28. PMID: 20110278; PMCID: PMC2832824.
+
+- [GTFtools](https://doi.org/10.1093/bioinformatics/btac561)
+
+  > Hong-Dong Li, Cui-Xiang Lin, Jiantao Zheng, GTFtools: a software package for analyzing various features of gene models, Bioinformatics, Volume 38, Issue 20, 15 October 2022, Pages 4806–4808,
 
 ## Software packaging/containerisation tools
 

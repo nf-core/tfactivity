@@ -1,2 +1,10 @@
 repository_type: pipeline
-nf_core_version: "2.14.0"
+lint:
+  template_strings:
+    - modules/local/report/create/app/templates/tf.html
+    - modules/local/report/create/app/templates/tg.html
+    - modules/local/report/create/app/templates/macros.html
+    - modules/local/report/create/app/templates/configuration.html
+    - modules/local/report/create/app/templates/snp.html
+    - modules/local/report/create/app/templates/base.html
+    - modules/local/report/create/app/templates/network.html
