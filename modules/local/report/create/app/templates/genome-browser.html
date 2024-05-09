@@ -1,0 +1,5 @@
+{% extends "base.html" %} {% block tabs %} {% from 'macros.html' import tabs %} {{ tabs(active="gb") }} {% endblock %}
+{% block content %}
+<script src="dependencies/genome-browser.js"></script>
+<genome-browser style="width: 100%"></genome-browser>
+{% endblock %}

@@ -93,6 +93,7 @@ sorted(pairings)
 tf = env.get_template("tf.html")
 tg = env.get_template("tg.html")
 network = env.get_template("network.html")
+genome_browser = env.get_template("genome-browser.html")
 snp = env.get_template("snp.html")
 configuration = env.get_template("configuration.html")
 styles = env.get_template("styles.css")
@@ -117,6 +118,9 @@ with open(os.path.join(out_dir, "network.html"), "w") as f:
     f.write(network.render(tf_tg_ranking=tf_tg_ranking,
                            assays=assays,
                            ))
+
+with open(os.path.join(out_dir, "genome-browser.html"), "w") as f:
+    f.write(genome_browser.render())
 
 with open(os.path.join(out_dir, "snps.html"), "w") as f:
     f.write(snp.render())
