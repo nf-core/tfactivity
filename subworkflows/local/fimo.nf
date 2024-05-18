@@ -1,5 +1,4 @@
 include { JASPAR_MAPPING                        } from "../../modules/local/fimo/jaspar_mapping/main"
-include { JASPAR_DOWNLOAD                       } from "../../modules/local/fimo/jaspar_download/main"
 include { FILTER_MOTIFS                         } from "../../modules/local/fimo/filter_motifs/main"
 include { CAT_CAT as CONCAT_BEDS                } from "../../modules/nf-core/cat/cat/main"
 include { BEDTOOLS_SORT as SORT_REGIONS         } from "../../modules/nf-core/bedtools/sort/main"
@@ -15,24 +14,19 @@ workflow FIMO {
         tf_ranking
         enhancer_regions
         pwm
+        motifs_meme
 
     main:
         ch_versions = Channel.empty()
 
         JASPAR_MAPPING(tf_ranking, pwm)
 
-        JASPAR_DOWNLOAD()
-
-        FILTER_MOTIFS(JASPAR_MAPPING.out.jaspar_ids, JASPAR_DOWNLOAD.out.motifs)
+        FILTER_MOTIFS(JASPAR_MAPPING.out.jaspar_ids, motifs_meme)
 
         ch_cat_input = enhancer_regions
-            .map{
-                meta, file -> file
-            }
+            .map{meta, file -> file}
             .collect()
-            .map{
-                item -> [[id: "enhancer_regions"], item]
-            }
+            .map{files -> [[id: "enhancer_regions"], files]}
 
         CONCAT_BEDS(ch_cat_input)
 
@@ -59,7 +53,6 @@ workflow FIMO {
 
         ch_versions = ch_versions.mix(
             JASPAR_MAPPING.out.versions,
-            JASPAR_DOWNLOAD.out.versions,
             FILTER_MOTIFS.out.versions,
             CONCAT_BEDS.out.versions,
             SORT_REGIONS.out.versions,

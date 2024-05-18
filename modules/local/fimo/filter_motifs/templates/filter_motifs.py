@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
 from os import mkdir
-from os.path import exists
-from shutil import copy
 import platform
-
 
 def format_yaml_like(data: dict, indent: int = 0) -> str:
     """Formats a dictionary to a YAML-like string.
@@ -26,21 +23,51 @@ def format_yaml_like(data: dict, indent: int = 0) -> str:
     return yaml_str
 
 
-tfs_jaspar_ids = "${tfs_jaspar_ids}"
-jaspar_motifs = "${jaspar_motifs}"
+def split_meme_file(meme_file):
+    lines = meme_file.split('\\n')
+    header = []
+    motifs = {}
+    current_motif = []
+    current_motif_name = ""
+    is_header = True
 
-# Read differentially expressed (DE) transcription factors (TF)
-with open(tfs_jaspar_ids, "r") as f:
-    tfs_jaspar_ids = f.read().split('\\n')
+    for line in lines:
+        if line.startswith("MOTIF"):
+            # List not empty -> not first motif
+            if current_motif:
+                motifs[current_motif_name] = '\\n'.join(header + current_motif)
+                current_motif = []
+            current_motif_name = line.split()[1]
+            is_header = False
+        if is_header:
+            header.append(line)
+        else:
+            current_motif.append(line)
 
-# Create directory for significant motif files
-mkdir("sign_motifs")
+    if current_motif:
+        motifs[current_motif_name] = '\\n'.join(header + current_motif)
 
-# Iterate over TFs and store meme files for DE TFs
-for jaspar_id in tfs_jaspar_ids:
-    if exists(f"jaspar_motifs/{jaspar_id}.meme"):
-        copy(f"jaspar_motifs/{jaspar_id}.meme", f"sign_motifs/{jaspar_id}.meme")
+    return motifs
 
+
+path_jaspar_ids = "${tfs_jaspar_ids}"
+path_motifs_meme = "${meme_motifs}"
+
+# Read TF Jaspar IDs
+with open(path_jaspar_ids, 'r') as f:
+    jaspar_ids = f.read().strip().split('\\n')
+
+# Read MEME motifs file
+with open(path_motifs_meme, 'r') as f:
+    motifs_meme = f.read().strip()
+
+# Write motifs to separate files
+mkdir('motifs')
+motifs = split_meme_file(motifs_meme)
+for jaspar_id in jaspar_ids:
+    if jaspar_id in motifs:
+        with open(f'motifs/{jaspar_id}.meme', 'w') as f:
+            f.write(motifs[jaspar_id])
 
 # Create version file
 versions = {
@@ -49,5 +76,6 @@ versions = {
     }
 }
 
+# Write version file
 with open("versions.yml", "w") as f:
     f.write(format_yaml_like(versions))

@@ -7,17 +7,20 @@ process FILTER_MOTIFS {
 
     input:
         tuple val(meta), path(tfs_jaspar_ids)
-        path jaspar_motifs
+        tuple val(meta2), path(meme_motifs)
 
     output:
-        tuple val(meta), path("sign_motifs/*.meme"), emit: motifs
-        path "versions.yml",                         emit: versions
+        tuple val(meta), path("motifs/*.meme"), emit: motifs
+        path "versions.yml",                    emit: versions
 
     script:
     template "filter_motifs.py"
 
     stub:
     """
-    touch motifs.meme
+    mkdir motifs
+    touch motifs/MA0778.1.meme
+    touch motifs/MA0938.3.meme
+    touch motifs/MA1272.1.meme
     """
 }
