@@ -140,7 +140,6 @@ workflow TFACTIVITY {
         fasta,
         RANKING.out.tf_total_ranking,
         PEAKS.out.enhancers,
-        MOTIFS.out.psem,
         MOTIFS.out.meme,
     )
 

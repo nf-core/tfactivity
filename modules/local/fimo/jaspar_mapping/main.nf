@@ -8,7 +8,7 @@ process JASPAR_MAPPING {
 
     input:
         tuple val(meta), path(tf_ranking)
-        tuple val(meta2), path(pwm)
+        tuple val(meta2), path(motifs_meme)
 
     output:
         tuple val(meta), path("tfs_jaspar_ids.txt"), emit: jaspar_ids

@@ -13,14 +13,12 @@ workflow FIMO {
         fasta
         tf_ranking
         enhancer_regions
-        pwm
         motifs_meme
 
     main:
         ch_versions = Channel.empty()
 
-        JASPAR_MAPPING(tf_ranking, pwm)
-
+        JASPAR_MAPPING(tf_ranking, motifs_meme)
         FILTER_MOTIFS(JASPAR_MAPPING.out.jaspar_ids, motifs_meme)
 
         ch_cat_input = enhancer_regions

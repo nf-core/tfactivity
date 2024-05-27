@@ -25,15 +25,15 @@ def format_yaml_like(data: dict, indent: int = 0) -> str:
 
 
 path_tf_ranking = "${tf_ranking}"
-path_pwm = "${pwm}"
+path_meme = "${motifs_meme}"
 
 # Read differentially expressed TFs
 tf_ranking = pd.read_csv(path_tf_ranking, sep='\\t', index_col=0).index.tolist()
 
 # Get mapping file
-with open(path_pwm, 'r') as f:
+with open(path_meme, 'r') as f:
     file = f.read()
-mapping = [tuple(line[1:].split("\\t")[:2]) for line in file.split('\\n') if line.startswith('>')]
+mapping = [tuple(line.split()[1:]) for line in file.split('\\n') if line.startswith('MOTIF')]
 
 # Create mapping dict from mapping files
 symbol_to_id = defaultdict(set)
