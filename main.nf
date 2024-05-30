@@ -33,7 +33,11 @@ include { PREPARE_GENOME          } from './subworkflows/local/prepare_genome'
 params.fasta     = getGenomeAttribute('fasta')
 params.gtf       = getGenomeAttribute('gtf')
 params.blacklist = getGenomeAttribute('blacklist')
-params.pwms      = getGenomeAttribute('pwms')
+params.taxon_id  = getGenomeAttribute('taxon_id')
+
+if (!params.motifs && !params.taxon_id) {
+    error "Please provide either a motifs file or a taxon ID"
+}
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -55,11 +59,12 @@ workflow NFCORE_TFACTIVITY {
 
     ch_versions = Channel.empty()
 
-    ch_fasta = Channel.value(file(params.fasta))
-    ch_gtf   = Channel.value(file(params.gtf))
-    ch_blacklist = Channel.value(file(params.blacklist))
-    ch_pwms  = Channel.value(file(params.pwms))
-    ch_counts = Channel.value(file(params.counts))
+    ch_fasta = Channel.value(file(params.fasta, checkIfExists: true))
+    ch_gtf   = Channel.value(file(params.gtf, checkIfExists: true))
+    ch_blacklist = params.blacklist ? Channel.value(file(params.blacklist, checkIfExists: true)) : Channel.value([])
+    ch_motifs  = params.motifs ? Channel.value(file(params.motifs, checkIfExists: true)) : Channel.empty()
+    ch_counts = Channel.value(file(params.counts, checkIfExists: true))
+    ch_taxon_id = (!params.motifs && params.taxon_id) ? Channel.value(params.taxon_id) : Channel.empty()
 
     //
     // SUBWORKFLOW: Prepare genome
@@ -81,34 +86,42 @@ workflow NFCORE_TFACTIVITY {
         PREPARE_GENOME.out.fasta,
         PREPARE_GENOME.out.gtf,
         ch_blacklist,
-        ch_pwms,
+        ch_motifs,
+        ch_taxon_id,
         PREPARE_GENOME.out.gene_lengths,
         PREPARE_GENOME.out.gene_map,
-        ch_counts,
-        ch_extra_counts,
-        Channel.value(file(params.counts_design, checkIfExists: true))
-            .map{ design -> [[id: "design"], design]},
-        samplesheet_bam,
         PREPARE_GENOME.out.chrom_sizes,
+
+        // ChromHMM
+        samplesheet_bam,
         params.chromhmm_states,
         params.chromhmm_threshold,
         params.chromhmm_marks.split(','),
+
+        // Peaks
         params.window_size,
         params.decay,
         params.merge_samples,
         params.affinity_aggregation,
 
+        // Counts
+        ch_counts,
+        ch_extra_counts,
+        Channel.value(file(params.counts_design, checkIfExists: true))
+            .map{ design -> [[id: "design"], design]},
         params.min_count,
         params.min_tpm,
         params.expression_aggregation,
         params.min_count_tf,
         params.min_tpm_tf,
 
+        // Dynamite
         params.dynamite_ofolds,
         params.dynamite_ifolds,
         params.dynamite_alpha,
         params.dynamite_randomize,
 
+        // Ranking
         params.alpha,
 
         ch_versions

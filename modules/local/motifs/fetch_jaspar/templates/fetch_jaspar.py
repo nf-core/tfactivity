@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import pyjaspar
+from pyjaspar import jaspardb
 import platform
 
 def format_yaml_like(data: dict, indent: int = 0) -> str:
@@ -21,28 +23,22 @@ def format_yaml_like(data: dict, indent: int = 0) -> str:
             yaml_str += f"{spaces}{key}: {value}\\n"
     return yaml_str
 
-with open("$genes", "r") as f:
-    legal_genes = set([gene.rstrip("\\n") for gene in f.readlines()])
+jdb = jaspardb(release='JASPAR2024')
 
-legal = True
+motifs = jdb.fetch_motifs(species=int("$taxon_id"))
 
-with open("$pwms", "r") as f_input, open("pwms.txt", "w") as f_output:
-    for line in f_input:
-        if legal and not line.startswith(">"):
-            f_output.write(line)
-        else:
-            splitted = line.split("\\t")
-            group = splitted[1]
-            genes = group.split("::")
-            legal = any(gene in legal_genes for gene in genes)
-
-            if legal:
-                f_output.write(line)
+with open("motifs.jaspar", "w+") as f:
+    for motif in motifs:
+        f.write(f">{motif.matrix_id} {motif.name.upper()}\\n")
+        for base in ["A", "C", "G", "T"]:
+            f.write(f"{base} [ {' '.join([str(int(x)) for x in motif.counts[base]])} ]\\n")
+        f.write("\\n")
 
 # Create version file
 versions = {
     "${task.process}" : {
-        "python": platform.python_version()
+        "python": platform.python_version(),
+        "pyjaspar": pyjaspar.__version__
     }
 }
 
