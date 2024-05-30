@@ -1,11 +1,10 @@
-include { JASPAR_MAPPING                        } from "../../modules/local/fimo/jaspar_mapping/main"
-include { FILTER_MOTIFS                         } from "../../modules/local/fimo/filter_motifs/main"
-include { CAT_CAT as CONCAT_BEDS                } from "../../modules/nf-core/cat/cat/main"
-include { BEDTOOLS_SORT as SORT_REGIONS         } from "../../modules/nf-core/bedtools/sort/main"
-include { BEDTOOLS_MERGE as MERGE_REGIONS       } from "../../modules/nf-core/bedtools/merge/main"
-include { BEDTOOLS_GETFASTA as EXTRACT_SEQUENCE } from "../../modules/nf-core/bedtools/getfasta/main"
-include { RUN_FIMO                              } from "../../modules/local/fimo/run_fimo/main"
-include { COMBINE_RESULTS                       } from "../../modules/local/fimo/combine_results/main"
+include { FILTER_MOTIFS                         } from "../../modules/local/fimo/filter_motifs"
+include { CAT_CAT as CONCAT_BEDS                } from "../../modules/nf-core/cat/cat"
+include { BEDTOOLS_SORT as SORT_REGIONS         } from "../../modules/nf-core/bedtools/sort"
+include { BEDTOOLS_MERGE as MERGE_REGIONS       } from "../../modules/nf-core/bedtools/merge"
+include { BEDTOOLS_GETFASTA as EXTRACT_SEQUENCE } from "../../modules/nf-core/bedtools/getfasta"
+include { RUN_FIMO                              } from "../../modules/local/fimo/run_fimo"
+include { COMBINE_RESULTS                       } from "../../modules/local/fimo/combine_results"
 
 workflow FIMO {
 
@@ -18,8 +17,7 @@ workflow FIMO {
     main:
         ch_versions = Channel.empty()
 
-        JASPAR_MAPPING(tf_ranking, motifs_meme)
-        FILTER_MOTIFS(JASPAR_MAPPING.out.jaspar_ids, motifs_meme)
+        FILTER_MOTIFS(tf_ranking, motifs_meme)
 
         ch_cat_input = enhancer_regions
             .map{meta, file -> file}
@@ -50,7 +48,6 @@ workflow FIMO {
         COMBINE_RESULTS(ch_combine_results)
 
         ch_versions = ch_versions.mix(
-            JASPAR_MAPPING.out.versions,
             FILTER_MOTIFS.out.versions,
             CONCAT_BEDS.out.versions,
             SORT_REGIONS.out.versions,

@@ -1,7 +1,42 @@
 #!/usr/bin/env python3
 
 from os import mkdir
+import pandas as pd
 import platform
+from collections import defaultdict
+
+
+def parse_meme_file(path_meme_file):
+    with open(path_meme_file, "r") as f:
+        meme_file = f.read()
+
+    lines = meme_file.split('\\n')
+    header = []
+    meme_to_matrix = {}
+    symbol_to_meme = defaultdict(set)
+    current_motif = []
+    current_motif_meme = ""
+    is_header = True
+
+    for line in lines:
+        if line.startswith("MOTIF"):
+            # List not empty -> not first motif
+            if current_motif:
+                meme_to_matrix[current_motif_meme] = '\\n'.join(header + current_motif)
+                current_motif = []
+            current_motif_meme, current_motif_symbol = line.split()[1:3]
+            symbol_to_meme[current_motif_symbol].add(current_motif_meme)
+            is_header = False
+        if is_header:
+            header.append(line)
+        else:
+            current_motif.append(line)
+
+    if current_motif:
+        meme_to_matrix[current_motif_meme] = '\\n'.join(header + current_motif)
+
+    return meme_to_matrix, symbol_to_meme
+
 
 def format_yaml_like(data: dict, indent: int = 0) -> str:
     """Formats a dictionary to a YAML-like string.
@@ -23,56 +58,36 @@ def format_yaml_like(data: dict, indent: int = 0) -> str:
     return yaml_str
 
 
-def split_meme_file(meme_file):
-    lines = meme_file.split('\\n')
-    header = []
-    motifs = {}
-    current_motif = []
-    current_motif_name = ""
-    is_header = True
-
-    for line in lines:
-        if line.startswith("MOTIF"):
-            # List not empty -> not first motif
-            if current_motif:
-                motifs[current_motif_name] = '\\n'.join(header + current_motif)
-                current_motif = []
-            current_motif_name = line.split()[1]
-            is_header = False
-        if is_header:
-            header.append(line)
-        else:
-            current_motif.append(line)
-
-    if current_motif:
-        motifs[current_motif_name] = '\\n'.join(header + current_motif)
-
-    return motifs
+tfs_ranking_file = '${tfs_jaspar_ids}'
+path_meme_file = '${meme_motifs}'
 
 
-path_jaspar_ids = "${tfs_jaspar_ids}"
-path_motifs_meme = "${meme_motifs}"
+# Parse tfs_ranking
+tfs_ranking = pd.read_csv(tfs_ranking_file, sep='\\t', index_col=0).index.tolist()
 
-# Read TF Jaspar IDs
-with open(path_jaspar_ids, 'r') as f:
-    jaspar_ids = f.read().strip().split('\\n')
+# Parse meme file
+meme_to_matrix, symbol_to_meme = parse_meme_file(path_meme_file)
 
-# Read MEME motifs file
-with open(path_motifs_meme, 'r') as f:
-    motifs_meme = f.read().strip()
-
-# Write motifs to separate files
 mkdir('motifs')
-motifs = split_meme_file(motifs_meme)
-for jaspar_id in jaspar_ids:
-    if jaspar_id in motifs:
-        with open(f'motifs/{jaspar_id}.meme', 'w') as f:
-            f.write(motifs[jaspar_id])
+for symbol in tfs_ranking:
+    if symbol not in symbol_to_meme:
+        # Check if symbol without version is in dictionary
+        base_symbol = symbol.split('.')[0]
+        if base_symbol not in symbol_to_meme:
+            print(f'Symbol {symbol} not found')
+            continue
+        # Remove version from symbol
+        symbol = base_symbol
+    for meme_id in symbol_to_meme[symbol]:
+        with open(f'motifs/{meme_id}.meme', 'w') as f:
+            f.write(meme_to_matrix[meme_id])
+
 
 # Create version file
 versions = {
     "${task.process}" : {
-        "python": platform.python_version()
+        "python": platform.python_version(),
+        "pandas": pd.__version__,
     }
 }
 

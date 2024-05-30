@@ -1,9 +1,9 @@
 process FILTER_MOTIFS {
 
-    conda 'conda-forge::python==3.9.5'
+    conda "conda-forge::pandas==1.5.2"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/python:3.9--1':
-        'biocontainers/python:3.9--1' }"
+        'https://depot.galaxyproject.org/singularity/pandas:1.5.2':
+        'biocontainers/pandas:1.5.2' }"
 
     input:
         tuple val(meta), path(tfs_jaspar_ids)
