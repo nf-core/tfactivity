@@ -13,9 +13,10 @@ process GET_RESULTS {
     val(marks)
 
     output:
-    tuple val(meta), path("$output_file")
+    tuple val(meta), path("$output_file"), emit: regions
+    path "versions.yml",                   emit: versions
 
     script:
-    output_file = "enhancers_${meta.id}.bed"
+    output_file = "${meta.id}.bed"
     template "get_results.py"
 }

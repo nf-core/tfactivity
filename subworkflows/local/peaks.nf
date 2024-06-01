@@ -31,7 +31,8 @@ workflow PEAKS {
     chrom_sizes
     chromhmm_states
     chromhmm_threshold
-    chromhmm_marks
+    chromhmm_enhancer_marks
+    chromhmm_promoter_marks
 
     main:
 
@@ -60,7 +61,7 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
-    CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_marks)
+    CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_enhancer_marks, chromhmm_promoter_marks)
     ROSE(CHROMHMM.out.enhancers, gtf)
 
     ch_versions = ch_versions.mix(CHROMHMM.out.versions)

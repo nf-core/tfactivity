@@ -12,7 +12,8 @@ process LEARN_MODEL {
     val states
 
     output:
-    tuple val(meta), path("output/emissions_${states}.txt"), path("output/*_${states}_dense.bed")
+    tuple val(meta), path("output/emissions_${states}.txt"), path("output/*_${states}_dense.bed"), emit: model
+    path "versions.yml",                                                                           emit: versions
 
     script:
     """
@@ -24,5 +25,10 @@ process LEARN_MODEL {
         output \\
         $states \\
         PLACEHOLDER
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        chromhmm: \$(ChromHMM.sh Version | cut -f4 -d" ")
+    END_VERSIONS
     """
 }

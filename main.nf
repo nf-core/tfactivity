@@ -96,7 +96,8 @@ workflow NFCORE_TFACTIVITY {
         samplesheet_bam,
         params.chromhmm_states,
         params.chromhmm_threshold,
-        params.chromhmm_marks.split(','),
+        params.chromhmm_enhancer_marks.split(','),
+        params.chromhmm_promoter_marks.split(','),
 
         // Peaks
         params.window_size,
