@@ -7,8 +7,8 @@ process RUN_FIMO {
         'biocontainers/meme:5.5.5--pl5321hda358d9_0' }"
 
     input:
-        tuple val(meta), path(motif_file)
-        path sequence_file
+        tuple val(meta),  path(motif_file)
+        tuple val(meta2), path(sequence_file)
 
     output:
         tuple val(meta), path("fimo_${meta.motif}"), emit: results
