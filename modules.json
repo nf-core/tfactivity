@@ -7,12 +7,12 @@
                 "nf-core": {
                     "atlasgeneannotationmanipulation/gtf2featureannotation": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "04bc484c987b523ea5420ed6bbc1fdc6d8aef751",
                         "installed_by": ["modules"]
                     },
                     "bedtools/getfasta": {
                         "branch": "master",
-                        "git_sha": "3b248b84694d1939ac4bb33df84bf6233a34d668",
+                        "git_sha": "cdcdd5e3d806f0ff3983c40c69e0b07bb44ec299",
                         "installed_by": ["modules"]
                     },
                     "bedtools/merge": {
@@ -37,12 +37,12 @@
                     },
                     "deseq2/differential": {
                         "branch": "master",
-                        "git_sha": "9326d73af3fbe2ee90d9ce0a737461a727c5118e",
+                        "git_sha": "4699a675cfc36b3c3f53926afd5dc1cf2e6a780e",
                         "installed_by": ["modules"]
                     },
                     "gawk": {
                         "branch": "master",
-                        "git_sha": "dc3527855e7358c6d8400828754c0caa5f11698f",
+                        "git_sha": "cf3ed075695639b0a0924eb0901146df1996dc08",
                         "installed_by": ["modules"]
                     },
                     "gunzip": {
@@ -52,17 +52,17 @@
                     },
                     "samtools/faidx": {
                         "branch": "master",
-                        "git_sha": "aeb02a39d4c463598bfdcb2d964dbb7acbcf1298",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
                         "installed_by": ["modules"]
                     },
                     "samtools/reheader": {
                         "branch": "master",
-                        "git_sha": "f4596fe0bdc096cf53ec4497e83defdb3a94ff62",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
                         "installed_by": ["modules"]
                     },
                     "ucsc/gtftogenepred": {
                         "branch": "master",
-                        "git_sha": "3f5420aa22e00bd030a2556dfdffc9e164ec0ec5",
+                        "git_sha": "acb0880789a6ebc2168d3b2d3d42b5bce6a62431",
                         "installed_by": ["modules"]
                     }
                 }
