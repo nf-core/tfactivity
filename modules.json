@@ -60,6 +60,11 @@
                         "git_sha": "dc3527855e7358c6d8400828754c0caa5f11698f",
                         "installed_by": ["modules"]
                     },
+                    "gnu/sort": {
+                        "branch": "master",
+                        "git_sha": "ca199cfe5aa4f1ea3c41302158f0af2cfaa58957",
+                        "installed_by": ["modules"]
+                    },
                     "gunzip": {
                         "branch": "master",
                         "git_sha": "3a5fef109d113b4997c9822198664ca5f2716208",
