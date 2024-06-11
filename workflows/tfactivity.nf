@@ -141,7 +141,7 @@ workflow TFACTIVITY {
     FIMO(
         fasta,
         RANKING.out.tf_total_ranking,
-        PEAKS.out.enhancers,
+        PEAKS.out.tf_bindings,
         MOTIFS.out.meme,
     )
 

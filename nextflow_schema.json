@@ -131,7 +131,7 @@
                 },
                 "chromhmm_threshold": {
                     "type": "number",
-                    "default": 0.9,
+                    "default": 0.75,
                     "description": "Threshold for ChromHMM enhancer detection.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Threshold for ChromHMM enhancer detection. The default value is 0.9."
