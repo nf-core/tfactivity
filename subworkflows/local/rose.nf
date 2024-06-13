@@ -31,18 +31,21 @@ workflow ROSE {
 
     INVERT_TSS(CONSTRUCT_TSS.out.bed, chrom_sizes.map{meta, file -> file})
 
-    ch_enhancers = ch_bed
-        .filter{meta, bed -> meta.assay.contains("enhancers")}
-        .combine(CONSTRUCT_TSS.out.bed)
-        .map{meta1, pred, meta2, tss -> [meta1, pred, tss]}
+    predicted_regions = ch_bed.branch{
+        meta, file ->
+        enhancers: meta.assay.contains('enhancers')
+        promoters: meta.assay.contains('promoters')
+    }
 
-    ch_promoters = ch_bed
-        .filter{meta, bed -> meta.assay.contains("promoters")}
-        .combine(INVERT_TSS.out.bed)
-        .map{meta1, pred, meta2, non_tss -> [meta1, pred, non_tss]}
+    ch_filter_predictions = Channel.empty()
+        .mix(
+            predicted_regions.enhancers.combine(CONSTRUCT_TSS.out.bed),
+            predicted_regions.promoters.combine(INVERT_TSS.out.bed),
+        )
+        .map{meta1, pred, meta2, filtering -> [meta1, pred, filtering]}
 
     // Remove predictions contained within a TSS
-    FILTER_PREDICTIONS(ch_enhancers.mix(ch_promoters))
+    FILTER_PREDICTIONS(ch_filter_predictions)
 
     // Merge regions closer than 12500 bp from each other
     STITCHING(FILTER_PREDICTIONS.out.bed)
