@@ -33,8 +33,10 @@ workflow CHROMHMM {
                                         assay: meta.assay],
                                     bam]}
 
-    ch_signal  = REHEADER_SIGNAL (ch_bams.signal ).bam.map{meta, bam -> remove_type(meta, bam)}
-    ch_control = REHEADER_CONTROL(ch_bams.control).bam.map{meta, bam -> remove_type(meta, bam)}
+
+    ch_signal  = ch_bams.signal.map{meta, bam -> remove_type(meta, bam)}
+    ch_control = ch_bams.control.map{meta, bam -> remove_type(meta, bam)}
+    
     ch_joined  = ch_signal.join(ch_control)
     ch_mixed   = ch_signal.mix(ch_control)
 
@@ -42,9 +44,10 @@ workflow CHROMHMM {
                                     .collectFile() {
                                         ["cellmarkfiletable.tsv", it.join("\t") + "\n"]
                                     }.map{[it.baseName, it]}.collect()
-
+    
+    // drop meta, remove duplicated control bams, add new meta
     BINARIZE_BAMS(
-        ch_mixed.map{meta, bam -> bam}.collect().map{files -> [[id: "chromHMM"], files]},
+        ch_mixed.map{meta, bam -> bam}.unique().collect().map{files -> [[id: "chromHMM"], files]},
         ch_table,
         chrom_sizes
     )
@@ -75,8 +78,6 @@ workflow CHROMHMM {
         .map{meta, bed -> [[id: meta.id + "_" + "chromHMM_promoters", condition: meta.id, assay: "chromHMM_promoters"], bed]}
 
     ch_versions = ch_versions.mix(
-        REHEADER_SIGNAL.out.versions,
-        REHEADER_CONTROL.out.versions,
         BINARIZE_BAMS.out.versions,
         LEARN_MODEL.out.versions,
         GET_ENHANCER_RESULTS.out.versions,
