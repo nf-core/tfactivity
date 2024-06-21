@@ -1,6 +1,6 @@
 include { FILTER_MOTIFS                         } from "../../modules/local/fimo/filter_motifs"
-include { GAWK as ADD_MISSING_COLUMNS           } from '../../modules/nf-core/gawk'
-include { GNU_SORT as CONCAT_AND_SORT           } from '../../modules/nf-core/gnu/sort'
+include { GAWK as ADD_MISSING_COLUMNS           } from "../../modules/nf-core/gawk"
+include { GNU_SORT as CONCAT_AND_SORT           } from "../../modules/nf-core/gnu/sort"
 include { BEDTOOLS_MERGE as MERGE_REGIONS       } from "../../modules/nf-core/bedtools/merge"
 include { BEDTOOLS_GETFASTA as EXTRACT_SEQUENCE } from "../../modules/nf-core/bedtools/getfasta"
 include { RUN_FIMO                              } from "../../modules/local/fimo/run_fimo"
