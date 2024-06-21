@@ -138,7 +138,7 @@ workflow PEAKS {
     emit:
     affinity_ratio = AFFINITY_RATIO.out.combined
     affinity_sum = AFFINITY_SUM.out.combined
-    tf_bindings = ROSE.out.stitched
+    tf_bindings = ch_peaks
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
