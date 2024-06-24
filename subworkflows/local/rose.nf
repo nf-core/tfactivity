@@ -26,7 +26,7 @@ workflow ROSE {
     // Downstream methods require sorted inputs
     SORT_BED(FILTER_CONVERT_GTF.out.output)
 
-    // Construct 5000 bp window around transcription start site (TSS)
+    // Construct 2 * params.rose_tss_window bps window around transcription start site (TSS)
     CONSTRUCT_TSS(SORT_BED.out.sorted, chrom_sizes.map{meta, file -> file})
 
     INVERT_TSS(CONSTRUCT_TSS.out.bed, chrom_sizes.map{meta, file -> file})
@@ -47,7 +47,7 @@ workflow ROSE {
     // Remove predictions contained within a TSS
     FILTER_PREDICTIONS(ch_filter_predictions)
 
-    // Merge regions closer than 12500 bp from each other
+    // Merge regions closer than params.rose_stichting_window bps from each other
     STITCHING(FILTER_PREDICTIONS.out.bed)
 
     // Get overlap counts of stitched regions with TSS

@@ -150,6 +150,20 @@
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "ChromHMM promoter marks. The default value is `H3K4me3`."
                 },
+                "rose_tss_window": {
+                    "type": "integer",
+                    "default": 2500,
+                    "description": "TSS window in base pairs",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ROSE window size around transcription start sites"
+                },
+                "rose_stitching_window": {
+                    "type": "integer",
+                    "default": 12500,
+                    "description": "Stichting window in base pairs",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ROSE window size for stitching two regions together"
+                },
                 "min_count": {
                     "type": "integer",
                     "default": 50,
