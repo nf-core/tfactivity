@@ -33,7 +33,7 @@ workflow CHROMHMM {
 
     ch_signal  = ch_bams.signal.map{meta, bam -> remove_type(meta, bam)}
     ch_control = ch_bams.control.map{meta, bam -> remove_type(meta, bam)}
-    
+
     ch_joined  = ch_signal.join(ch_control)
     ch_mixed   = ch_signal.mix(ch_control)
 
@@ -41,7 +41,7 @@ workflow CHROMHMM {
                                     .collectFile() {
                                         ["cellmarkfiletable.tsv", it.join("\t") + "\n"]
                                     }.map{[it.baseName, it]}.collect()
-    
+
     // drop meta, remove duplicated control bams, add new meta
     BINARIZE_BAMS(
         ch_mixed.map{meta, bam -> bam}.unique().collect().map{files -> [[id: "chromHMM"], files]},
