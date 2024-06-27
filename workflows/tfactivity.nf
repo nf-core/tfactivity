@@ -44,7 +44,8 @@ workflow TFACTIVITY {
     ch_samplesheet_bam
     chromhmm_states
     chromhmm_threshold
-    chromhmm_marks
+    chromhmm_enhancer_marks
+    chromhmm_promoter_marks
 
     // Peaks
     window_size
@@ -117,7 +118,8 @@ workflow TFACTIVITY {
         chrom_sizes,
         chromhmm_states,
         chromhmm_threshold,
-        chromhmm_marks
+        chromhmm_enhancer_marks,
+        chromhmm_promoter_marks,
     )
 
     DYNAMITE(
@@ -139,7 +141,7 @@ workflow TFACTIVITY {
     FIMO(
         fasta,
         RANKING.out.tf_total_ranking,
-        PEAKS.out.enhancers,
+        PEAKS.out.candidate_regions,
         MOTIFS.out.meme,
     )
 

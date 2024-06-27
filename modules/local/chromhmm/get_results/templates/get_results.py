@@ -3,6 +3,28 @@
 
 import pandas as pd
 import numpy as np
+import platform
+
+
+def format_yaml_like(data: dict, indent: int = 0) -> str:
+    """Formats a dictionary to a YAML-like string.
+
+    Args:
+        data (dict): The dictionary to format.
+        indent (int): The current indentation level.
+
+    Returns:
+        str: A string formatted as YAML.
+    """
+    yaml_str = ""
+    for key, value in data.items():
+        spaces = "  " * indent
+        if isinstance(value, dict):
+            yaml_str += f"{spaces}{key}:\\n{format_yaml_like(value, indent + 1)}"
+        else:
+            yaml_str += f"{spaces}{key}: {value}\\n"
+    return yaml_str
+
 
 marks = "${marks.join(' ')}".split()
 
@@ -30,3 +52,16 @@ bed = bed[["chr", "start", "end", "name", "score", "strand"]]
 
 # Write output
 bed.to_csv("$output_file", index=False, sep="\\t", header=False)
+
+
+# Create version file
+versions = {
+    "${task.process}" : {
+        "python": platform.python_version(),
+        "pandas": pd.__version__,
+        "numpy": np.__version__,
+    }
+}
+
+with open("versions.yml", "w") as f:
+    f.write(format_yaml_like(versions))

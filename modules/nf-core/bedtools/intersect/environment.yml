@@ -1,7 +1,7 @@
-name: ucsc_gtftogenepred
+name: bedtools_intersect
 channels:
   - conda-forge
   - bioconda
   - defaults
 dependencies:
-  - bioconda::ucsc-gtftogenepred=447
+  - bioconda::bedtools=2.31.1

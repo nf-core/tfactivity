@@ -1,6 +1,6 @@
 include { FILTER_MOTIFS                         } from "../../modules/local/fimo/filter_motifs"
-include { CAT_CAT as CONCAT_BEDS                } from "../../modules/nf-core/cat/cat"
-include { BEDTOOLS_SORT as SORT_REGIONS         } from "../../modules/nf-core/bedtools/sort"
+include { GAWK as ADD_MISSING_COLUMNS           } from "../../modules/nf-core/gawk"
+include { GNU_SORT as CONCAT_AND_SORT           } from "../../modules/nf-core/gnu/sort"
 include { BEDTOOLS_MERGE as MERGE_REGIONS       } from "../../modules/nf-core/bedtools/merge"
 include { BEDTOOLS_GETFASTA as EXTRACT_SEQUENCE } from "../../modules/nf-core/bedtools/getfasta"
 include { RUN_FIMO                              } from "../../modules/local/fimo/run_fimo"
@@ -19,16 +19,16 @@ workflow FIMO {
 
         FILTER_MOTIFS(tf_ranking, motifs_meme)
 
-        ch_cat_input = enhancer_regions
+        ADD_MISSING_COLUMNS(enhancer_regions, [])
+
+        ch_concat_and_sort = ADD_MISSING_COLUMNS.out.output
             .map{meta, file -> file}
             .collect()
             .map{files -> [[id: "enhancer_regions"], files]}
 
-        CONCAT_BEDS(ch_cat_input)
+        CONCAT_AND_SORT(ch_concat_and_sort)
 
-        SORT_REGIONS(CONCAT_BEDS.out.file_out, [])
-
-        MERGE_REGIONS(SORT_REGIONS.out.sorted)
+        MERGE_REGIONS(CONCAT_AND_SORT.out.sorted)
 
         EXTRACT_SEQUENCE(MERGE_REGIONS.out.bed, fasta.map{meta, fasta -> fasta})
 
@@ -47,8 +47,8 @@ workflow FIMO {
 
         ch_versions = ch_versions.mix(
             FILTER_MOTIFS.out.versions,
-            CONCAT_BEDS.out.versions,
-            SORT_REGIONS.out.versions,
+            ADD_MISSING_COLUMNS.out.versions,
+            CONCAT_AND_SORT.out.versions,
             MERGE_REGIONS.out.versions,
             EXTRACT_SEQUENCE.out.versions,
             RUN_FIMO.out.versions,

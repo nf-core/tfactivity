@@ -31,7 +31,8 @@ workflow PEAKS {
     chrom_sizes
     chromhmm_states
     chromhmm_threshold
-    chromhmm_marks
+    chromhmm_enhancer_marks
+    chromhmm_promoter_marks
 
     main:
 
@@ -60,13 +61,13 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
-    CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_marks)
-    ROSE(CHROMHMM.out.enhancers, gtf)
+    CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_enhancer_marks, chromhmm_promoter_marks)
+    ROSE(CHROMHMM.out.enhancers.mix(CHROMHMM.out.promoters), gtf, chrom_sizes)
 
     ch_versions = ch_versions.mix(CHROMHMM.out.versions)
     ch_versions = ch_versions.mix(ROSE.out.versions)
 
-    ch_peaks = ch_peaks .mix(ROSE.out.enhancers)
+    ch_peaks = ch_peaks .mix(ROSE.out.stitched)
                         .map { meta, peaks -> [[
                             id: meta.id,
                             condition: meta.condition,
@@ -137,7 +138,7 @@ workflow PEAKS {
     emit:
     affinity_ratio = AFFINITY_RATIO.out.combined
     affinity_sum = AFFINITY_SUM.out.combined
-    enhancers = ROSE.out.enhancers
+    candidate_regions = ch_peaks
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }

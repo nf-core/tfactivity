@@ -13,7 +13,8 @@ process BINARIZE_BAMS {
     tuple val(meta3), path(chromsizes)
 
     output:
-    tuple val(meta), path("output")
+    tuple val(meta), path("output"), emit: binarized_bams
+    path "versions.yml",             emit: versions
 
     script:
     """
@@ -22,5 +23,10 @@ process BINARIZE_BAMS {
         input \\
         $table \\
         output
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        chromhmm: \$(ChromHMM.sh Version | cut -f4 -d" ")
+    END_VERSIONS
     """
 }
