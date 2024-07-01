@@ -20,9 +20,8 @@
 ## Introduction
 
 **nf-core/tfactivity** is a bioinformatics pipeline that can identify the most differentially active transcription factors (TFs) between multiple conditions. It takes a count matrix and open chromatin data (ATAC-seq, DNase-seq, HM-ChIP-seq) as input. It produces a ranking of transcription factors.
-It is strongly based on the TF-Prioritizer, with the following workflow:
 
-![TF-Prioritizer workflow](docs/images/tfprio.jpeg)
+![Metro map](docs/images/metromap.png)
 
 1. Identify accessible regions (can perform footprinting between close ChIP-seq peaks or take ATAC-seq peaks)
 2. Calculate affinity scores for combinations of transcription factors and target genes (TGs) using [STARE](https://doi.org/10.1093/bioinformatics/btad062)
@@ -33,6 +32,13 @@ It is strongly based on the TF-Prioritizer, with the following workflow:
    2. Affinity of the transcription factors to the target genes
    3. The regression coefficient of the transcription factors
 6. Perform a Mann-Whitney U test and create a ranking of the transcription factors
+
+A more biological visualization of the workflow can be found here:
+
+> [!NOTE]
+> The following image was created for the TF-Prioritizer publication. Parts of the workflow have been adapted for the nf-core pipeline, but the general idea is still valid.
+
+![TF-Prioritizer workflow](docs/images/tfprio.jpeg)
 
 ## Usage
 
