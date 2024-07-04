@@ -3,7 +3,9 @@ process STARE {
     label 'process_high'
 
     conda "bioconda::stare-abc"
-    container "biocontainers/stare-abc:1.0.4--haf6292c_1"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/stare-abc:1.0.4--haf6292c_1' :
+        'biocontainers/stare-abc:1.0.4--haf6292c_1' }"
 
     input:
     tuple val(meta), path(candidate_regions)
