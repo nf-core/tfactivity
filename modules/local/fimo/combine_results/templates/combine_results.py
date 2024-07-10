@@ -40,10 +40,10 @@ gffs = [line for line in gffs if not line.startswith('#') and not line == '']
 
 tsvs = ['motif_id\\tmotif_alt_id\\tsequence_name\\tstart\\tstop\\tstrand\\tscore\\tp-value\\tq-value\\tmatched_sequence'] + tsvs
 
-with open('fimo.tsv', 'w') as f:
+with open('${meta.id}.tsv', 'w') as f:
     f.write('\\n'.join(tsvs))
 
-with open('fimo.gff', 'w') as f:
+with open('${meta.id}.gff', 'w') as f:
     f.write('\\n'.join(gffs))
 
 

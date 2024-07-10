@@ -7,12 +7,12 @@ process COMBINE_RESULTS {
         'biocontainers/python:3.9--1' }"
 
     input:
-        path motif_files
+        tuple val(meta), path(motif_files)
 
     output:
-        path "fimo.tsv",     emit: tsv
-        path "fimo.gff",     emit: gff
-        path "versions.yml", emit: versions
+        tuple val(meta), path("${meta.id}.tsv"),     emit: tsv
+        tuple val(meta), path("${meta.id}.gff"),     emit: gff
+        path "versions.yml",                         emit: versions
 
     script:
     motif_files = motif_files.join(",")
