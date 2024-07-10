@@ -8,7 +8,7 @@ workflow FIMO {
     take:
         fasta
         tf_ranking
-        enhancer_regions
+        candidate_regions
         motifs_meme
 
     main:
@@ -16,7 +16,7 @@ workflow FIMO {
 
         FILTER_MOTIFS(tf_ranking, motifs_meme)
 
-        EXTRACT_SEQUENCE(enhancer_regions, fasta.map{meta, fasta -> fasta})
+        EXTRACT_SEQUENCE(candidate_regions, fasta.map{meta, fasta -> fasta})
 
         ch_filtered_motifs = FILTER_MOTIFS.out.motifs
             .flatten()
