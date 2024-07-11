@@ -113,7 +113,7 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/tfactivity was originally written by Nico Trummer.
+nf-core/tfactivity was originally written by [Nico Trummer](https://github.com/nictru).
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
