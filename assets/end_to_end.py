@@ -8,6 +8,7 @@ parser.add_argument('--profile', type=str, required=False, help='nextflow profil
 parser.add_argument('--outdir', type=str, required=False, help='Path to output directory')
 parser.add_argument('--fasta', type=str, required=False, help='Path to the FASTA file')
 parser.add_argument('--gtf', type=str, required=False, help='Path to the GTF file')
+parser.add_argument('--apptainer_cache', type=str, required=False, help='Path to the apptainer cache directory')
 
 parser.add_argument('--rna_seq', type=str, required=False, help='RNA-Seq directory')
 parser.add_argument('--chip_seq', type=str, required=False, help='ChIP-Seq directory')
@@ -19,6 +20,7 @@ profile = args.profile
 outdir = args.outdir
 fasta = args.fasta
 gtf = args.gtf
+apptainer_cache = args.apptainer_cache
 
 rna_seq = args.rna_seq
 chip_seq = args.chip_seq
@@ -27,12 +29,16 @@ atac_seq = args.atac_seq
 fasta = "https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/reference/genome.fa"
 gtf = "https://raw.githubusercontent.com/nf-core/test-datasets/rnaseq/reference/genes.gtf"
 rna_seq = "/nfs/home/students/l.hafner/inspect/tfactivity/dev/testing/end_to_end/data/rna_seq"
+chip_seq = "/nfs/home/students/l.hafner/inspect/tfactivity/dev/testing/end_to_end/data/chip_seq"
 outdir = "/nfs/home/students/l.hafner/inspect/tfactivity/dev/testing/end_to_end/output"
+apptainer_cache = "/nfs/scratch/apptainer_cache"
+
+os.environ["NXF_APPTAINER_CACHEDIR"] = apptainer_cache
 
 
 # Start only if output directory does not exist
-#if os.path.exists(outdir):
-#    raise FileExistsError("Output directory already existing")
+if not os.path.exists(outdir):
+    os.makedirs(outdir)
 
 
 def list_files_recursive(directory):
@@ -45,12 +51,12 @@ def list_files_recursive(directory):
 
 
 # Run nf-core/rnaseq pipeline
-path_rnaseq = os.path.join(outdir, 'nfcore-rnaseq')
-path_outdir_rnaseq = os.path.join(path_rnaseq, 'output')
-path_samplesheet_rnaseq = os.path.join(path_rnaseq, 'samplesheet_rnaseq.csv')
+path_nfcore_rnaseq = os.path.join(outdir, 'nfcore-rnaseq')
+path_outdir_rnaseq = os.path.join(path_nfcore_rnaseq, 'output')
+path_samplesheet_rnaseq = os.path.join(path_nfcore_rnaseq, 'samplesheet_rnaseq.csv')
 
-if not os.path.exists(path_rnaseq):
-    os.makedirs(path_rnaseq)
+if not os.path.exists(path_nfcore_rnaseq):
+    os.makedirs(path_nfcore_rnaseq)
 
 file_paths = list_files_recursive(rna_seq)
 
@@ -83,7 +89,58 @@ nextflow run \
     --fasta {fasta} \
     --igenomes_ignore \
     --genome null \
-    -profile {profile}
+    -profile {profile} \
+    -resume \
+    --skip_deseq2_qc true
 """
-os.chdir(path_rnaseq)
+os.chdir(path_nfcore_rnaseq)
 os.system(rnaseq_run)
+
+
+# Run nfcore/chipseq pipeline
+path_nfcore_chipseq = os.path.join(outdir, 'nfcore-chipseq')
+path_outdir_chipseq = os.path.join(path_nfcore_chipseq, 'output')
+path_samplesheet_chipseq = os.path.join(path_nfcore_chipseq, 'samplesheet_chipeq.csv')
+
+if not os.path.exists(path_nfcore_chipseq):
+    os.makedirs(path_nfcore_chipseq)
+
+file_paths = list_files_recursive(chip_seq)
+
+samples = {}
+for file_path in file_paths:
+    condition = file_path.split('/')[-3]
+    antibody = file_path.split('/')[-2]
+    basename = os.path.basename(file_path)
+    
+    # Remove .fq.gz and split file name
+    sample, rep, read = basename.split('.')[0].split('_')
+
+    sample_name = "_".join([condition, antibody, sample, rep])
+    
+    if sample_name not in samples:
+        samples[sample_name] = {'sample': sample_name, 'fastq_1': '', 'fastq_2': '', 'antibody': antibody, 'control': f'{condition}_CONTROL_{sample}_{rep}'}
+    
+    if read == 'R1':
+        samples[sample_name]['fastq_1'] = file_path
+    elif read == 'R2':
+        samples[sample_name]['fastq_2'] = file_path
+
+chipseq_samplesheet = pd.DataFrame.from_dict(samples, orient='index')
+chipseq_samplesheet['control'] = chipseq_samplesheet['control'].apply(lambda x: x if x in chipseq_samplesheet['sample'].values else '')
+chipseq_samplesheet.to_csv(path_samplesheet_chipseq, index=False)
+
+chipseq_run = f"""
+nextflow run \
+    nf-core/chipseq \
+    --input {path_samplesheet_chipseq} \
+    --outdir {path_outdir_chipseq} \
+    --gtf {gtf} \
+    --fasta {fasta} \
+    --read_length 150 \
+    -profile docker \
+    -resume
+"""
+
+os.chdir(path_nfcore_chipseq)
+os.system(chipseq_run)
