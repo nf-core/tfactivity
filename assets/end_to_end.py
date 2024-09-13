@@ -165,6 +165,7 @@ nextflow run \
     --gtf {gtf} \
     --fasta {fasta} \
     --read_length 50 \
+    --save_align_intermeds \
     -profile {profile} \
     -process.executor {process_executor} \
     -resume \
