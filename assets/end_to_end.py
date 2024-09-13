@@ -68,18 +68,18 @@ samples = {}
 for file_path in file_paths:
     condition = file_path.split('/')[-2]
     basename = os.path.basename(file_path)
-    
+
     # Remove .fq.gz and split file name
     sample, rep, read = basename.split('.')[0].split('_')
 
     sample_name = "_".join([condition, sample, rep])
-    
+
     if sample_name not in samples:
         samples[sample_name] = {'sample': sample_name,
                                 'fastq_1': '',
                                 'fastq_2': '',
                                 'strandedness': 'auto'}
-    
+
     if read == 'R1':
         samples[sample_name]['fastq_1'] = file_path
     elif read == 'R2':
@@ -120,14 +120,14 @@ for file_path in file_paths:
     condition = file_path.split('/')[-3]
     antibody = file_path.split('/')[-2]
     basename = os.path.basename(file_path)
-    
+
     # Remove .fq.gz and split file name
     sample, rep, read = basename.split('.')[0].split('_')
 
     condition_antibody_sample = "_".join([condition, antibody, sample])
 
     sample_rep = '_'.join([condition_antibody_sample, rep])
-    
+
     # Strip 'REP' from replicate
     if sample_rep not in samples:
         samples[sample_rep] = {'sample': condition_antibody_sample,
@@ -137,7 +137,7 @@ for file_path in file_paths:
                                'antibody': antibody,
                                'control': f'{condition}_CONTROL_{sample}',
                                'control_replicate': rep.strip(string.ascii_letters)}
-    
+
     if read == 'R1':
         samples[sample_rep]['fastq_1'] = file_path
     elif read == 'R2':
