@@ -29,8 +29,8 @@
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.(bed|broadPeak)$",
-                "errorMessage": "Peak file must be provided and must be a .bed or .broadPeak file"
+                "pattern": "^\\S+\\.(bed|broadPeak|narrowPeak)$",
+                "errorMessage": "Peak file must be provided and must be a .bed, .broadPeak or .narrowPeak file"
             },
             "footprinting": {
                 "type": "boolean",
