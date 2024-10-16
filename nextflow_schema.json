@@ -456,10 +456,10 @@
             "$ref": "#/$defs/input_output_options"
         },
         {
-            "$ref": "#/definitions/pipeline_options"
+            "$ref": "#/$defs/pipeline_options"
         },
         {
-            "$ref": "#/definitions/reference_genome_options"
+            "$ref": "#/$defs/reference_genome_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"
