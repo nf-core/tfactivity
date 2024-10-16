@@ -11,25 +11,19 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": [
-                    "id"
-                ]
+                "meta": ["id"]
             },
             "condition": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Condition name must be provided and cannot contain spaces",
-                "meta": [
-                    "condition"
-                ]
+                "meta": ["condition"]
             },
             "assay": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Assay name must be provided and cannot contain spaces",
-                "meta": [
-                    "assay"
-                ]
+                "meta": ["assay"]
             },
             "signal": {
                 "type": "string",
@@ -46,12 +40,6 @@
                 "errorMessage": "Control file must be provided and must be a .bam file"
             }
         },
-        "required": [
-            "sample",
-            "condition",
-            "assay",
-            "signal",
-            "control"
-        ]
+        "required": ["sample", "condition", "assay", "signal", "control"]
     }
 }
