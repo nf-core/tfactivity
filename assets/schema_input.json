@@ -9,20 +9,20 @@
         "properties": {
             "sample": {
                 "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "Sample name must be provided and cannot contain spaces",
+                "pattern": "^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$",
+                "errorMessage": "Sample name must be provided. It has to start with a letter or number and can contain letters, numbers, hyphens and underscores.",
                 "meta": ["id"]
             },
             "condition": {
                 "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "Condition name must be provided and cannot contain spaces",
+                "pattern": "^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$",
+                "errorMessage": "Condition name must be provided. It has to start with a letter or number and can contain letters, numbers, hyphens and underscores.",
                 "meta": ["condition"]
             },
             "assay": {
                 "type": "string",
-                "pattern": "^\\S+$",
-                "errorMessage": "Assay name must be provided and cannot contain spaces",
+                "pattern": "^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$",
+                "errorMessage": "Assay name must be provided. It has to start with a letter or number and can contain letters, numbers, hyphens and underscores.",
                 "meta": ["assay"]
             },
             "peak_file": {
