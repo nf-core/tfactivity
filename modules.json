@@ -5,9 +5,79 @@
         "https://github.com/nf-core/modules.git": {
             "modules": {
                 "nf-core": {
-                    "multiqc": {
+                    "atlasgeneannotationmanipulation/gtf2featureannotation": {
                         "branch": "master",
-                        "git_sha": "cf17ca47590cc578dfb47db1c2a44ef86f89976d",
+                        "git_sha": "04bc484c987b523ea5420ed6bbc1fdc6d8aef751",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/complement": {
+                        "branch": "master",
+                        "git_sha": "575e1bc54b083fb15e7dd8b5fcc40bea60e8ce83",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/getfasta": {
+                        "branch": "master",
+                        "git_sha": "cdcdd5e3d806f0ff3983c40c69e0b07bb44ec299",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/intersect": {
+                        "branch": "master",
+                        "git_sha": "575e1bc54b083fb15e7dd8b5fcc40bea60e8ce83",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/merge": {
+                        "branch": "master",
+                        "git_sha": "a5377837fe9013bde89de8689829e83e84086536",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/slop": {
+                        "branch": "master",
+                        "git_sha": "575e1bc54b083fb15e7dd8b5fcc40bea60e8ce83",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/sort": {
+                        "branch": "master",
+                        "git_sha": "571a5feac4c9ce0a8df0bc15b94230e7f3e8db47",
+                        "installed_by": ["modules"]
+                    },
+                    "bedtools/subtract": {
+                        "branch": "master",
+                        "git_sha": "3b248b84694d1939ac4bb33df84bf6233a34d668",
+                        "installed_by": ["modules"]
+                    },
+                    "cat/cat": {
+                        "branch": "master",
+                        "git_sha": "9437e6053dccf4aafa022bfd6e7e9de67e625af8",
+                        "installed_by": ["modules"]
+                    },
+                    "deseq2/differential": {
+                        "branch": "master",
+                        "git_sha": "4699a675cfc36b3c3f53926afd5dc1cf2e6a780e",
+                        "installed_by": ["modules"]
+                    },
+                    "gawk": {
+                        "branch": "master",
+                        "git_sha": "cf3ed075695639b0a0924eb0901146df1996dc08",
+                        "installed_by": ["modules"]
+                    },
+                    "gnu/sort": {
+                        "branch": "master",
+                        "git_sha": "ca199cfe5aa4f1ea3c41302158f0af2cfaa58957",
+                        "installed_by": ["modules"]
+                    },
+                    "gunzip": {
+                        "branch": "master",
+                        "git_sha": "3a5fef109d113b4997c9822198664ca5f2716208",
+                        "installed_by": ["modules"]
+                    },
+                    "samtools/faidx": {
+                        "branch": "master",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
+                        "installed_by": ["modules"]
+                    },
+                    "samtools/reheader": {
+                        "branch": "master",
+                        "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
                         "installed_by": ["modules"]
                     }
                 }
