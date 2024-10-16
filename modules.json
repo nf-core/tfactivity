@@ -70,6 +70,11 @@
                         "git_sha": "3a5fef109d113b4997c9822198664ca5f2716208",
                         "installed_by": ["modules"]
                     },
+                    "multiqc": {
+                        "branch": "master",
+                        "git_sha": "cf17ca47590cc578dfb47db1c2a44ef86f89976d",
+                        "installed_by": ["modules"]
+                    },
                     "samtools/faidx": {
                         "branch": "master",
                         "git_sha": "04fbbc7c43cebc0b95d5b126f6d9fe4effa33519",
@@ -92,11 +97,6 @@
                     "utils_nfcore_pipeline": {
                         "branch": "master",
                         "git_sha": "1b6b9a3338d011367137808b49b923515080e3ba",
-                        "installed_by": ["subworkflows"]
-                    },
-                    "utils_nfschema_plugin": {
-                        "branch": "master",
-                        "git_sha": "bbd5a41f4535a8defafe6080e00ea74c45f4f96c",
                         "installed_by": ["subworkflows"]
                     }
                 }
