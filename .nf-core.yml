@@ -19,6 +19,7 @@ template:
   name: tfactivity
   org: nf-core
   outdir: .
-  skip_features: null
+  skip_features:
+    - fastqc
   version: 1.0dev
 update: null
