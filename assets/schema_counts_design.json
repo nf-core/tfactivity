@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft/2020-12/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/tfactivity/master/assets/schema_counts_design.json",
     "title": "nf-core/tfactivity pipeline - params.counts_design schema",
     "description": "Schema for the file provided with params.counts_design",
