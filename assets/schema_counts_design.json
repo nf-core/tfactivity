@@ -11,25 +11,19 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": [
-                    "id"
-                ]
+                "meta": ["id"]
             },
             "condition": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Condition name must be provided and cannot contain spaces",
-                "meta": [
-                    "condition"
-                ]
+                "meta": ["condition"]
             },
             "batch": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Batch identifier cannot contain spaces",
-                "meta": [
-                    "batch"
-                ]
+                "meta": ["batch"]
             },
             "counts_file": {
                 "type": "string",
@@ -39,9 +33,6 @@
                 "errorMessage": "Counts file must be a .csv or .txt file"
             }
         },
-        "required": [
-            "sample",
-            "condition"
-        ]
+        "required": ["sample", "condition"]
     }
 }
