@@ -21,5 +21,6 @@ template:
   outdir: .
   skip_features:
     - fastqc
-  version: 1.0dev
+    - multiqc
+  version: 0.0.1dev
 update: null
