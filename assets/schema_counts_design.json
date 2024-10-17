@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/nf-core/tfactivity/master/assets/schema_counts_design.json",
     "title": "nf-core/tfactivity pipeline - params.counts_design schema",
     "description": "Schema for the file provided with params.counts_design",
@@ -11,19 +11,25 @@
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
-                "meta": ["id"]
+                "meta": [
+                    "id"
+                ]
             },
             "condition": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Condition name must be provided and cannot contain spaces",
-                "meta": ["condition"]
+                "meta": [
+                    "condition"
+                ]
             },
             "batch": {
                 "type": "string",
                 "pattern": "^\\S+$",
                 "errorMessage": "Batch identifier cannot contain spaces",
-                "meta": ["batch"]
+                "meta": [
+                    "batch"
+                ]
             },
             "counts_file": {
                 "type": "string",
@@ -33,6 +39,9 @@
                 "errorMessage": "Counts file must be a .csv or .txt file"
             }
         },
-        "required": ["sample", "condition"]
+        "required": [
+            "sample",
+            "condition"
+        ]
     }
 }
