@@ -79,8 +79,8 @@ workflow PIPELINE_INITIALISATION {
         }
         .set { ch_samplesheet }
 
-    ch_samplesheet_bam = params.input_bam ? Channel.fromSamplesheet("input_bam") : Channel.empty()
-    ch_counts_design = Channel.fromSamplesheet("counts_design")
+    ch_samplesheet_bam = params.input_bam ? samplesheetToList(params.input_bam, "${projectDir}/assets/schema_input_bam.json") : Channel.empty()
+    ch_counts_design = samplesheetToList(params.counts_design, "${projectDir}/assets/schema_counts_design.json")
 
     emit:
     samplesheet     = ch_samplesheet
