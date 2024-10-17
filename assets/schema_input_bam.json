@@ -11,25 +11,19 @@
                 "type": "string",
                 "pattern": "^[a-zA-Z][a-zA-Z0-9]*(?:[-_][a-zA-Z0-9]+)*$",
                 "errorMessage": "Sample name must be provided, has to start with a letter, and cannot contain spaces",
-                "meta": [
-                    "id"
-                ]
+                "meta": ["id"]
             },
             "condition": {
                 "type": "string",
                 "pattern": "^[a-zA-Z][a-zA-Z0-9]*(?:[-_][a-zA-Z0-9]+)*$",
                 "errorMessage": "Condition name must be provided, has to start with a letter, and cannot contain spaces",
-                "meta": [
-                    "condition"
-                ]
+                "meta": ["condition"]
             },
             "assay": {
                 "type": "string",
                 "pattern": "^[a-zA-Z][a-zA-Z0-9]*(?:[-_][a-zA-Z0-9]+)*$",
                 "errorMessage": "Assay name must be provided, has to start with a letter, and cannot contain spaces",
-                "meta": [
-                    "assay"
-                ]
+                "meta": ["assay"]
             },
             "signal": {
                 "type": "string",
@@ -46,12 +40,6 @@
                 "errorMessage": "Control file must be provided and must be a .bam file"
             }
         },
-        "required": [
-            "sample",
-            "condition",
-            "assay",
-            "signal",
-            "control"
-        ]
+        "required": ["sample", "condition", "assay", "signal", "control"]
     }
 }

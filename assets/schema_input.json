@@ -11,25 +11,19 @@
                 "type": "string",
                 "pattern": "^[a-zA-Z][a-zA-Z0-9]*(?:[-_][a-zA-Z0-9]+)*$",
                 "errorMessage": "Sample name must be provided, has to start with a letter, and cannot contain spaces",
-                "meta": [
-                    "id"
-                ]
+                "meta": ["id"]
             },
             "condition": {
                 "type": "string",
                 "pattern": "^[a-zA-Z][a-zA-Z0-9]*(?:[-_][a-zA-Z0-9]+)*$",
                 "errorMessage": "Condition name must be provided, has to start with a letter, and cannot contain spaces",
-                "meta": [
-                    "condition"
-                ]
+                "meta": ["condition"]
             },
             "assay": {
                 "type": "string",
                 "pattern": "^[a-zA-Z][a-zA-Z0-9]*(?:[-_][a-zA-Z0-9]+)*$",
                 "errorMessage": "Assay name must be provided, has to start with a letter, and cannot contain spaces",
-                "meta": [
-                    "assay"
-                ]
+                "meta": ["assay"]
             },
             "peak_file": {
                 "type": "string",
@@ -42,33 +36,22 @@
                 "type": "boolean",
                 "default": true,
                 "errorMessage": "footprinting must be a boolean value",
-                "meta": [
-                    "footprinting"
-                ]
+                "meta": ["footprinting"]
             },
             "include_original": {
                 "type": "boolean",
                 "default": true,
                 "errorMessage": "include_original must be a boolean value",
-                "meta": [
-                    "include_original"
-                ]
+                "meta": ["include_original"]
             },
             "max_peak_gap": {
                 "type": "integer",
                 "default": 500,
                 "minimum": 0,
                 "errorMessage": "max_peak_gap must be a positive integer",
-                "meta": [
-                    "max_peak_gap"
-                ]
+                "meta": ["max_peak_gap"]
             }
         },
-        "required": [
-            "sample",
-            "condition",
-            "assay",
-            "peak_file"
-        ]
+        "required": ["sample", "condition", "assay", "peak_file"]
     }
 }
