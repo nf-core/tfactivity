@@ -10,3 +10,4 @@ testing/
 testing*
 *.pyc
 bin/
+modules/local/report/create/app/dependencies/*

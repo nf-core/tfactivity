@@ -23,6 +23,38 @@
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/tfactivity/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv"
                 },
+                "input_bam": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_input_bam.json",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to comma-separated file containing information about the BAM files in the experiment.",
+                    "help_text": "You will need to create a design file with information about the BAM files in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 4 columns, and a header row. See [usage docs](https://nf-co.re/tfactivity/usage#bam-input).",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "counts": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.(csv|txt)$",
+                    "description": "Path to comma-separated file containing the counts for the samples in the experiment. Can also be a file containing just gene identifiers. In this case, count values need to be referenced in the counts_design file.",
+                    "help_text": "You will need to create a counts file with the counts for the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with a header row. See [usage docs](https://nf-co.re/tfactivity/usage#counts-input).",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "counts_design": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_counts_design.json",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to comma-separated file containing information about the counts file.",
+                    "help_text": "You will need to create a counts design file with information about the counts file in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/tfactivity/usage#counts-design-input).",
+                    "fa_icon": "fas fa-file-csv"
+                },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
@@ -35,6 +67,167 @@
                     "fa_icon": "fas fa-envelope",
                     "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
                     "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+                }
+            }
+        },
+        "pipeline_options": {
+            "title": "Pipeline options",
+            "type": "object",
+            "fa_icon": "fas fa-cogs",
+            "description": "Options for the pipeline itself.",
+            "properties": {
+                "merge_samples": {
+                    "type": "boolean",
+                    "description": "Merge samples with the same condition and assay.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "If you have multiple samples with the same condition and assay, you can set this parameter to `true` to merge them into a single sample. This is useful if you have technical replicates and want to combine them into a single sample for analysis."
+                },
+                "min_peak_occurrence": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum number of samples that a peak has to occur in to keep it while merging.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "If you have multiple samples with the same condition and assay and use the `--merge_samples` parameter, you can set this parameter to the minimum number of samples that a peak has to occur in to keep it while merging."
+                },
+                "window_size": {
+                    "type": "integer",
+                    "default": 50000,
+                    "description": "Size of the window to search for binding sites.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Size of the window to search for binding sites. The default value is 50000."
+                },
+                "decay": {
+                    "type": "boolean",
+                    "default": "true",
+                    "description": "Use decay in STARE",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Use decay in STARE. The default value is `true`."
+                },
+                "expression_aggregation": {
+                    "type": "string",
+                    "default": "mean",
+                    "description": "Method to aggregate expression values.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Method to aggregate expression values. The default value is `mean`."
+                },
+                "affinity_aggregation": {
+                    "type": "string",
+                    "default": "max",
+                    "description": "Method to aggregate affinity values.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Method to aggregate affinity values. The default value is `max`."
+                },
+                "chromhmm_states": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of ChromHMM states.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Number of ChromHMM states. The default value is 10."
+                },
+                "chromhmm_threshold": {
+                    "type": "number",
+                    "default": 0.75,
+                    "description": "Threshold for ChromHMM enhancer detection.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Threshold for ChromHMM enhancer detection. The default value is 0.9."
+                },
+                "chromhmm_enhancer_marks": {
+                    "type": "string",
+                    "default": "H3K27ac,H3K4me1",
+                    "description": "Comma-separated ChromHMM enhancer marks.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ChromHMM enhancer marks. The default value is `H3K27ac`."
+                },
+                "chromhmm_promoter_marks": {
+                    "type": "string",
+                    "default": "H3K4me3",
+                    "description": "Comma-separated ChromHMM promoter marks.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ChromHMM promoter marks. The default value is `H3K4me3`."
+                },
+                "rose_tss_window": {
+                    "type": "integer",
+                    "default": 2500,
+                    "description": "TSS window in base pairs",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ROSE window size around transcription start sites"
+                },
+                "rose_stitching_window": {
+                    "type": "integer",
+                    "default": 12500,
+                    "description": "Stichting window in base pairs",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ROSE window size for stitching two regions together"
+                },
+                "min_count": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum number of total counts to keep a gene in the analysis.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum number of total counts to keep a gene in the analysis. The default value is 50."
+                },
+                "min_tpm": {
+                    "type": "number",
+                    "default": 1,
+                    "description": "Minimum TPM to keep a gene in the analysis.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum TPM to keep a gene in the analysis. The default value is 1."
+                },
+                "min_count_tf": {
+                    "type": "integer",
+                    "default": 50,
+                    "description": "Minimum number of total counts to keep a transcription factor in the analysis.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum number of total counts to keep a transcription factor in the analysis. The default value is 50."
+                },
+                "min_tpm_tf": {
+                    "type": "number",
+                    "default": 1,
+                    "description": "Minimum TPM to keep a transcription factor in the analysis.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum TPM to keep a transcription factor in the analysis. The default value is 1."
+                },
+                "dynamite_ofolds": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "Number of outer folds for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Number of outer folds for dynamite. The default value is 3."
+                },
+                "dynamite_ifolds": {
+                    "type": "integer",
+                    "default": 6,
+                    "description": "Number of inner folds for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Number of inner folds for dynamite. The default value is 6."
+                },
+                "dynamite_alpha": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Alpha value for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Alpha value for dynamite. The default value is 0.1."
+                },
+                "dynamite_randomize": {
+                    "type": "boolean",
+                    "default": "false",
+                    "description": "Randomize the data for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Randomize the data for dynamite. The default value is `false`."
+                },
+                "dynamite_min_regression": {
+                    "type": "number",
+                    "default": 0.1,
+                    "description": "Minimum regression value for dynamite.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Minimum regression value for dynamite. The default value is 0.1."
+                },
+                "alpha": {
+                    "type": "number",
+                    "default": 0.05,
+                    "description": "Alpha value for the Mann-Whitney U test.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Alpha value for the Mann-Whitney U test. The default value is 0.05."
                 }
             }
         },
@@ -57,8 +250,44 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.fn?a(sta)?(\\.gz)?$",
                     "description": "Path to FASTA genome file.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. If you don't have a BWA index available this will be generated for you automatically. Combine with `--save_reference` to save BWA index for future runs.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
                     "fa_icon": "far fa-file-code"
+                },
+                "gtf": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.gtf(\\.gz)?$",
+                    "description": "Path to GTF gene annotation file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "blacklist": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.bed(\\.gz)?$",
+                    "description": "Path to blacklist regions file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "motifs": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.(cisbp|homer|jaspar|meme|transfac|uniprobe)?$",
+                    "description": "Path to transcription factor motifs file.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified. Alternatively, you can use the `--taxon_id` parameter to fetch the motifs from the JASPAR database.",
+                    "fa_icon": "far fa-file-code"
+                },
+                "taxon_id": {
+                    "type": "integer",
+                    "description": "NCBI Taxonomy ID.",
+                    "fa_icon": "fas fa-dna",
+                    "help_text": "This parameter is *mandatory* if `--genome` and `--motifs` are not specified. Use this parameter to fetch the motifs from the JASPAR database."
                 },
                 "igenomes_ignore": {
                     "type": "boolean",
@@ -194,6 +423,9 @@
     "allOf": [
         {
             "$ref": "#/$defs/input_output_options"
+        },
+        {
+            "$ref": "#/$defs/pipeline_options"
         },
         {
             "$ref": "#/$defs/reference_genome_options"

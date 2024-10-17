@@ -66,7 +66,7 @@ workflow PIPELINE_INITIALISATION {
     //
     // Custom validation for pipeline parameters
     //
-    validateInputParameters()
+    // validateInputParameters()
 
     //
     // Create channel from input file provided through params.input
@@ -75,26 +75,18 @@ workflow PIPELINE_INITIALISATION {
     Channel
         .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
         .map {
-            meta, fastq_1, fastq_2 ->
-                if (!fastq_2) {
-                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
-                } else {
-                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
-                }
-        }
-        .groupTuple()
-        .map { samplesheet ->
-            validateInputSamplesheet(samplesheet)
-        }
-        .map {
-            meta, fastqs ->
-                return [ meta, fastqs.flatten() ]
+            validateInputSamplesheet(it)
         }
         .set { ch_samplesheet }
 
+    ch_samplesheet_bam = params.input_bam ? Channel.fromList(samplesheetToList(params.input_bam), "${projectDir}/assets/schema_input_bam.json") : Channel.empty()
+    ch_counts_design = Channel.fromList(samplesheetToList(params.counts_design), "${projectDir}/assets/schema_counts_design.json")
+
     emit:
-    samplesheet = ch_samplesheet
-    versions    = ch_versions
+    samplesheet     = ch_samplesheet
+    samplesheet_bam = ch_samplesheet_bam
+    counts_design   = ch_counts_design
+    versions        = ch_versions
 }
 
 /*
@@ -112,7 +104,7 @@ workflow PIPELINE_COMPLETION {
     outdir          //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
     hook_url        //  string: hook URL for notifications
-    
+
 
     main:
     summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
@@ -160,15 +152,14 @@ def validateInputParameters() {
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {
-    def (metas, fastqs) = input[1..2]
+    def (meta, peak_files) = input[0..1]
 
-    // Check that multiple runs of the same sample are of the same datatype i.e. single-end / paired-end
-    def endedness_ok = metas.collect{ meta -> meta.single_end }.unique().size == 1
-    if (!endedness_ok) {
-        error("Please check input samplesheet -> Multiple runs of a sample must be of the same datatype i.e. single-end or paired-end: ${metas[0].id}")
+    // Check that include_original is only set to false if footprinting is enabled
+    if ( !meta.footprinting && !meta.include_original ) {
+        error("The 'include_original' parameter can only be set to 'false' if 'footprinting' is enabled.")
     }
 
-    return [ metas[0], fastqs ]
+    return [ meta, peak_files ]
 }
 //
 // Get attribute from genome config file e.g. fasta
@@ -204,8 +195,8 @@ def toolCitationText() {
     // Uncomment function in methodsDescriptionText to render in MultiQC report
     def citation_text = [
             "Tools used in the workflow included:",
-            
-            
+
+
             "."
         ].join(' ').trim()
 
@@ -217,8 +208,8 @@ def toolBibliographyText() {
     // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
     // Uncomment function in methodsDescriptionText to render in MultiQC report
     def reference_text = [
-            
-            
+
+
         ].join(' ').trim()
 
     return reference_text
