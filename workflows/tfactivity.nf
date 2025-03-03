@@ -167,7 +167,7 @@ workflow TFACTIVITY {
     softwareVersionsToYAML(ch_versions)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
-            name: 'nf_core_'  + 'pipeline_software_' +  ''  + 'versions.yml',
+            name: 'nf_core_'  +  'tfactivity_software_'  + 'versions.yml',
             sort: true,
             newLine: true
         ).set { ch_collated_versions }
