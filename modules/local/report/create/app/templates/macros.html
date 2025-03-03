@@ -1,0 +1,81 @@
+{% macro tabs(active="tf") %}
+<ul class="tab tab-block">
+  <li class="tab-item {{ 'active' if active=='tf'}}">
+    <a href="index.html">Transcription factors</a>
+  </li>
+  <li class="tab-item {{ 'active' if active=='tg'}}">
+    <a href="target_genes.html">Target genes</a>
+  </li>
+  <li class="tab-item {{ 'active' if active=='net'}}">
+    <a href="network.html">Network</a>
+  </li>
+  <li class="tab-item {{ 'active' if active=='snp'}}">
+    <a href="snps.html">SNPs</a>
+  </li>
+  <li class="tab-item {{ 'active' if active=='conf'}}">
+    <a href="configuration.html">Configuration</a>
+  </li>
+</ul>
+{% endmacro %} {% macro tfGeneral(tf, tgs, pairings, tfDiffExp, plotsEnabled=true) %}
+<h2>Top target genes (<a id="primary-{{tf}}-gprofiler" target="_blank">g:Profiler</a>)</h2>
+<div style="display: flex; flex-wrap: wrap">
+  {% for tg in tgs %}
+  <span class="chip" id="primary-{{tf}}-secondary-{{tg}}">{{ tg }}</span>
+  {% endfor %}
+</div>
+{% if plotsEnabled %}
+<div class="divider"></div>
+<h2>Log2fc</h2>
+
+<div id="primary-{{tf}}-log2fc"></div>
+<script>
+  Plotly.newPlot(document.getElementById('primary-{{tf}}-log2fc'), [{
+      y: {{ pairings | tojson}},
+      x: [{% for pairing in pairings %} {{ tfDiffExp[pairing] }} {% if not loop.last %}, {% endif %} {% endfor %}],
+      type: 'bar',
+      orientation: 'h'
+    }], {
+    margin: { t: 0 }
+  }, {responsive: true});
+</script>
+<div class="divider"></div>
+<h2>TPM</h2>
+<div id="primary-{{tf}}-tpm"></div>
+<script>
+  Plotly.newPlot(
+    document.getElementById("primary-{{tf}}-tpm"),
+    [
+      {
+        y: ["giraffes", "orangutans", "monkeys"],
+        x: [20, 14, 23],
+        type: "bar",
+        orientation: "h",
+      },
+    ],
+    {
+      margin: { t: 0 },
+    },
+    { responsive: true },
+  );
+</script>
+<div class="divider"></div>
+<h2>Mean expression</h2>
+<div id="primary-{{tf}}-meanExp"></div>
+<script>
+  Plotly.newPlot(
+    document.getElementById("primary-{{tf}}-meanExp"),
+    [
+      {
+        y: ["giraffes", "orangutans", "monkeys"],
+        x: [20, 14, 23],
+        type: "bar",
+        orientation: "h",
+      },
+    ],
+    {
+      margin: { t: 0 },
+    },
+    { responsive: true },
+  );
+</script>
+{% endif %} {% endmacro %}

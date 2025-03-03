@@ -25,6 +25,10 @@ insert_final_newline = unset
 trim_trailing_whitespace = unset
 indent_style = unset
 
+[/modules/local/report/create/app/dependencies/**]
+indent_size = unset
+trim_trailing_whitespace = unset
+
 [/assets/email*]
 indent_size = unset
 
