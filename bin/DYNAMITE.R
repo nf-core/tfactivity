@@ -187,12 +187,14 @@ for(Sample in FileList){
                 Train_Data<-c()
                 for (j in 1:length(subM)){
                     # Test on a single example if dataset size is too small
+                    # Modified for nf-core/tfactivity; not part of the original DYNAMITE script
                     rndselect=sample(x=nrow(subM[[j]]), size=ifelse(mSize/test_size < 1, 1, mSize/test_size))
                     Test_Data<-rbind(Test_Data,subM[[j]][rndselect,])
                     Train_Data<-rbind(Train_Data,subM[[j]][-rndselect,])
                 }
             }else{
                 # Test on a single example if dataset size is too small
+                # Modified for nf-core/tfactivity; not part of the original DYNAMITE script
                 rndselect=sample(x=nrow(M),size=ifelse(as.numeric(argsL$testsize)*nrow(M) < 1, 1, as.numeric(argsL$testsize)*nrow(M)))
                 Test_Data<-M[rndselect,]
                 Train_Data<-M[-rndselect,]
