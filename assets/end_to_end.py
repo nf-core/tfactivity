@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+
 import os
-import sys
 import argparse
 import string
 import pandas as pd
@@ -22,12 +23,12 @@ parser.add_argument('--apptainer_cache', type=str, required=False, help='Path to
 parser.add_argument('--process_executor', type=str, required=False, help='Executor for the nextflow pipelines', default='local')
 parser.add_argument('--process_queue', type=str, required=False, help='scheduler queue')
 
+parser.add_argument('--chipseq_read_length', type=int, help='Read length used to calculate MACS3 genome size for peak calling', default=50, required=False)
+
 args = parser.parse_args()
 
-if args.taxon_id is None:
-    if args.genome is None or args.motifs is None:
-        print('Error: If taxon_id is not specified, both fasta and motifs must be provided.')
-        sys.exit(1)
+if args.taxon_id is None and (args.genome is None or args.motifs is None):
+    parser.error("If --taxon_id is not specified, both --genome and --motifs must be provided.")
 
 fasta = args.fasta
 gtf = args.gtf
@@ -44,6 +45,7 @@ apptainer_cache = args.apptainer_cache
 process_executor = args.process_executor
 process_queue = args.process_queue
 
+chipseq_read_length = args.chipseq_read_length
 
 os.environ["NXF_APPTAINER_CACHEDIR"] = apptainer_cache
 
@@ -121,6 +123,7 @@ df = pd.DataFrame.from_dict(samples, orient='index').to_csv(path_samplesheet_rna
 rnaseq_run = f"""
 nextflow run \
     nf-core/rnaseq \
+    -r 3.17.0 \
     --input {path_samplesheet_rnaseq} \
     --outdir {path_outdir_rnaseq} \
     --gtf {gtf} \
@@ -131,10 +134,16 @@ nextflow run \
     -process.executor {process_executor} \
     -process.queue {process_queue} \
     -resume \
-    --skip_deseq2_qc true
+    --skip_deseq2_qc true \
+    --skip_multiqc true \
+    --skip_preseq true \
+    --skip_biotype_qc true \
+    --skip_dupradar true \
+    --skip_bigwig true \
+    --skip_rseqc true
 """
 os.chdir(path_nfcore_rnaseq)
-#os.system(rnaseq_run)
+os.system(rnaseq_run)
 
 
 # Run nfcore/chipseq pipeline
@@ -184,29 +193,31 @@ chipseq_samplesheet['control'] = chipseq_samplesheet['control'].apply(lambda x: 
 chipseq_samplesheet.loc[chipseq_samplesheet['sample'].str.contains('CONTROL'), ['antibody', 'control', 'control_replicate']] = ''
 chipseq_samplesheet.to_csv(path_samplesheet_chipseq, index=False)
 
-# Runs on revision dev as the pipeline has not had an release for some time
-# TODO change parameter read_length
-# TODO change parameter skip_preseq
-# TODO disable processes not needed for downstream pipelines
 chipseq_run = f"""
 nextflow run \
     nf-core/chipseq \
-    -r dev \
+    -r fix_multiqc_skip \
     --input {path_samplesheet_chipseq} \
     --outdir {path_outdir_chipseq} \
     --gtf {gtf} \
     --fasta {fasta} \
-    --read_length 50 \
+    --read_length {chipseq_read_length} \
     --save_align_intermeds \
     -profile {profile} \
     -process.executor {process_executor} \
     -process.queue {process_queue} \
     -resume \
-    --skip_preseq true
+    --skip_preseq true \
+    --skip_picard_metrics true \
+    --skip_plot_profile true \
+    --skip_plot_fingerprint true \
+    --skip_spp true \
+    --skip_multiqc true \
+    --skip_igv true
 """
 
 os.chdir(path_nfcore_chipseq)
-#os.system(chipseq_run)
+os.system(chipseq_run)
 
 
 # Run nfcore/tfactivity pipeline
@@ -278,7 +289,6 @@ samplesheet_bam = samplesheet_bam.merge(controls, on='merge_key', how='inner').d
 samplesheet_bam.to_csv(path_samplesheet_tfactivity_bams, index=False)
 
 # Convert rna counts to csv
-# TODO: Remove hardcoded aligner 'star_salmon' when adding aligner choice
 counts_rna_tsv = pd.read_csv(os.path.join(path_outdir_rnaseq, 'star_salmon', 'salmon.merged.gene_counts.tsv'), sep='\t')
 counts_rna_tsv['gene_id'].to_csv(path_counts_tfactivity_rna, header=False, index=False)
 
@@ -298,8 +308,8 @@ pd.DataFrame.from_dict(counts_design, orient='index').to_csv(path_design_tfactiv
 
 tfactivity_run = f"""
 nextflow run \
-    /nfs/home/students/l.hafner/inspect/tfactivity/dev/main.nf \
     nf-core/tfactivity \
+    -r 45ba08d995 \
     --input {path_samplesheet_tfactivity_peaks} \
     --input_bam {path_samplesheet_tfactivity_bams} \
     --counts {path_counts_tfactivity_rna} \
