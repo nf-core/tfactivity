@@ -197,7 +197,7 @@ chipseq_samplesheet.to_csv(path_samplesheet_chipseq, index=False)
 chipseq_run = f"""
 nextflow run \
     nf-core/chipseq \
-    -r 73a5304872 \
+    -r 16a7d15e29 \
     --input {path_samplesheet_chipseq} \
     --outdir {path_outdir_chipseq} \
     --gtf {gtf} \
