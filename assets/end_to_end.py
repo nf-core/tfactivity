@@ -193,10 +193,11 @@ chipseq_samplesheet['control'] = chipseq_samplesheet['control'].apply(lambda x: 
 chipseq_samplesheet.loc[chipseq_samplesheet['sample'].str.contains('CONTROL'), ['antibody', 'control', 'control_replicate']] = ''
 chipseq_samplesheet.to_csv(path_samplesheet_chipseq, index=False)
 
+# TODO: Change revision to correct stable version after next nf-core/rnaseq release
 chipseq_run = f"""
 nextflow run \
     nf-core/chipseq \
-    -r fix_multiqc_skip \
+    -r 73a5304872 \
     --input {path_samplesheet_chipseq} \
     --outdir {path_outdir_chipseq} \
     --gtf {gtf} \
