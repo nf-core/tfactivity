@@ -310,7 +310,7 @@ pd.DataFrame.from_dict(counts_design, orient='index').to_csv(path_design_tfactiv
 tfactivity_run = f"""
 nextflow run \
     nf-core/tfactivity \
-    -r 45ba08d995 \
+    -r dev \
     --input {path_samplesheet_tfactivity_peaks} \
     --input_bam {path_samplesheet_tfactivity_bams} \
     --counts {path_counts_tfactivity_rna} \
