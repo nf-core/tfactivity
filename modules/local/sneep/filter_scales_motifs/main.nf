@@ -13,6 +13,7 @@ process FILTER_SCALES_MOTIFS {
     output:
         path "filtered_${motifs_transfac}", emit: transfac
         path "filtered_${scale_file}",      emit: scale_file
+        path "versions.yml",                emit: versions
 
     script:
     template 'filter_scales_motifs.py'

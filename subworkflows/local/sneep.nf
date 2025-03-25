@@ -50,4 +50,17 @@ workflow SNEEP {
         genome_fasta.map{meta, fasta -> fasta},
         FILTER_SCALES_MOTIFS.out.scale_file.first()
     )
+
+    ch_versions = Channel.empty()
+    ch_versions = ch_versions.mix(
+        FILTER_SCALES_MOTIFS.out.versions,
+        GFF_TO_BED.out.versions,
+        SORT_BED.out.versions,
+        MERGE_DUPLICATE_REGIONS.out.versions,
+        FILTER_SNPS_BY_REGION.out.versions,
+        RUN_SNEEP.out.versions
+    )
+
+    emit:
+    versions = ch_versions
 }

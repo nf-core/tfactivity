@@ -167,6 +167,7 @@ workflow TFACTIVITY {
         DYNAMITE.out.versions,
         RANKING.out.versions,
         FIMO.out.versions,
+        SNEEP.out.versions,
         REPORT.out.versions
     )
 
