@@ -146,12 +146,11 @@ workflow TFACTIVITY {
         MOTIFS.out.meme,
     )
 
-
     SNEEP(
-        Channel.from(file("/nfs/home/students/l.hafner/tfactivity/sneep/SNEEP/examples/combined_Jaspar2022_Hocomoco_Kellis_human_transfac.txt")),
-        Channel.from(file("/nfs/home/students/l.hafner/tfactivity/sneep/SNEEP/examples/SNPs_EFO_0000612_myocardial_infarction.VCF")),
+        Channel.from(file("/nfs/home/students/l.hafner/inspect/sneep/subset_files/transfac_mouse_218.txt")),
+        Channel.from(file("/nfs/home/students/l.hafner/inspect/sneep/subset_files/dbSNP_mouse_chr1_1000.bed")),
         fasta,
-        Channel.from(file("/nfs/home/students/l.hafner/tfactivity/sneep/SNEEP/necessaryInputFiles/estimatedScalesPerMotif_1.9.txt")),
+        Channel.from(file("/nfs/data/COM2POSE/inspect_leon/sneep/subset_files/scale_mouse_218.txt")),
         FIMO.out.gff
     )
 
