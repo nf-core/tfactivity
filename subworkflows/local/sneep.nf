@@ -1,3 +1,4 @@
+include { FILTER_SCALES_MOTIFS } from '../../modules/local/sneep/filter_scales_motifs'
 include { GAWK as GFF_TO_BED } from '../../modules/nf-core/gawk'
 include { GNU_SORT as SORT_BED } from '../../modules/nf-core/gnu/sort'
 include { BEDTOOLS_MERGE as MERGE_DUPLICATE_REGIONS } from '../../modules/nf-core/bedtools/merge'
@@ -6,6 +7,7 @@ include { MERGE_SAMPLES } from './merge_samples.nf'
 include { RUN_SNEEP } from '../../modules/local/sneep/run_sneep'
 
 workflow SNEEP {
+
     take:
     motifs_transfac // Coming from MOTIFS subworkflow
     snp_file // Coming from user/params/download
@@ -14,8 +16,16 @@ workflow SNEEP {
     motif_regions //Coming from FIMO
 
     main:
+
     // Decide on organism based on organism ID or genome name
     // Download right SNP files (and scale/motif files)
+
+    // Filter transfac and scale file for motifs found with FIMO
+    FILTER_SCALES_MOTIFS(
+        motifs_transfac,
+        scale_file,
+        motif_regions.map{meta, regions -> regions}.collect()
+    )
 
     // Convert gff with motif regions to bed
     GFF_TO_BED(motif_regions, [])
@@ -36,8 +46,8 @@ workflow SNEEP {
 
     RUN_SNEEP(
         ch_sneep_input_snps,
-        motifs_transfac.first(),
+        FILTER_SCALES_MOTIFS.out.transfac.first(),
         genome_fasta.map{meta, fasta -> fasta},
-        scale_file.first()
+        FILTER_SCALES_MOTIFS.out.scale_file.first()
     )
 }
