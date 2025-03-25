@@ -1,4 +1,3 @@
-include { FILTER_SCALE_MOTIFS } from '../../modules/local/sneep/filter_scale_motifs'
 include { GAWK as GFF_TO_BED } from '../../modules/nf-core/gawk'
 include { GNU_SORT as SORT_BED } from '../../modules/nf-core/gnu/sort'
 include { BEDTOOLS_MERGE as MERGE_DUPLICATE_REGIONS } from '../../modules/nf-core/bedtools/merge'
@@ -17,10 +16,6 @@ workflow SNEEP {
     main:
     // Decide on organism based on organism ID or genome name
     // Download right SNP files (and scale/motif files)
-    // FILTER_SCALE_MOTIFS(snp_file, motifs_transfac, motif_regions)
-    motifs_transfac.view()
-    scale_file.view()
-    motif_regions.view()
 
     // Convert gff with motif regions to bed
     GFF_TO_BED(motif_regions, [])
