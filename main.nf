@@ -80,6 +80,7 @@ workflow NFCORE_TFACTIVITY {
     //
     TFACTIVITY (
         samplesheet,
+        params.genome,
         PREPARE_GENOME.out.fasta,
         PREPARE_GENOME.out.gtf,
         ch_blacklist,

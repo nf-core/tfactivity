@@ -159,6 +159,11 @@
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "ROSE window size for stitching two regions together"
                 },
+                "skip_sneep": {
+                    "type": "boolean",
+                    "description": "Skip sneep.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
                 "min_count": {
                     "type": "integer",
                     "default": 50,
