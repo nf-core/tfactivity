@@ -151,7 +151,7 @@ workflow TFACTIVITY {
     )
 
     ch_sneep_versions = Channel.empty()
-    if (genome in ["hg38", "mm10"] & !params.skip_sneep) {
+    if (genome in ["hg38", "mm10"] && !params.skip_sneep && params.snps) {
         SNEEP(
             genome,
             snps,
