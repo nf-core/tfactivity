@@ -63,7 +63,7 @@ workflow NFCORE_TFACTIVITY {
     ch_motifs  = params.motifs ? Channel.value(file(params.motifs, checkIfExists: true)) : Channel.empty()
     ch_counts = Channel.value(file(params.counts, checkIfExists: true))
     ch_taxon_id = (!params.motifs && params.taxon_id) ? Channel.value(params.taxon_id) : Channel.empty()
-    ch_snps = Channel.value(file(params.snps, checkIfExists: true))
+    ch_snps = params.snps ? Channel.value(file(params.snps, checkIfExists: true)) : Channel.empty()
 
     //
     // SUBWORKFLOW: Prepare genome
