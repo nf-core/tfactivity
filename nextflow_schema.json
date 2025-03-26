@@ -288,6 +288,16 @@
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified. Alternatively, you can use the `--taxon_id` parameter to fetch the motifs from the JASPAR database.",
                     "fa_icon": "far fa-file-code"
                 },
+                "snps": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.(bed.gz)?$",
+                    "description": "File containing SNPs for organism.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "fa_icon": "far fa-file-code"
+                },
                 "taxon_id": {
                     "type": "integer",
                     "description": "NCBI Taxonomy ID.",
