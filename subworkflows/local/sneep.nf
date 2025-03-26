@@ -9,21 +9,28 @@ include { RUN_SNEEP } from '../../modules/local/sneep/run_sneep'
 workflow SNEEP {
 
     take:
-    motifs_transfac // Coming from MOTIFS subworkflow
-    snp_file // Coming from user/params/download
-    genome_fasta // Coming from pipeline
-    scale_file // Coming from user/params/download
-    motif_regions //Coming from FIMO
+    genome
+    snps
+    genome_fasta
+    motif_regions
 
     main:
 
-    // Decide on organism based on organism ID or genome name
-    // Download right SNP files (and scale/motif files)
+    // Choose scale and motif file based on genome version
+    if (genome == "hg38") {
+        ch_scale_file = file("${projectDir}/assets/sneep_scale_human_817.txt", checkIfExists: true)
+        ch_motif_file = file("${projectDir}/assets/sneep_transfac_human_817.txt", checkIfExists: true)
+    } else if (genome == "mm10") {
+        ch_scale_file = file("${projectDir}/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
+        ch_motif_file = file("${projectDir}/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
+    } else {
+        error "Invalid genome specified: ${genome}"
+    }
 
     // Filter transfac and scale file for motifs found with FIMO
     FILTER_SCALES_MOTIFS(
-        motifs_transfac,
-        scale_file,
+        ch_motif_file,
+        ch_scale_file,
         motif_regions.map{meta, regions -> regions}.collect()
     )
 
@@ -35,9 +42,9 @@ workflow SNEEP {
     MERGE_DUPLICATE_REGIONS(SORT_BED.out.sorted)
 
     // Remove SNPs that are not within regions
-    ch_filter_snps_by_regions = snp_file
+    ch_filter_snps_by_regions = snps
         .combine(MERGE_DUPLICATE_REGIONS.out.bed)
-        .map{snps, meta, regions -> [meta, snps, regions]}
+        .map{snp, meta, regions -> [meta, snp, regions]}
     FILTER_SNPS_BY_REGION(ch_filter_snps_by_regions, [[], []])
 
     // Remove files that are empty (no overlap)
@@ -46,9 +53,9 @@ workflow SNEEP {
 
     RUN_SNEEP(
         ch_sneep_input_snps,
-        FILTER_SCALES_MOTIFS.out.transfac.first(),
+        FILTER_SCALES_MOTIFS.out.transfac,
         genome_fasta.map{meta, fasta -> fasta},
-        FILTER_SCALES_MOTIFS.out.scale_file.first()
+        FILTER_SCALES_MOTIFS.out.scale_file
     )
 
     ch_versions = Channel.empty()

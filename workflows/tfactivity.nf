@@ -74,6 +74,9 @@ workflow TFACTIVITY {
     // Ranking
     alpha
 
+    // Sneep
+    snps
+
     ch_versions
 
     main:
@@ -150,10 +153,9 @@ workflow TFACTIVITY {
     ch_sneep_versions = Channel.empty()
     if (genome in ["hg38", "mm10"] & !params.skip_sneep) {
         SNEEP(
-            Channel.from(file("/nfs/home/students/l.hafner/inspect/sneep/subset_files/transfac_mouse_218.txt")),
-            Channel.from(file("/nfs/home/students/l.hafner/inspect/sneep/subset_files/dbSNP_mouse_chr1_1000.bed")),
+            genome,
+            snps,
             fasta,
-            Channel.from(file("/nfs/data/COM2POSE/inspect_leon/sneep/subset_files/scale_mouse_218.txt")),
             FIMO.out.gff
     )
     ch_sneep_versions.mix(SNEEP.out.versions)
