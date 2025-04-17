@@ -24,7 +24,7 @@ workflow SNEEP {
         ch_scale_file = file("${projectDir}/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
         ch_motif_file = file("${projectDir}/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
     } else {
-        error "Invalid genome specified: ${genome}"
+        error "Genome ${genome} not valid for the use with sneep. Enable --skip_sneep or change the genome."
     }
 
     // Filter transfac and scale file for motifs found with FIMO
