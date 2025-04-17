@@ -157,7 +157,7 @@ workflow TFACTIVITY {
             snps,
             fasta,
             FIMO.out.gff
-    )
+        )
     ch_sneep_versions.mix(SNEEP.out.versions)
     }
 
