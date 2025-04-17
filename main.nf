@@ -19,6 +19,7 @@ params.fasta     = getGenomeAttribute('fasta')
 params.gtf       = getGenomeAttribute('gtf')
 params.blacklist = getGenomeAttribute('blacklist')
 params.taxon_id  = getGenomeAttribute('taxon_id')
+params.snps      = getGenomeAttribute('snps')
 
 if (!params.motifs && !params.taxon_id) {
     error "Please provide either a motifs file or a taxon ID"
@@ -61,6 +62,7 @@ workflow NFCORE_TFACTIVITY {
     ch_motifs  = params.motifs ? Channel.value(file(params.motifs, checkIfExists: true)) : Channel.empty()
     ch_counts = Channel.value(file(params.counts, checkIfExists: true))
     ch_taxon_id = (!params.motifs && params.taxon_id) ? Channel.value(params.taxon_id) : Channel.empty()
+    ch_snps = params.snps ? Channel.value(file(params.snps, checkIfExists: true)) : Channel.empty()
 
     //
     // SUBWORKFLOW: Prepare genome
@@ -79,6 +81,7 @@ workflow NFCORE_TFACTIVITY {
     //
     TFACTIVITY (
         samplesheet,
+        params.genome,
         PREPARE_GENOME.out.fasta,
         PREPARE_GENOME.out.gtf,
         ch_blacklist,
@@ -120,6 +123,9 @@ workflow NFCORE_TFACTIVITY {
 
         // Ranking
         params.alpha,
+
+        // Sneep
+        ch_snps,
 
         ch_versions
     )

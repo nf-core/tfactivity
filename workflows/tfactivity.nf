@@ -17,6 +17,7 @@ include { PEAKS                  } from '../subworkflows/local/peaks'
 include { DYNAMITE               } from '../subworkflows/local/dynamite'
 include { RANKING                } from '../subworkflows/local/ranking'
 include { FIMO                   } from '../subworkflows/local/fimo'
+include { SNEEP                  } from '../subworkflows/local/sneep'
 include { REPORT                 } from '../subworkflows/local/report'
 
 /*
@@ -31,6 +32,7 @@ workflow TFACTIVITY {
     ch_samplesheet // channel: samplesheet read in from --input
 
     // Genome
+    genome
     fasta
     gtf
     blacklist
@@ -71,6 +73,9 @@ workflow TFACTIVITY {
 
     // Ranking
     alpha
+
+    // Sneep
+    snps
 
     ch_versions
 
@@ -145,6 +150,18 @@ workflow TFACTIVITY {
         MOTIFS.out.meme,
     )
 
+    ch_sneep_versions = Channel.empty()
+    if (genome in ["hg38", "mm10"] && !params.skip_sneep && params.snps) {
+        SNEEP(
+            genome,
+            snps,
+            fasta,
+            FIMO.out.gff
+        )
+    ch_sneep_versions.mix(SNEEP.out.versions)
+    }
+
+
     REPORT(
         RANKING.out.tf_ranking,
         RANKING.out.tg_ranking,
@@ -158,6 +175,7 @@ workflow TFACTIVITY {
         DYNAMITE.out.versions,
         RANKING.out.versions,
         FIMO.out.versions,
+        ch_sneep_versions,
         REPORT.out.versions
     )
 
