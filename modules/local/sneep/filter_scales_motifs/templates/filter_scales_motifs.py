@@ -2,25 +2,8 @@
 
 import platform
 import pandas as pd
+import yaml
 
-def format_yaml_like(data: dict, indent: int = 0) -> str:
-    """Formats a dictionary to a YAML-like string.
-
-    Args:
-        data (dict): The dictionary to format.
-        indent (int): The current indentation level.
-
-    Returns:
-        str: A string formatted as YAML.
-    """
-    yaml_str = ""
-    for key, value in data.items():
-        spaces = "    " * indent
-        if isinstance(value, dict):
-            yaml_str += f"{spaces}{key}:\\n{format_yaml_like(value, indent + 1)}"
-        else:
-            yaml_str += f"{spaces}{key}: {value}\\n"
-    return yaml_str
 
 # Read TF symbols from motif_regions file
 symbols = set()
@@ -59,9 +42,10 @@ with open("${motifs_transfac}", "r") as fin, open("filtered_${motifs_transfac}",
 versions = {
     "${task.process}" : {
         "python": platform.python_version(),
-        "pandas": pd.__version__
+        "pandas": pd.__version__,
+        "yaml": yaml.__version__,
     }
 }
 
 with open("versions.yml", "w") as f:
-    f.write(format_yaml_like(versions))
+    yaml.dump(versions, f)

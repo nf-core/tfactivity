@@ -2,8 +2,8 @@ process FILTER_SCALES_MOTIFS {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/e8/e87c143b4e7b31e1d5db5518d5c3d0e82fe20c4a9607e668e3fc8b390257d4f7/data':
-        'community.wave.seqera.io/library/pandas:2.2.3--9b034ee33172d809' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/cb/cb82daa12e6ef372e8f2d11da512607b2111ac6bfafd91532de554cc583eae4b/data':
+        'community.wave.seqera.io/library/pandas_pyyaml:aee7106480c2e582' }"
 
     input:
         path motifs_transfac
@@ -27,6 +27,7 @@ process FILTER_SCALES_MOTIFS {
     "${task.process}":
         python: \$(python3 --version | cut -f 2 -d " ")
         pandas: \$(python3 -c "import pandas; print(pandas.__version__)")
+        yaml: \$(python3 -c "import yaml; print(yaml.__version__)")
     END_VERSIONS
     """
 }
