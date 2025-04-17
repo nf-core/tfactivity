@@ -295,7 +295,7 @@
                     "mimetype": "text/plain",
                     "pattern": "^\\S+\\.(bed.gz)?$",
                     "description": "File containing SNPs for organism.",
-                    "help_text": "This parameter is *mandatory* if `--genome` is not specified.",
+                    "help_text": "This parameter is *mandatory* if `--genome` is not specified and `--skip_sneep` is false.",
                     "fa_icon": "far fa-file-code"
                 },
                 "taxon_id": {
