@@ -25,6 +25,10 @@ if (!params.motifs && !params.taxon_id) {
     error "Please provide either a motifs file or a taxon ID"
 }
 
+if (params.skip_fimo && !params.skip_sneep) {
+    log.warn("--skip_fimo automatically sets --skip_sneep since sneep requires fimo input.")
+}
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT FUNCTIONS / MODULES / SUBWORKFLOWS / WORKFLOWS

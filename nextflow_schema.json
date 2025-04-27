@@ -159,6 +159,11 @@
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "ROSE window size for stitching two regions together"
                 },
+                "skip_fimo": {
+                    "type": "boolean",
+                    "description": "Skip fimo. This also skips sneep automatically since sneep requires fimo input.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
                 "skip_sneep": {
                     "type": "boolean",
                     "description": "Skip sneep.",

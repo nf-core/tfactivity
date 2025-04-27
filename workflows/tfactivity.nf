@@ -143,14 +143,17 @@ workflow TFACTIVITY {
         alpha
     )
 
-    FIMO(
-        fasta,
-        RANKING.out.tf_total_ranking,
-        PEAKS.out.candidate_regions,
-        MOTIFS.out.meme,
-    )
+    if (!params.skip_fimo) {
+        FIMO(
+            fasta,
+            RANKING.out.tf_total_ranking,
+            PEAKS.out.candidate_regions,
+            MOTIFS.out.meme,
+        )
+        ch_versions = ch_versions.mix(FIMO.out.versions)
+    }
 
-    if (genome in ["hg38", "mm10"] && !params.skip_sneep && params.snps) {
+    if (genome in ["hg38", "mm10"] && !params.skip_sneep && params.snps && !params.skip_fimo) {
         SNEEP(
             genome,
             snps,
@@ -173,7 +176,6 @@ workflow TFACTIVITY {
         PEAKS.out.versions,
         DYNAMITE.out.versions,
         RANKING.out.versions,
-        FIMO.out.versions,
         REPORT.out.versions
     )
 
