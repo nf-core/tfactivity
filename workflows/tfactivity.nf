@@ -150,7 +150,6 @@ workflow TFACTIVITY {
         MOTIFS.out.meme,
     )
 
-    ch_sneep_versions = Channel.empty()
     if (genome in ["hg38", "mm10"] && !params.skip_sneep && params.snps) {
         SNEEP(
             genome,
@@ -158,7 +157,7 @@ workflow TFACTIVITY {
             fasta,
             FIMO.out.gff
         )
-    ch_sneep_versions.mix(SNEEP.out.versions)
+    ch_versions = ch_versions.mix(SNEEP.out.versions)
     }
 
 
@@ -175,7 +174,6 @@ workflow TFACTIVITY {
         DYNAMITE.out.versions,
         RANKING.out.versions,
         FIMO.out.versions,
-        ch_sneep_versions,
         REPORT.out.versions
     )
 
