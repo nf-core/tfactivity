@@ -2,7 +2,7 @@ process CONVERT_MOTIFS {
     tag "$meta.id"
     label "process_single"
 
-    conda "bioconda:bioconductor-universalmotif==1.20.0--r43hf17093f_0"
+    conda "bioconda::bioconductor-universalmotif==1.20.0--r43hf17093f_0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/bioconductor-universalmotif:1.20.0--r43hf17093f_0':
         'biocontainers/bioconductor-universalmotif:1.20.0--r43hf17093f_0' }"
