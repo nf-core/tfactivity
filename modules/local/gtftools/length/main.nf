@@ -2,7 +2,7 @@ process GTFTOOLS_LENGTH {
     tag "$meta.id"
     label 'process_single'
 
-    conda "bioconda:gtftools=0.9.0-0"
+    conda "bioconda::gtftools=0.9.0-0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/gtftools:0.9.0--pyh5e36f6f_0':
         'biocontainers/gtftools:0.9.0--pyh5e36f6f_0' }"
