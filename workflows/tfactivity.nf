@@ -67,16 +67,19 @@ workflow TFACTIVITY {
 
     ch_versions = Channel.empty()
 
+    // Get conditions from the samplesheet
     ch_conditions = ch_samplesheet
         .map { meta, _peak_file -> meta.condition }
         .toSortedList()
         .flatten()
         .unique()
 
+    // Combine conditions into contrasts
     ch_contrasts = ch_conditions
         .combine(ch_conditions)
         .filter { condition1, condition2 -> condition1 < condition2 }
 
+    // Combine counts, convert to TPM, filter genes and TFs, run DESeq2
     COUNTS(
         gene_lengths,
         gene_map,
