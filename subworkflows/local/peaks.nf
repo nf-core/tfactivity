@@ -61,13 +61,23 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
-    CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_enhancer_marks, chromhmm_promoter_marks)
-    ROSE(CHROMHMM.out.enhancers.mix(CHROMHMM.out.promoters), gtf, chrom_sizes)
+    ch_chromhmm_out = Channel.empty()
+    if (!params.skip_chromhmm) {
+        CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_enhancer_marks, chromhmm_promoter_marks)
+        ch_chromhmm_out = ch_chromhmm_out.mix(CHROMHMM.out.enhancers.mix(CHROMHMM.out.promoters))
+        ch_versions = ch_versions.mix(CHROMHMM.out.versions)
+    }
 
-    ch_versions = ch_versions.mix(CHROMHMM.out.versions)
-    ch_versions = ch_versions.mix(ROSE.out.versions)
+    ch_rose_out = Channel.empty()
+    if (!params.skip_rose && !params.skip_chromhmm) {
+        ROSE(ch_chromhmm_out, gtf, chrom_sizes)
+        ch_rose_out = ch_rose_out.mix(ROSE.out.stitched)
+        ch_versions = ch_versions.mix(ROSE.out.versions)
+    }
 
-    ch_peaks = ch_peaks .mix(ROSE.out.stitched)
+    ch_chromhmm_rose_out = params.skip_rose ? ch_chromhmm_out : ch_rose_out
+
+    ch_peaks = ch_peaks .mix(ch_chromhmm_rose_out)
                         .map { meta, peaks -> [[
                             id: meta.id,
                             condition: meta.condition,

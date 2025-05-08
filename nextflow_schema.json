@@ -159,6 +159,21 @@
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "ROSE window size for stitching two regions together"
                 },
+                "skip_chromhmm": {
+                    "type": "boolean",
+                    "description": "Skip chromhmm. This also skips rose automatically since rose requires chromhmm input.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_rose": {
+                    "type": "boolean",
+                    "description": "Skip rose.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_fimo": {
+                    "type": "boolean",
+                    "description": "Skip fimo. This also skips sneep automatically since sneep requires fimo input.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
                 "skip_sneep": {
                     "type": "boolean",
                     "description": "Skip sneep.",
