@@ -23,6 +23,7 @@ workflow COUNTS {
 
     ch_versions = Channel.empty()
 
+    // Combines counts of different files into one count matrix and one gene list
     COMBINE_COUNTS(
         ch_counts.map { counts -> [[id: "counts"], counts] },
         ch_extra_counts.map { meta, file -> [meta.id, file] }.reduce([[], []]) { accum, it -> [accum[0] + [it[0]], accum[1] + [it[1]]] },
@@ -31,6 +32,7 @@ workflow COUNTS {
     )
     ch_versions = ch_versions.mix(COMBINE_COUNTS.out.versions)
 
+    // Convert counts to TPM
     CALCULATE_TPM(
         COMBINE_COUNTS.out.counts,
         ch_gene_lengths,
@@ -38,6 +40,7 @@ workflow COUNTS {
     )
     ch_versions = ch_versions.mix(CALCULATE_TPM.out.versions)
 
+    // Filter genes based on sum of raw counts and average TPM value
     FILTER_GENES(
         COMBINE_COUNTS.out.counts,
         CALCULATE_TPM.out.tpm,
@@ -46,6 +49,7 @@ workflow COUNTS {
     )
     ch_versions = ch_versions.mix(FILTER_GENES.out.versions)
 
+    // FILTER TFs (same matrix as genes) based on sum of raw counts and average TPM value
     FILTER_TFS(
         COMBINE_COUNTS.out.counts.map { _meta, counts -> [[id: "TFs"], counts] },
         CALCULATE_TPM.out.tpm,
@@ -54,9 +58,11 @@ workflow COUNTS {
     )
     ch_versions = ch_versions.mix(FILTER_TFS.out.versions)
 
+    // Get conditions for each sample from samplesheet (remove counts_file and batch if present)
     PREPARE_DESIGN(ch_counts_design)
     ch_versions = ch_versions.mix(PREPARE_DESIGN.out.versions)
 
+    // Run DESeq2 and output normalised counts and differential expression results
     DESEQ2_DIFFERENTIAL(
         Channel.value(["condition"]).combine(contrasts).map { variable, reference, target ->
             [
