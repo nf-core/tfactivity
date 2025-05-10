@@ -37,10 +37,12 @@ workflow PEAKS {
 
     ch_versions = Channel.empty()
 
+    // Remove columns to convert broadPeak format to bed6
     CLEAN_BED(ch_peaks, [])
     ch_peaks = CLEAN_BED.out.output
     ch_versions = ch_versions.mix(CLEAN_BED.out.versions)
 
+    // Compute footprinnting regions (merge close regions and keep either original or only region between original regions)
     FOOTPRINTING(ch_peaks)
     ch_peaks = FOOTPRINTING.out.footprinted_peaks
     ch_versions = ch_versions.mix(FOOTPRINTING.out.versions)
