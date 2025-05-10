@@ -95,6 +95,7 @@ workflow TFACTIVITY {
     )
     ch_versions = ch_versions.mix(COUNTS.out.versions)
 
+    // Fetch motifs from JASPAR if taxon_id is provided, filter for motifs that are included in expression data and convert to MEME and PSEM (thermodynamic model)
     MOTIFS(
         motifs,
         COUNTS.out.tfs,

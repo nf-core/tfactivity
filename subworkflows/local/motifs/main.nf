@@ -14,11 +14,13 @@ workflow MOTIFS {
     main:
     ch_versions = Channel.empty()
 
+    // ch_taxon_id and ch_input_motifs are mutually exclusive
     if (motifs) {
         ch_motifs = Channel.value(motifs)
     }
     else {
         if (taxon_id) {
+            // Fetch JASPAR motifs but only if taxon_id is provided
             FETCH_JASPAR(taxon_id)
             ch_versions = ch_versions.mix(FETCH_JASPAR.out.versions)
             ch_motifs = FETCH_JASPAR.out.motifs
@@ -28,15 +30,18 @@ workflow MOTIFS {
         }
     }
 
+    // Convert motifs to universal format (binary file format)
     CONVERT_TO_UNIVERSAL(
         ch_motifs.map { m -> [[id: 'motifs'], m, m.extension] },
         "universal",
     )
     ch_versions = ch_versions.mix(CONVERT_TO_UNIVERSAL.out.versions)
 
+    // Filter motifs to only include those that match the TFs from the count data
     ch_filtered = FILTER_MOTIFS(CONVERT_TO_UNIVERSAL.out.converted, ch_tfs).filtered.map { meta, m -> [meta, m, "universal"] }
     ch_versions = ch_versions.mix(FILTER_MOTIFS.out.versions)
 
+    // Convert to MEME and TRANSFAC and to PSEM (thermodynamic model)
     CONVERT_TO_MEME(ch_filtered, "meme")
     ch_versions = ch_versions.mix(CONVERT_TO_MEME.out.versions)
 
