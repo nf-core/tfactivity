@@ -48,11 +48,13 @@ workflow PEAKS {
     ch_versions = ch_versions.mix(FOOTPRINTING.out.versions)
 
     if (merge_samples) {
+        // Merge replicates of one sample based on same condition and assay
         MERGE_SAMPLES(ch_peaks)
         ch_peaks = MERGE_SAMPLES.out.merged
         ch_versions = ch_versions.mix(MERGE_SAMPLES.out.versions)
     }
     else {
+        // sort coordinates using bedtools sort
         SORT_PEAKS(ch_peaks, [])
         ch_peaks = SORT_PEAKS.out.sorted
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
