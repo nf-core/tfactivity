@@ -20,8 +20,6 @@ workflow MERGE_SAMPLES {
                     .map{ meta, peak_file -> [meta + [id: meta.condition + "_" + meta.assay], peak_file]}
                     .groupTuple()
 
-    // ch_grouped.view()
-
     CONCAT_SAMPLES(ch_grouped)
     BEDTOOLS_SORT(CONCAT_SAMPLES.out.file_out, [])
     BEDTOOLS_MERGE(BEDTOOLS_SORT.out.sorted)
