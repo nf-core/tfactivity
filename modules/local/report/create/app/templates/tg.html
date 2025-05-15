@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block tabs %} {% from 'macros.html' import tabs %} {{ tabs(active="tg") }} {% endblock %}
+{% block content %} {% from 'macros.html' import tfGeneral %}
+<div class="ranking-container">
+  <p>
+    This ranking shows the genes with the strongest association with the differentially active transcription factors
+    identified by <code>nf-core/tfactivity</code>. By default, all assays are enabled, but you can easily investigate
+    the results for specific subsets of assays by disabling the assays you are not interested in. The ranking is based
+    on the Transription Factor - Target Gene (TF-TG) score, which was introduced in the
+    <a href="https://doi.org/10.1093/gigascience/giad026" target="_blank">TF-Prioritizer</a> paper.
+  </p>
+  <div class="stretch-row">
+    <input class="form-input" type="text" id="filter-primary" placeholder="Gene name" />
+  </div>
+  <div class="stretch-row">
+    {% for assay in assays %}
+    <span id="assay-{{assay}}" class="chip stretchable c-hand active">{{ assay }}</span>
+    {% endfor %}
+  </div>
+  {% for tg, dcgs in tg_ranking.items() %}
+  <div class="card primary-card" id="primary-{{tg}}" style="width: 100%">
+    <div class="accordion">
+      <input type="checkbox" id="accordion-{{ tg | lower }}" name="accordion-checkbox" hidden />
+      <label class="accordion-header c-hand" for="accordion-{{ tg | lower }}">
+        <i class="icon icon-arrow-right mr-1"></i>
+        {{ tg }}
+        <div class="float-right">
+          <button class="btn btn-primary btn-sm">Details</button>
+          {% for assay in assays %} {% if assay not in dcgs %} {% set color = '' %} {% else %} {% set dcg = dcgs[assay]
+          %} {% if dcg >= 2/3 %} {% set color='label-success' %} {% elif dcg >=1/3 %} {% set color='label-warning' %} {%
+          else %} {% set color='label-error' %} {% endif %} {% endif %}
+          <span class="label label-rounded {{color}}" style="background-color: {{ color }};"> {{ assay }} </span>
+          {% endfor %}
+        </div>
+      </label>
+      <div class="accordion-body" style="overflow: scroll">
+        <div class="accordion-padding">
+          {% set tfs = tg_tf_ranking[tg] %} {% set primaryDiffExp = differential[tg] %} {{ tfGeneral(tg, tfs, pairings,
+          primaryDiffExp, false) }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %} {% block scripts %}
+<script src="ranking.js"></script>
+<script>
+  const primary_ranking = {{ tg_ranking | tojson }};
+  const secondary_ranking = {{ tg_tf_ranking | tojson }};
+  initRanking(primary_ranking, secondary_ranking);
+</script>
+{% endblock %}
