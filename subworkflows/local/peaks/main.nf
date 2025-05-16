@@ -109,6 +109,7 @@ workflow PEAKS {
 
     ch_affinities = STARE.out.affinities
 
+    // if samples not already merged, merge affinity dfs (genes x TFs) for each condition and assay
     if (!merge_samples) {
         AFFINITY_MEAN(
             ch_affinities.map { meta, affinities -> [meta.condition, meta.assay, affinities] }.groupTuple(by: [0, 1]).map { condition, assay, affinities ->
@@ -127,6 +128,7 @@ workflow PEAKS {
         ch_affinities = AFFINITY_MEAN.out.combined
     }
 
+    // Map ENSG IDs to gene names and merge duplicate genes and TFs
     AGGREGATE_SYNONYMS(
         ch_affinities,
         gene_map,
