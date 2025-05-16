@@ -138,6 +138,7 @@ workflow PEAKS {
 
     ch_affinities_spread = AGGREGATE_SYNONYMS.out.affinities.map { meta, affinities -> [meta.condition, meta.assay, affinities] }
 
+    // Merge contrasts with affinities and keep only the ones with same assay
     ch_contrast_affinities = contrasts
         .map { condition1, condition2 -> [condition2, condition1] }
         .combine(ch_affinities_spread, by: 0)
@@ -164,9 +165,11 @@ workflow PEAKS {
             ]
         }
 
+    // Computes condition1 affinities / condition2 affinities
     AFFINITY_RATIO(ch_contrast_affinities, "ratio")
     ch_versions = ch_versions.mix(AFFINITY_RATIO.out.versions)
 
+    // Computes condition1 affinities + condition2 affinities
     AFFINITY_SUM(ch_contrast_affinities, "sum")
     ch_versions = ch_versions.mix(AFFINITY_SUM.out.versions)
 
