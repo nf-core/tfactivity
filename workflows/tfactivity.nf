@@ -103,6 +103,9 @@ workflow TFACTIVITY {
     )
     ch_versions = ch_versions.mix(MOTIFS.out.versions)
 
+    // Footprinting, merging, and new prediction (ChromHMM & ROSE) of peaks
+    // Compute affinities based on peak regions using STARE
+    // Calculate affinity ratio and sum for each contrast
     PEAKS(
         ch_samplesheet,
         fasta,
