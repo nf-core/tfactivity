@@ -81,6 +81,7 @@ workflow PEAKS {
 
     ch_chromhmm_rose_out = params.skip_rose ? ch_chromhmm_out : ch_rose_out
 
+    // Remove unnecessary columns for footprinting etc
     ch_peaks = ch_peaks
         .mix(ch_chromhmm_rose_out)
         .map { meta, peaks ->
@@ -94,6 +95,7 @@ workflow PEAKS {
             ]
         }
 
+    // Get affinity matrix for genes x TFs
     STARE(
         ch_peaks,
         fasta,
