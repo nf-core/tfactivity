@@ -1,5 +1,8 @@
 #!/usr/bin/env Rscript
 
+# Script adapted from:
+# https://github.com/SchulzLab/TEPIC/blob/0054fdbdd1842fb1ad4b89b29ffd83be57608009/MachineLearningPipelines/DYNAMITE/Scripts/DYNAMITE.R
+
 args <- commandArgs(TRUE)
 library('methods')
 ggplotAvailable<-require("ggplot2")
