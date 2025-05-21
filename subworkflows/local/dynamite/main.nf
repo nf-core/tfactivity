@@ -15,6 +15,7 @@ workflow DYNAMITE {
 
     ch_versions = Channel.empty()
 
+    // Combine differential expression results and gene-tf affinity ratios for condition pairs
     ch_combined = ch_differential
         .map { meta, differential ->
             [meta.condition1, meta.condition2, meta, differential]
@@ -29,6 +30,7 @@ workflow DYNAMITE {
             [meta_affinity, differential, affinity_ratio]
         }
 
+    // Introduces new column "Expression" into affinity ratio table which is 1 if log2FC > 0 else 0 (shows direction of change)
     PREPROCESS(ch_combined)
     ch_versions = ch_versions.mix(PREPROCESS.out.versions)
 
