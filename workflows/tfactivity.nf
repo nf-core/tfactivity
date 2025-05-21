@@ -141,6 +141,10 @@ workflow TFACTIVITY {
     )
     ch_versions = ch_versions.mix(DYNAMITE.out.versions)
 
+    // Compute TF-TG-score by combining log2FC, affinities and regression coefficients
+    // Create dcg ranking for each TF across all genes and for each TF-gene combination
+    // Summarize TF-dcg and TG-dcg scores per assay and across all assays
+    // Output TF-scores per assay, TG-scores per assay and combined TF-scores across all assays
     RANKING(
         COUNTS.out.differential,
         PEAKS.out.affinity_sum,
