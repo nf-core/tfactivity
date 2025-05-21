@@ -128,6 +128,9 @@ workflow TFACTIVITY {
     )
     ch_versions = ch_versions.mix(PEAKS.out.versions)
 
+    // Run DYNAMITE on affinities and target="expression up-regulated or down-regulated"
+    // Filter for DYNAMITE result coefficients that are more extreme than params.dynamite_min_regression
+    // Output is a table with filtered TFs and their regression coefficients
     DYNAMITE(
         COUNTS.out.differential,
         PEAKS.out.affinity_ratio,
