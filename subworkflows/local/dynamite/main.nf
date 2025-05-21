@@ -34,9 +34,11 @@ workflow DYNAMITE {
     PREPROCESS(ch_combined)
     ch_versions = ch_versions.mix(PREPROCESS.out.versions)
 
+    // Run DYNAMITE and output Regression_Coefficients_Entire_Data_Set_classification.txt
     RUN_DYNAMITE(PREPROCESS.out.output, ofolds, ifolds, alpha, randomize)
     ch_versions = ch_versions.mix(RUN_DYNAMITE.out.versions)
 
+    // Filter output (TF, regression coefficient) and include only values more extreme than params.dynamite_min_regression
     FILTER(RUN_DYNAMITE.out.regression_coefficients, [])
     ch_versions = ch_versions.mix(FILTER.out.versions)
 
