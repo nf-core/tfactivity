@@ -106,6 +106,7 @@ workflow TFACTIVITY {
     // Footprinting, merging, and new prediction (ChromHMM & ROSE) of peaks
     // Compute affinities based on peak regions using STARE
     // Calculate affinity ratio and sum for each contrast
+    // Affinities are matrices for genes (rows) and transcription factors (columns)
     PEAKS(
         ch_samplesheet,
         fasta,
