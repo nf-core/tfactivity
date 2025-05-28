@@ -61,11 +61,11 @@
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "save_intermediates": {
+                "save_all_outputs": {
                     "type": "boolean",
-                    "description": "Save intermediate files.",
+                    "description": "Save all output files.",
                     "fa_icon": "fas fa-save",
-                    "help_text": "If set to `true`, the pipeline will save all intermediate files to the output directory. This is useful for debugging and for keeping track of the pipeline's progress."
+                    "help_text": "If set to `true`, the pipeline will save all intermediate output files to the output directory. This is useful for debugging and for keeping track of the pipeline's progress."
                 },
                 "email": {
                     "type": "string",
