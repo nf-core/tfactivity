@@ -2,9 +2,14 @@
 
 library(universalmotif)
 
+# Read motifs and convert altname to uppercase
 u.motif <- readRDS("$in_file")
-tfs <- readLines("$tfs")
+u.motif <- lapply(u.motif, function(m) {m@altname <- toupper(m@altname); m})
 
+# Read TFs and convert to uppercase
+tfs <- toupper(readLines("$tfs"))
+
+# Filter motifs based on altname
 u.motif <- filter_motifs(u.motif, altname = tfs)
 
 saveRDS(u.motif, "$out_file")
