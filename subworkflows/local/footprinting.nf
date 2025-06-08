@@ -19,9 +19,8 @@ workflow FOOTPRINTING {
     BEDTOOLS_MERGE( ch_footprint_split.footprinting )
 
     ch_include_original_split = BEDTOOLS_MERGE.out.bed
-        .branch{
-            meta, bed ->
-                include: meta.include_original
+        .branch{ meta, bed ->
+                incl: meta.include_original
                 subtract: !meta.include_original
         }
 
@@ -37,7 +36,7 @@ workflow FOOTPRINTING {
 
     emit:
     footprinted_peaks = ch_footprint_split.as_is.mix(
-        ch_include_original_split.include,
+        ch_include_original_split.incl,
         BEDTOOLS_SUBTRACT.out.bed
     )
 
