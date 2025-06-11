@@ -23,7 +23,7 @@ nextflow_process {
                 """
                 input[0] = [
                     [ id: 'test'],
-                    Channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true))
+                    file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true)
                 ]
                 input[1] = Channel.empty()
                 input[2] = PREPARE_GENOME.out.gene_map
@@ -48,7 +48,7 @@ nextflow_process {
                 """
                 input[0] = [
                     [ id: 'test'],
-                    Channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true))
+                    file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true)
                 ]
                 input[1] = Channel.empty()
                 input[2] = PREPARE_GENOME.out.gene_map
