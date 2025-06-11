@@ -15,6 +15,7 @@ workflow FOOTPRINTING {
     }
 
     BEDTOOLS_MERGE(ch_footprint_split.footprinting)
+    ch_versions = ch_versions.mix(BEDTOOLS_MERGE.out.versions)
 
     ch_include_original_split = BEDTOOLS_MERGE.out.bed.branch { meta, _bed ->
         incl: meta.include_original
@@ -24,11 +25,7 @@ workflow FOOTPRINTING {
     ch_subtract_pairs = ch_include_original_split.subtract.join(ch_peaks)
 
     BEDTOOLS_SUBTRACT(ch_subtract_pairs)
-
-    ch_versions = ch_versions.mix(
-        BEDTOOLS_MERGE.out.versions,
-        BEDTOOLS_SUBTRACT.out.versions,
-    )
+    ch_versions = ch_versions.mix(BEDTOOLS_SUBTRACT.out.versions)
 
     emit:
     footprinted_peaks = ch_footprint_split.as_is.mix(
