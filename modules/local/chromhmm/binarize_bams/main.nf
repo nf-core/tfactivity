@@ -30,4 +30,12 @@ process BINARIZE_BAMS {
         chromhmm: \$(ChromHMM.sh Version | cut -f4 -d" ")
     END_VERSIONS
     """
+
+    stub:
+    """
+    mkdir -p output
+    touch output/condition_1_binary.txt
+    touch output/condition_2_binary.txt
+    touch versions.yml
+    """
 }

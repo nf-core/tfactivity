@@ -1,0 +1,80 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        [
+                            "condition_1_binary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "condition_2_binary.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "binarized_bams": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        [
+                            "condition_1_binary.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "condition_2_binary.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T18:37:54.101135425"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        [
+                            "L10_chr1_binary.txt:md5,e976c6db2336293dcb82b26af655e193",
+                            "p6_chr1_binary.txt:md5,0ca892c28e68f5cc1279b2e220eae039"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,7e8444cba8b0958c95810d7c68ed5609"
+                ],
+                "binarized_bams": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        [
+                            "L10_chr1_binary.txt:md5,e976c6db2336293dcb82b26af655e193",
+                            "p6_chr1_binary.txt:md5,0ca892c28e68f5cc1279b2e220eae039"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7e8444cba8b0958c95810d7c68ed5609"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T18:36:40.802824563"
+    }
+}

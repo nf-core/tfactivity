@@ -1,0 +1,111 @@
+nextflow_process {
+
+    name "Test Process BINARIZE_BAMS"
+    script "modules/local/chromhmm/binarize_bams/main.nf"
+    process "BINARIZE_BAMS"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../../../../subworkflows/local/prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                    .splitCsv(header: true, sep: ',')
+                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
+                    .filter { row -> row.assay.startsWith("H3") }
+                    .map { row ->
+                        [
+                            [
+                                id: row.sample,
+                                condition: row.condition,
+                                assay: row.assay,
+                            ],
+                            file(row.signal, checkIfExists: true),
+                            file(row.control, checkIfExists: true)
+                        ]
+                    }
+                
+                ch_files = ch_samplesheet.map{ _meta, signal, control -> [signal, control]}.flatten().unique().collect()
+
+                ch_table = ch_samplesheet
+                    .map { meta, signal, control -> [meta.condition, meta.assay, signal.name, control.name] }
+                    .collectFile {
+                        ["cellmarkfiletable.tsv", it.join("\\t") + "\\n"]
+                    }
+                    .map { [it.baseName, it] }
+                    .collect()
+
+                input[0] = ch_files.unique().collect().map { files -> [[id: "chromHMM"], files] }
+                input[1] = ch_table
+                input[2] = PREPARE_GENOME.out.chrom_sizes
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                    .splitCsv(header: true, sep: ',')
+                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
+                    .filter { row -> row.assay.startsWith("H3") }
+                    .map { row ->
+                        [
+                            [
+                                id: row.sample,
+                                condition: row.condition,
+                                assay: row.assay,
+                            ],
+                            file(row.signal, checkIfExists: true),
+                            file(row.control, checkIfExists: true)
+                        ]
+                    }
+                
+                ch_files = ch_samplesheet.map{ _meta, signal, control -> [signal, control]}.flatten().unique().collect()
+
+                ch_table = ch_samplesheet
+                    .map { meta, signal, control -> [meta.condition, meta.assay, signal.name, control.name] }
+                    .collectFile {
+                        ["cellmarkfiletable.tsv", it.join("\\t") + "\\n"]
+                    }
+                    .map { [it.baseName, it] }
+                    .collect()
+
+                input[0] = ch_files.unique().collect().map { files -> [[id: "chromHMM"], files] }
+                input[1] = ch_table
+                input[2] = PREPARE_GENOME.out.chrom_sizes
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

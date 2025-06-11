@@ -32,4 +32,17 @@ process LEARN_MODEL {
         chromhmm: \$(ChromHMM.sh Version | cut -f4 -d" ")
     END_VERSIONS
     """
+
+    stub:
+    """
+    mkdir -p output
+    
+    # Create files for each state
+    for i in {1..$states}; do
+        touch output/L10_chr1_\${i}_dense.bed
+        touch output/p6_chr1_\${i}_dense.bed
+    done
+
+    touch versions.yml
+    """
 }
