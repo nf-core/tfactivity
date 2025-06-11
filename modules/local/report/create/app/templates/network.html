@@ -1,0 +1,142 @@
+{% extends "base.html" %} {% block tabs %} {% from 'macros.html' import tabs %} {{ tabs(active="net") }} {% endblock %}
+{% block content %}
+<div id="3d-graph"></div>
+{% endblock %} {% block scripts %}
+<script src="ranking.js"></script>
+<script src="dependencies/lib.js"></script>
+<script>
+  const tf_tg_ranking = {{ tf_tg_ranking | tojson }};
+  const assays = {{ assays | tojson }};
+  const secondary_ranking = getSecondaryRanking(assays, tf_tg_ranking);
+  const top_k_tgs = 20;
+
+  const filtered_ranking = Object.entries(secondary_ranking)
+      .reduce(function (acc, [tf, tg_rank]) {
+          return {
+              ...acc, [tf]: Object.entries(tg_rank)
+                  .filter(([tg, rank]) => rank < top_k_tgs)
+                  .reduce(function (acc, [tg, rank]) {
+                      return { ...acc, [tg]: rank }
+                  }, {})
+          }
+      }, {})
+
+  let tfs = Object.keys(filtered_ranking);
+  let tgs = [...new Set(Object.values(filtered_ranking)
+      .map(tg_rank => Object.entries(tg_rank))
+      .flat()
+      .map(([tg, rank]) => tg))];
+
+  let autoRegulating = tfs.filter(tf => tgs.includes(tf))
+  tfs = tfs.filter(tf => !autoRegulating.includes(tf)).map(tf => ({ id: tf, type: 'tf' }));
+  tgs = tgs.filter(tg => !autoRegulating.includes(tg)).map(tg => ({ id: tg, type: 'tg' }));
+  autoRegulating = autoRegulating.map(tf => ({ id: tf, type: 'auto' }));
+
+  const nodes = tfs.concat(tgs).concat(autoRegulating).map(node => ({ ...node, links: [], neighbors: [] }))
+  const links = []
+
+  for (const tf in filtered_ranking) {
+      for (const tg in filtered_ranking[tf]) {
+          const link = { source: tf, target: tg, curvature: tf === tg ? 0.5 : 0 };
+          links.push(link);
+
+          source_node = nodes.find(node => node.id === tf);
+          target_node = nodes.find(node => node.id === tg);
+
+          source_node.links.push(link);
+          target_node.links.push(link);
+          source_node.neighbors.push(target_node);
+          target_node.neighbors.push(source_node);
+      }
+  }
+
+  const gData = {
+      nodes: nodes,
+      links: links
+  };
+
+  const highlightNodes = new Set();
+  const highlightLinks = new Set();
+  let hoverNode = null;
+  let hoverLink = null;
+
+  getColor = (node) => {
+      if (highlightNodes.size && !highlightNodes.has(node)) {
+          return 'gray';
+      }
+
+      if (node.type === 'tf') {
+          return 'red';
+      } else if (node.type === 'tg') {
+          return 'blue';
+      } else {
+          return 'green';
+      }
+  }
+
+  const Graph = lib.ForceGraph3D()
+      (document.getElementById('3d-graph'))
+      .graphData(gData)
+      .linkCurvature('curvature')
+      .linkWidth(link => highlightLinks.has(link) ? 2 : 0.5)
+      .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 1)
+      .linkDirectionalParticleWidth(2.5)
+      .linkDirectionalArrowLength(3)
+      .linkDirectionalParticleSpeed(0.005)
+      .nodeThreeObject(node => {
+          const sprite = new lib.SpriteText(node.id);
+          sprite.material.depthWrite = false; // make sprite background transparent
+          sprite.color = getColor(node);
+          sprite.textHeight = 8;
+          return sprite;
+      })
+      .onNodeDragEnd(node => {
+          node.fx = node.x;
+          node.fy = node.y;
+          node.fz = node.z;
+      })
+      .onNodeHover(node => {
+          // no state change
+          if ((!node && !highlightNodes.size) || (node && hoverNode === node)) return;
+
+          highlightNodes.clear();
+          highlightLinks.clear();
+          if (node) {
+              highlightNodes.add(node);
+              node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
+              node.links.forEach(link => highlightLinks.add(link));
+          }
+
+          hoverNode = node || null;
+
+          updateHighlight();
+      })
+      .onLinkHover(link => {
+          // no state change
+          if ((!link && !highlightLinks.size) || (link && hoverLink === link)) return;
+
+          highlightNodes.clear();
+          highlightLinks.clear();
+
+          if (link) {
+              highlightLinks.add(link);
+              highlightNodes.add(link.source);
+              highlightNodes.add(link.target);
+          }
+
+          hoverLink = link || null;
+
+          updateHighlight();
+      })
+
+  Graph.d3Force('charge').strength(-120);
+
+  function updateHighlight() {
+      // trigger update of highlighted objects in scene
+      Graph
+          .linkWidth(Graph.linkWidth())
+          .linkDirectionalParticles(Graph.linkDirectionalParticles())
+          .nodeThreeObject(Graph.nodeThreeObject());
+  }
+</script>
+{% endblock %}
