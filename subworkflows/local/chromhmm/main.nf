@@ -1,7 +1,7 @@
-include { BINARIZE_BAMS                       } from '../../modules/local/chromhmm/binarize_bams'
-include { LEARN_MODEL                         } from '../../modules/local/chromhmm/learn_model'
-include { GET_RESULTS as GET_ENHANCER_RESULTS } from '../../modules/local/chromhmm/get_results'
-include { GET_RESULTS as GET_PROMOTER_RESULTS } from '../../modules/local/chromhmm/get_results'
+include { BINARIZE_BAMS                       } from '../../../modules/local/chromhmm/binarize_bams'
+include { LEARN_MODEL                         } from '../../../modules/local/chromhmm/learn_model'
+include { GET_RESULTS as GET_ENHANCER_RESULTS } from '../../../modules/local/chromhmm/get_results'
+include { GET_RESULTS as GET_PROMOTER_RESULTS } from '../../../modules/local/chromhmm/get_results'
 
 workflow CHROMHMM {
     take:
@@ -55,7 +55,6 @@ workflow CHROMHMM {
     ch_versions = ch_versions.mix(GET_PROMOTER_RESULTS.out.versions)
 
     ch_enhancers = GET_ENHANCER_RESULTS.out.regions.map { meta, bed -> [[id: meta.id + "_" + "chromHMM_enhancers", condition: meta.id, assay: "chromHMM_enhancers"], bed] }
-
     ch_promoters = GET_PROMOTER_RESULTS.out.regions.map { meta, bed -> [[id: meta.id + "_" + "chromHMM_promoters", condition: meta.id, assay: "chromHMM_promoters"], bed] }
 
     emit:
