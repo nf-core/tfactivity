@@ -1,0 +1,129 @@
+nextflow_process {
+
+    name "Test Process COMBINE_TABLES"
+    script "modules/local/combine_tables/main.nf"
+    process "COMBINE_TABLES"
+
+    test("Should run mean without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R3_TF_Gene_Affinities.txt', checkIfExists: true),
+                    ]
+                ]
+                input[1] = 'mean'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run sum without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R3_TF_Gene_Affinities.txt', checkIfExists: true),
+                    ]
+                ]
+                input[1] = 'sum'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run ratio without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R3_TF_Gene_Affinities.txt', checkIfExists: true),
+                    ]
+                ]
+                input[1] = 'ratio'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run rank without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R3_TF_Gene_Affinities.txt', checkIfExists: true),
+                    ]
+                ]
+                input[1] = 'rank'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run mean without failures - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R3_TF_Gene_Affinities.txt', checkIfExists: true),
+                    ]
+                ]
+                input[1] = 'mean'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}
