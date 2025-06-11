@@ -23,19 +23,20 @@ workflow COUNTS {
 
     ch_versions = Channel.empty()
 
-
     COMBINE_COUNTS(
         ch_counts.map { counts -> [[id: "counts"], counts] },
         ch_extra_counts.map { meta, file -> [meta.id, file] }.reduce([[], []]) { accum, it -> [accum[0] + [it[0]], accum[1] + [it[1]]] },
         gene_map,
         agg_method,
     )
+    ch_versions = ch_versions.mix(COMBINE_COUNTS.out.versions)
 
     CALCULATE_TPM(
         COMBINE_COUNTS.out.counts,
         ch_gene_lengths,
         gene_map,
     )
+    ch_versions = ch_versions.mix(CALCULATE_TPM.out.versions)
 
     FILTER_GENES(
         COMBINE_COUNTS.out.counts,
@@ -43,6 +44,7 @@ workflow COUNTS {
         min_count,
         min_tpm,
     )
+    ch_versions = ch_versions.mix(FILTER_GENES.out.versions)
 
     FILTER_TFS(
         COMBINE_COUNTS.out.counts.map { _meta, counts -> [[id: "TFs"], counts] },
@@ -50,8 +52,10 @@ workflow COUNTS {
         min_count_tf,
         min_tpm_tf,
     )
+    ch_versions = ch_versions.mix(FILTER_TFS.out.versions)
 
     PREPARE_DESIGN(ch_counts_design)
+    ch_versions = ch_versions.mix(PREPARE_DESIGN.out.versions)
 
     DESEQ2_DIFFERENTIAL(
         Channel.value(["condition"]).combine(contrasts).map { variable, reference, target ->
@@ -71,15 +75,7 @@ workflow COUNTS {
         [[], []],
         [[], []],
     )
-
-    ch_versions = ch_versions.mix(
-        COMBINE_COUNTS.out.versions,
-        CALCULATE_TPM.out.versions,
-        FILTER_GENES.out.versions,
-        FILTER_TFS.out.versions,
-        PREPARE_DESIGN.out.versions,
-        DESEQ2_DIFFERENTIAL.out.versions,
-    )
+    ch_versions = ch_versions.mix(DESEQ2_DIFFERENTIAL.out.versions)
 
     emit:
     genes        = FILTER_GENES.out.genes
