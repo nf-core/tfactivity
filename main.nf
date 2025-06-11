@@ -64,8 +64,8 @@ workflow NFCORE_TFACTIVITY {
 
     ch_versions = Channel.empty()
 
-    ch_fasta = Channel.value(file(params.fasta, checkIfExists: true))
-    ch_gtf   = Channel.value(file(params.gtf, checkIfExists: true))
+    fasta = file(params.fasta, checkIfExists: true)
+    gtf   = file(params.gtf, checkIfExists: true)
     ch_blacklist = params.blacklist ? Channel.value(file(params.blacklist, checkIfExists: true)) : Channel.value([])
     ch_motifs  = params.motifs ? Channel.value(file(params.motifs, checkIfExists: true)) : Channel.empty()
     ch_counts = Channel.value(file(params.counts, checkIfExists: true))
@@ -76,11 +76,11 @@ workflow NFCORE_TFACTIVITY {
     // SUBWORKFLOW: Prepare genome
     //
     PREPARE_GENOME (
-        ch_fasta,
-        ch_gtf
+        fasta,
+        gtf
     )
 
-    ch_extra_counts = counts_design.filter{ meta, file -> file }
+    ch_extra_counts = counts_design.filter{ _meta, file -> file }
 
     ch_versions = ch_versions.mix(PREPARE_GENOME.out.versions)
 

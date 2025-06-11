@@ -17,28 +17,17 @@ workflow PREPARE_GENOME {
     ch_fasta = fasta.map { f -> [[id: 'fasta'], f] }
     ch_gtf = gtf.map { f -> [[id: 'gtf'], f] }
 
-    ch_fasta_branched = ch_fasta.branch {
-        gzip: it[1].extension == 'gz'
-        standard: it[1].extension != 'gz'
+    if (fasta.extension == 'gz') {
+        GUNZIP_FASTA(ch_fasta)
+        ch_fasta = GUNZIP_FASTA.out.gunzip
+        ch_versions = ch_versions.mix(GUNZIP_FASTA.out.versions)
     }
 
-    ch_gtf_branched = ch_gtf.branch {
-        gzip: it[1].extension == 'gz'
-        standard: it[1].extension != 'gz'
+    if (gtf.extension == 'gz') {
+        GUNZIP_GTF(ch_gtf)
+        ch_gtf = GUNZIP_GTF.out.gunzip
+        ch_versions = ch_versions.mix(GUNZIP_GTF.out.versions)
     }
-
-    // Unzip fasta and gtf
-    ch_fasta = GUNZIP_FASTA(ch_fasta_branched.gzip).gunzip
-        .mix(ch_fasta_branched.standard)
-        .first()
-    ch_gtf = GUNZIP_GTF(ch_gtf_branched.gzip).gunzip
-        .mix(ch_gtf_branched.standard)
-        .first()
-
-    ch_versions = ch_versions.mix(
-        GUNZIP_FASTA.out.versions,
-        GUNZIP_GTF.out.versions,
-    )
 
     // Prepare gene map
 
