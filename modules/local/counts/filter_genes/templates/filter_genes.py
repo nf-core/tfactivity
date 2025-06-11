@@ -43,10 +43,10 @@ df_counts.index.name = "gene_id"
 df_tpms.index.name = "gene_id"
 
 # Write the output files
-df_counts.to_csv("${meta.id}.counts_filtered.tsv", sep="\\t")
-df_tpms.to_csv("${meta.id}.tpm_filtered.tsv", sep="\\t")
+df_counts.to_csv("${prefix}.counts_filtered.tsv", sep="\\t")
+df_tpms.to_csv("${prefix}.tpm_filtered.tsv", sep="\\t")
 
-with open("${meta.id}.genes_filtered.txt", "w") as f:
+with open("${prefix}.genes_filtered.txt", "w") as f:
     f.write("\\n".join(gene_intersection))
 
 # Create version file

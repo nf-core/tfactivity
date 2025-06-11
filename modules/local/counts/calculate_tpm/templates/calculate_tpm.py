@@ -27,7 +27,7 @@ df_scale = df_rpk.sum() / 1e6
 df_tpm = df_rpk.div(df_scale, axis=1)
 
 # Save to file
-df_tpm.to_csv("${meta.id}.tpm.tsv", sep="\\t")
+df_tpm.to_csv("${prefix}.tpm.tsv", sep="\\t")
 
 # Create version file
 versions = {
