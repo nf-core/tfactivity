@@ -16,4 +16,10 @@ process TRANSFAC_TO_PSEM {
 
     script:
     template "convert.py"
+
+    stub:
+    """
+    touch ${meta.id}.psem
+    touch versions.yml
+    """
 }

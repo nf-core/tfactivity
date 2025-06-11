@@ -1,0 +1,76 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "p6_chromHMM_enhancers",
+                            "condition": "p6",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "p6_chromHMM_enhancers_TF_Gene_Affinities.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "affinities": [
+                    [
+                        {
+                            "id": "p6_chromHMM_enhancers",
+                            "condition": "p6",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "p6_chromHMM_enhancers_TF_Gene_Affinities.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T21:40:17.040497941"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "p6_chromHMM_enhancers",
+                            "condition": "p6",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "p6_chromHMM_enhancers_TF_Gene_Affinities.txt:md5,c441529f00a5bc2e5d1ef09e25f67905"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,14fdc32c20ead309b0e8aab5a9c985a5"
+                ],
+                "affinities": [
+                    [
+                        {
+                            "id": "p6_chromHMM_enhancers",
+                            "condition": "p6",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "p6_chromHMM_enhancers_TF_Gene_Affinities.txt:md5,c441529f00a5bc2e5d1ef09e25f67905"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,14fdc32c20ead309b0e8aab5a9c985a5"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T21:39:56.46512056"
+    }
+}
