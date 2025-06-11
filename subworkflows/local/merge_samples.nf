@@ -40,4 +40,3 @@ workflow MERGE_SAMPLES {
 
     versions = ch_versions                     // channel: [ versions.yml ]
 }
-

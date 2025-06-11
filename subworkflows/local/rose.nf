@@ -108,4 +108,3 @@ workflow ROSE {
 
     versions = ch_versions
 }
-
