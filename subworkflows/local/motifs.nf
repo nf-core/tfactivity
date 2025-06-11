@@ -9,15 +9,18 @@ workflow MOTIFS {
     take:
     ch_input_motifs
     ch_tfs
-    ch_taxon_id
+    taxon_id
 
     main:
     ch_versions = Channel.empty()
 
-    FETCH_JASPAR(ch_taxon_id)
-
-    // ch_taxon_id and ch_input_motifs are mutually exclusive
-    ch_motifs = FETCH_JASPAR.out.motifs.mix(ch_input_motifs).first()
+    if (taxon_id) {
+        FETCH_JASPAR(taxon_id)
+        ch_versions = ch_versions.mix(FETCH_JASPAR.out.versions)
+        ch_motifs = FETCH_JASPAR.out.motifs
+    } else {
+        ch_motifs = ch_input_motifs
+    }
 
     CONVERT_TO_UNIVERSAL(
         ch_motifs.map { motifs -> [[id: 'motifs'], motifs, motifs.extension] },

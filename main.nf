@@ -69,7 +69,7 @@ workflow NFCORE_TFACTIVITY {
     ch_blacklist = params.blacklist ? Channel.value(file(params.blacklist, checkIfExists: true)) : Channel.value([])
     ch_motifs  = params.motifs ? Channel.value(file(params.motifs, checkIfExists: true)) : Channel.empty()
     ch_counts = Channel.value(file(params.counts, checkIfExists: true))
-    ch_taxon_id = (!params.motifs && params.taxon_id) ? Channel.value(params.taxon_id) : Channel.empty()
+    taxon_id = (!params.motifs && params.taxon_id) ? params.taxon_id : null
     ch_snps = params.snps ? Channel.value(file(params.snps, checkIfExists: true)) : Channel.empty()
 
     //
@@ -94,7 +94,7 @@ workflow NFCORE_TFACTIVITY {
         PREPARE_GENOME.out.gtf,
         ch_blacklist,
         ch_motifs,
-        ch_taxon_id,
+        taxon_id,
         PREPARE_GENOME.out.gene_lengths,
         PREPARE_GENOME.out.gene_map,
         PREPARE_GENOME.out.chrom_sizes,

@@ -33,7 +33,7 @@ workflow TFACTIVITY {
     gtf
     blacklist
     ch_motifs
-    ch_taxon_id
+    taxon_id
     gene_lengths
     gene_map
     chrom_sizes
@@ -91,7 +91,7 @@ workflow TFACTIVITY {
     MOTIFS(
         ch_motifs,
         COUNTS.out.tfs,
-        ch_taxon_id,
+        taxon_id,
     )
 
     PEAKS(
