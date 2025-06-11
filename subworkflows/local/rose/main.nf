@@ -18,22 +18,26 @@ workflow ROSE {
     chrom_sizes
 
     main:
-
     ch_versions = Channel.empty()
 
     // Convert GTF to BED format and collapse regions to a single base pair at their start positions
     FILTER_CONVERT_GTF(ch_gtf, [])
+    ch_versions = ch_versions.mix(FILTER_CONVERT_GTF.out.versions)
 
     // Downstream methods require sorted inputs
     SORT_BED(FILTER_CONVERT_GTF.out.output)
+    ch_versions = ch_versions.mix(SORT_BED.out.versions)
 
     // Sort chrom_sizes to have same ordering as bed file
     SORT_CHROM_SIZES(chrom_sizes)
+    ch_versions = ch_versions.mix(SORT_CHROM_SIZES.out.versions)
 
     // Construct 2 * params.rose_tss_window bps window around transcription start site (TSS)
     CONSTRUCT_TSS(SORT_BED.out.sorted, SORT_CHROM_SIZES.out.sorted.map { _meta, file -> file })
+    ch_versions = ch_versions.mix(CONSTRUCT_TSS.out.versions)
 
     INVERT_TSS(CONSTRUCT_TSS.out.bed, SORT_CHROM_SIZES.out.sorted.map { _meta, file -> file })
+    ch_versions = ch_versions.mix(INVERT_TSS.out.versions)
 
     predicted_regions = ch_bed.branch { meta, _file ->
         enhancers: meta.assay.contains('enhancers')
@@ -49,9 +53,11 @@ workflow ROSE {
 
     // Remove predictions contained within a TSS
     FILTER_PREDICTIONS(ch_filter_predictions)
+    ch_versions = ch_versions.mix(FILTER_PREDICTIONS.out.versions)
 
     // Merge regions closer than params.rose_stichting_window bps from each other
     STITCHING(FILTER_PREDICTIONS.out.bed)
+    ch_versions = ch_versions.mix(STITCHING.out.versions)
 
     // Get overlap counts of stitched regions with TSS
     ch_tss_overlap = STITCHING.out.bed
@@ -59,9 +65,11 @@ workflow ROSE {
         .map { meta1, stitched, _meta2, tss -> [meta1, stitched, tss] }
 
     TSS_OVERLAP(ch_tss_overlap, [[], []])
+    ch_versions = ch_versions.mix(TSS_OVERLAP.out.versions)
 
     // Filter regions that overlap at least 2 TSS
     FILTER_OVERLAPS(TSS_OVERLAP.out.intersect, [])
+    ch_versions = ch_versions.mix(FILTER_OVERLAPS.out.versions)
 
     // Remove regions that overlap at least 2 TSS from stitched regions
     ch_subtract_overlaps = STITCHING.out.bed
@@ -70,6 +78,7 @@ workflow ROSE {
         .map { meta1, stitched, _meta2, overlaps -> [meta1, stitched, overlaps] }
 
     SUBTRACT_OVERLAPS(ch_subtract_overlaps)
+    ch_versions = ch_versions.mix(SUBTRACT_OVERLAPS.out.versions)
 
     // Get original regions (before stitching) of stitched regions that overlap at least 2 TSS
     ch_unstitched_regions = FILTER_OVERLAPS.out.output
@@ -78,6 +87,7 @@ workflow ROSE {
         .map { meta1, overlaps, _meta2, pred -> [meta1, overlaps, pred] }
 
     UNSTITCHED_REGIONS(ch_unstitched_regions, [[], []])
+    ch_versions = ch_versions.mix(UNSTITCHED_REGIONS.out.versions)
 
     // Combine correctly stitched (overlap with < 2 TSS) and original unstitched regions and sort
     ch_concat_and_sort = SUBTRACT_OVERLAPS.out.bed
@@ -86,21 +96,7 @@ workflow ROSE {
         .map { meta1, stitched, _meta2, unstitched -> [meta1, [stitched, unstitched]] }
 
     CONCAT_AND_SORT(ch_concat_and_sort)
-
-    ch_versions = ch_versions.mix(
-        FILTER_CONVERT_GTF.out.versions,
-        SORT_BED.out.versions,
-        SORT_CHROM_SIZES.out.versions,
-        CONSTRUCT_TSS.out.versions,
-        INVERT_TSS.out.versions,
-        FILTER_PREDICTIONS.out.versions,
-        STITCHING.out.versions,
-        TSS_OVERLAP.out.versions,
-        FILTER_OVERLAPS.out.versions,
-        SUBTRACT_OVERLAPS.out.versions,
-        UNSTITCHED_REGIONS.out.versions,
-        CONCAT_AND_SORT.out.versions,
-    )
+    ch_versions = ch_versions.mix(CONCAT_AND_SORT.out.versions)
 
     emit:
     stitched = CONCAT_AND_SORT.out.sorted
