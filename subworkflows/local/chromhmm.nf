@@ -16,33 +16,12 @@ workflow CHROMHMM {
 
     ch_versions = Channel.empty()
 
-    ch_bams = ch_samplesheet_bam
-        .map { meta, signal, control -> [meta, ["signal", "control"], [signal, control]] }
-        .transpose()
-        .map { meta, type, bam -> [meta + [type: type], bam] }
-        .branch { meta, _bam ->
-            control: meta.type == "control"
-            signal: meta.type == "signal"
-        }
+    ch_signal = ch_samplesheet_bam.map { meta, signal, _control -> [meta, signal] }
+    ch_control = ch_samplesheet_bam.map { meta, _signal, control -> [meta, control] }
 
-    def remove_type = { meta, bam ->
-        [
-            [
-                id: meta.id,
-                condition: meta.condition,
-                assay: meta.assay,
-            ],
-            bam,
-        ]
-    }
-
-    ch_signal = ch_bams.signal.map { meta, bam -> remove_type(meta, bam) }
-    ch_control = ch_bams.control.map { meta, bam -> remove_type(meta, bam) }
-
-    ch_joined = ch_signal.join(ch_control)
     ch_mixed = ch_signal.mix(ch_control)
 
-    ch_table = ch_joined
+    ch_table = ch_samplesheet_bam
         .map { meta, signal, control -> [meta.condition, meta.assay, signal.name, control.name] }
         .collectFile {
             ["cellmarkfiletable.tsv", it.join("\t") + "\n"]
