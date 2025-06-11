@@ -1,9 +1,9 @@
-include { GUNZIP as GUNZIP_FASTA                                                         } from '../../modules/nf-core/gunzip'
-include { GUNZIP as GUNZIP_GTF                                                           } from '../../modules/nf-core/gunzip'
+include { GUNZIP as GUNZIP_FASTA                                                         } from '../../../modules/nf-core/gunzip'
+include { GUNZIP as GUNZIP_GTF                                                           } from '../../../modules/nf-core/gunzip'
 
-include { ATLASGENEANNOTATIONMANIPULATION_GTF2FEATUREANNOTATION as EXTRACT_ID_SYMBOL_MAP } from '../../modules/nf-core/atlasgeneannotationmanipulation/gtf2featureannotation'
-include { GTFTOOLS_LENGTH                                                                } from '../../modules/local/gtftools/length'
-include { SAMTOOLS_FAIDX                                                                 } from '../../modules/nf-core/samtools/faidx'
+include { ATLASGENEANNOTATIONMANIPULATION_GTF2FEATUREANNOTATION as EXTRACT_ID_SYMBOL_MAP } from '../../../modules/nf-core/atlasgeneannotationmanipulation/gtf2featureannotation'
+include { GTFTOOLS_LENGTH                                                                } from '../../../modules/local/gtftools/length'
+include { SAMTOOLS_FAIDX                                                                 } from '../../../modules/nf-core/samtools/faidx'
 
 workflow PREPARE_GENOME {
     take:

@@ -1,0 +1,45 @@
+nextflow_workflow {
+
+    name "Test Workflow PREPARE_GENOME"
+    script "subworkflows/local/prepare_genome/main.nf"
+    workflow "PREPARE_GENOME"
+
+    test("Should run without failures") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.value(file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true))
+                input[1] = Channel.value(file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.gtf', checkIfExists: true))
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.value(file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true))
+                input[1] = Channel.value(file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.gtf', checkIfExists: true))
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}
