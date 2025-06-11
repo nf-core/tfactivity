@@ -1,0 +1,87 @@
+nextflow_workflow {
+
+    name "Test Workflow MOTIFS"
+    script "subworkflows/local/motifs/main.nf"
+    workflow "MOTIFS"
+
+    test("Should run with input motifs") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.value(file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true))
+                input[1] = Channel.from('RUNX1', 'TFAP2A', 'Arnt').collectFile(newLine: true).map { file -> [[id: 'test'], file] }
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run with input motifs - stub") {
+
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.value(file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true))
+                input[1] = Channel.from('RUNX1', 'TFAP2A', 'Arnt').collectFile(newLine: true).map { file -> [[id: 'test'], file] }
+                input[2] = null
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run with taxon id") {
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.empty()
+                input[1] = Channel.from('RUNX1', 'TFAP2A', 'Arnt').collectFile(newLine: true).map { file -> [[id: 'test'], file] }
+                input[2] = '9606'
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run with taxon id - stub") {
+
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.empty()
+                input[1] = Channel.from('RUNX1', 'TFAP2A', 'Arnt').collectFile(newLine: true).map { file -> [[id: 'test'], file] }
+                input[2] = '9606'
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}

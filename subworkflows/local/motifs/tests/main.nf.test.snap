@@ -1,0 +1,234 @@
+{
+    "Should run with taxon id": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.converted.meme:md5,b1e1ecc0ea64043a366d9bb175cf78fa"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.psem:md5,5c93b91e7194d52c998b5fefd2bcb965"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,2d62aee732e815ace57849ca27c21d47",
+                    "versions.yml:md5,4e0adf20ed7dc3aa5a85090c4fea6925",
+                    "versions.yml:md5,ac53950907e3b32be927cc39fa401596",
+                    "versions.yml:md5,b4d6c0e4917e7e1de3a7a78a033d8b37",
+                    "versions.yml:md5,e983e85bbe56e1b613955cde6cd50220",
+                    "versions.yml:md5,ed4c50638fb74e5a77578653070bc273"
+                ],
+                "meme": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.converted.meme:md5,b1e1ecc0ea64043a366d9bb175cf78fa"
+                    ]
+                ],
+                "psem": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.psem:md5,5c93b91e7194d52c998b5fefd2bcb965"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,2d62aee732e815ace57849ca27c21d47",
+                    "versions.yml:md5,4e0adf20ed7dc3aa5a85090c4fea6925",
+                    "versions.yml:md5,ac53950907e3b32be927cc39fa401596",
+                    "versions.yml:md5,b4d6c0e4917e7e1de3a7a78a033d8b37",
+                    "versions.yml:md5,e983e85bbe56e1b613955cde6cd50220",
+                    "versions.yml:md5,ed4c50638fb74e5a77578653070bc273"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T15:21:33.229236515"
+    },
+    "Should run with taxon id - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.converted.meme:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.psem:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,4e0adf20ed7dc3aa5a85090c4fea6925",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "meme": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.converted.meme:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "psem": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.psem:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,4e0adf20ed7dc3aa5a85090c4fea6925",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T15:21:41.436469101"
+    },
+    "Should run with input motifs": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.converted.meme:md5,e0048617419a69acc632610076731984"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.psem:md5,d4c195f8b29e02bac07cd02b53a402f0"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,2d62aee732e815ace57849ca27c21d47",
+                    "versions.yml:md5,4e0adf20ed7dc3aa5a85090c4fea6925",
+                    "versions.yml:md5,ac53950907e3b32be927cc39fa401596",
+                    "versions.yml:md5,b4d6c0e4917e7e1de3a7a78a033d8b37",
+                    "versions.yml:md5,e983e85bbe56e1b613955cde6cd50220"
+                ],
+                "meme": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.converted.meme:md5,e0048617419a69acc632610076731984"
+                    ]
+                ],
+                "psem": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.psem:md5,d4c195f8b29e02bac07cd02b53a402f0"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,2d62aee732e815ace57849ca27c21d47",
+                    "versions.yml:md5,4e0adf20ed7dc3aa5a85090c4fea6925",
+                    "versions.yml:md5,ac53950907e3b32be927cc39fa401596",
+                    "versions.yml:md5,b4d6c0e4917e7e1de3a7a78a033d8b37",
+                    "versions.yml:md5,e983e85bbe56e1b613955cde6cd50220"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T15:21:08.79315468"
+    },
+    "Should run with input motifs - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.converted.meme:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.psem:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,4e0adf20ed7dc3aa5a85090c4fea6925",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "meme": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.converted.meme:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "psem": [
+                    [
+                        {
+                            "id": "motifs"
+                        },
+                        "motifs.psem:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,4e0adf20ed7dc3aa5a85090c4fea6925",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T15:21:17.110216074"
+    }
+}
