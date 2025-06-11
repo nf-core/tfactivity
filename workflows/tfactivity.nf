@@ -26,11 +26,8 @@ include { SNEEP                  } from '../subworkflows/local/sneep'
 */
 
 workflow TFACTIVITY {
-
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
-
-    // Genome
+    ch_samplesheet          // channel: samplesheet read in from --input
     genome
     fasta
     gtf
@@ -40,21 +37,15 @@ workflow TFACTIVITY {
     gene_lengths
     gene_map
     chrom_sizes
-
-    // ChromHMM
     ch_samplesheet_bam
     chromhmm_states
     chromhmm_threshold
     chromhmm_enhancer_marks
     chromhmm_promoter_marks
-
-    // Peaks
     window_size
     decay
     merge_samples
     affinity_agg_method
-
-    // Counts
     counts
     extra_counts
     counts_design
@@ -63,28 +54,25 @@ workflow TFACTIVITY {
     expression_agg_method
     min_count_tf
     min_tpm_tf
-
-    // Dynamite
     dynamite_ofolds
     dynamite_ifolds
     dynamite_alpha
     dynamite_randomize
-
-    // Ranking
     alpha
-
-    // Sneep
     snps
-
     ch_versions
 
     main:
 
-    ch_conditions = ch_samplesheet.map { meta, peak_file -> meta.condition }
-                        .toSortedList().flatten().unique()
+    ch_conditions = ch_samplesheet
+        .map { meta, _peak_file -> meta.condition }
+        .toSortedList()
+        .flatten()
+        .unique()
 
-    ch_contrasts = ch_conditions.combine(ch_conditions)
-                                .filter { condition1, condition2 -> condition1 < condition2 }
+    ch_contrasts = ch_conditions
+        .combine(ch_conditions)
+        .filter { condition1, condition2 -> condition1 < condition2 }
 
     COUNTS(
         gene_lengths,
@@ -97,13 +85,13 @@ workflow TFACTIVITY {
         ch_contrasts,
         expression_agg_method,
         min_count_tf,
-        min_tpm_tf
+        min_tpm_tf,
     )
 
     MOTIFS(
         ch_motifs,
         COUNTS.out.tfs,
-        ch_taxon_id
+        ch_taxon_id,
     )
 
     PEAKS(
@@ -132,14 +120,14 @@ workflow TFACTIVITY {
         dynamite_ofolds,
         dynamite_ifolds,
         dynamite_alpha,
-        dynamite_randomize
+        dynamite_randomize,
     )
 
     RANKING(
         COUNTS.out.differential,
         PEAKS.out.affinity_sum,
         DYNAMITE.out.regression_coefficients,
-        alpha
+        alpha,
     )
 
     if (!params.skip_fimo) {
@@ -157,9 +145,9 @@ workflow TFACTIVITY {
             genome,
             snps,
             fasta,
-            FIMO.out.gff
+            FIMO.out.gff,
         )
-    ch_versions = ch_versions.mix(SNEEP.out.versions)
+        ch_versions = ch_versions.mix(SNEEP.out.versions)
     }
 
     ch_versions = ch_versions.mix(
@@ -167,28 +155,19 @@ workflow TFACTIVITY {
         MOTIFS.out.versions,
         PEAKS.out.versions,
         DYNAMITE.out.versions,
-        RANKING.out.versions
+        RANKING.out.versions,
     )
 
     //
     // Collate and save software versions
     //
-    softwareVersionsToYAML(ch_versions)
-        .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
-            name: 'nf_core_'  +  'tfactivity_software_'  + 'versions.yml',
-            sort: true,
-            newLine: true
-        ).set { ch_collated_versions }
-
+    softwareVersionsToYAML(ch_versions).collectFile(
+        storeDir: "${params.outdir}/pipeline_info",
+        name: 'nf_core_' + 'tfactivity_software_' + 'versions.yml',
+        sort: true,
+        newLine: true,
+    )
 
     emit:
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
-
+    versions = ch_versions // channel: [ path(versions.yml) ]
 }
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    THE END
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/
