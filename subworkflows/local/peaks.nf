@@ -38,17 +38,12 @@ workflow PEAKS {
     ch_versions = Channel.empty()
 
     CLEAN_BED(ch_peaks, [])
-
     ch_peaks = CLEAN_BED.out.output
+    ch_versions = ch_versions.mix(CLEAN_BED.out.versions)
 
     FOOTPRINTING(ch_peaks)
-
     ch_peaks = FOOTPRINTING.out.footprinted_peaks
-
-    ch_versions = ch_versions.mix(
-        CLEAN_BED.out.versions,
-        FOOTPRINTING.out.versions,
-    )
+    ch_versions = ch_versions.mix(FOOTPRINTING.out.versions)
 
     if (merge_samples) {
         MERGE_SAMPLES(ch_peaks)
@@ -99,6 +94,7 @@ workflow PEAKS {
         window_size,
         decay,
     )
+    ch_versions = ch_versions.mix(STARE.out.versions)
 
     ch_affinities = STARE.out.affinities
 
@@ -116,9 +112,8 @@ workflow PEAKS {
             },
             "mean",
         )
-
-        ch_affinities = AFFINITY_MEAN.out.combined
         ch_versions = ch_versions.mix(AFFINITY_MEAN.out.versions)
+        ch_affinities = AFFINITY_MEAN.out.combined
     }
 
     AGGREGATE_SYNONYMS(
@@ -126,6 +121,7 @@ workflow PEAKS {
         gene_map,
         agg_method,
     )
+    ch_versions = ch_versions.mix(AGGREGATE_SYNONYMS.out.versions)
 
     ch_affinities_spread = AGGREGATE_SYNONYMS.out.affinities.map { meta, affinities -> [meta.condition, meta.assay, affinities] }
 
@@ -156,14 +152,10 @@ workflow PEAKS {
         }
 
     AFFINITY_RATIO(ch_contrast_affinities, "ratio")
-    AFFINITY_SUM(ch_contrast_affinities, "sum")
+    ch_versions = ch_versions.mix(AFFINITY_RATIO.out.versions)
 
-    ch_versions = ch_versions.mix(
-        STARE.out.versions,
-        AGGREGATE_SYNONYMS.out.versions,
-        AFFINITY_RATIO.out.versions,
-        AFFINITY_SUM.out.versions,
-    )
+    AFFINITY_SUM(ch_contrast_affinities, "sum")
+    ch_versions = ch_versions.mix(AFFINITY_SUM.out.versions)
 
     emit:
     affinity_ratio    = AFFINITY_RATIO.out.combined
