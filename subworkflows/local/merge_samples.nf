@@ -6,7 +6,6 @@ include { GAWK as FILTER_MIN_OCCURRENCE } from '../../modules/nf-core/gawk/main'
 include { GAWK as CLEAN_BED             } from '../../modules/nf-core/gawk/main'
 
 workflow MERGE_SAMPLES {
-
     take:
     ch_peaks
 
@@ -17,8 +16,8 @@ workflow MERGE_SAMPLES {
     ANNOTATE_SAMPLES(ch_peaks, [])
 
     ch_grouped = ANNOTATE_SAMPLES.out.output
-                    .map{ meta, peak_file -> [meta + [id: meta.condition + "_" + meta.assay], peak_file]}
-                    .groupTuple()
+        .map { meta, peak_file -> [meta + [id: meta.condition + "_" + meta.assay], peak_file] }
+        .groupTuple()
 
     CONCAT_SAMPLES(ch_grouped)
     BEDTOOLS_SORT(CONCAT_SAMPLES.out.file_out, [])
@@ -32,11 +31,10 @@ workflow MERGE_SAMPLES {
         BEDTOOLS_SORT.out.versions,
         BEDTOOLS_MERGE.out.versions,
         FILTER_MIN_OCCURRENCE.out.versions,
-        CLEAN_BED.out.versions
+        CLEAN_BED.out.versions,
     )
 
     emit:
-    merged = CLEAN_BED.out.output
-
-    versions = ch_versions                     // channel: [ versions.yml ]
+    merged   = CLEAN_BED.out.output
+    versions = ch_versions // channel: [ versions.yml ]
 }
