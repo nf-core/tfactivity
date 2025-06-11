@@ -1,0 +1,84 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        "emissions_4.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        [
+                            "condition1_4_dense.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "condition2_4_dense.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "model": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        "emissions_4.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                        [
+                            "condition1_4_dense.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "condition2_4_dense.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T19:39:50.753337902"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        "emissions_4.txt:md5,06c315997f488dd23ebe0247930a8280",
+                        [
+                            "L10_4_dense.bed:md5,8414f4081923dcd9c5aad7c229bbe987",
+                            "p6_4_dense.bed:md5,13a96494454ef77626c4141cb1e2de54"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,118a0f6bfcc8366cf91327c766e24556"
+                ],
+                "model": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        "emissions_4.txt:md5,06c315997f488dd23ebe0247930a8280",
+                        [
+                            "L10_4_dense.bed:md5,8414f4081923dcd9c5aad7c229bbe987",
+                            "p6_4_dense.bed:md5,13a96494454ef77626c4141cb1e2de54"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,118a0f6bfcc8366cf91327c766e24556"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T19:39:43.242025569"
+    }
+}

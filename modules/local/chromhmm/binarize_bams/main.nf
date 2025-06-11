@@ -13,7 +13,7 @@ process BINARIZE_BAMS {
     tuple val(meta3), path(chromsizes)
 
     output:
-    tuple val(meta), path("output"), emit: binarized_bams
+    tuple val(meta), path("output/*_binary.txt"), emit: binarized_bams
     path "versions.yml",             emit: versions
 
     script:

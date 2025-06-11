@@ -3,7 +3,6 @@ include { GAWK as GFF_TO_BED                          } from '../../modules/nf-c
 include { GNU_SORT as SORT_BED                        } from '../../modules/nf-core/gnu/sort'
 include { BEDTOOLS_MERGE as MERGE_DUPLICATE_REGIONS   } from '../../modules/nf-core/bedtools/merge'
 include { BEDTOOLS_INTERSECT as FILTER_SNPS_BY_REGION } from '../../modules/nf-core/bedtools/intersect'
-include { MERGE_SAMPLES                               } from './merge_samples.nf'
 include { RUN_SNEEP                                   } from '../../modules/local/sneep/run_sneep'
 
 workflow SNEEP {
