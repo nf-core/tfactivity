@@ -1,5 +1,5 @@
-include { BEDTOOLS_MERGE    } from '../../modules/nf-core/bedtools/merge/main'
-include { BEDTOOLS_SUBTRACT } from '../../modules/nf-core/bedtools/subtract/main'
+include { BEDTOOLS_MERGE    } from '../../../modules/nf-core/bedtools/merge/main'
+include { BEDTOOLS_SUBTRACT } from '../../../modules/nf-core/bedtools/subtract/main'
 
 workflow FOOTPRINTING {
     take:
