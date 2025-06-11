@@ -1,0 +1,134 @@
+nextflow_workflow {
+
+    name "Test Workflow COUNTS"
+    script "subworkflows/local/counts/main.nf"
+    workflow "COUNTS"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+    }
+
+    test("Should run with full count matrix") {
+
+        when {
+            workflow {
+                """
+                input[0] = PREPARE_GENOME.out.gene_lengths
+                input[1] = PREPARE_GENOME.out.gene_map
+                input[2] = Channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true))
+                input[3] = Channel.empty()
+                input[4] = [
+                    [ id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_rnaseq.csv', checkIfExists: true)
+                ]
+                input[5] = 10
+                input[6] = 1
+                input[7] = [
+                    ['L1', 'L10'],
+                    ['L1', 'p6'],
+                    ['L10', 'p6']
+                ]
+                input[8] = 'sum'
+                input[9] = 10
+                input[10] = 1
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run with full count matrix - stub") {
+
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = PREPARE_GENOME.out.gene_lengths
+                input[1] = PREPARE_GENOME.out.gene_map
+                input[2] = Channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true))
+                input[3] = Channel.empty()
+                input[4] = [
+                    [ id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_rnaseq.csv', checkIfExists: true)
+                ]
+                input[5] = 10
+                input[6] = 1
+                input[7] = [
+                    ['L1', 'L10'],
+                    ['L1', 'p6'],
+                    ['L10', 'p6']
+                ]
+                input[8] = 'sum'
+                input[9] = 10
+                input[10] = 1
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run with split matrix") {
+
+        when {
+            workflow {
+                """
+                input[0] = PREPARE_GENOME.out.gene_lengths
+                input[1] = PREPARE_GENOME.out.gene_map
+                input[2] = Channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/Gene_id.txt', checkIfExists: true))
+                input[3] = Channel.from([
+                    [[id: 'L1-WT1'], file(params.pipelines_testdata_base_path + '/rna-seq/L1/L1_WT1-count.txt', checkIfExists: true)],
+                    [[id: 'L1-WT2'], file(params.pipelines_testdata_base_path + '/rna-seq/L1/L1_WT2-count.txt', checkIfExists: true)],
+                    [[id: 'L1-WT4'], file(params.pipelines_testdata_base_path + '/rna-seq/L1/L1_WT4-count.txt', checkIfExists: true)],
+                    [[id: 'L10-WT1'], file(params.pipelines_testdata_base_path + '/rna-seq/L10/L10_WT1-count.txt', checkIfExists: true)],
+                    [[id: 'L10-WT2'], file(params.pipelines_testdata_base_path + '/rna-seq/L10/L10_WT2-count.txt', checkIfExists: true)],
+                    [[id: 'L10-WT3'], file(params.pipelines_testdata_base_path + '/rna-seq/L10/L10_WT3-count.txt', checkIfExists: true)],
+                    [[id: 'L10-WT4'], file(params.pipelines_testdata_base_path + '/rna-seq/L10/L10_WT4-count.txt', checkIfExists: true)],
+                    [[id: 'p6-WT1'], file(params.pipelines_testdata_base_path + '/rna-seq/p6/p6_WT1-count.txt', checkIfExists: true)],
+                    [[id: 'p6-WT2'], file(params.pipelines_testdata_base_path + '/rna-seq/p6/p6_WT2-count.txt', checkIfExists: true)],
+                    [[id: 'p6-WT4'], file(params.pipelines_testdata_base_path + '/rna-seq/p6/p6_WT4-count.txt', checkIfExists: true)]
+                ])
+                input[4] = [
+                    [ id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_rnaseq.csv', checkIfExists: true)
+                ]
+                input[5] = 10
+                input[6] = 1
+                input[7] = [
+                    ['L1', 'L10'],
+                    ['L1', 'p6'],
+                    ['L10', 'p6']
+                ]
+                input[8] = 'sum'
+                input[9] = 10
+                input[10] = 1
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}
