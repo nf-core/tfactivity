@@ -14,25 +14,26 @@ workflow MERGE_SAMPLES {
     ch_versions = Channel.empty()
 
     ANNOTATE_SAMPLES(ch_peaks, [])
+    ch_versions = ch_versions.mix(ANNOTATE_SAMPLES.out.versions)
 
     ch_grouped = ANNOTATE_SAMPLES.out.output
         .map { meta, peak_file -> [meta + [id: meta.condition + "_" + meta.assay], peak_file] }
         .groupTuple()
 
     CONCAT_SAMPLES(ch_grouped)
-    BEDTOOLS_SORT(CONCAT_SAMPLES.out.file_out, [])
-    BEDTOOLS_MERGE(BEDTOOLS_SORT.out.sorted)
-    FILTER_MIN_OCCURRENCE(BEDTOOLS_MERGE.out.bed, [])
-    CLEAN_BED(FILTER_MIN_OCCURRENCE.out.output, [])
+    ch_versions = ch_versions.mix(CONCAT_SAMPLES.out.versions)
 
-    ch_versions = ch_versions.mix(
-        ANNOTATE_SAMPLES.out.versions,
-        CONCAT_SAMPLES.out.versions,
-        BEDTOOLS_SORT.out.versions,
-        BEDTOOLS_MERGE.out.versions,
-        FILTER_MIN_OCCURRENCE.out.versions,
-        CLEAN_BED.out.versions,
-    )
+    BEDTOOLS_SORT(CONCAT_SAMPLES.out.file_out, [])
+    ch_versions = ch_versions.mix(BEDTOOLS_SORT.out.versions)
+
+    BEDTOOLS_MERGE(BEDTOOLS_SORT.out.sorted)
+    ch_versions = ch_versions.mix(BEDTOOLS_MERGE.out.versions)
+
+    FILTER_MIN_OCCURRENCE(BEDTOOLS_MERGE.out.bed, [])
+    ch_versions = ch_versions.mix(FILTER_MIN_OCCURRENCE.out.versions)
+
+    CLEAN_BED(FILTER_MIN_OCCURRENCE.out.output, [])
+    ch_versions = ch_versions.mix(CLEAN_BED.out.versions)
 
     emit:
     merged   = CLEAN_BED.out.output
