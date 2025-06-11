@@ -1,0 +1,101 @@
+{
+    "Should convert JASPAR motifs to universal format": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.converted.universal:md5,b16d642b637f8549167ce44d0bc26055"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,fea88ef1d15856d9802a3ccada8fe277"
+                ],
+                "converted": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.converted.universal:md5,b16d642b637f8549167ce44d0bc26055"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,fea88ef1d15856d9802a3ccada8fe277"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T15:03:26.275510278"
+    },
+    "Should convert JASPAR motifs to transfac format": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.converted.transfac:md5,e79a99d72b2a2748a71cdf3d07291079"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,fea88ef1d15856d9802a3ccada8fe277"
+                ],
+                "converted": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.converted.transfac:md5,e79a99d72b2a2748a71cdf3d07291079"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,fea88ef1d15856d9802a3ccada8fe277"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T15:03:46.076180914"
+    },
+    "Should convert JASPAR motifs to universal format - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.converted.universal:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "converted": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.converted.universal:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T15:03:33.680841634"
+    }
+}
