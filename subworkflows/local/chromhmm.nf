@@ -20,7 +20,7 @@ workflow CHROMHMM {
         .map { meta, signal, control -> [meta, ["signal", "control"], [signal, control]] }
         .transpose()
         .map { meta, type, bam -> [meta + [type: type], bam] }
-        .branch { meta, bam ->
+        .branch { meta, _bam ->
             control: meta.type == "control"
             signal: meta.type == "signal"
         }
@@ -53,24 +53,24 @@ workflow CHROMHMM {
 
     // drop meta, remove duplicated control bams, add new meta
     BINARIZE_BAMS(
-        ch_mixed.map { meta, bam -> bam }.unique().collect().map { files -> [[id: "chromHMM"], files] },
+        ch_mixed.map { _meta, bam -> bam }.unique().collect().map { files -> [[id: "chromHMM"], files] },
         ch_table,
         chrom_sizes,
     )
 
     LEARN_MODEL(
-        BINARIZE_BAMS.out.binarized_bams.map { meta, files -> files }.flatten().collect().map { files -> [[id: "chromHMM"], files] },
+        BINARIZE_BAMS.out.binarized_bams.map { _meta, files -> files }.flatten().collect().map { files -> [[id: "chromHMM"], files] },
         n_states,
     )
 
     GET_ENHANCER_RESULTS(
-        LEARN_MODEL.out.model.transpose().map { meta, emissions, bed -> [[id: bed.simpleName.split("_")[0]], emissions, bed] },
+        LEARN_MODEL.out.model.transpose().map { _meta, emissions, bed -> [[id: bed.simpleName.split("_")[0]], emissions, bed] },
         threshold,
         enhancer_marks,
     )
 
     GET_PROMOTER_RESULTS(
-        LEARN_MODEL.out.model.transpose().map { meta, emissions, bed -> [[id: bed.simpleName.split("_")[0]], emissions, bed] },
+        LEARN_MODEL.out.model.transpose().map { _meta, emissions, bed -> [[id: bed.simpleName.split("_")[0]], emissions, bed] },
         threshold,
         promoter_marks,
     )

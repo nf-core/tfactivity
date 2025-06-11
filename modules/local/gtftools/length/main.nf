@@ -32,7 +32,6 @@ process GTFTOOLS_LENGTH {
     """
 
     stub:
-    def args = task.ext.args ?: ''
     """
     touch ${prefix}.${suffix}
 

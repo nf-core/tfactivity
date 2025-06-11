@@ -139,10 +139,10 @@ workflow PEAKS {
         .map { condition1, condition2, assay2, affinities2, assay1, affinities1 ->
             [condition1, condition2, assay1, affinities1, assay2, affinities2]
         }
-        .filter { condition1, condition2, assay1, affinities1, assay2, affinities2 ->
+        .filter { _condition1, _condition2, assay1, _affinities1, assay2, _affinities2 ->
             assay1 == assay2
         }
-        .map { condition1, condition2, assay1, affinities1, assay2, affinities2 ->
+        .map { condition1, condition2, assay1, affinities1, _assay2, affinities2 ->
             [
                 [
                     id: condition1 + ":" + condition2 + "_" + assay1,
