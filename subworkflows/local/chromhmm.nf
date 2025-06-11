@@ -36,7 +36,6 @@ workflow CHROMHMM {
         ]
     }
 
-
     ch_signal = ch_bams.signal.map { meta, bam -> remove_type(meta, bam) }
     ch_control = ch_bams.control.map { meta, bam -> remove_type(meta, bam) }
 
@@ -57,34 +56,31 @@ workflow CHROMHMM {
         ch_table,
         chrom_sizes,
     )
+    ch_versions = ch_versions.mix(BINARIZE_BAMS.out.versions)
 
     LEARN_MODEL(
         BINARIZE_BAMS.out.binarized_bams.map { _meta, files -> files }.flatten().collect().map { files -> [[id: "chromHMM"], files] },
         n_states,
     )
+    ch_versions = ch_versions.mix(LEARN_MODEL.out.versions)
 
     GET_ENHANCER_RESULTS(
         LEARN_MODEL.out.model.transpose().map { _meta, emissions, bed -> [[id: bed.simpleName.split("_")[0]], emissions, bed] },
         threshold,
         enhancer_marks,
     )
+    ch_versions = ch_versions.mix(GET_ENHANCER_RESULTS.out.versions)
 
     GET_PROMOTER_RESULTS(
         LEARN_MODEL.out.model.transpose().map { _meta, emissions, bed -> [[id: bed.simpleName.split("_")[0]], emissions, bed] },
         threshold,
         promoter_marks,
     )
+    ch_versions = ch_versions.mix(GET_PROMOTER_RESULTS.out.versions)
 
     ch_enhancers = GET_ENHANCER_RESULTS.out.regions.map { meta, bed -> [[id: meta.id + "_" + "chromHMM_enhancers", condition: meta.id, assay: "chromHMM_enhancers"], bed] }
 
     ch_promoters = GET_PROMOTER_RESULTS.out.regions.map { meta, bed -> [[id: meta.id + "_" + "chromHMM_promoters", condition: meta.id, assay: "chromHMM_promoters"], bed] }
-
-    ch_versions = ch_versions.mix(
-        BINARIZE_BAMS.out.versions,
-        LEARN_MODEL.out.versions,
-        GET_ENHANCER_RESULTS.out.versions,
-        GET_PROMOTER_RESULTS.out.versions,
-    )
 
     emit:
     enhancers = ch_enhancers
