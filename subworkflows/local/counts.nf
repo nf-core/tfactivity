@@ -45,7 +45,7 @@ workflow COUNTS {
     )
 
     FILTER_TFS(
-        COMBINE_COUNTS.out.counts.map { meta, counts -> [[id: "TFs"], counts] },
+        COMBINE_COUNTS.out.counts.map { _meta, counts -> [[id: "TFs"], counts] },
         CALCULATE_TPM.out.tpm,
         min_count_tf,
         min_tpm_tf,
@@ -67,12 +67,12 @@ workflow COUNTS {
                 target,
             ]
         },
-        PREPARE_DESIGN.out.design.map { meta, design -> design }.combine(FILTER_GENES.out.counts).map { design, meta, counts -> [meta, design, counts] }.collect(),
+        PREPARE_DESIGN.out.design.map { _meta, design -> design }.combine(FILTER_GENES.out.counts).map { design, meta, counts -> [meta, design, counts] }.collect(),
         [[], []],
         [[], []],
     )
 
-    versions = ch_versions.mix(
+    ch_versions = ch_versions.mix(
         COMBINE_COUNTS.out.versions,
         CALCULATE_TPM.out.versions,
         FILTER_GENES.out.versions,
