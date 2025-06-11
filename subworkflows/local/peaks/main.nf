@@ -1,17 +1,17 @@
 // Modules
-include { GAWK as CLEAN_BED                } from '../../modules/nf-core/gawk/main'
-include { BEDTOOLS_SORT as SORT_PEAKS      } from '../../modules/nf-core/bedtools/sort/main'
-include { STARE                            } from '../../modules/local/stare'
-include { AGGREGATE_SYNONYMS               } from '../../modules/local/peaks/aggregate_synonyms/main'
-include { COMBINE_TABLES as AFFINITY_MEAN  } from '../../modules/local/combine_tables/main'
-include { COMBINE_TABLES as AFFINITY_RATIO } from '../../modules/local/combine_tables/main'
-include { COMBINE_TABLES as AFFINITY_SUM   } from '../../modules/local/combine_tables/main'
+include { GAWK as CLEAN_BED                } from '../../../modules/nf-core/gawk/main'
+include { BEDTOOLS_SORT as SORT_PEAKS      } from '../../../modules/nf-core/bedtools/sort/main'
+include { STARE                            } from '../../../modules/local/stare'
+include { AGGREGATE_SYNONYMS               } from '../../../modules/local/peaks/aggregate_synonyms/main'
+include { COMBINE_TABLES as AFFINITY_MEAN  } from '../../../modules/local/combine_tables/main'
+include { COMBINE_TABLES as AFFINITY_RATIO } from '../../../modules/local/combine_tables/main'
+include { COMBINE_TABLES as AFFINITY_SUM   } from '../../../modules/local/combine_tables/main'
 
 // Subworkflows
-include { FOOTPRINTING                     } from './footprinting'
-include { MERGE_SAMPLES                    } from './merge_samples'
-include { CHROMHMM                         } from './chromhmm'
-include { ROSE                             } from './rose'
+include { FOOTPRINTING                     } from '../footprinting'
+include { MERGE_SAMPLES                    } from '../merge_samples'
+include { CHROMHMM                         } from '../chromhmm'
+include { ROSE                             } from '../rose'
 
 workflow PEAKS {
     take:
