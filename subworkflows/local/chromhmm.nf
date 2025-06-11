@@ -16,10 +16,7 @@ workflow CHROMHMM {
 
     ch_versions = Channel.empty()
 
-    ch_signal = ch_samplesheet_bam.map { meta, signal, _control -> [meta, signal] }
-    ch_control = ch_samplesheet_bam.map { meta, _signal, control -> [meta, control] }
-
-    ch_mixed = ch_signal.mix(ch_control)
+    ch_files = ch_samplesheet_bam.map{ _meta, signal, control -> [signal, control]}.flatten()
 
     ch_table = ch_samplesheet_bam
         .map { meta, signal, control -> [meta.condition, meta.assay, signal.name, control.name] }
@@ -31,7 +28,7 @@ workflow CHROMHMM {
 
     // drop meta, remove duplicated control bams, add new meta
     BINARIZE_BAMS(
-        ch_mixed.map { _meta, bam -> bam }.unique().collect().map { files -> [[id: "chromHMM"], files] },
+        ch_files.unique().collect().map { files -> [[id: "chromHMM"], files] },
         ch_table,
         chrom_sizes,
     )
