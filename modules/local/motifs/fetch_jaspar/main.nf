@@ -16,4 +16,10 @@ process FETCH_JASPAR {
 
     script:
     template "fetch_jaspar.py"
+
+    stub:
+    """
+    touch motifs.jaspar
+    touch versions.yml
+    """
 }
