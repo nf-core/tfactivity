@@ -32,6 +32,8 @@ process GTFTOOLS_LENGTH {
     """
 
     stub:
+    prefix = task.ext.prefix ?: "${meta.id}"
+    suffix = task.ext.suffix ?: "txt"
     """
     touch ${prefix}.${suffix}
 
