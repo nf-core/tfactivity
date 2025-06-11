@@ -18,4 +18,11 @@ process FILTER_MOTIFS {
     script:
     out_file = "${meta.id}.filtered.RDS"
     template "filter_motifs.R"
+
+    stub:
+    out_file = "${meta.id}.filtered.RDS"
+    """
+    touch ${out_file}
+    touch versions.yml
+    """
 }
