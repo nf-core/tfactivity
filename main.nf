@@ -115,8 +115,7 @@ workflow NFCORE_TFACTIVITY {
         // Counts
         ch_counts,
         ch_extra_counts,
-        Channel.value(file(params.counts_design, checkIfExists: true))
-            .map{ design -> [[id: "design"], design]},
+        Channel.value([[id: "design"], file(params.counts_design, checkIfExists: true)]),
         params.min_count,
         params.min_tpm,
         params.expression_aggregation,
