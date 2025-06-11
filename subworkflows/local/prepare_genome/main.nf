@@ -14,8 +14,8 @@ workflow PREPARE_GENOME {
 
     ch_versions = Channel.empty()
 
-    ch_fasta = fasta.map { f -> [[id: 'fasta'], f] }
-    ch_gtf = gtf.map { f -> [[id: 'gtf'], f] }
+    ch_fasta = Channel.value([[id: 'fasta'], fasta])
+    ch_gtf = Channel.value([[id: 'gtf'], gtf])
 
     if (fasta.extension == 'gz') {
         GUNZIP_FASTA(ch_fasta)

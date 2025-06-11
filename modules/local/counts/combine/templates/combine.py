@@ -2,25 +2,7 @@
 
 import pandas as pd
 import platform
-
-def format_yaml_like(data: dict, indent: int = 0) -> str:
-    """Formats a dictionary to a YAML-like string.
-
-    Args:
-        data (dict): The dictionary to format.
-        indent (int): The current indentation level.
-
-    Returns:
-        str: A string formatted as YAML.
-    """
-    yaml_str = ""
-    for key, value in data.items():
-        spaces = "  " * indent
-        if isinstance(value, dict):
-            yaml_str += f"{spaces}{key}:\\n{format_yaml_like(value, indent + 1)}"
-        else:
-            yaml_str += f"{spaces}{key}: {value}\\n"
-    return yaml_str
+import yaml
 
 df_genes = pd.read_csv("$gene_map", sep="\\t", index_col=0)
 
@@ -30,7 +12,7 @@ sample_files = dict(zip("${samples.join(' ')}".split(), [
 def remove_version(gene_id):
     return gene_id.split(".")[0]
 
-counts = pd.read_csv("$counts", index_col=0, sep="\\t", header=None)
+counts = pd.read_csv("$counts", index_col=0, header=None)
 
 # If counts has no columns, add index name
 if len(counts.columns) == 0:
@@ -57,7 +39,7 @@ counts = counts[counts.index.isin(existing_symbols)]
 
 counts = counts.groupby(counts.index).agg("$agg_method")
 
-counts.to_csv("${meta.id}.clean.tsv", sep="\\t")
+counts.to_csv("${prefix}.clean.tsv", sep="\\t")
 counts.index.to_series().to_csv("genes.txt", index=False, header=False)
 
 # Create version file
@@ -69,4 +51,4 @@ versions = {
 }
 
 with open("versions.yml", "w") as f:
-    f.write(format_yaml_like(versions))
+    yaml.dump(versions, f)
