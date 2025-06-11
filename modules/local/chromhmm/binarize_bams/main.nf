@@ -2,10 +2,10 @@ process BINARIZE_BAMS {
     tag "$meta.id"
     label "process_high"
 
-    conda "bioconda::chromhmm=1.25"
+    conda "environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/chromhmm:1.25--hdfd78af_0' :
-        'biocontainers/chromhmm:1.25--hdfd78af_0' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/04/045a8beb148e181de4d040825e4072ce10c32bb63a3a4a82475b8e67df921d84/data' :
+        'community.wave.seqera.io/library/chromhmm:1.26--fe37622ad2b6be65' }"
 
     input:
     tuple val(meta), path(bams, stageAs: "input/*")
