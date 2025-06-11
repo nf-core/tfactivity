@@ -1,9 +1,9 @@
-include { GAWK as ANNOTATE_SAMPLES      } from '../../modules/nf-core/gawk/main'
-include { CAT_CAT as CONCAT_SAMPLES     } from '../../modules/nf-core/cat/cat/main'
-include { BEDTOOLS_SORT                 } from '../../modules/nf-core/bedtools/sort/main'
-include { BEDTOOLS_MERGE                } from '../../modules/nf-core/bedtools/merge/main'
-include { GAWK as FILTER_MIN_OCCURRENCE } from '../../modules/nf-core/gawk/main'
-include { GAWK as CLEAN_BED             } from '../../modules/nf-core/gawk/main'
+include { GAWK as ANNOTATE_SAMPLES      } from '../../../modules/nf-core/gawk/main'
+include { CAT_CAT as CONCAT_SAMPLES     } from '../../../modules/nf-core/cat/cat/main'
+include { BEDTOOLS_SORT                 } from '../../../modules/nf-core/bedtools/sort/main'
+include { BEDTOOLS_MERGE                } from '../../../modules/nf-core/bedtools/merge/main'
+include { GAWK as FILTER_MIN_OCCURRENCE } from '../../../modules/nf-core/gawk/main'
+include { GAWK as CLEAN_BED             } from '../../../modules/nf-core/gawk/main'
 
 workflow MERGE_SAMPLES {
     take:
