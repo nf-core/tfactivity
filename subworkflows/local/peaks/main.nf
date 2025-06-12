@@ -64,10 +64,15 @@ workflow PEAKS {
     }
 
     ch_rose_out = Channel.empty()
-    if (!params.skip_rose && !params.skip_chromhmm) {
-        ROSE(ch_chromhmm_out, gtf, chrom_sizes)
-        ch_rose_out = ch_rose_out.mix(ROSE.out.stitched)
-        ch_versions = ch_versions.mix(ROSE.out.versions)
+    if (!params.skip_rose) {
+        if (params.skip_chromhmm) {
+            log.warn("Rose can only be run if chromhmm is also run. If you want to run rose, please set --skip_chromhmm to false.")
+        }
+        else {
+            ROSE(ch_chromhmm_out, gtf, chrom_sizes)
+            ch_rose_out = ch_rose_out.mix(ROSE.out.stitched)
+            ch_versions = ch_versions.mix(ROSE.out.versions)
+        }
     }
 
     ch_chromhmm_rose_out = params.skip_rose ? ch_chromhmm_out : ch_rose_out

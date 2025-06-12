@@ -149,14 +149,6 @@ def validateInputParameters() {
     if (!params.motifs && !params.taxon_id) {
         error "Please provide either a motifs file (--motifs) or a taxon ID (--taxon_id)"
     }
-
-    if (params.skip_fimo && !params.skip_sneep) {
-        log.warn("--skip_fimo automatically sets --skip_sneep since sneep requires fimo input.")
-    }
-
-    if (params.skip_chromhmm && !params.skip_rose) {
-        log.warn("--skip_chromhmm automatically sets --skip_rose since rose requires chromhmm input.")
-    }
 }
 
 //

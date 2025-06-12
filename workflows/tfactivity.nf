@@ -148,15 +148,31 @@ workflow TFACTIVITY {
         ch_versions = ch_versions.mix(FIMO.out.versions)
     }
 
-    if (sneep_scale_file && sneep_motif_file && !params.skip_sneep && params.snps && !params.skip_fimo) {
-        SNEEP(
-            snps,
-            sneep_scale_file,
-            sneep_motif_file,
-            fasta,
-            FIMO.out.gff,
-        )
-        ch_versions = ch_versions.mix(SNEEP.out.versions)
+    if (!params.skip_sneep) {
+        if (!sneep_scale_file) {
+            error "In order to run sneep, please provide a sneep scale file (--sneep_scale_file). If you set --genome to either hg38 or mm10, the sneep scale file will be automatically downloaded."
+        }
+
+        if (!sneep_motif_file) {
+            error "In order to run sneep, please provide a sneep motif file (--sneep_motif_file). If you set --genome to either hg38 or mm10, the sneep motif file will be automatically downloaded."
+        }
+
+        if (!snps) {
+            error "In order to run sneep, please provide a snps file (--snps). If you set --genome to either hg38 or mm10, the snps file will be automatically downloaded."
+        }
+
+        if (params.skip_fimo) {
+            log.warn "Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false."
+        } else {
+            SNEEP(
+                snps,
+                sneep_scale_file,
+                sneep_motif_file,
+                fasta,
+                FIMO.out.gff,
+            )
+            ch_versions = ch_versions.mix(SNEEP.out.versions)
+        }
     }
 
     //
