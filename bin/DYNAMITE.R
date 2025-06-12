@@ -333,7 +333,7 @@ for(Sample in FileList){
             np<-c(1:length((nf4[,2])))
             np[which(nf4[,2]>0)]<-1
             np[which(nf4[,2]<=0)]<-0
-            if (ggplotAvailable){
+            if (ggplotAvailable && nrow(nf4) > 0){
                 ggplot2::ggplot(nf4,aes(x=reorder(TF,value),y=value,width=0.8,fill=np))+
                     geom_bar(stat="identity")+
                     theme_bw(10)+ylab("Normalised coefficient")+xlab("TF")+
@@ -358,7 +358,7 @@ for(Sample in FileList){
         np<-c(1:length((nf4[,2])))
         np[which(nf4[,2]>0)]<-1
         np[which(nf4[,2]<0)]<-0
-        if (ggplotAvailable){
+        if (ggplotAvailable && nrow(nf4) > 0){
             ggplot2::ggplot(nf4,aes(x=reorder(TF,value),y=value,width=0.8,fill=np))+
                 geom_bar(stat="identity")+
                 theme_bw(10)+ylab("Normalised coefficient")+xlab("TF")+
@@ -442,7 +442,7 @@ if (argsL$performance){
     ggplotSampleOverview[,2]<-as.numeric(as.character(ggplotSampleOverview[,2]))
     ggplotSampleOverview[,3]<-as.numeric(as.character(ggplotSampleOverview[,3]))
     write.table(ggplotSampleOverview,file=paste0(argsL$outDir,"/Performance_overview.txt"),quote=FALSE,sep='\t',row.names=FALSE)
-    if (ggplotAvailable){
+    if (ggplotAvailable && nrow(ggplotSampleOverview) > 0){
         ggplot2::ggplot(ggplotSampleOverview,aes(x=Name,y=Mean,width=0.8,fill=Measure,group=Measure))+
         geom_bar(stat="identity",position="dodge")+
         theme_bw(22)+ylab("Value")+xlab("Sample")+
