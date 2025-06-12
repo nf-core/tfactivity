@@ -64,6 +64,8 @@ workflow TFACTIVITY {
 
     main:
 
+    ch_versions = Channel.empty()
+
     ch_conditions = ch_samplesheet
         .map { meta, _peak_file -> meta.condition }
         .toSortedList()
@@ -87,12 +89,14 @@ workflow TFACTIVITY {
         min_count_tf,
         min_tpm_tf,
     )
+    ch_versions = ch_versions.mix(COUNTS.out.versions)
 
     MOTIFS(
         ch_motifs,
         COUNTS.out.tfs,
         taxon_id,
     )
+    ch_versions = ch_versions.mix(MOTIFS.out.versions)
 
     PEAKS(
         ch_samplesheet,
@@ -113,6 +117,7 @@ workflow TFACTIVITY {
         chromhmm_enhancer_marks,
         chromhmm_promoter_marks,
     )
+    ch_versions = ch_versions.mix(PEAKS.out.versions)
 
     DYNAMITE(
         COUNTS.out.differential,
@@ -122,6 +127,7 @@ workflow TFACTIVITY {
         dynamite_alpha,
         dynamite_randomize,
     )
+    ch_versions = ch_versions.mix(DYNAMITE.out.versions)
 
     RANKING(
         COUNTS.out.differential,
@@ -129,6 +135,7 @@ workflow TFACTIVITY {
         DYNAMITE.out.regression_coefficients,
         alpha,
     )
+    ch_versions = ch_versions.mix(RANKING.out.versions)
 
     if (!params.skip_fimo) {
         FIMO(
@@ -149,14 +156,6 @@ workflow TFACTIVITY {
         )
         ch_versions = ch_versions.mix(SNEEP.out.versions)
     }
-
-    ch_versions = ch_versions.mix(
-        COUNTS.out.versions,
-        MOTIFS.out.versions,
-        PEAKS.out.versions,
-        DYNAMITE.out.versions,
-        RANKING.out.versions,
-    )
 
     //
     // Collate and save software versions

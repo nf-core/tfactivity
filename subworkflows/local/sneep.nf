@@ -13,6 +13,7 @@ workflow SNEEP {
     motif_regions
 
     main:
+    ch_versions = Channel.empty()
 
     // Choose scale and motif file based on genome version
     if (genome == "hg38") {
@@ -33,19 +34,25 @@ workflow SNEEP {
         ch_scale_file,
         motif_regions.map { _meta, regions -> regions }.collect(),
     )
+    ch_versions = ch_versions.mix(FILTER_SCALES_MOTIFS.out.versions)
 
     // Convert gff with motif regions to bed
     GFF_TO_BED(motif_regions, [])
+    ch_versions = ch_versions.mix(GFF_TO_BED.out.versions)
 
     // Merge regions that overlap
     SORT_BED(GFF_TO_BED.out.output)
+    ch_versions = ch_versions.mix(SORT_BED.out.versions)
+
     MERGE_DUPLICATE_REGIONS(SORT_BED.out.sorted)
+    ch_versions = ch_versions.mix(MERGE_DUPLICATE_REGIONS.out.versions)
 
     // Remove SNPs that are not within regions
     ch_filter_snps_by_regions = snps
         .combine(MERGE_DUPLICATE_REGIONS.out.bed)
         .map { snp, meta, regions -> [meta, snp, regions] }
     FILTER_SNPS_BY_REGION(ch_filter_snps_by_regions, [[], []])
+    ch_versions = ch_versions.mix(FILTER_SNPS_BY_REGION.out.versions)
 
     // Remove files that are empty (no overlap)
     ch_sneep_input_snps = FILTER_SNPS_BY_REGION.out.intersect.filter { _meta, file -> !file.empty() }
@@ -56,16 +63,7 @@ workflow SNEEP {
         genome_fasta.map { _meta, fasta -> fasta },
         FILTER_SCALES_MOTIFS.out.scale_file,
     )
-
-    ch_versions = Channel.empty()
-    ch_versions = ch_versions.mix(
-        FILTER_SCALES_MOTIFS.out.versions,
-        GFF_TO_BED.out.versions,
-        SORT_BED.out.versions,
-        MERGE_DUPLICATE_REGIONS.out.versions,
-        FILTER_SNPS_BY_REGION.out.versions,
-        RUN_SNEEP.out.versions,
-    )
+    ch_versions = ch_versions.mix(RUN_SNEEP.out.versions)
 
     emit:
     versions = ch_versions
