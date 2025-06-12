@@ -1,4 +1,43 @@
 {
+    "Should run without control": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        [
+                            "L10_chr1_binary.txt:md5,cf560e5ae48785aa9f57a655f17c8589",
+                            "p6_chr1_binary.txt:md5,7e97bf3294047441207cc13c3b8764fc"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,7e8444cba8b0958c95810d7c68ed5609"
+                ],
+                "binarized_bams": [
+                    [
+                        {
+                            "id": "chromHMM"
+                        },
+                        [
+                            "L10_chr1_binary.txt:md5,cf560e5ae48785aa9f57a655f17c8589",
+                            "p6_chr1_binary.txt:md5,7e97bf3294047441207cc13c3b8764fc"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7e8444cba8b0958c95810d7c68ed5609"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T13:48:45.789104559"
+    },
     "Should run without failures - stub": {
         "content": [
             {
