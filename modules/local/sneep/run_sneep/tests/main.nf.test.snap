@@ -1,0 +1,341 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "InDels.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "10": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "SNPsUnique.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "11": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "sortedSNPsNotUnique.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "12": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "TF_count.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "13": [
+                    "versions.yml:md5,3026c6d4880619eb297b83640aa772ba"
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "info.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "motifInfo.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "4": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "notConsideredSNPs.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "5": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "result.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "6": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "snpRegions.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "7": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "snpRegions.fa:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "8": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "snpsRegions_notUniq_sorted.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "9": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "snpsRegions_notUniq.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "indels": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "InDels.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "info": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "info.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "motifinfo": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "motifInfo.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "notconsideredsnps": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "notConsideredSNPs.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "pfms": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "result": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "result.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "snpregions_bed": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "snpRegions.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "snpregions_fa": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "snpRegions.fa:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "snpsregions_notuniq": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "snpsRegions_notUniq.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "snpsregions_notuniq_sorted": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "snpsRegions_notUniq_sorted.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "snpsunique": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "SNPsUnique.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "sortedsnpsnotunique": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "sortedSNPsNotUnique.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tf_count": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "TF_count.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3026c6d4880619eb297b83640aa772ba"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T10:55:58.855220602"
+    },
+    "Should run without failures": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    [
+                        "Arid5a.txt:md5,40c66610ddd67b957f5648d9bc5d3250",
+                        "Atf3.txt:md5,b703bcb5cb5539195ded6342209d864e",
+                        "Npas2.txt:md5,38a09acd183e8421f4db3500bbea8441",
+                        "Stat4.txt:md5,b1c929c2170a460afccaf7816c5b1853",
+                        "Tfcp2l1.txt:md5,c23276e3c6ac7312bf95d04dae9e1090"
+                    ]
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "InDels.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "motifInfo.txt:md5,4f150fd8d4eecbf449e097ed22f78850"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "notConsideredSNPs.txt:md5,16cb5657a01cf8c4f4eb5d8576064865"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "result.txt:md5,c63f7253c44935ec3b956b60aa0645eb"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "snpRegions.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "snpRegions.fa:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "snpsRegions_notUniq_sorted.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "snpsRegions_notUniq.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "SNPsUnique.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "sortedSNPsNotUnique.txt:md5,16cb5657a01cf8c4f4eb5d8576064865"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "TF_count.txt:md5,1dce6b84d8a2da6bbe9a9c028addae68"
+                ]
+            ],
+            [
+                "versions.yml:md5,3026c6d4880619eb297b83640aa772ba"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T10:54:01.205260434"
+    }
+}

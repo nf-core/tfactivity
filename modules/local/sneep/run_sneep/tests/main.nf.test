@@ -1,0 +1,93 @@
+nextflow_process {
+
+    name "Test Process RUN_SNEEP"
+    script "modules/local/sneep/run_sneep/main.nf"
+    process "RUN_SNEEP"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../../../../subworkflows/local/prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+
+        run("FILTER_SCALES_MOTIFS") {
+            script "../../../../../modules/local/sneep/filter_scales_motifs"
+            process {
+                """
+                input[0] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
+                input[1] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
+                input[2] = file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_promoters.gff', checkIfExists: true)
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/reference/snps_chr1.bed.gz', checkIfExists: true)
+                ]
+                input[1] = FILTER_SCALES_MOTIFS.out.transfac
+                input[2] = PREPARE_GENOME.out.fasta.map { _meta, fasta -> fasta }
+                input[3] = FILTER_SCALES_MOTIFS.out.scale_file
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(
+                process.out.pfms,
+                process.out.indels,
+                // process.out.info -> Contains execution time, thus cannot be hashed
+                process.out.motifinfo,
+                process.out.notconsideredsnps,
+                process.out.result,
+                process.out.snpregions_bed,
+                process.out.snpregions_fa,
+                process.out.snpsregions_notuniq_sorted,
+                process.out.snpsregions_notuniq,
+                process.out.snpsunique,
+                process.out.sortedsnpsnotunique,
+                process.out.tf_count,
+                process.out.versions,
+            ).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/reference/snps_chr1.bed.gz', checkIfExists: true)
+                ]
+                input[1] = FILTER_SCALES_MOTIFS.out.transfac
+                input[2] = PREPARE_GENOME.out.fasta.map { _meta, fasta -> fasta }
+                input[3] = FILTER_SCALES_MOTIFS.out.scale_file
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}
