@@ -42,11 +42,11 @@ workflow FIMO {
     RUN_FIMO(ch_fimo)
     ch_versions = ch_versions.mix(RUN_FIMO.out.versions)
 
-    ch_combine_results = RUN_FIMO.out.results
+    ch_combine = RUN_FIMO.out.gff.join(RUN_FIMO.out.tsv)
         .map { meta, result -> [[id: meta.condition + '_' + meta.assay], result] }
         .groupTuple()
 
-    COMBINE_RESULTS(ch_combine_results)
+    COMBINE_RESULTS(ch_combine)
     ch_versions = ch_versions.mix(COMBINE_RESULTS.out.versions)
 
     emit:
