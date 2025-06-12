@@ -325,7 +325,7 @@
                     {
                         "id": "test"
                     },
-                    "TF_count.txt:md5,1dce6b84d8a2da6bbe9a9c028addae68"
+                    "TF_count.txt:md5,11f5533b35f265b4e22196a3ddad7d52"
                 ]
             ],
             [
@@ -334,8 +334,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-12T10:54:01.205260434"
+        "timestamp": "2025-06-12T18:39:16.541037504"
     }
 }
