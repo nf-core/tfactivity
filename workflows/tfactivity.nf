@@ -28,7 +28,8 @@ include { SNEEP                  } from '../subworkflows/local/sneep'
 workflow TFACTIVITY {
     take:
     ch_samplesheet          // channel: samplesheet read in from --input
-    genome
+    sneep_scale_file
+    sneep_motif_file
     fasta
     gtf
     blacklist
@@ -147,10 +148,11 @@ workflow TFACTIVITY {
         ch_versions = ch_versions.mix(FIMO.out.versions)
     }
 
-    if (genome in ["hg38", "mm10"] && !params.skip_sneep && params.snps && !params.skip_fimo) {
+    if (sneep_scale_file && sneep_motif_file && !params.skip_sneep && params.snps && !params.skip_fimo) {
         SNEEP(
-            genome,
             snps,
+            sneep_scale_file,
+            sneep_motif_file,
             fasta,
             FIMO.out.gff,
         )

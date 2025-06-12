@@ -1,0 +1,72 @@
+nextflow_workflow {
+
+    name "Test Workflow SNEEP"
+    script "subworkflows/local/sneep/main.nf"
+    workflow "SNEEP"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        config "./nextflow.config"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.value(file(params.pipelines_testdata_base_path + '/reference/snps_chr1.bed.gz', checkIfExists: true))
+                input[1] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
+                input[2] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
+                input[3] = PREPARE_GENOME.out.fasta
+                input[4] = Channel.value([
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_promoters.gff', checkIfExists: true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+        config "./nextflow.config"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.value(file(params.pipelines_testdata_base_path + '/reference/snps_chr1.bed.gz', checkIfExists: true))
+                input[1] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
+                input[2] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
+                input[3] = PREPARE_GENOME.out.fasta
+                input[4] = Channel.value([
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_promoters.gff', checkIfExists: true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}

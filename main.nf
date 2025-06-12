@@ -20,6 +20,8 @@ params.gtf       = getGenomeAttribute('gtf')
 params.blacklist = getGenomeAttribute('blacklist')
 params.taxon_id  = getGenomeAttribute('taxon_id')
 params.snps      = getGenomeAttribute('snps')
+params.sneep_scale_file = getGenomeAttribute('sneep_scale_file')
+params.sneep_motif_file = getGenomeAttribute('sneep_motif_file')
 
 if (!params.motifs && !params.taxon_id) {
     error "Please provide either a motifs file or a taxon ID"
@@ -89,7 +91,8 @@ workflow NFCORE_TFACTIVITY {
     //
     TFACTIVITY (
         samplesheet,
-        params.genome,
+        params.sneep_scale_file,
+        params.sneep_motif_file,
         PREPARE_GENOME.out.fasta,
         PREPARE_GENOME.out.gtf,
         ch_blacklist,
