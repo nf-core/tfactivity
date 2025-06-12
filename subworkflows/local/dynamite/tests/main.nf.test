@@ -17,7 +17,7 @@ nextflow_workflow {
                 ])
                 input[1] = Channel.value([
                     [id: "test", condition1: "L1", condition2: "L10"],
-                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters.tsv', checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters_ratio.tsv', checkIfExists: true)
                 ])
                 input[2] = 3
                 input[3] = 6
@@ -48,7 +48,7 @@ nextflow_workflow {
                 ])
                 input[1] = Channel.value([
                     [id: "test", condition1: "L1", condition2: "L10"],
-                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters.tsv', checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters_ratio.tsv', checkIfExists: true)
                 ])
                 input[2] = 3
                 input[3] = 6

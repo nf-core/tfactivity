@@ -1,8 +1,8 @@
 nextflow_process {
 
-    name "Test Process PREPROCESS"
+    name "Test Process DYNAMITE_PREPROCESS"
     script "modules/local/dynamite/preprocess/main.nf"
-    process "PREPROCESS"
+    process "DYNAMITE_PREPROCESS"
 
     test("Should run without failures") {
 
@@ -12,7 +12,7 @@ nextflow_process {
                 input[0] = [
                     [id: "test"],
                     file(params.pipelines_testdata_base_path + '/intermediates/deseq2/L1:L10.deseq2.results.tsv', checkIfExists: true),
-                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters.tsv', checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters_ratio.tsv', checkIfExists: true)
                 ]
                 """
             }
@@ -35,7 +35,7 @@ nextflow_process {
                 input[0] = [
                     [id: "test"],
                     file(params.pipelines_testdata_base_path + '/intermediates/deseq2/L1:L10.deseq2.results.tsv', checkIfExists: true),
-                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters.tsv', checkIfExists: true)
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters_ratio.tsv', checkIfExists: true)
                 ]
                 """
             }
