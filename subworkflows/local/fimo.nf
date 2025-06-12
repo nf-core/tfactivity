@@ -14,8 +14,10 @@ workflow FIMO {
     ch_versions = Channel.empty()
 
     FILTER_MOTIFS(tf_ranking, motifs_meme)
+    ch_versions = ch_versions.mix(FILTER_MOTIFS.out.versions)
 
     EXTRACT_SEQUENCE(candidate_regions, fasta.map { _meta, f -> f })
+    ch_versions = ch_versions.mix(EXTRACT_SEQUENCE.out.versions)
 
     ch_filtered_motifs = FILTER_MOTIFS.out.motifs
         .flatten()
@@ -38,19 +40,14 @@ workflow FIMO {
         }
 
     RUN_FIMO(ch_fimo)
+    ch_versions = ch_versions.mix(RUN_FIMO.out.versions)
 
     ch_combine_results = RUN_FIMO.out.results
         .map { meta, result -> [[id: meta.condition + '_' + meta.assay], result] }
         .groupTuple()
 
     COMBINE_RESULTS(ch_combine_results)
-
-    ch_versions = ch_versions.mix(
-        FILTER_MOTIFS.out.versions,
-        EXTRACT_SEQUENCE.out.versions,
-        RUN_FIMO.out.versions,
-        COMBINE_RESULTS.out.versions,
-    )
+    ch_versions = ch_versions.mix(COMBINE_RESULTS.out.versions)
 
     emit:
     tsv      = COMBINE_RESULTS.out.tsv

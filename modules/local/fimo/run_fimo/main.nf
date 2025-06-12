@@ -1,17 +1,17 @@
 process RUN_FIMO {
     tag "${meta.id}"
 
-    conda "bioconda::meme==5.5.5--pl5321hda358d9_0"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/meme:5.5.5--pl5321hda358d9_0':
-        'biocontainers/meme:5.5.5--pl5321hda358d9_0' }"
+    conda "environment.yml"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/e1/e1390c27b394dddec4f1d358dcae77c7de2183072c8e524e22c876c618633ace/data'
+        : 'community.wave.seqera.io/library/meme:5.5.8--39b08bb5c1288a6b'}"
 
     input:
-        tuple val(meta), path(sequence_file), path(motif_file)
+    tuple val(meta), path(sequence_file), path(motif_file)
 
     output:
-        tuple val(meta), path("fimo_${meta.id}"),    emit: results
-        path "versions.yml",                         emit: versions
+    tuple val(meta), path("fimo_${meta.id}"), emit: results
+    path "versions.yml", emit: versions
 
     script:
     """
@@ -32,5 +32,6 @@ process RUN_FIMO {
     touch fimo_${meta.id}/fimo.html
     touch fimo_${meta.id}/fimo.tsv
     touch fimo_${meta.id}/fimo.xml
+    touch versions.yml
     """
 }

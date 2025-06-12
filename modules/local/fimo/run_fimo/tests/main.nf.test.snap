@@ -1,0 +1,96 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "best_site.narrowPeak:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "cisml.xml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fimo.gff:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fimo.html:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fimo.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fimo.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "results": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "best_site.narrowPeak:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "cisml.xml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fimo.gff:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fimo.html:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fimo.tsv:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "fimo.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T09:34:21.704769081"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "best_site.narrowPeak:md5,664d5d271e03b7f2702d240438393d71",
+                            "cisml.xml:md5,d87190f3dc3f1458c46f3f7f8a0e95a9",
+                            "fimo.gff:md5,e44057bbab521800dc4810f9c892bdc5",
+                            "fimo.html:md5,e759bd9a5aad0d08fb8da72ef4d45704",
+                            "fimo.tsv:md5,d196d3a9d9abba2c6d350e77aa38ff4d",
+                            "fimo.xml:md5,9147920b2c2287134d738732cbd43e62"
+                        ]
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,5176ec94f3c077d087727ec5fe50d677"
+                ],
+                "results": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        [
+                            "best_site.narrowPeak:md5,664d5d271e03b7f2702d240438393d71",
+                            "cisml.xml:md5,d87190f3dc3f1458c46f3f7f8a0e95a9",
+                            "fimo.gff:md5,e44057bbab521800dc4810f9c892bdc5",
+                            "fimo.html:md5,e759bd9a5aad0d08fb8da72ef4d45704",
+                            "fimo.tsv:md5,d196d3a9d9abba2c6d350e77aa38ff4d",
+                            "fimo.xml:md5,9147920b2c2287134d738732cbd43e62"
+                        ]
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,5176ec94f3c077d087727ec5fe50d677"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T09:34:05.230505241"
+    }
+}
