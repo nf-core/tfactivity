@@ -1,7 +1,7 @@
-include { FILTER_MOTIFS                         } from "../../modules/local/fimo/filter_motifs"
-include { BEDTOOLS_GETFASTA as EXTRACT_SEQUENCE } from "../../modules/nf-core/bedtools/getfasta"
-include { RUN_FIMO                              } from "../../modules/local/fimo/run_fimo"
-include { COMBINE_RESULTS                       } from "../../modules/local/fimo/combine_results"
+include { FILTER_MOTIFS                         } from "../../../modules/local/fimo/filter_motifs"
+include { BEDTOOLS_GETFASTA as EXTRACT_SEQUENCE } from "../../../modules/nf-core/bedtools/getfasta"
+include { RUN_FIMO                              } from "../../../modules/local/fimo/run_fimo"
+include { COMBINE_RESULTS                       } from "../../../modules/local/fimo/combine_results"
 
 workflow FIMO {
     take:
@@ -42,8 +42,9 @@ workflow FIMO {
     RUN_FIMO(ch_fimo)
     ch_versions = ch_versions.mix(RUN_FIMO.out.versions)
 
-    ch_combine = RUN_FIMO.out.gff.join(RUN_FIMO.out.tsv)
-        .map { meta, result -> [[id: meta.condition + '_' + meta.assay], result] }
+    ch_combine = RUN_FIMO.out.gff
+        .join(RUN_FIMO.out.tsv)
+        .map { meta, gff, tsv -> [[id: meta.condition + '_' + meta.assay], gff, tsv] }
         .groupTuple()
 
     COMBINE_RESULTS(ch_combine)

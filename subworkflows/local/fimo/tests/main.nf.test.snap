@@ -1,0 +1,118 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters.gff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,e50e1883b0220a195e1c520411dcbc63"
+                ],
+                "gff": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters.gff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tsv": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e",
+                    "versions.yml:md5,e50e1883b0220a195e1c520411dcbc63"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T10:20:54.914599421"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters.tsv:md5,be446ce68f96867b68c47c64ce3bb52f"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters.gff:md5,feefecff8e2623c3bd79cd7bf7535b51"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,612da238fbeb03191d349ddc72093946",
+                    "versions.yml:md5,612da238fbeb03191d349ddc72093946",
+                    "versions.yml:md5,91d4e73ea846dae7e805279e47204dc7",
+                    "versions.yml:md5,c6205eb04d4402dba8e9c3c5fb9099b1",
+                    "versions.yml:md5,e50e1883b0220a195e1c520411dcbc63"
+                ],
+                "gff": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters.gff:md5,feefecff8e2623c3bd79cd7bf7535b51"
+                    ]
+                ],
+                "tsv": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters.tsv:md5,be446ce68f96867b68c47c64ce3bb52f"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,612da238fbeb03191d349ddc72093946",
+                    "versions.yml:md5,612da238fbeb03191d349ddc72093946",
+                    "versions.yml:md5,91d4e73ea846dae7e805279e47204dc7",
+                    "versions.yml:md5,c6205eb04d4402dba8e9c3c5fb9099b1",
+                    "versions.yml:md5,e50e1883b0220a195e1c520411dcbc63"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T10:20:36.167751574"
+    }
+}
