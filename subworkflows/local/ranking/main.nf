@@ -1,9 +1,9 @@
-include { TF_TG_SCORE                                 } from '../../modules/local/ranking/tf_tg_score'
-include { RANKING as CREATE_RANKING                   } from '../../modules/local/ranking/ranking'
-include { COMBINE_TABLES as COMBINE_TFS_PER_ASSAY     } from '../../modules/local/combine_tables/main'
-include { COMBINE_TABLES as COMBINE_TFS_ACROSS_ASSAYS } from '../../modules/local/combine_tables/main'
-include { COMBINE_TABLES as COMBINE_TGS_PER_ASSAY     } from '../../modules/local/combine_tables/main'
-include { COMBINE_TABLES as COMBINE_TGS_ACROSS_ASSAYS } from '../../modules/local/combine_tables/main'
+include { TF_TG_SCORE                                 } from '../../../modules/local/ranking/tf_tg_score'
+include { RANKING as CREATE_RANKING                   } from '../../../modules/local/ranking/ranking'
+include { COMBINE_TABLES as COMBINE_TFS_PER_ASSAY     } from '../../../modules/local/combine_tables/main'
+include { COMBINE_TABLES as COMBINE_TFS_ACROSS_ASSAYS } from '../../../modules/local/combine_tables/main'
+include { COMBINE_TABLES as COMBINE_TGS_PER_ASSAY     } from '../../../modules/local/combine_tables/main'
+include { COMBINE_TABLES as COMBINE_TGS_ACROSS_ASSAYS } from '../../../modules/local/combine_tables/main'
 
 workflow RANKING {
     take:
