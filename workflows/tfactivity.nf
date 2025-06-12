@@ -180,7 +180,7 @@ workflow TFACTIVITY {
     //
     softwareVersionsToYAML(ch_versions).collectFile(
         storeDir: "${params.outdir}/pipeline_info",
-        name: 'nf_core_' + 'tfactivity_software_' + 'versions.yml',
+        name: 'nf_core_tfactivity_software_versions.yml',
         sort: true,
         newLine: true,
     )
