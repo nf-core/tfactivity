@@ -1,22 +1,29 @@
 process RANKING {
-    tag "$meta.id"
+    tag "${meta.id}"
     label "process_single"
 
-    conda "bioconda::mulled-v2-cd5249a47f81a81b2e7785172c240f12497f55b4==c5c6cff7c28d3260400f938602ee600b1acf0323-0"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-cd5249a47f81a81b2e7785172c240f12497f55b4:c5c6cff7c28d3260400f938602ee600b1acf0323-0':
-        'biocontainers/mulled-v2-cd5249a47f81a81b2e7785172c240f12497f55b4:c5c6cff7c28d3260400f938602ee600b1acf0323-0' }"
+    conda "environment.yml"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/c8/c83ba0cd55bda8f49bfb910a65ceb6d9e2db4c04b2383b87b0d174df27703803/data'
+        : 'community.wave.seqera.io/library/pandas_pyyaml_scipy:e3309ad753191b1b'}"
 
     input:
     tuple val(meta), path(tf_tg_score)
-    val(alpha)
+    val alpha
 
     output:
     tuple val(meta), path("*.tf_ranking.tsv"), emit: tfs
     tuple val(meta), path("*.tg_ranking.tsv"), emit: tgs
 
-    path  "versions.yml"                     , emit: versions
+    path "versions.yml", emit: versions
 
     script:
-    template "ranking.py"
+    template("ranking.py")
+
+    stub:
+    """
+    touch ${meta.id}.tf_ranking.tsv
+    touch ${meta.id}.tg_ranking.tsv
+    touch versions.yml
+    """
 }
