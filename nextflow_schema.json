@@ -117,68 +117,6 @@
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Method to aggregate affinity values. The default value is `max`."
                 },
-                "chromhmm_states": {
-                    "type": "integer",
-                    "default": 10,
-                    "description": "Number of ChromHMM states.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Number of ChromHMM states. The default value is 10."
-                },
-                "chromhmm_threshold": {
-                    "type": "number",
-                    "default": 0.75,
-                    "description": "Threshold for ChromHMM enhancer detection.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Threshold for ChromHMM enhancer detection. The default value is 0.9."
-                },
-                "chromhmm_enhancer_marks": {
-                    "type": "string",
-                    "default": "H3K27ac,H3K4me1",
-                    "description": "Comma-separated ChromHMM enhancer marks.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "ChromHMM enhancer marks. The default value is `H3K27ac`."
-                },
-                "chromhmm_promoter_marks": {
-                    "type": "string",
-                    "default": "H3K4me3",
-                    "description": "Comma-separated ChromHMM promoter marks.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "ChromHMM promoter marks. The default value is `H3K4me3`."
-                },
-                "rose_tss_window": {
-                    "type": "integer",
-                    "default": 2500,
-                    "description": "TSS window in base pairs",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "ROSE window size around transcription start sites"
-                },
-                "rose_stitching_window": {
-                    "type": "integer",
-                    "default": 12500,
-                    "description": "Stichting window in base pairs",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "ROSE window size for stitching two regions together"
-                },
-                "skip_chromhmm": {
-                    "type": "boolean",
-                    "description": "Skip chromhmm. This also skips rose automatically since rose requires chromhmm input.",
-                    "fa_icon": "fas fa-fast-forward"
-                },
-                "skip_rose": {
-                    "type": "boolean",
-                    "description": "Skip rose.",
-                    "fa_icon": "fas fa-fast-forward"
-                },
-                "skip_fimo": {
-                    "type": "boolean",
-                    "description": "Skip fimo. This also skips sneep automatically since sneep requires fimo input.",
-                    "fa_icon": "fas fa-fast-forward"
-                },
-                "skip_sneep": {
-                    "type": "boolean",
-                    "description": "Skip sneep.",
-                    "fa_icon": "fas fa-fast-forward"
-                },
                 "min_count": {
                     "type": "integer",
                     "default": 50,
@@ -207,6 +145,71 @@
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Minimum TPM to keep a transcription factor in the analysis. The default value is 1."
                 },
+                "alpha": {
+                    "type": "number",
+                    "default": 0.05,
+                    "description": "Alpha value for the Mann-Whitney U test.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Alpha value for the Mann-Whitney U test. The default value is 0.05."
+                }
+            }
+        },
+        "rose_options": {
+            "title": "ROSE options",
+            "type": "object",
+            "fa_icon": "fas fa-seedling",
+            "description": "Options for ROSE (Rank Ordering of Super-Enhancers) analysis.",
+            "properties": {
+                "rose_tss_window": {
+                    "type": "integer",
+                    "default": 2500,
+                    "description": "TSS window in base pairs",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ROSE window size around transcription start sites"
+                },
+                "rose_stitching_window": {
+                    "type": "integer",
+                    "default": 12500,
+                    "description": "Stichting window in base pairs",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ROSE window size for stitching two regions together"
+                }
+            }
+        },
+        "optional_steps": {
+            "title": "Optional steps",
+            "type": "object",
+            "fa_icon": "fas fa-toggle-on",
+            "description": "Options to skip specific pipeline steps.",
+            "properties": {
+                "skip_chromhmm": {
+                    "type": "boolean",
+                    "description": "Skip chromhmm. This also skips rose automatically since rose requires chromhmm input.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_rose": {
+                    "type": "boolean",
+                    "description": "Skip rose.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_fimo": {
+                    "type": "boolean",
+                    "description": "Skip fimo. This also skips sneep automatically since sneep requires fimo input.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_sneep": {
+                    "type": "boolean",
+                    "description": "Skip sneep.",
+                    "fa_icon": "fas fa-fast-forward"
+                }
+            }
+        },
+        "dynamite_options": {
+            "title": "DYNAMITE options",
+            "type": "object",
+            "fa_icon": "fas fa-fire",
+            "description": "Options for DYNAMITE analysis.",
+            "properties": {
                 "dynamite_ofolds": {
                     "type": "integer",
                     "default": 3,
@@ -241,13 +244,42 @@
                     "description": "Minimum regression value for dynamite.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Minimum regression value for dynamite. The default value is 0.1."
-                },
-                "alpha": {
-                    "type": "number",
-                    "default": 0.05,
-                    "description": "Alpha value for the Mann-Whitney U test.",
+                }
+            }
+        },
+        "chromhmm_options": {
+            "title": "ChromHMM options",
+            "type": "object",
+            "fa_icon": "fas fa-chart-bar",
+            "description": "Options for ChromHMM analysis.",
+            "properties": {
+                "chromhmm_states": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of ChromHMM states.",
                     "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Alpha value for the Mann-Whitney U test. The default value is 0.05."
+                    "help_text": "Number of ChromHMM states. The default value is 10."
+                },
+                "chromhmm_threshold": {
+                    "type": "number",
+                    "default": 0.75,
+                    "description": "Threshold for ChromHMM enhancer detection.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Threshold for ChromHMM enhancer detection. The default value is 0.9."
+                },
+                "chromhmm_enhancer_marks": {
+                    "type": "string",
+                    "default": "H3K27ac,H3K4me1",
+                    "description": "Comma-separated ChromHMM enhancer marks.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ChromHMM enhancer marks. The default value is `H3K27ac`."
+                },
+                "chromhmm_promoter_marks": {
+                    "type": "string",
+                    "default": "H3K4me3",
+                    "description": "Comma-separated ChromHMM promoter marks.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ChromHMM promoter marks. The default value is `H3K4me3`."
                 }
             }
         },
@@ -462,6 +494,18 @@
         },
         {
             "$ref": "#/$defs/pipeline_options"
+        },
+        {
+            "$ref": "#/$defs/rose_options"
+        },
+        {
+            "$ref": "#/$defs/optional_steps"
+        },
+        {
+            "$ref": "#/$defs/dynamite_options"
+        },
+        {
+            "$ref": "#/$defs/chromhmm_options"
         },
         {
             "$ref": "#/$defs/reference_genome_options"
