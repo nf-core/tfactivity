@@ -9,6 +9,10 @@ ggplotAvailable<-require("ggplot2")
 gplotsAvailable<-require("gplots")
 fontSize=.9
 
+# Set global random seed for reproducibility
+RNGkind("L'Ecuyer-CMRG")  # For reproducible parallel processing
+set.seed(42)  # Fixed seed for reproducibility
+
 if(length(args) < 1) {
     args <- c("--help")
 }
@@ -27,6 +31,7 @@ if("--help" %in% args) {
         --balanced= Flag indicating whether the data should be balanced through downsampling (default TRUE)
         --performance= Flag indicating whether performance measures should be computed (default TRUE)
         --randomise= Flag indicating whether a model should be learned on randomised data (default FALSE)
+        --seed= Random seed for reproducible results (default 42)
 ")
     q(save="no")
 }
@@ -88,12 +93,22 @@ if (is.null(argsL$randomise)){
 argsL$randomise <- FALSE
 }
 
+# Set custom seed if provided
+if (!is.null(argsL$seed)){
+    set.seed(as.numeric(argsL$seed))
+} else {
+    set.seed(42)  # Default seed
+}
+
 #Creating output directory if necessary
 dir.create(argsL$outDir,showWarning=FALSE,recursive=TRUE)
 
 permute<-function(x){
-s<-sample(length(x))
-x[s]
+    # Use a new seed derived from the global seed for this permutation
+    # but in a deterministic way
+    set.seed(42 + length(x))
+    s<-sample(length(x))
+    x[s]
 }
 
 #Loading required packages and initialising index variables
@@ -157,6 +172,8 @@ for(Sample in FileList){
     M[,-Response_Variable_location]<-log2(M[,-Response_Variable_location]+1)
     M[,-Response_Variable_location]<-scale(M[,-Response_Variable_location],center=TRUE, scale=TRUE)
     if (argsL$randomise == TRUE){
+        # Ensure reproducible permutation
+        set.seed(42 + i)
         MP<-apply(M[,-Response_Variable_location],2,permute)
         M<-cbind(data.frame(scale(MP,center=TRUE, scale=TRUE)),M[,Response_Variable_location])
         colnames(M)<-FeatureName
@@ -173,6 +190,8 @@ for(Sample in FileList){
         }
         mSize=min(sapply(subM,dim)[1,])
         for (l in 1:length(subM)){
+            # Ensure reproducible sampling
+            set.seed(42 + l + i*100)
             rndselect=sample(x=nrow(subM[[l]]),size=mSize)
             subM[[l]]=subM[[l]][rndselect,]
             bM<-rbind(bM,subM[[l]])
@@ -189,6 +208,8 @@ for(Sample in FileList){
                 Test_Data<-c()
                 Train_Data<-c()
                 for (j in 1:length(subM)){
+                    # Ensure reproducible sampling
+                    set.seed(42 + j + k*10 + i*1000)
                     # Test on a single example if dataset size is too small
                     # Modified for nf-core/tfactivity; not part of the original DYNAMITE script
                     rndselect=sample(x=nrow(subM[[j]]), size=ifelse(mSize/test_size < 1, 1, mSize/test_size))
@@ -196,6 +217,8 @@ for(Sample in FileList){
                     Train_Data<-rbind(Train_Data,subM[[j]][-rndselect,])
                 }
             }else{
+                # Ensure reproducible sampling
+                set.seed(42 + k + i*1000)
                 # Test on a single example if dataset size is too small
                 # Modified for nf-core/tfactivity; not part of the original DYNAMITE script
                 rndselect=sample(x=nrow(M),size=ifelse(as.numeric(argsL$testsize)*nrow(M) < 1, 1, as.numeric(argsL$testsize)*nrow(M)))

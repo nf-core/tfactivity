@@ -1,6 +1,6 @@
-include { PREPROCESS               } from '../../modules/local/dynamite/preprocess'
-include { DYNAMITE as RUN_DYNAMITE } from '../../modules/local/dynamite/dynamite'
-include { GAWK as FILTER           } from '../../modules/nf-core/gawk/main'
+include { DYNAMITE_PREPROCESS as PREPROCESS } from '../../../modules/local/dynamite/preprocess'
+include { DYNAMITE_DYNAMITE as RUN_DYNAMITE } from '../../../modules/local/dynamite/dynamite'
+include { GAWK as FILTER                    } from '../../../modules/nf-core/gawk/main'
 
 workflow DYNAMITE {
     take:
@@ -30,15 +30,12 @@ workflow DYNAMITE {
         }
 
     PREPROCESS(ch_combined)
+    ch_versions = ch_versions.mix(PREPROCESS.out.versions)
 
     RUN_DYNAMITE(PREPROCESS.out.output, ofolds, ifolds, alpha, randomize)
 
     FILTER(RUN_DYNAMITE.out, [])
-
-    ch_versions = ch_versions.mix(
-        PREPROCESS.out.versions,
-        FILTER.out.versions,
-    )
+    ch_versions = ch_versions.mix(FILTER.out.versions)
 
     emit:
     regression_coefficients = FILTER.out.output

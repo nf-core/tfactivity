@@ -1,4 +1,4 @@
-process PREPROCESS {
+process DYNAMITE_PREPROCESS {
     tag "${meta.id}"
     label "process_single"
 
