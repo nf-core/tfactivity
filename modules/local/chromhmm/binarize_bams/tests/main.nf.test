@@ -131,7 +131,6 @@ nextflow_process {
                 
                 ch_files = ch_samplesheet.map{ _meta, signal, control -> [signal, control]}.flatten()
                     .filter { f -> f != null }
-                    .unique().collect()
 
                 ch_table = ch_samplesheet
                     .map { meta, signal, control -> [meta.condition, meta.assay, signal.name, control ? control.name : ''] }

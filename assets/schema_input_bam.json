@@ -35,11 +35,12 @@
             "control": {
                 "type": "string",
                 "format": "file-path",
+                "default": null,
                 "exists": true,
                 "pattern": "^\\S+\\.(bam)$",
                 "errorMessage": "Control file must be provided and must be a .bam file"
             }
         },
-        "required": ["sample", "condition", "assay", "signal", "control"]
+        "required": ["sample", "condition", "assay", "signal"]
     }
 }

@@ -16,10 +16,10 @@ workflow CHROMHMM {
 
     ch_versions = Channel.empty()
 
-    ch_files = ch_samplesheet_bam.map{ _meta, signal, control -> [signal, control]}.flatten()
+    ch_files = ch_samplesheet_bam.map{ _meta, signal, control -> [signal, control]}.flatten().filter { f -> f != null }
 
     ch_table = ch_samplesheet_bam
-        .map { meta, signal, control -> [meta.condition, meta.assay, signal.name, control.name] }
+        .map { meta, signal, control -> [meta.condition, meta.assay, signal.name, control ? control.name : ''] }
         .collectFile {
             ["cellmarkfiletable.tsv", it.join("\t") + "\n"]
         }
