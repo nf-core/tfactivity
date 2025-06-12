@@ -13,8 +13,9 @@
                     ]
                 ],
                 "1": [
+                    "versions.yml:md5,5ec6593ae744d4101bbdd51c370e0bb7",
                     "versions.yml:md5,7326a836a75d741d24554cc0e859bcea",
-                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "versions.yml:md5,b2e3aa92455f23be6266863f6ad5a3f6"
                 ],
                 "regression_coefficients": [
                     [
@@ -27,8 +28,9 @@
                     ]
                 ],
                 "versions": [
+                    "versions.yml:md5,5ec6593ae744d4101bbdd51c370e0bb7",
                     "versions.yml:md5,7326a836a75d741d24554cc0e859bcea",
-                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "versions.yml:md5,b2e3aa92455f23be6266863f6ad5a3f6"
                 ]
             }
         ],
@@ -36,7 +38,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.2"
         },
-        "timestamp": "2025-06-12T08:34:24.879023603"
+        "timestamp": "2025-06-12T13:40:52.189087839"
     },
     "Should run without failures": {
         "content": [
@@ -53,6 +55,7 @@
                 ],
                 "1": [
                     "versions.yml:md5,7326a836a75d741d24554cc0e859bcea",
+                    "versions.yml:md5,b2e3aa92455f23be6266863f6ad5a3f6",
                     "versions.yml:md5,fcafb3483f13789b7b87728707190092"
                 ],
                 "regression_coefficients": [
@@ -67,6 +70,7 @@
                 ],
                 "versions": [
                     "versions.yml:md5,7326a836a75d741d24554cc0e859bcea",
+                    "versions.yml:md5,b2e3aa92455f23be6266863f6ad5a3f6",
                     "versions.yml:md5,fcafb3483f13789b7b87728707190092"
                 ]
             }
@@ -75,6 +79,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.2"
         },
-        "timestamp": "2025-06-12T08:34:10.30115679"
+        "timestamp": "2025-06-12T13:40:36.224671743"
     }
 }

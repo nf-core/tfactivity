@@ -33,8 +33,9 @@ workflow DYNAMITE {
     ch_versions = ch_versions.mix(PREPROCESS.out.versions)
 
     RUN_DYNAMITE(PREPROCESS.out.output, ofolds, ifolds, alpha, randomize)
+    ch_versions = ch_versions.mix(RUN_DYNAMITE.out.versions)
 
-    FILTER(RUN_DYNAMITE.out, [])
+    FILTER(RUN_DYNAMITE.out.regression_coefficients, [])
     ch_versions = ch_versions.mix(FILTER.out.versions)
 
     emit:

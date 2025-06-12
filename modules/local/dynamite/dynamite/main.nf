@@ -15,7 +15,7 @@ process DYNAMITE_DYNAMITE {
     val(randomize)
 
     output:
-    tuple val(meta), path("${meta.id}_dynamite/Regression_Coefficients_Entire_Data_Set_classification.txt")
+    tuple val(meta), path("${meta.id}_dynamite/Regression_Coefficients_Entire_Data_Set_classification.txt"), emit: regression_coefficients
     path "versions.yml", emit: versions
 
     script:
