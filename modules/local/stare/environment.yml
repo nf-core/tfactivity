@@ -1,5 +1,5 @@
 channels:
-- conda-forge
-- bioconda
+  - conda-forge
+  - bioconda
 dependencies:
-- bioconda::stare-abc=1.0.5
+  - bioconda::stare-abc=1.0.5
