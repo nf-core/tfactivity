@@ -146,6 +146,10 @@ workflow PIPELINE_COMPLETION {
 def validateInputParameters() {
     genomeExistsError()
 
+    if (!params.input && !params.input_bam) {
+        error "Please provide either a input file (--input) or a input_bam file (--input_bam)"
+    }
+
     if (!params.motifs && !params.taxon_id) {
         error "Please provide either a motifs file (--motifs) or a taxon ID (--taxon_id)"
     }
