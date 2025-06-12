@@ -40,6 +40,10 @@ process BEDTOOLS_COMPLEMENT {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch ${prefix}.bed
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        bedtools: \$(bedtools --version | sed -e "s/bedtools v//g")
+    END_VERSIONS
     """
 }
