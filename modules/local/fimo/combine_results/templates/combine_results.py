@@ -1,33 +1,35 @@
 #!/usr/bin/env python3
 
 import platform
+import pandas as pd
 import yaml
 
 output_tsv = "${meta.id}.tsv"
 output_gff = "${meta.id}.gff"
 
-with open(output_gff, 'w') as gff_out:
-    for gff_path in "${gffs}".split():
-        with open(gff_path, "r") as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith('#'):
-                    gff_out.write(line + "\\n")
+gff_dfs = []
+for gff_path in "${gffs}".split():
+    df_gff = pd.read_csv(gff_path, sep='\\t', comment='#', header=None, dtype=str)
+    gff_dfs.append(df_gff)
 
-with open(output_tsv, 'w') as tsv_out:
-    tsv_out.write('motif_id\\tmotif_alt_id\\tsequence_name\\tstart\\tstop\\tstrand\\tscore\\tp-value\\tq-value\\tmatched_sequence\\n')
+df_gff = pd.concat(gff_dfs, ignore_index=True)
+df_gff = df_gff.sort_values(by=[1, 4, 5])
+df_gff.to_csv(output_gff, sep='\\t', index=False, header=False)
 
-    for tsv_path in "${tsvs}".split():
-        with open(tsv_path, "r") as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith('#') and not line.startswith('motif_id'):
-                    tsv_out.write(line + "\\n")
+tsv_dfs = []
+for tsv_path in "${tsvs}".split():
+    df_tsv = pd.read_csv(tsv_path, sep='\\t', comment='#', dtype=str)
+    tsv_dfs.append(df_tsv)
+
+df_tsv = pd.concat(tsv_dfs, ignore_index=True)
+df_tsv = df_tsv.sort_values(by=["motif_id", "sequence_name", "start", "stop"])
+df_tsv.to_csv(output_tsv, sep='\\t', index=False, header=True)
 
 # Create version file
 versions = {
     "${task.process}" : {
-        "python": platform.python_version()
+        "python": platform.python_version(),
+        "pandas": pd.__version__
     }
 }
 
