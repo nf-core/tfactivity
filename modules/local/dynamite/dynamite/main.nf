@@ -16,6 +16,7 @@ process DYNAMITE_DYNAMITE {
 
     output:
     tuple val(meta), path("${meta.id}_dynamite/Regression_Coefficients_Entire_Data_Set_classification.txt")
+    path "versions.yml", emit: versions
 
     script:
     """
@@ -29,11 +30,21 @@ process DYNAMITE_DYNAMITE {
         --performance=TRUE \\
         --randomise=$randomize \\
         --cores=$task.cpus
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        DYNAMITE: 1.0
+    END_VERSIONS
     """
 
     stub:
     """
     mkdir -p ${meta.id}_dynamite
     touch ${meta.id}_dynamite/Regression_Coefficients_Entire_Data_Set_classification.txt
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        DYNAMITE: 1.0
+    END_VERSIONS
     """
 }

@@ -24,6 +24,12 @@ process RANKING {
     """
     touch ${meta.id}.tf_ranking.tsv
     touch ${meta.id}.tg_ranking.tsv
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        pandas: \$(python3 -c "import pandas; print(pandas.__version__)")
+        scipy: \$(python3 -c "import scipy; print(scipy.__version__)")
+    END_VERSIONS
     """
 }

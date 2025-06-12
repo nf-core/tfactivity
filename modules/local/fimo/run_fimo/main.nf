@@ -38,6 +38,10 @@ process RUN_FIMO {
     touch fimo_out/fimo.html
     touch fimo_out/fimo.tsv
     touch fimo_out/fimo.xml
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        fimo: \$( fimo -version )
+    END_VERSIONS
     """
 }

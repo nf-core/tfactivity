@@ -36,6 +36,10 @@ process BINARIZE_BAMS {
     mkdir -p output
     touch output/condition_1_binary.txt
     touch output/condition_2_binary.txt
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        chromhmm: \$(ChromHMM.sh Version | cut -f4 -d" ")
+    END_VERSIONS
     """
 }

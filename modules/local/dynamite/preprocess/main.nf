@@ -20,6 +20,11 @@ process DYNAMITE_PREPROCESS {
     stub:
     """
     touch ${meta.id}.preprocessed.tsv
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        pandas: \$(python3 -c "import pandas; print(pandas.__version__)")
+    END_VERSIONS
     """
 }

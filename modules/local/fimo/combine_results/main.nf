@@ -22,6 +22,11 @@ process COMBINE_RESULTS {
     """
     touch ${meta.id}.tsv
     touch ${meta.id}.gff
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        pandas: \$(python3 -c "import pandas; print(pandas.__version__)")
+    END_VERSIONS
     """
 }

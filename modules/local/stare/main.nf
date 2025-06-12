@@ -35,6 +35,10 @@ process STARE {
     """
     mkdir -p ${meta.id}/Gene_TF_matrices
     touch ${meta.id}/Gene_TF_matrices/${meta.id}_TF_Gene_Affinities.txt
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        STARE: \$( STARE.sh --version )
+    END_VERSIONS
     """
 }

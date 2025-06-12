@@ -24,6 +24,11 @@ process FILTER_MOTIFS {
     touch motifs/MA0778.1.meme
     touch motifs/MA0938.3.meme
     touch motifs/MA1272.1.meme
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        pandas: \$(python3 -c "import pandas; print(pandas.__version__)")
+    END_VERSIONS
     """
 }

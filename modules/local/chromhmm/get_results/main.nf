@@ -24,6 +24,12 @@ process GET_RESULTS {
     output_file = "${meta.id}.bed"
     """
     touch ${output_file}
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        pandas: \$(python3 -c "import pandas; print(pandas.__version__)")
+        numpy: \$(python3 -c "import numpy; print(numpy.__version__)")
+    END_VERSIONS
     """
 }

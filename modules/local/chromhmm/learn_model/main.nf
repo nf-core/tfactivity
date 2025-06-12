@@ -43,6 +43,9 @@ process LEARN_MODEL {
     touch output/condition2_${states}_dense.bed
     touch output/emissions_${states}.txt
 
-    touch versions.yml
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        chromhmm: \$(ChromHMM.sh Version | cut -f4 -d" ")
+    END_VERSIONS
     """
 }

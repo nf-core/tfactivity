@@ -23,6 +23,11 @@ process FILTER_MOTIFS {
     out_file = "${meta.id}.filtered.RDS"
     """
     touch ${out_file}
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        r-base: \$(R --version | grep 'R version' | cut -d' ' -f3)
+        bioconductor-universalmotif: \$(Rscript -e "library(universalmotif); packageVersion('universalmotif')")
+    END_VERSIONS
     """
 }

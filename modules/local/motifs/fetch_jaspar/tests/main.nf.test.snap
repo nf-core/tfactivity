@@ -6,21 +6,21 @@
                     "motifs.jaspar:md5,d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 "1": [
-                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "versions.yml:md5,777d73159ed13fde52215af64b1a2711"
                 ],
                 "motifs": [
                     "motifs.jaspar:md5,d41d8cd98f00b204e9800998ecf8427e"
                 ],
                 "versions": [
-                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    "versions.yml:md5,777d73159ed13fde52215af64b1a2711"
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.2"
         },
-        "timestamp": "2025-06-11T14:50:47.265719022"
+        "timestamp": "2025-06-12T13:22:12.824689876"
     },
     "Should run without failures": {
         "content": [

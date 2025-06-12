@@ -20,6 +20,11 @@ process FETCH_JASPAR {
     stub:
     """
     touch motifs.jaspar
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        pyjaspar: \$(python3 -c "import pyjaspar; print(pyjaspar.__version__)")
+    END_VERSIONS
     """
 }

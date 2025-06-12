@@ -20,6 +20,11 @@ process TRANSFAC_TO_PSEM {
     stub:
     """
     touch ${meta.id}.psem
-    touch versions.yml
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        numpy: \$(python3 -c "import numpy; print(numpy.__version__)")
+    END_VERSIONS
     """
 }
