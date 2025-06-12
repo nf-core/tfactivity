@@ -9,8 +9,11 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = Channel.value(file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true))
-                input[1] = Channel.from('RUNX1', 'TFAP2A', 'Arnt').collectFile(newLine: true).map { file -> [[id: 'test'], file] }
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true)
+                input[1] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
+                ]
                 input[2] = null
                 """
             }
@@ -30,8 +33,11 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = Channel.value(file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true))
-                input[1] = Channel.from('RUNX1', 'TFAP2A', 'Arnt').collectFile(newLine: true).map { file -> [[id: 'test'], file] }
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true)
+                input[1] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
+                ]
                 input[2] = null
                 """
             }
@@ -49,8 +55,11 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = Channel.empty()
-                input[1] = Channel.from('RUNX1', 'TFAP2A', 'Arnt').collectFile(newLine: true).map { file -> [[id: 'test'], file] }
+                input[0] = null
+                input[1] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
+                ]
                 input[2] = '9606'
                 """
             }
@@ -70,8 +79,11 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = Channel.empty()
-                input[1] = Channel.from('RUNX1', 'TFAP2A', 'Arnt').collectFile(newLine: true).map { file -> [[id: 'test'], file] }
+                input[0] = null
+                input[1] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
+                ]
                 input[2] = '9606'
                 """
             }
