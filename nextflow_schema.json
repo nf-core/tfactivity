@@ -200,6 +200,32 @@
                 }
             }
         },
+        "sneep_options": {
+            "title": "SNEEP options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for SNEEP (SNP Effect on Expression Prediction) analysis.",
+            "properties": {
+                "sneep_scale_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to SNEEP scale file.",
+                    "fa_icon": "fas fa-file-alt",
+                    "help_text": "Path to the scale file used by SNEEP for SNP effect prediction."
+                },
+                "sneep_motif_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to SNEEP motif file.",
+                    "fa_icon": "fas fa-file-alt",
+                    "help_text": "Path to the motif file used by SNEEP for SNP effect prediction."
+                }
+            }
+        },
         "optional_steps": {
             "title": "Optional steps",
             "type": "object",
@@ -530,6 +556,9 @@
         },
         {
             "$ref": "#/$defs/rose_options"
+        },
+        {
+            "$ref": "#/$defs/sneep_options"
         },
         {
             "$ref": "#/$defs/optional_steps"
