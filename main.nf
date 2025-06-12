@@ -55,11 +55,14 @@ workflow NFCORE_TFACTIVITY {
 
     fasta = file(params.fasta, checkIfExists: true)
     gtf = file(params.gtf, checkIfExists: true)
-    ch_blacklist = params.blacklist ? Channel.value(file(params.blacklist, checkIfExists: true)) : Channel.value([])
-    ch_motifs = params.motifs ? Channel.value(file(params.motifs, checkIfExists: true)) : Channel.empty()
+
+    ch_blacklist = params.blacklist ? file(params.blacklist, checkIfExists: true) : []
+    ch_motifs = params.motifs ? file(params.motifs, checkIfExists: true) : null
     ch_counts = Channel.value(file(params.counts, checkIfExists: true))
-    taxon_id = !params.motifs && params.taxon_id ? params.taxon_id : null
-    ch_snps = params.snps ? Channel.value(file(params.snps, checkIfExists: true)) : Channel.empty()
+
+    snps = params.snps ? file(params.snps, checkIfExists: true) : null
+    sneep_scale_file = params.sneep_scale_file ? file(params.sneep_scale_file, checkIfExists: true) : null
+    sneep_motif_file = params.sneep_motif_file ? file(params.sneep_motif_file, checkIfExists: true) : null
 
     //
     // SUBWORKFLOW: Prepare genome
@@ -78,13 +81,13 @@ workflow NFCORE_TFACTIVITY {
     //
     TFACTIVITY(
         samplesheet,
-        params.sneep_scale_file,
-        params.sneep_motif_file,
+        sneep_scale_file,
+        sneep_motif_file,
         PREPARE_GENOME.out.fasta,
         PREPARE_GENOME.out.gtf,
         ch_blacklist,
         ch_motifs,
-        taxon_id,
+        params.taxon_id,
         PREPARE_GENOME.out.gene_lengths,
         PREPARE_GENOME.out.gene_map,
         PREPARE_GENOME.out.chrom_sizes,
@@ -110,7 +113,7 @@ workflow NFCORE_TFACTIVITY {
         params.dynamite_alpha,
         params.dynamite_randomize,
         params.alpha,
-        ch_snps,
+        snps,
         ch_versions,
     )
 }

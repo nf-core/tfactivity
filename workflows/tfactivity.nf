@@ -33,7 +33,7 @@ workflow TFACTIVITY {
     fasta
     gtf
     blacklist
-    ch_motifs
+    motifs
     taxon_id
     gene_lengths
     gene_map
@@ -93,7 +93,7 @@ workflow TFACTIVITY {
     ch_versions = ch_versions.mix(COUNTS.out.versions)
 
     MOTIFS(
-        ch_motifs,
+        motifs,
         COUNTS.out.tfs,
         taxon_id,
     )

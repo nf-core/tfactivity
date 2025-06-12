@@ -7,28 +7,34 @@ include { TRANSFAC_TO_PSEM                       } from '../../../modules/local/
 
 workflow MOTIFS {
     take:
-    ch_input_motifs
+    motifs
     ch_tfs
     taxon_id
 
     main:
     ch_versions = Channel.empty()
 
-    if (taxon_id) {
-        FETCH_JASPAR(taxon_id)
-        ch_versions = ch_versions.mix(FETCH_JASPAR.out.versions)
-        ch_motifs = FETCH_JASPAR.out.motifs
-    } else {
-        ch_motifs = ch_input_motifs
+    if (motifs) {
+        ch_motifs = Channel.value(motifs)
+    }
+    else {
+        if (taxon_id) {
+            FETCH_JASPAR(taxon_id)
+            ch_versions = ch_versions.mix(FETCH_JASPAR.out.versions)
+            ch_motifs = FETCH_JASPAR.out.motifs
+        }
+        else {
+            error("Please provide a motifs file (--motifs) or a taxon ID (--taxon_id)")
+        }
     }
 
     CONVERT_TO_UNIVERSAL(
-        ch_motifs.map { motifs -> [[id: 'motifs'], motifs, motifs.extension] },
+        ch_motifs.map { m -> [[id: 'motifs'], m, m.extension] },
         "universal",
     )
     ch_versions = ch_versions.mix(CONVERT_TO_UNIVERSAL.out.versions)
 
-    ch_filtered = FILTER_MOTIFS(CONVERT_TO_UNIVERSAL.out.converted, ch_tfs).filtered.map { meta, motifs -> [meta, motifs, "universal"] }
+    ch_filtered = FILTER_MOTIFS(CONVERT_TO_UNIVERSAL.out.converted, ch_tfs).filtered.map { meta, m -> [meta, m, "universal"] }
     ch_versions = ch_versions.mix(FILTER_MOTIFS.out.versions)
 
     CONVERT_TO_MEME(ch_filtered, "meme")

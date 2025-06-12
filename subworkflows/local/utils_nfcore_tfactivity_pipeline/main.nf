@@ -145,10 +145,6 @@ workflow PIPELINE_COMPLETION {
 //
 def validateInputParameters() {
     genomeExistsError()
-
-    if (!params.motifs && !params.taxon_id) {
-        error "Please provide either a motifs file (--motifs) or a taxon ID (--taxon_id)"
-    }
 }
 
 //
