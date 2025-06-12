@@ -36,7 +36,7 @@ nextflow_process {
                             file(row.control, checkIfExists: true)
                         ]
                     }
-                
+
                 ch_files = ch_samplesheet.map{ _meta, signal, control -> [signal, control]}.flatten().unique().collect()
 
                 ch_table = ch_samplesheet
@@ -83,7 +83,7 @@ nextflow_process {
                             file(row.control, checkIfExists: true)
                         ]
                     }
-                
+
                 ch_files = ch_samplesheet.map{ _meta, signal, control -> [signal, control]}.flatten().unique().collect()
 
                 ch_table = ch_samplesheet
@@ -128,7 +128,7 @@ nextflow_process {
                             null
                         ]
                     }
-                
+
                 ch_files = ch_samplesheet.map{ _meta, signal, control -> [signal, control]}.flatten()
                     .filter { f -> f != null }
 

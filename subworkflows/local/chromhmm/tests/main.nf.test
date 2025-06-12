@@ -36,7 +36,7 @@ nextflow_workflow {
                             file(row.control, checkIfExists: true)
                         ]
                     }
-                
+
                 input[0] = ch_samplesheet
                 input[1] = PREPARE_GENOME.out.chrom_sizes
                 input[2] = 4
@@ -75,7 +75,7 @@ nextflow_workflow {
                             file(row.control, checkIfExists: true)
                         ]
                     }
-                
+
                 input[0] = ch_samplesheet
                 input[1] = PREPARE_GENOME.out.chrom_sizes
                 input[2] = 4
@@ -113,7 +113,7 @@ nextflow_workflow {
                             null
                         ]
                     }
-                
+
                 input[0] = ch_samplesheet
                 input[1] = PREPARE_GENOME.out.chrom_sizes
                 input[2] = 4

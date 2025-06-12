@@ -36,9 +36,9 @@ process LEARN_MODEL {
     stub:
     """
     mkdir -p output
-    
+
     # Create files for each state
-    
+
     touch output/condition1_${states}_dense.bed
     touch output/condition2_${states}_dense.bed
     touch output/emissions_${states}.txt
