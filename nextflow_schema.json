@@ -70,52 +70,18 @@
                 }
             }
         },
-        "pipeline_options": {
-            "title": "Pipeline options",
+        "expression_options": {
+            "title": "Expression options",
             "type": "object",
             "fa_icon": "fas fa-cogs",
-            "description": "Options for the pipeline itself.",
+            "description": "Options for gene expression analysis.",
             "properties": {
-                "merge_samples": {
-                    "type": "boolean",
-                    "description": "Merge samples with the same condition and assay.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "If you have multiple samples with the same condition and assay, you can set this parameter to `true` to merge them into a single sample. This is useful if you have technical replicates and want to combine them into a single sample for analysis."
-                },
-                "min_peak_occurrence": {
-                    "type": "integer",
-                    "default": 1,
-                    "description": "Minimum number of samples that a peak has to occur in to keep it while merging.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "If you have multiple samples with the same condition and assay and use the `--merge_samples` parameter, you can set this parameter to the minimum number of samples that a peak has to occur in to keep it while merging."
-                },
-                "window_size": {
-                    "type": "integer",
-                    "default": 50000,
-                    "description": "Size of the window to search for binding sites.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Size of the window to search for binding sites. The default value is 50000."
-                },
-                "decay": {
-                    "type": "boolean",
-                    "default": "true",
-                    "description": "Use decay in STARE",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Use decay in STARE. The default value is `true`."
-                },
                 "expression_aggregation": {
                     "type": "string",
                     "default": "mean",
                     "description": "Method to aggregate expression values.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Method to aggregate expression values. The default value is `mean`."
-                },
-                "affinity_aggregation": {
-                    "type": "string",
-                    "default": "max",
-                    "description": "Method to aggregate affinity values.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Method to aggregate affinity values. The default value is `max`."
                 },
                 "min_count": {
                     "type": "integer",
@@ -144,13 +110,71 @@
                     "description": "Minimum TPM to keep a transcription factor in the analysis.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Minimum TPM to keep a transcription factor in the analysis. The default value is 1."
+                }
+            }
+        },
+        "peak_merging": {
+            "title": "Peak merging",
+            "type": "object",
+            "fa_icon": "fas fa-object-group",
+            "description": "Options for merging peaks across samples.",
+            "properties": {
+                "merge_samples": {
+                    "type": "boolean",
+                    "description": "Merge samples with the same condition and assay.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "If you have multiple samples with the same condition and assay, you can set this parameter to `true` to merge them into a single sample. This is useful if you have technical replicates and want to combine them into a single sample for analysis."
                 },
+                "min_peak_occurrence": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum number of samples that a peak has to occur in to keep it while merging.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "If you have multiple samples with the same condition and assay and use the `--merge_samples` parameter, you can set this parameter to the minimum number of samples that a peak has to occur in to keep it while merging."
+                }
+            }
+        },
+        "ranking_options": {
+            "title": "Ranking options",
+            "type": "object",
+            "fa_icon": "fas fa-sort-amount-down",
+            "description": "Options for ranking analysis.",
+            "properties": {
                 "alpha": {
                     "type": "number",
                     "default": 0.05,
                     "description": "Alpha value for the Mann-Whitney U test.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Alpha value for the Mann-Whitney U test. The default value is 0.05."
+                }
+            }
+        },
+        "stare_options": {
+            "title": "STARE options",
+            "type": "object",
+            "fa_icon": "fas fa-star",
+            "description": "Options for STARE (Significance Tool for Accessible Regulatory Elements) analysis.",
+            "properties": {
+                "window_size": {
+                    "type": "integer",
+                    "default": 50000,
+                    "description": "Size of the window to search for binding sites.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Size of the window to search for binding sites. The default value is 50000."
+                },
+                "decay": {
+                    "type": "boolean",
+                    "default": "true",
+                    "description": "Use decay in STARE",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Use decay in STARE. The default value is `true`."
+                },
+                "affinity_aggregation": {
+                    "type": "string",
+                    "default": "max",
+                    "description": "Method to aggregate affinity values.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Method to aggregate affinity values. The default value is `max`."
                 }
             }
         },
@@ -493,7 +517,16 @@
             "$ref": "#/$defs/input_output_options"
         },
         {
-            "$ref": "#/$defs/pipeline_options"
+            "$ref": "#/$defs/expression_options"
+        },
+        {
+            "$ref": "#/$defs/peak_merging"
+        },
+        {
+            "$ref": "#/$defs/ranking_options"
+        },
+        {
+            "$ref": "#/$defs/stare_options"
         },
         {
             "$ref": "#/$defs/rose_options"
