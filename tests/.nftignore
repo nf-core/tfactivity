@@ -1,2 +1,4 @@
 .DS_Store
 pipeline_info/*.{html,json,txt,yml}
+06_fimo/04_combined_results/*.tsv
+06_fimo/04_combined_results/*.gff

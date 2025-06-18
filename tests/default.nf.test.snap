@@ -696,7 +696,7 @@
                 "p6_H3K27ac_R2_TF_Gene_Affinities.txt:md5,7395ff0296e48d27035aae3f29ff603b",
                 "p6_H3K4me3_R1_TF_Gene_Affinities.txt:md5,84da5779a7bcdb7b0657e34c3b2304c1",
                 "L10_H3K27ac.tsv:md5,541bca4cb51dfb0102db040404332294",
-                "L1_H3K27ac.tsv:md5,fba9483b0cb2623fc34ec8719c33c50d",
+                "L1_H3K27ac.tsv:md5,938175af8ec5cd19775d072bb3e14cf6",
                 "L1_H3K4me3.tsv:md5,e12842a01270fcd63b55e75f9c1d7f91",
                 "p6_H3K27ac.tsv:md5,23e4b2edbf9991917f5e2d2bce5dd4f4",
                 "p6_H3K4me3.tsv:md5,af698e9d7f74a8c70d03409baab0a3c7",
@@ -934,16 +934,6 @@
                 "p6_H3K4me3_R1_MA1988.2.xml:md5,8b9332bf7c75beef55d675b96c96cadd",
                 "p6_H3K4me3_R1_MA1988.2_best_site.narrowPeak:md5,5ea161742b28e693b9fa24019e42456f",
                 "p6_H3K4me3_R1_MA1988.2_cisml.xml:md5,8d63acf19dda1df38a3e85a8de13f01b",
-                "L10_H3K27ac.gff:md5,1b3c6cdf92ce869ec004f3502d4cd062",
-                "L10_H3K27ac.tsv:md5,64295bd7a7c236adbc5b84e1bdec678a",
-                "L1_H3K27ac.gff:md5,e1c49b8e312e7475fca682413859469a",
-                "L1_H3K27ac.tsv:md5,4ba8f719229296a794a8645a21fb5ec9",
-                "L1_H3K4me3.gff:md5,b80ccef954978528a27b89ab73a0d5a0",
-                "L1_H3K4me3.tsv:md5,2a1d046683b1e87799cb415bdcc50c06",
-                "p6_H3K27ac.gff:md5,a7290dcd5b7d252c39518638907a4eb6",
-                "p6_H3K27ac.tsv:md5,d6b41d9c6580c948bf32f30daa3a094c",
-                "p6_H3K4me3.gff:md5,8422474fd87c958b1e756c125b93211d",
-                "p6_H3K4me3.tsv:md5,145f32bbde70dfb6f1a1246194b4c7f8",
                 "filtered_sneep_scale_mouse_218.txt:md5,84db9de2149b3e1dc063d08097b8f8a8",
                 "filtered_sneep_transfac_mouse_218.txt:md5,4b951716675c6a1769e6db69f38af237",
                 "L10_H3K27ac.bed:md5,90803f84c9a8f0d9a71358ab4ee837ab",
@@ -972,7 +962,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-18T15:23:14.685599546"
+        "timestamp": "2025-06-18T17:05:32.598916079"
     },
     "Should run with both bed and bam input": {
         "content": [
@@ -2178,7 +2168,7 @@
                 "L10_H3K27ac.tsv:md5,541bca4cb51dfb0102db040404332294",
                 "L10_chromHMM_enhancers.tsv:md5,f88252d09634624a0522c0d759627f0f",
                 "L10_chromHMM_promoters.tsv:md5,1ec037552a6e5e7572878a89b0f05019",
-                "L1_H3K27ac.tsv:md5,938175af8ec5cd19775d072bb3e14cf6",
+                "L1_H3K27ac.tsv:md5,fba9483b0cb2623fc34ec8719c33c50d",
                 "L1_H3K4me3.tsv:md5,e12842a01270fcd63b55e75f9c1d7f91",
                 "L1_chromHMM_enhancers.tsv:md5,417ff1bed795dc2fed549c04542c1c63",
                 "L1_chromHMM_promoters.tsv:md5,82e7af0c83e5afe94a7dcd70ead200c3",
@@ -2664,28 +2654,6 @@
                 "p6_chromHMM_promoters_MA1988.2.xml:md5,76e07b7dab68a855e89d24bf87f3a151",
                 "p6_chromHMM_promoters_MA1988.2_best_site.narrowPeak:md5,75af764fad8d6efa263ed61a1e6f6c32",
                 "p6_chromHMM_promoters_MA1988.2_cisml.xml:md5,7a95d9959191c22f414c9e898b6f14ca",
-                "L10_H3K27ac.gff:md5,1b3c6cdf92ce869ec004f3502d4cd062",
-                "L10_H3K27ac.tsv:md5,64295bd7a7c236adbc5b84e1bdec678a",
-                "L10_chromHMM_enhancers.gff:md5,f6e98df926ef9e88eacf69dc14094b1b",
-                "L10_chromHMM_enhancers.tsv:md5,0ba803120ec0dce899adb80afd5c14df",
-                "L10_chromHMM_promoters.gff:md5,9dc4853221e7da0641d4fa6a182b814d",
-                "L10_chromHMM_promoters.tsv:md5,d2b6b597480f2c5e0fd219017b46324b",
-                "L1_H3K27ac.gff:md5,f76f3d3bfd3c00f785ead5689760a2cd",
-                "L1_H3K27ac.tsv:md5,17fbbebb8ca315b68a7b2c73b6108559",
-                "L1_H3K4me3.gff:md5,b80ccef954978528a27b89ab73a0d5a0",
-                "L1_H3K4me3.tsv:md5,2a1d046683b1e87799cb415bdcc50c06",
-                "L1_chromHMM_enhancers.gff:md5,6a698d2b04d9f130f98016edc9ed1801",
-                "L1_chromHMM_enhancers.tsv:md5,b191003f2e2fb8c83cea0312c1344d81",
-                "L1_chromHMM_promoters.gff:md5,04ba3492194dbd58781371d88b0d8d27",
-                "L1_chromHMM_promoters.tsv:md5,976ca56a9c44428fad5d20c0e60dbf7d",
-                "p6_H3K27ac.gff:md5,a7290dcd5b7d252c39518638907a4eb6",
-                "p6_H3K27ac.tsv:md5,d6b41d9c6580c948bf32f30daa3a094c",
-                "p6_H3K4me3.gff:md5,8422474fd87c958b1e756c125b93211d",
-                "p6_H3K4me3.tsv:md5,145f32bbde70dfb6f1a1246194b4c7f8",
-                "p6_chromHMM_enhancers.gff:md5,febbb8c14e717177a228db837a0a4b51",
-                "p6_chromHMM_enhancers.tsv:md5,feb33800be72b9a74e5454b33d8f99a7",
-                "p6_chromHMM_promoters.gff:md5,3570972d9468103e7e6191bd13272734",
-                "p6_chromHMM_promoters.tsv:md5,7b53e711a9171307554e31205ac1a2db",
                 "filtered_sneep_scale_mouse_218.txt:md5,84db9de2149b3e1dc063d08097b8f8a8",
                 "filtered_sneep_transfac_mouse_218.txt:md5,4b951716675c6a1769e6db69f38af237",
                 "L10_H3K27ac.bed:md5,90803f84c9a8f0d9a71358ab4ee837ab",
@@ -2738,6 +2706,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-18T15:19:51.387247778"
+        "timestamp": "2025-06-18T17:02:38.514995859"
     }
 }
