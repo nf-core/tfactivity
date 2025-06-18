@@ -58,7 +58,7 @@ nextflow_process {
                 process.out.snpsregions_notuniq,
                 process.out.snpsunique,
                 process.out.sortedsnpsnotunique,
-                process.out.tf_count,
+                // process.out.tf_count, -> Column order is not deterministic
                 process.out.versions,
             ).match()
         }
