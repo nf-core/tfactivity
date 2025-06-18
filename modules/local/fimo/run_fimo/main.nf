@@ -11,17 +11,25 @@ process RUN_FIMO {
     tuple val(meta), path(sequence_file), path(motif_file)
 
     output:
-    tuple val(meta), path("fimo_out/fimo.gff"), emit: gff
-    tuple val(meta), path("fimo_out/fimo.tsv"), emit: tsv
-    tuple val(meta), path("fimo_out/fimo.html"), emit: html
-    tuple val(meta), path("fimo_out/fimo.xml"), emit: xml
-    tuple val(meta), path("fimo_out/best_site.narrowPeak"), emit: narrowPeak
-    tuple val(meta), path("fimo_out/cisml.xml"), emit: cisml
+    tuple val(meta), path("${prefix}.gff"), emit: gff
+    tuple val(meta), path("${prefix}.tsv"), emit: tsv
+    tuple val(meta), path("${prefix}.html"), emit: html
+    tuple val(meta), path("${prefix}.xml"), emit: xml
+    tuple val(meta), path("${prefix}_best_site.narrowPeak"), emit: narrowPeak
+    tuple val(meta), path("${prefix}_cisml.xml"), emit: cisml
     path "versions.yml", emit: versions
 
     script:
+    prefix = task.ext.prefix ?: "${meta.id}"
     """
     fimo --max-stored-scores 1000000 ${motif_file} ${sequence_file}
+
+    mv fimo_out/fimo.gff ${prefix}.gff
+    mv fimo_out/fimo.tsv ${prefix}.tsv
+    mv fimo_out/fimo.html ${prefix}.html
+    mv fimo_out/fimo.xml ${prefix}.xml
+    mv fimo_out/best_site.narrowPeak ${prefix}_best_site.narrowPeak
+    mv fimo_out/cisml.xml ${prefix}_cisml.xml
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -30,14 +38,14 @@ process RUN_FIMO {
     """
 
     stub:
+    prefix = task.ext.prefix ?: "${meta.id}"
     """
-    mkdir -p fimo_out
-    touch fimo_out/best_site.narrowPeak
-    touch fimo_out/cisml.xml
-    touch fimo_out/fimo.gff
-    touch fimo_out/fimo.html
-    touch fimo_out/fimo.tsv
-    touch fimo_out/fimo.xml
+    touch ${prefix}_best_site.narrowPeak
+    touch ${prefix}_cisml.xml
+    touch ${prefix}.gff
+    touch ${prefix}.html
+    touch ${prefix}.tsv
+    touch ${prefix}.xml
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

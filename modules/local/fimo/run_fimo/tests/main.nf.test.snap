@@ -7,7 +7,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.gff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.gff:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "1": [
@@ -15,7 +15,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "2": [
@@ -23,7 +23,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.html:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.html:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "3": [
@@ -31,7 +31,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "4": [
@@ -39,7 +39,7 @@
                         {
                             "id": "test"
                         },
-                        "best_site.narrowPeak:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test_best_site.narrowPeak:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "5": [
@@ -47,7 +47,7 @@
                         {
                             "id": "test"
                         },
-                        "cisml.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test_cisml.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "6": [
@@ -58,7 +58,7 @@
                         {
                             "id": "test"
                         },
-                        "cisml.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test_cisml.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "gff": [
@@ -66,7 +66,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.gff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.gff:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "html": [
@@ -74,7 +74,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.html:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.html:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "narrowPeak": [
@@ -82,7 +82,7 @@
                         {
                             "id": "test"
                         },
-                        "best_site.narrowPeak:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test_best_site.narrowPeak:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "tsv": [
@@ -90,7 +90,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
@@ -101,16 +101,16 @@
                         {
                             "id": "test"
                         },
-                        "fimo.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "test.xml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-12T13:20:39.017255924"
+        "timestamp": "2025-06-18T14:37:14.821514793"
     },
     "Should run without failures": {
         "content": [
@@ -120,7 +120,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.gff:md5,e44057bbab521800dc4810f9c892bdc5"
+                        "test.gff:md5,e44057bbab521800dc4810f9c892bdc5"
                     ]
                 ],
                 "1": [
@@ -128,7 +128,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.tsv:md5,55a58d8e44f383185635f89496213dfc"
+                        "test.tsv:md5,55a58d8e44f383185635f89496213dfc"
                     ]
                 ],
                 "2": [
@@ -136,7 +136,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.html:md5,5306a78918faf15fb5e9885ba506a851"
+                        "test.html:md5,5306a78918faf15fb5e9885ba506a851"
                     ]
                 ],
                 "3": [
@@ -144,7 +144,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.xml:md5,8467a79d3661c82c100e8c4da9158cd2"
+                        "test.xml:md5,8467a79d3661c82c100e8c4da9158cd2"
                     ]
                 ],
                 "4": [
@@ -152,7 +152,7 @@
                         {
                             "id": "test"
                         },
-                        "best_site.narrowPeak:md5,664d5d271e03b7f2702d240438393d71"
+                        "test_best_site.narrowPeak:md5,664d5d271e03b7f2702d240438393d71"
                     ]
                 ],
                 "5": [
@@ -160,7 +160,7 @@
                         {
                             "id": "test"
                         },
-                        "cisml.xml:md5,dc52912c8f089b4f9d6e35ec0cf2584d"
+                        "test_cisml.xml:md5,dc52912c8f089b4f9d6e35ec0cf2584d"
                     ]
                 ],
                 "6": [
@@ -171,7 +171,7 @@
                         {
                             "id": "test"
                         },
-                        "cisml.xml:md5,dc52912c8f089b4f9d6e35ec0cf2584d"
+                        "test_cisml.xml:md5,dc52912c8f089b4f9d6e35ec0cf2584d"
                     ]
                 ],
                 "gff": [
@@ -179,7 +179,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.gff:md5,e44057bbab521800dc4810f9c892bdc5"
+                        "test.gff:md5,e44057bbab521800dc4810f9c892bdc5"
                     ]
                 ],
                 "html": [
@@ -187,7 +187,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.html:md5,5306a78918faf15fb5e9885ba506a851"
+                        "test.html:md5,5306a78918faf15fb5e9885ba506a851"
                     ]
                 ],
                 "narrowPeak": [
@@ -195,7 +195,7 @@
                         {
                             "id": "test"
                         },
-                        "best_site.narrowPeak:md5,664d5d271e03b7f2702d240438393d71"
+                        "test_best_site.narrowPeak:md5,664d5d271e03b7f2702d240438393d71"
                     ]
                 ],
                 "tsv": [
@@ -203,7 +203,7 @@
                         {
                             "id": "test"
                         },
-                        "fimo.tsv:md5,55a58d8e44f383185635f89496213dfc"
+                        "test.tsv:md5,55a58d8e44f383185635f89496213dfc"
                     ]
                 ],
                 "versions": [
@@ -214,15 +214,15 @@
                         {
                             "id": "test"
                         },
-                        "fimo.xml:md5,8467a79d3661c82c100e8c4da9158cd2"
+                        "test.xml:md5,8467a79d3661c82c100e8c4da9158cd2"
                     ]
                 ]
             }
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-12T09:47:45.97602978"
+        "timestamp": "2025-06-18T14:41:58.570669206"
     }
 }
