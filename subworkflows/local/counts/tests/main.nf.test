@@ -134,9 +134,16 @@ nextflow_workflow {
 
         then {
             assert workflow.success
-            assert snapshot(workflow.out).match()
+            assert snapshot(
+                workflow.out.genes,
+                workflow.out.raw_counts,
+                workflow.out.tfs,
+                workflow.out.tpms,
+                workflow.out.normalized,
+                // workflow.out.differential, -> Hashes are unstable
+                workflow.out.versions
+            ).match()
         }
-
     }
 
 }

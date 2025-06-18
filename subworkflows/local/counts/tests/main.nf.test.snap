@@ -1,214 +1,83 @@
 {
     "Should run with split matrix": {
         "content": [
-            {
-                "0": [
-                    [
-                        {
-                            "id": "counts"
-                        },
-                        "counts.genes_filtered.txt:md5,e96cbfcff37609e7dc595a625f8a7061"
-                    ]
-                ],
-                "1": [
-                    [
-                        {
-                            "id": "counts"
-                        },
-                        "counts.counts_filtered.tsv:md5,229cf03e5401cd62e666be98c3a45d40"
-                    ]
-                ],
-                "2": [
-                    [
-                        {
-                            "id": "TFs"
-                        },
-                        "TFs.genes_filtered.txt:md5,e96cbfcff37609e7dc595a625f8a7061"
-                    ]
-                ],
-                "3": [
-                    [
-                        {
-                            "id": "counts"
-                        },
-                        "counts.tpm.tsv:md5,5f89b5ad72c1305703a19ea56d414eda"
-                    ]
-                ],
-                "4": [
-                    [
-                        {
-                            "id": "L10:p6",
-                            "contrast": "L10:p6",
-                            "condition1": "L10",
-                            "condition2": "p6"
-                        },
-                        "L10:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
-                    ],
-                    [
-                        {
-                            "id": "L1:L10",
-                            "contrast": "L1:L10",
-                            "condition1": "L1",
-                            "condition2": "L10"
-                        },
-                        "L1:L10.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
-                    ],
-                    [
-                        {
-                            "id": "L1:p6",
-                            "contrast": "L1:p6",
-                            "condition1": "L1",
-                            "condition2": "p6"
-                        },
-                        "L1:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
-                    ]
-                ],
-                "5": [
-                    [
-                        {
-                            "id": "L10:p6",
-                            "contrast": "L10:p6",
-                            "condition1": "L10",
-                            "condition2": "p6"
-                        },
-                        "L10:p6.deseq2.results.tsv:md5,d36ed15f55d1a5b5ce13b38cbd8856f2"
-                    ],
-                    [
-                        {
-                            "id": "L1:L10",
-                            "contrast": "L1:L10",
-                            "condition1": "L1",
-                            "condition2": "L10"
-                        },
-                        "L1:L10.deseq2.results.tsv:md5,090a2a069f53419c157cad6cce03470f"
-                    ],
-                    [
-                        {
-                            "id": "L1:p6",
-                            "contrast": "L1:p6",
-                            "condition1": "L1",
-                            "condition2": "p6"
-                        },
-                        "L1:p6.deseq2.results.tsv:md5,3573fc9807df75668f553f55e4765388"
-                    ]
-                ],
-                "6": [
-                    "versions.yml:md5,00da38b2c30ddbf431b90447bf90f3e2",
-                    "versions.yml:md5,81cdfefe948e301f3485f0d2bcc2fa5e",
-                    "versions.yml:md5,8e7ae2488840ee48df55ef01f90509a3",
-                    "versions.yml:md5,8e7ae2488840ee48df55ef01f90509a3",
-                    "versions.yml:md5,8e7ae2488840ee48df55ef01f90509a3",
-                    "versions.yml:md5,8ee27f68c3bea117aa74053caed85bb4",
-                    "versions.yml:md5,e572cbee66aa28295eaa5745eca317d6",
-                    "versions.yml:md5,f656d7b0f62076d39d078fafcb3a6d42"
-                ],
-                "differential": [
-                    [
-                        {
-                            "id": "L10:p6",
-                            "contrast": "L10:p6",
-                            "condition1": "L10",
-                            "condition2": "p6"
-                        },
-                        "L10:p6.deseq2.results.tsv:md5,d36ed15f55d1a5b5ce13b38cbd8856f2"
-                    ],
-                    [
-                        {
-                            "id": "L1:L10",
-                            "contrast": "L1:L10",
-                            "condition1": "L1",
-                            "condition2": "L10"
-                        },
-                        "L1:L10.deseq2.results.tsv:md5,090a2a069f53419c157cad6cce03470f"
-                    ],
-                    [
-                        {
-                            "id": "L1:p6",
-                            "contrast": "L1:p6",
-                            "condition1": "L1",
-                            "condition2": "p6"
-                        },
-                        "L1:p6.deseq2.results.tsv:md5,3573fc9807df75668f553f55e4765388"
-                    ]
-                ],
-                "genes": [
-                    [
-                        {
-                            "id": "counts"
-                        },
-                        "counts.genes_filtered.txt:md5,e96cbfcff37609e7dc595a625f8a7061"
-                    ]
-                ],
-                "normalized": [
-                    [
-                        {
-                            "id": "L10:p6",
-                            "contrast": "L10:p6",
-                            "condition1": "L10",
-                            "condition2": "p6"
-                        },
-                        "L10:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
-                    ],
-                    [
-                        {
-                            "id": "L1:L10",
-                            "contrast": "L1:L10",
-                            "condition1": "L1",
-                            "condition2": "L10"
-                        },
-                        "L1:L10.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
-                    ],
-                    [
-                        {
-                            "id": "L1:p6",
-                            "contrast": "L1:p6",
-                            "condition1": "L1",
-                            "condition2": "p6"
-                        },
-                        "L1:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
-                    ]
-                ],
-                "raw_counts": [
-                    [
-                        {
-                            "id": "counts"
-                        },
-                        "counts.counts_filtered.tsv:md5,229cf03e5401cd62e666be98c3a45d40"
-                    ]
-                ],
-                "tfs": [
-                    [
-                        {
-                            "id": "TFs"
-                        },
-                        "TFs.genes_filtered.txt:md5,e96cbfcff37609e7dc595a625f8a7061"
-                    ]
-                ],
-                "tpms": [
-                    [
-                        {
-                            "id": "counts"
-                        },
-                        "counts.tpm.tsv:md5,5f89b5ad72c1305703a19ea56d414eda"
-                    ]
-                ],
-                "versions": [
-                    "versions.yml:md5,00da38b2c30ddbf431b90447bf90f3e2",
-                    "versions.yml:md5,81cdfefe948e301f3485f0d2bcc2fa5e",
-                    "versions.yml:md5,8e7ae2488840ee48df55ef01f90509a3",
-                    "versions.yml:md5,8e7ae2488840ee48df55ef01f90509a3",
-                    "versions.yml:md5,8e7ae2488840ee48df55ef01f90509a3",
-                    "versions.yml:md5,8ee27f68c3bea117aa74053caed85bb4",
-                    "versions.yml:md5,e572cbee66aa28295eaa5745eca317d6",
-                    "versions.yml:md5,f656d7b0f62076d39d078fafcb3a6d42"
+            [
+                [
+                    {
+                        "id": "counts"
+                    },
+                    "counts.genes_filtered.txt:md5,e96cbfcff37609e7dc595a625f8a7061"
                 ]
-            }
+            ],
+            [
+                [
+                    {
+                        "id": "counts"
+                    },
+                    "counts.counts_filtered.tsv:md5,229cf03e5401cd62e666be98c3a45d40"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "TFs"
+                    },
+                    "TFs.genes_filtered.txt:md5,e96cbfcff37609e7dc595a625f8a7061"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "counts"
+                    },
+                    "counts.tpm.tsv:md5,5f89b5ad72c1305703a19ea56d414eda"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "L10:p6",
+                        "contrast": "L10:p6",
+                        "condition1": "L10",
+                        "condition2": "p6"
+                    },
+                    "L10:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
+                ],
+                [
+                    {
+                        "id": "L1:L10",
+                        "contrast": "L1:L10",
+                        "condition1": "L1",
+                        "condition2": "L10"
+                    },
+                    "L1:L10.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
+                ],
+                [
+                    {
+                        "id": "L1:p6",
+                        "contrast": "L1:p6",
+                        "condition1": "L1",
+                        "condition2": "p6"
+                    },
+                    "L1:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
+                ]
+            ],
+            [
+                "versions.yml:md5,00da38b2c30ddbf431b90447bf90f3e2",
+                "versions.yml:md5,81cdfefe948e301f3485f0d2bcc2fa5e",
+                "versions.yml:md5,8e7ae2488840ee48df55ef01f90509a3",
+                "versions.yml:md5,8e7ae2488840ee48df55ef01f90509a3",
+                "versions.yml:md5,8e7ae2488840ee48df55ef01f90509a3",
+                "versions.yml:md5,8ee27f68c3bea117aa74053caed85bb4",
+                "versions.yml:md5,e572cbee66aa28295eaa5745eca317d6",
+                "versions.yml:md5,f656d7b0f62076d39d078fafcb3a6d42"
+            ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-18T11:48:58.619534165"
+        "timestamp": "2025-06-18T17:40:03.097202141"
     },
     "Should run with full count matrix": {
         "content": [
