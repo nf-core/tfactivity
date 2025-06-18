@@ -42,7 +42,7 @@
                             "condition1": "L10",
                             "condition2": "p6"
                         },
-                        "L10:p6.normalised_counts.tsv:md5,24bc072aa70dc4a6ffed5e964ce9ee62"
+                        "L10:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
                     ],
                     [
                         {
@@ -51,7 +51,7 @@
                             "condition1": "L1",
                             "condition2": "L10"
                         },
-                        "L1:L10.normalised_counts.tsv:md5,24bc072aa70dc4a6ffed5e964ce9ee62"
+                        "L1:L10.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
                     ],
                     [
                         {
@@ -60,7 +60,7 @@
                             "condition1": "L1",
                             "condition2": "p6"
                         },
-                        "L1:p6.normalised_counts.tsv:md5,24bc072aa70dc4a6ffed5e964ce9ee62"
+                        "L1:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
                     ]
                 ],
                 "5": [
@@ -71,7 +71,7 @@
                             "condition1": "L10",
                             "condition2": "p6"
                         },
-                        "L10:p6.deseq2.results.tsv:md5,f703213f404c85cc3f2cf57d7e7451f9"
+                        "L10:p6.deseq2.results.tsv:md5,d36ed15f55d1a5b5ce13b38cbd8856f2"
                     ],
                     [
                         {
@@ -80,7 +80,7 @@
                             "condition1": "L1",
                             "condition2": "L10"
                         },
-                        "L1:L10.deseq2.results.tsv:md5,1d17439c6271a477d8ec93393a698eca"
+                        "L1:L10.deseq2.results.tsv:md5,090a2a069f53419c157cad6cce03470f"
                     ],
                     [
                         {
@@ -89,7 +89,7 @@
                             "condition1": "L1",
                             "condition2": "p6"
                         },
-                        "L1:p6.deseq2.results.tsv:md5,bbceff631473867b9aeb38e5ee256e53"
+                        "L1:p6.deseq2.results.tsv:md5,3573fc9807df75668f553f55e4765388"
                     ]
                 ],
                 "6": [
@@ -110,7 +110,7 @@
                             "condition1": "L10",
                             "condition2": "p6"
                         },
-                        "L10:p6.deseq2.results.tsv:md5,f703213f404c85cc3f2cf57d7e7451f9"
+                        "L10:p6.deseq2.results.tsv:md5,d36ed15f55d1a5b5ce13b38cbd8856f2"
                     ],
                     [
                         {
@@ -119,7 +119,7 @@
                             "condition1": "L1",
                             "condition2": "L10"
                         },
-                        "L1:L10.deseq2.results.tsv:md5,1d17439c6271a477d8ec93393a698eca"
+                        "L1:L10.deseq2.results.tsv:md5,090a2a069f53419c157cad6cce03470f"
                     ],
                     [
                         {
@@ -128,7 +128,7 @@
                             "condition1": "L1",
                             "condition2": "p6"
                         },
-                        "L1:p6.deseq2.results.tsv:md5,bbceff631473867b9aeb38e5ee256e53"
+                        "L1:p6.deseq2.results.tsv:md5,3573fc9807df75668f553f55e4765388"
                     ]
                 ],
                 "genes": [
@@ -147,7 +147,7 @@
                             "condition1": "L10",
                             "condition2": "p6"
                         },
-                        "L10:p6.normalised_counts.tsv:md5,24bc072aa70dc4a6ffed5e964ce9ee62"
+                        "L10:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
                     ],
                     [
                         {
@@ -156,7 +156,7 @@
                             "condition1": "L1",
                             "condition2": "L10"
                         },
-                        "L1:L10.normalised_counts.tsv:md5,24bc072aa70dc4a6ffed5e964ce9ee62"
+                        "L1:L10.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
                     ],
                     [
                         {
@@ -165,7 +165,7 @@
                             "condition1": "L1",
                             "condition2": "p6"
                         },
-                        "L1:p6.normalised_counts.tsv:md5,24bc072aa70dc4a6ffed5e964ce9ee62"
+                        "L1:p6.normalised_counts.tsv:md5,40d4dc7977c425a8df9f99a444603419"
                     ]
                 ],
                 "raw_counts": [
@@ -208,7 +208,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-11T16:51:16.627244937"
+        "timestamp": "2025-06-18T11:48:58.619534165"
     },
     "Should run with full count matrix": {
         "content": [
@@ -253,7 +253,7 @@
                             "condition1": "L10",
                             "condition2": "p6"
                         },
-                        "L10:p6.normalised_counts.tsv:md5,a05f501cdf8f9857d08522561e074bf4"
+                        "L10:p6.normalised_counts.tsv:md5,c69689cac42ea52474ef8fceaec3e671"
                     ],
                     [
                         {
@@ -262,7 +262,7 @@
                             "condition1": "L1",
                             "condition2": "L10"
                         },
-                        "L1:L10.normalised_counts.tsv:md5,a05f501cdf8f9857d08522561e074bf4"
+                        "L1:L10.normalised_counts.tsv:md5,c69689cac42ea52474ef8fceaec3e671"
                     ],
                     [
                         {
@@ -271,7 +271,7 @@
                             "condition1": "L1",
                             "condition2": "p6"
                         },
-                        "L1:p6.normalised_counts.tsv:md5,a05f501cdf8f9857d08522561e074bf4"
+                        "L1:p6.normalised_counts.tsv:md5,c69689cac42ea52474ef8fceaec3e671"
                     ]
                 ],
                 "5": [
@@ -282,7 +282,7 @@
                             "condition1": "L10",
                             "condition2": "p6"
                         },
-                        "L10:p6.deseq2.results.tsv:md5,92b42fc3a63c00a0ea1a33111a8b4ebf"
+                        "L10:p6.deseq2.results.tsv:md5,3b30ed03414c0d9768bfac0321abc5a9"
                     ],
                     [
                         {
@@ -291,7 +291,7 @@
                             "condition1": "L1",
                             "condition2": "L10"
                         },
-                        "L1:L10.deseq2.results.tsv:md5,39173b7cc3d2d85aa3ce9839cb154683"
+                        "L1:L10.deseq2.results.tsv:md5,0e74f562d0c639ab623e4c91644359e9"
                     ],
                     [
                         {
@@ -300,7 +300,7 @@
                             "condition1": "L1",
                             "condition2": "p6"
                         },
-                        "L1:p6.deseq2.results.tsv:md5,8e72c6ffbe862483255edf8bc0178a22"
+                        "L1:p6.deseq2.results.tsv:md5,5322e1641a969de10d4aa04f10364c7c"
                     ]
                 ],
                 "6": [
@@ -321,7 +321,7 @@
                             "condition1": "L10",
                             "condition2": "p6"
                         },
-                        "L10:p6.deseq2.results.tsv:md5,92b42fc3a63c00a0ea1a33111a8b4ebf"
+                        "L10:p6.deseq2.results.tsv:md5,3b30ed03414c0d9768bfac0321abc5a9"
                     ],
                     [
                         {
@@ -330,7 +330,7 @@
                             "condition1": "L1",
                             "condition2": "L10"
                         },
-                        "L1:L10.deseq2.results.tsv:md5,39173b7cc3d2d85aa3ce9839cb154683"
+                        "L1:L10.deseq2.results.tsv:md5,0e74f562d0c639ab623e4c91644359e9"
                     ],
                     [
                         {
@@ -339,7 +339,7 @@
                             "condition1": "L1",
                             "condition2": "p6"
                         },
-                        "L1:p6.deseq2.results.tsv:md5,8e72c6ffbe862483255edf8bc0178a22"
+                        "L1:p6.deseq2.results.tsv:md5,5322e1641a969de10d4aa04f10364c7c"
                     ]
                 ],
                 "genes": [
@@ -358,7 +358,7 @@
                             "condition1": "L10",
                             "condition2": "p6"
                         },
-                        "L10:p6.normalised_counts.tsv:md5,a05f501cdf8f9857d08522561e074bf4"
+                        "L10:p6.normalised_counts.tsv:md5,c69689cac42ea52474ef8fceaec3e671"
                     ],
                     [
                         {
@@ -367,7 +367,7 @@
                             "condition1": "L1",
                             "condition2": "L10"
                         },
-                        "L1:L10.normalised_counts.tsv:md5,a05f501cdf8f9857d08522561e074bf4"
+                        "L1:L10.normalised_counts.tsv:md5,c69689cac42ea52474ef8fceaec3e671"
                     ],
                     [
                         {
@@ -376,7 +376,7 @@
                             "condition1": "L1",
                             "condition2": "p6"
                         },
-                        "L1:p6.normalised_counts.tsv:md5,a05f501cdf8f9857d08522561e074bf4"
+                        "L1:p6.normalised_counts.tsv:md5,c69689cac42ea52474ef8fceaec3e671"
                     ]
                 ],
                 "raw_counts": [
@@ -419,7 +419,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-11T16:50:12.629992394"
+        "timestamp": "2025-06-18T11:45:20.229239446"
     },
     "Should run with full count matrix - stub": {
         "content": [
