@@ -1,0 +1,47 @@
+nextflow_process {
+
+    name "Test Process FILTER_SCALES_MOTIFS"
+    script "modules/local/sneep/filter_scales_motifs/main.nf"
+    process "FILTER_SCALES_MOTIFS"
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                input[0] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
+                input[1] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
+                input[2] = file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_promoters.gff', checkIfExists: true)
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
+                input[1] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
+                input[2] = file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_promoters.gff', checkIfExists: true)
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

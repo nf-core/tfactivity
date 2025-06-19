@@ -1,26 +1,32 @@
 process COMBINE_RESULTS {
-    label 'process_single'
+    tag "${meta.id}"
+    label "process_single"
 
-    conda 'conda-forge::python==3.9.5'
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/python:3.9--1':
-        'biocontainers/python:3.9--1' }"
+    conda "environment.yml"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/7c/7c256e63e08633ac420692d3ceec1f554fe4fcc794e5bdd331994f743096a46d/data'
+        : 'community.wave.seqera.io/library/pandas_pyyaml:c0acbb47d05e4f9c'}"
 
     input:
-        tuple val(meta), path(motif_files, stageAs: "fimo/*")
+    tuple val(meta), path(gffs, stageAs: "?.gff"), path(tsvs, stageAs: "?.tsv")
 
     output:
-        tuple val(meta), path("${meta.id}.tsv"),     emit: tsv
-        tuple val(meta), path("${meta.id}.gff"),     emit: gff
-        path "versions.yml",                         emit: versions
+    tuple val(meta), path("${meta.id}.tsv"), emit: tsv
+    tuple val(meta), path("${meta.id}.gff"), emit: gff
+    path "versions.yml", emit: versions
 
     script:
-    motif_files = motif_files.join(",")
-    template "combine_results.py"
+    template("combine_results.py")
 
     stub:
     """
-    touch fimo.tsv
-    touch fimo.gff
+    touch ${meta.id}.tsv
+    touch ${meta.id}.gff
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        pandas: \$(python3 -c "import pandas; print(pandas.__version__)")
+    END_VERSIONS
     """
 }

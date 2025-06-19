@@ -1,55 +1,54 @@
 #!/usr/bin/env python3
 
-import os
 import platform
-
-def format_yaml_like(data: dict, indent: int = 0) -> str:
-    """Formats a dictionary to a YAML-like string.
-
-    Args:
-        data (dict): The dictionary to format.
-        indent (int): The current indentation level.
-
-    Returns:
-        str: A string formatted as YAML.
-    """
-    yaml_str = ""
-    for key, value in data.items():
-        spaces = "    " * indent
-        if isinstance(value, dict):
-            yaml_str += f"{spaces}{key}:\\n{format_yaml_like(value, indent + 1)}"
-        else:
-            yaml_str += f"{spaces}{key}: {value}\\n"
-    return yaml_str
-
-
-output_dirs = [os.path.join('fimo', d) for d in os.listdir('fimo') if os.path.isdir(os.path.join('fimo', d))]
+import pandas as pd
+import yaml
+import os
 
 output_tsv = "${meta.id}.tsv"
 output_gff = "${meta.id}.gff"
 
-with open(output_tsv, 'w') as tsv_out, open(output_gff, 'w') as gff_out:
-    tsv_out.write('motif_id\\tmotif_alt_id\\tsequence_name\\tstart\\tstop\\tstrand\\tscore\\tp-value\\tq-value\\tmatched_sequence\\n')
+gff_dfs = []
+for gff_path in "${gffs}".split():
+    try:
+        df_gff = pd.read_csv(gff_path, sep='\\t', comment='#', header=None, dtype=str)
+    except pd.errors.EmptyDataError:
+        print(f"Warning: {gff_path} is empty")
+        continue
+    gff_dfs.append(df_gff)
 
-    for output in output_dirs:
-        with open(f"{output}/fimo.tsv", "r") as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith('#') and not line.startswith('motif_id'):
-                    tsv_out.write(line + "\\n")
+if not gff_dfs:
+    # Touch empty file
+    open(output_gff, 'w').close()
+else:
+    df_gff = pd.concat(gff_dfs, ignore_index=True)
+    df_gff = df_gff.sort_values(by=[1, 4, 5])
+    df_gff.to_csv(output_gff, sep='\\t', index=False, header=False)
 
-        with open(f"{output}/fimo.gff", "r") as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith('#'):
-                    gff_out.write(line + "\\n")
+tsv_dfs = []
+for tsv_path in "${tsvs}".split():
+    try:
+        df_tsv = pd.read_csv(tsv_path, sep='\\t', comment='#', dtype=str)
+    except pd.errors.EmptyDataError:
+        print(f"Warning: {tsv_path} is empty")
+        continue
+    tsv_dfs.append(df_tsv)
+
+if not tsv_dfs:
+    with open(output_tsv, 'w') as f:
+        f.write('motif_id\\tmotif_alt_id\\tsequence_name\\tstart\\tstop\\tstrand\\tscore\\tp-value\\tq-value\\tmatched_sequence\\n')
+else:
+    df_tsv = pd.concat(tsv_dfs, ignore_index=True)
+    df_tsv = df_tsv.sort_values(by=["motif_id", "sequence_name", "start", "stop"])
+    df_tsv.to_csv(output_tsv, sep='\\t', index=False, header=True)
 
 # Create version file
 versions = {
     "${task.process}" : {
-        "python": platform.python_version()
+        "python": platform.python_version(),
+        "pandas": pd.__version__
     }
 }
 
 with open("versions.yml", "w") as f:
-    f.write(format_yaml_like(versions))
+    yaml.dump(versions, f)

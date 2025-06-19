@@ -16,4 +16,15 @@ process TRANSFAC_TO_PSEM {
 
     script:
     template "convert.py"
+
+    stub:
+    """
+    touch ${meta.id}.psem
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        numpy: \$(python3 -c "import numpy; print(numpy.__version__)")
+    END_VERSIONS
+    """
 }

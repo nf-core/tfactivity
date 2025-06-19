@@ -10,7 +10,7 @@
             "type": "object",
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
-            "required": ["input", "outdir"],
+            "required": ["input", "outdir", "counts", "counts_design"],
             "properties": {
                 "input": {
                     "type": "string",
@@ -70,114 +70,18 @@
                 }
             }
         },
-        "pipeline_options": {
-            "title": "Pipeline options",
+        "expression_options": {
+            "title": "Expression options",
             "type": "object",
             "fa_icon": "fas fa-cogs",
-            "description": "Options for the pipeline itself.",
+            "description": "Options for gene expression analysis.",
             "properties": {
-                "merge_samples": {
-                    "type": "boolean",
-                    "description": "Merge samples with the same condition and assay.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "If you have multiple samples with the same condition and assay, you can set this parameter to `true` to merge them into a single sample. This is useful if you have technical replicates and want to combine them into a single sample for analysis."
-                },
-                "min_peak_occurrence": {
-                    "type": "integer",
-                    "default": 1,
-                    "description": "Minimum number of samples that a peak has to occur in to keep it while merging.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "If you have multiple samples with the same condition and assay and use the `--merge_samples` parameter, you can set this parameter to the minimum number of samples that a peak has to occur in to keep it while merging."
-                },
-                "window_size": {
-                    "type": "integer",
-                    "default": 50000,
-                    "description": "Size of the window to search for binding sites.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Size of the window to search for binding sites. The default value is 50000."
-                },
-                "decay": {
-                    "type": "boolean",
-                    "default": "true",
-                    "description": "Use decay in STARE",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Use decay in STARE. The default value is `true`."
-                },
                 "expression_aggregation": {
                     "type": "string",
                     "default": "mean",
                     "description": "Method to aggregate expression values.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Method to aggregate expression values. The default value is `mean`."
-                },
-                "affinity_aggregation": {
-                    "type": "string",
-                    "default": "max",
-                    "description": "Method to aggregate affinity values.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Method to aggregate affinity values. The default value is `max`."
-                },
-                "chromhmm_states": {
-                    "type": "integer",
-                    "default": 10,
-                    "description": "Number of ChromHMM states.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Number of ChromHMM states. The default value is 10."
-                },
-                "chromhmm_threshold": {
-                    "type": "number",
-                    "default": 0.75,
-                    "description": "Threshold for ChromHMM enhancer detection.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Threshold for ChromHMM enhancer detection. The default value is 0.9."
-                },
-                "chromhmm_enhancer_marks": {
-                    "type": "string",
-                    "default": "H3K27ac,H3K4me1",
-                    "description": "Comma-separated ChromHMM enhancer marks.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "ChromHMM enhancer marks. The default value is `H3K27ac`."
-                },
-                "chromhmm_promoter_marks": {
-                    "type": "string",
-                    "default": "H3K4me3",
-                    "description": "Comma-separated ChromHMM promoter marks.",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "ChromHMM promoter marks. The default value is `H3K4me3`."
-                },
-                "rose_tss_window": {
-                    "type": "integer",
-                    "default": 2500,
-                    "description": "TSS window in base pairs",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "ROSE window size around transcription start sites"
-                },
-                "rose_stitching_window": {
-                    "type": "integer",
-                    "default": 12500,
-                    "description": "Stichting window in base pairs",
-                    "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "ROSE window size for stitching two regions together"
-                },
-                "skip_chromhmm": {
-                    "type": "boolean",
-                    "description": "Skip chromhmm. This also skips rose automatically since rose requires chromhmm input.",
-                    "fa_icon": "fas fa-fast-forward"
-                },
-                "skip_rose": {
-                    "type": "boolean",
-                    "description": "Skip rose.",
-                    "fa_icon": "fas fa-fast-forward"
-                },
-                "skip_fimo": {
-                    "type": "boolean",
-                    "description": "Skip fimo. This also skips sneep automatically since sneep requires fimo input.",
-                    "fa_icon": "fas fa-fast-forward"
-                },
-                "skip_sneep": {
-                    "type": "boolean",
-                    "description": "Skip sneep.",
-                    "fa_icon": "fas fa-fast-forward"
                 },
                 "min_count": {
                     "type": "integer",
@@ -206,7 +110,156 @@
                     "description": "Minimum TPM to keep a transcription factor in the analysis.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Minimum TPM to keep a transcription factor in the analysis. The default value is 1."
+                }
+            }
+        },
+        "peak_merging": {
+            "title": "Peak merging",
+            "type": "object",
+            "fa_icon": "fas fa-object-group",
+            "description": "Options for merging peaks across samples.",
+            "properties": {
+                "merge_samples": {
+                    "type": "boolean",
+                    "description": "Merge samples with the same condition and assay.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "If you have multiple samples with the same condition and assay, you can set this parameter to `true` to merge them into a single sample. This is useful if you have technical replicates and want to combine them into a single sample for analysis."
                 },
+                "min_peak_occurrence": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Minimum number of samples that a peak has to occur in to keep it while merging.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "If you have multiple samples with the same condition and assay and use the `--merge_samples` parameter, you can set this parameter to the minimum number of samples that a peak has to occur in to keep it while merging."
+                }
+            }
+        },
+        "ranking_options": {
+            "title": "Ranking options",
+            "type": "object",
+            "fa_icon": "fas fa-sort-amount-down",
+            "description": "Options for ranking analysis.",
+            "properties": {
+                "alpha": {
+                    "type": "number",
+                    "default": 0.05,
+                    "description": "Alpha value for the Mann-Whitney U test.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Alpha value for the Mann-Whitney U test. The default value is 0.05."
+                }
+            }
+        },
+        "stare_options": {
+            "title": "STARE options",
+            "type": "object",
+            "fa_icon": "fas fa-star",
+            "description": "Options for STARE (Significance Tool for Accessible Regulatory Elements) analysis.",
+            "properties": {
+                "window_size": {
+                    "type": "integer",
+                    "default": 50000,
+                    "description": "Size of the window to search for binding sites.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Size of the window to search for binding sites. The default value is 50000."
+                },
+                "decay": {
+                    "type": "boolean",
+                    "default": "true",
+                    "description": "Use decay in STARE",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Use decay in STARE. The default value is `true`."
+                },
+                "affinity_aggregation": {
+                    "type": "string",
+                    "default": "max",
+                    "description": "Method to aggregate affinity values.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Method to aggregate affinity values. The default value is `max`."
+                }
+            }
+        },
+        "rose_options": {
+            "title": "ROSE options",
+            "type": "object",
+            "fa_icon": "fas fa-seedling",
+            "description": "Options for ROSE (Rank Ordering of Super-Enhancers) analysis.",
+            "properties": {
+                "rose_tss_window": {
+                    "type": "integer",
+                    "default": 2500,
+                    "description": "TSS window in base pairs",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ROSE window size around transcription start sites"
+                },
+                "rose_stitching_window": {
+                    "type": "integer",
+                    "default": 12500,
+                    "description": "Stichting window in base pairs",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ROSE window size for stitching two regions together"
+                }
+            }
+        },
+        "sneep_options": {
+            "title": "SNEEP options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for SNEEP (SNP Effect on Expression Prediction) analysis.",
+            "properties": {
+                "sneep_scale_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to SNEEP scale file.",
+                    "fa_icon": "fas fa-file-alt",
+                    "help_text": "Path to the scale file used by SNEEP for SNP effect prediction."
+                },
+                "sneep_motif_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "description": "Path to SNEEP motif file.",
+                    "fa_icon": "fas fa-file-alt",
+                    "help_text": "Path to the motif file used by SNEEP for SNP effect prediction."
+                }
+            }
+        },
+        "optional_steps": {
+            "title": "Optional steps",
+            "type": "object",
+            "fa_icon": "fas fa-toggle-on",
+            "description": "Options to skip specific pipeline steps.",
+            "properties": {
+                "skip_chromhmm": {
+                    "type": "boolean",
+                    "description": "Skip chromhmm. This also skips rose automatically since rose requires chromhmm input.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_rose": {
+                    "type": "boolean",
+                    "description": "Skip rose.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_fimo": {
+                    "type": "boolean",
+                    "description": "Skip fimo. This also skips sneep automatically since sneep requires fimo input.",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_sneep": {
+                    "type": "boolean",
+                    "description": "Skip sneep.",
+                    "fa_icon": "fas fa-fast-forward"
+                }
+            }
+        },
+        "dynamite_options": {
+            "title": "DYNAMITE options",
+            "type": "object",
+            "fa_icon": "fas fa-fire",
+            "description": "Options for DYNAMITE analysis.",
+            "properties": {
                 "dynamite_ofolds": {
                     "type": "integer",
                     "default": 3,
@@ -241,13 +294,42 @@
                     "description": "Minimum regression value for dynamite.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Minimum regression value for dynamite. The default value is 0.1."
-                },
-                "alpha": {
-                    "type": "number",
-                    "default": 0.05,
-                    "description": "Alpha value for the Mann-Whitney U test.",
+                }
+            }
+        },
+        "chromhmm_options": {
+            "title": "ChromHMM options",
+            "type": "object",
+            "fa_icon": "fas fa-chart-bar",
+            "description": "Options for ChromHMM analysis.",
+            "properties": {
+                "chromhmm_states": {
+                    "type": "integer",
+                    "default": 10,
+                    "description": "Number of ChromHMM states.",
                     "fa_icon": "fas fa-compress-arrows-alt",
-                    "help_text": "Alpha value for the Mann-Whitney U test. The default value is 0.05."
+                    "help_text": "Number of ChromHMM states. The default value is 10."
+                },
+                "chromhmm_threshold": {
+                    "type": "number",
+                    "default": 0.75,
+                    "description": "Threshold for ChromHMM enhancer detection.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "Threshold for ChromHMM enhancer detection. The default value is 0.9."
+                },
+                "chromhmm_enhancer_marks": {
+                    "type": "string",
+                    "default": "H3K27ac,H3K4me1",
+                    "description": "Comma-separated ChromHMM enhancer marks.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ChromHMM enhancer marks. The default value is `H3K27ac`."
+                },
+                "chromhmm_promoter_marks": {
+                    "type": "string",
+                    "default": "H3K4me3",
+                    "description": "Comma-separated ChromHMM promoter marks.",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "help_text": "ChromHMM promoter marks. The default value is `H3K4me3`."
                 }
             }
         },
@@ -461,7 +543,31 @@
             "$ref": "#/$defs/input_output_options"
         },
         {
-            "$ref": "#/$defs/pipeline_options"
+            "$ref": "#/$defs/expression_options"
+        },
+        {
+            "$ref": "#/$defs/peak_merging"
+        },
+        {
+            "$ref": "#/$defs/ranking_options"
+        },
+        {
+            "$ref": "#/$defs/stare_options"
+        },
+        {
+            "$ref": "#/$defs/rose_options"
+        },
+        {
+            "$ref": "#/$defs/sneep_options"
+        },
+        {
+            "$ref": "#/$defs/optional_steps"
+        },
+        {
+            "$ref": "#/$defs/dynamite_options"
+        },
+        {
+            "$ref": "#/$defs/chromhmm_options"
         },
         {
             "$ref": "#/$defs/reference_genome_options"
