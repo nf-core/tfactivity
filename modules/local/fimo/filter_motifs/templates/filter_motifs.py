@@ -4,7 +4,7 @@ from os import mkdir
 import pandas as pd
 import platform
 from collections import defaultdict
-
+import yaml
 
 def parse_meme_file(path_meme_file):
     with open(path_meme_file, "r") as f:
@@ -36,27 +36,6 @@ def parse_meme_file(path_meme_file):
         meme_to_matrix[current_motif_meme] = '\\n'.join(header + current_motif)
 
     return meme_to_matrix, symbol_to_meme
-
-
-def format_yaml_like(data: dict, indent: int = 0) -> str:
-    """Formats a dictionary to a YAML-like string.
-
-    Args:
-        data (dict): The dictionary to format.
-        indent (int): The current indentation level.
-
-    Returns:
-        str: A string formatted as YAML.
-    """
-    yaml_str = ""
-    for key, value in data.items():
-        spaces = "  " * indent
-        if isinstance(value, dict):
-            yaml_str += f"{spaces}{key}:\\n{format_yaml_like(value, indent + 1)}"
-        else:
-            yaml_str += f"{spaces}{key}: {value}\\n"
-    return yaml_str
-
 
 tfs_ranking_file = '${tfs_jaspar_ids}'
 path_meme_file = '${meme_motifs}'
@@ -93,4 +72,4 @@ versions = {
 
 # Write version file
 with open("versions.yml", "w") as f:
-    f.write(format_yaml_like(versions))
+    yaml.dump(versions, f)

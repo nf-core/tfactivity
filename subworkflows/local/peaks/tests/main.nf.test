@@ -1,0 +1,163 @@
+nextflow_workflow {
+
+    name "Test Workflow PEAKS"
+    script "subworkflows/local/peaks/main.nf"
+    workflow "PEAKS"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+
+        run("CONVERT_MOTIFS") {
+            script "../../../../modules/local/motifs/convert_motifs"
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true),
+                    'jaspar'
+                ]
+                input[1] = 'transfac'
+                """
+            }
+        }
+
+        run("TRANSFAC_TO_PSEM") {
+            script "../../../../modules/local/motifs/transfac_to_psem"
+            process {
+                """
+                input[0] = CONVERT_MOTIFS.out.converted
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        config "./nextflow.config"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.from([
+                    [[id: 'L1_H3K27ac_R1', condition: 'L1', assay: 'H3K27ac', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K27ac_R3', condition: 'L1', assay: 'H3K27ac', footprinting: false, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K4me3_R2', condition: 'L1', assay: 'H3K4me3', footprinting: true, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L10_H3K27ac_R2', condition: 'L10', assay: 'H3K27ac', footprinting: false, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K27ac_R2', condition: 'p6', assay: 'H3K27ac', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K27ac/WT_p6_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K4me3_R1', condition: 'p6', assay: 'H3K4me3', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K4me3/WT_p6_H3K4me3_R1_peaks.broadPeak', checkIfExists: true)]
+                ])
+                input[1] = PREPARE_GENOME.out.fasta
+                input[2] = PREPARE_GENOME.out.gtf
+                input[3] = file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true)
+                input[4] = TRANSFAC_TO_PSEM.out.psem.collect()
+                input[5] = 50000 // window_size
+                input[6] = true // decay
+                input[7] = true // merge_samples
+                input[8] = Channel.from([
+                    ['L1', 'L10'],
+                    ['L1', 'p6'],
+                    ['L10', 'p6']
+                ])
+                input[9] = PREPARE_GENOME.out.gene_map
+                input[10] = 'max' // Duplicate aggregation method
+                input[11] = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                    .splitCsv(header: true, sep: ',')
+                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
+                    .filter { row -> row.assay.startsWith("H3") }
+                    .map { row ->
+                        [
+                            [
+                                id: row.sample,
+                                condition: row.condition,
+                                assay: row.assay,
+                            ],
+                            file(row.signal, checkIfExists: true),
+                            file(row.control, checkIfExists: true)
+                        ]
+                    }
+                input[12] = PREPARE_GENOME.out.chrom_sizes
+                input[13] = 4 // chromhmm_states
+                input[14] = 0.75 // chromhmm_threshold
+                input[15] = ["H3K27ac"] // chromhmm_enhancer_marks
+                input[16] = ["H3K4me3"] // chromhmm_promoter_marks
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        config "./nextflow.config"
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.from([
+                    [[id: 'L1_H3K27ac_R1', condition: 'L1', assay: 'H3K27ac', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K27ac_R3', condition: 'L1', assay: 'H3K27ac', footprinting: false, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K4me3_R2', condition: 'L1', assay: 'H3K4me3', footprinting: true, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L10_H3K27ac_R2', condition: 'L10', assay: 'H3K27ac', footprinting: false, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K27ac_R2', condition: 'p6', assay: 'H3K27ac', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K27ac/WT_p6_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K4me3_R1', condition: 'p6', assay: 'H3K4me3', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K4me3/WT_p6_H3K4me3_R1_peaks.broadPeak', checkIfExists: true)]
+                ])
+                input[1] = PREPARE_GENOME.out.fasta
+                input[2] = PREPARE_GENOME.out.gtf
+                input[3] = file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true)
+                input[4] = TRANSFAC_TO_PSEM.out.psem.collect()
+                input[5] = 50000 // window_size
+                input[6] = true // decay
+                input[7] = true // merge_samples
+                input[8] = Channel.from([
+                    ['L1', 'L10'],
+                    ['L1', 'p6'],
+                    ['L10', 'p6']
+                ])
+                input[9] = PREPARE_GENOME.out.gene_map
+                input[10] = 'max' // Duplicate aggregation method
+                input[11] = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                    .splitCsv(header: true, sep: ',')
+                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
+                    .filter { row -> row.assay.startsWith("H3") }
+                    .map { row ->
+                        [
+                            [
+                                id: row.sample,
+                                condition: row.condition,
+                                assay: row.assay,
+                            ],
+                            file(row.signal, checkIfExists: true),
+                            file(row.control, checkIfExists: true)
+                        ]
+                    }
+                input[12] = PREPARE_GENOME.out.chrom_sizes
+                input[13] = 4 // chromhmm_states
+                input[14] = 0.75 // chromhmm_threshold
+                input[15] = ["H3K27ac"] // chromhmm_enhancer_marks
+                input[16] = ["H3K4me3"] // chromhmm_promoter_marks
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}

@@ -2,25 +2,7 @@
 
 import pandas as pd
 import platform
-
-def format_yaml_like(data: dict, indent: int = 0) -> str:
-    """Formats a dictionary to a YAML-like string.
-
-    Args:
-        data (dict): The dictionary to format.
-        indent (int): The current indentation level.
-
-    Returns:
-        str: A string formatted as YAML.
-    """
-    yaml_str = ""
-    for key, value in data.items():
-        spaces = "  " * indent
-        if isinstance(value, dict):
-            yaml_str += f"{spaces}{key}:\\n{format_yaml_like(value, indent + 1)}"
-        else:
-            yaml_str += f"{spaces}{key}: {value}\\n"
-    return yaml_str
+import yaml
 
 df_counts = pd.read_csv("$counts", index_col=0, header=0, sep="\\t")
 df_lengths = pd.read_csv("$lengths", index_col=0, header=0, sep="\\t", usecols=["gene", "merged"])
@@ -45,7 +27,7 @@ df_scale = df_rpk.sum() / 1e6
 df_tpm = df_rpk.div(df_scale, axis=1)
 
 # Save to file
-df_tpm.to_csv("${meta.id}.tpm.tsv", sep="\\t")
+df_tpm.to_csv("${prefix}.tpm.tsv", sep="\\t")
 
 # Create version file
 versions = {
@@ -56,4 +38,4 @@ versions = {
 }
 
 with open("versions.yml", "w") as f:
-    f.write(format_yaml_like(versions))
+    yaml.dump(versions, f)

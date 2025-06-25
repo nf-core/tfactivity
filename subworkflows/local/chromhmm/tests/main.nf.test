@@ -1,0 +1,134 @@
+nextflow_workflow {
+
+    name "Test Workflow CHROMHMM"
+    script "subworkflows/local/chromhmm/main.nf"
+    workflow "CHROMHMM"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        when {
+            workflow {
+                """
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                    .splitCsv(header: true, sep: ',')
+                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
+                    .filter { row -> row.assay.startsWith("H3") }
+                    .map { row ->
+                        [
+                            [
+                                id: row.sample,
+                                condition: row.condition,
+                                assay: row.assay,
+                            ],
+                            file(row.signal, checkIfExists: true),
+                            file(row.control, checkIfExists: true)
+                        ]
+                    }
+
+                input[0] = ch_samplesheet
+                input[1] = PREPARE_GENOME.out.chrom_sizes
+                input[2] = 4
+                input[3] = 0.5
+                input[4] = ["H3K27ac"]
+                input[5] = ["H3K4me3"]
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                    .splitCsv(header: true, sep: ',')
+                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
+                    .filter { row -> row.assay.startsWith("H3") }
+                    .map { row ->
+                        [
+                            [
+                                id: row.sample,
+                                condition: row.condition,
+                                assay: row.assay,
+                            ],
+                            file(row.signal, checkIfExists: true),
+                            file(row.control, checkIfExists: true)
+                        ]
+                    }
+
+                input[0] = ch_samplesheet
+                input[1] = PREPARE_GENOME.out.chrom_sizes
+                input[2] = 4
+                input[3] = 0.5
+                input[4] = ["H3K27ac"]
+                input[5] = ["H3K27me3"]
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run without controls") {
+
+        when {
+            workflow {
+                """
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                    .splitCsv(header: true, sep: ',')
+                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
+                    .filter { row -> row.assay.startsWith("H3") }
+                    .map { row ->
+                        [
+                            [
+                                id: row.sample,
+                                condition: row.condition,
+                                assay: row.assay,
+                            ],
+                            file(row.signal, checkIfExists: true),
+                            null
+                        ]
+                    }
+
+                input[0] = ch_samplesheet
+                input[1] = PREPARE_GENOME.out.chrom_sizes
+                input[2] = 4
+                input[3] = 0.5
+                input[4] = ["H3K27ac"]
+                input[5] = ["H3K4me3"]
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}

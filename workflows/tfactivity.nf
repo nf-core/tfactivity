@@ -18,7 +18,6 @@ include { DYNAMITE               } from '../subworkflows/local/dynamite'
 include { RANKING                } from '../subworkflows/local/ranking'
 include { FIMO                   } from '../subworkflows/local/fimo'
 include { SNEEP                  } from '../subworkflows/local/sneep'
-include { REPORT                 } from '../subworkflows/local/report'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,35 +26,27 @@ include { REPORT                 } from '../subworkflows/local/report'
 */
 
 workflow TFACTIVITY {
-
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
-
-    // Genome
-    genome
+    ch_samplesheet          // channel: samplesheet read in from --input
+    sneep_scale_file
+    sneep_motif_file
     fasta
     gtf
     blacklist
-    ch_motifs
-    ch_taxon_id
+    motifs
+    taxon_id
     gene_lengths
     gene_map
     chrom_sizes
-
-    // ChromHMM
     ch_samplesheet_bam
     chromhmm_states
     chromhmm_threshold
     chromhmm_enhancer_marks
     chromhmm_promoter_marks
-
-    // Peaks
     window_size
     decay
     merge_samples
     affinity_agg_method
-
-    // Counts
     counts
     extra_counts
     counts_design
@@ -64,28 +55,27 @@ workflow TFACTIVITY {
     expression_agg_method
     min_count_tf
     min_tpm_tf
-
-    // Dynamite
     dynamite_ofolds
     dynamite_ifolds
     dynamite_alpha
     dynamite_randomize
-
-    // Ranking
     alpha
-
-    // Sneep
     snps
-
     ch_versions
 
     main:
 
-    ch_conditions = ch_samplesheet.map { meta, peak_file -> meta.condition }
-                        .toSortedList().flatten().unique()
+    ch_versions = Channel.empty()
 
-    ch_contrasts = ch_conditions.combine(ch_conditions)
-                                .filter { condition1, condition2 -> condition1 < condition2 }
+    ch_conditions = ch_samplesheet
+        .map { meta, _peak_file -> meta.condition }
+        .toSortedList()
+        .flatten()
+        .unique()
+
+    ch_contrasts = ch_conditions
+        .combine(ch_conditions)
+        .filter { condition1, condition2 -> condition1 < condition2 }
 
     COUNTS(
         gene_lengths,
@@ -98,14 +88,16 @@ workflow TFACTIVITY {
         ch_contrasts,
         expression_agg_method,
         min_count_tf,
-        min_tpm_tf
+        min_tpm_tf,
     )
+    ch_versions = ch_versions.mix(COUNTS.out.versions)
 
     MOTIFS(
-        ch_motifs,
+        motifs,
         COUNTS.out.tfs,
-        ch_taxon_id
+        taxon_id,
     )
+    ch_versions = ch_versions.mix(MOTIFS.out.versions)
 
     PEAKS(
         ch_samplesheet,
@@ -126,6 +118,7 @@ workflow TFACTIVITY {
         chromhmm_enhancer_marks,
         chromhmm_promoter_marks,
     )
+    ch_versions = ch_versions.mix(PEAKS.out.versions)
 
     DYNAMITE(
         COUNTS.out.differential,
@@ -133,15 +126,17 @@ workflow TFACTIVITY {
         dynamite_ofolds,
         dynamite_ifolds,
         dynamite_alpha,
-        dynamite_randomize
+        dynamite_randomize,
     )
+    ch_versions = ch_versions.mix(DYNAMITE.out.versions)
 
     RANKING(
         COUNTS.out.differential,
         PEAKS.out.affinity_sum,
         DYNAMITE.out.regression_coefficients,
-        alpha
+        alpha,
     )
+    ch_versions = ch_versions.mix(RANKING.out.versions)
 
     if (!params.skip_fimo) {
         FIMO(
@@ -153,51 +148,43 @@ workflow TFACTIVITY {
         ch_versions = ch_versions.mix(FIMO.out.versions)
     }
 
-    if (genome in ["hg38", "mm10"] && !params.skip_sneep && params.snps && !params.skip_fimo) {
-        SNEEP(
-            genome,
-            snps,
-            fasta,
-            FIMO.out.gff
-        )
-    ch_versions = ch_versions.mix(SNEEP.out.versions)
+    if (!params.skip_sneep) {
+        if (!sneep_scale_file) {
+            error "In order to run sneep, please provide a sneep scale file (--sneep_scale_file). If you set --genome to either hg38 or mm10, the sneep scale file will be automatically downloaded."
+        }
+
+        if (!sneep_motif_file) {
+            error "In order to run sneep, please provide a sneep motif file (--sneep_motif_file). If you set --genome to either hg38 or mm10, the sneep motif file will be automatically downloaded."
+        }
+
+        if (!snps) {
+            error "In order to run sneep, please provide a snps file (--snps). If you set --genome to either hg38 or mm10, the snps file will be automatically downloaded."
+        }
+
+        if (params.skip_fimo) {
+            log.warn "Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false."
+        } else {
+            SNEEP(
+                snps,
+                sneep_scale_file,
+                sneep_motif_file,
+                fasta,
+                FIMO.out.gff,
+            )
+            ch_versions = ch_versions.mix(SNEEP.out.versions)
+        }
     }
-
-
-    REPORT(
-        RANKING.out.tf_ranking,
-        RANKING.out.tg_ranking,
-        COUNTS.out.differential
-    )
-
-    ch_versions = ch_versions.mix(
-        COUNTS.out.versions,
-        MOTIFS.out.versions,
-        PEAKS.out.versions,
-        DYNAMITE.out.versions,
-        RANKING.out.versions,
-        REPORT.out.versions
-    )
 
     //
     // Collate and save software versions
     //
-    softwareVersionsToYAML(ch_versions)
-        .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
-            name: 'nf_core_'  +  'tfactivity_software_'  + 'versions.yml',
-            sort: true,
-            newLine: true
-        ).set { ch_collated_versions }
-
+    softwareVersionsToYAML(ch_versions).collectFile(
+        storeDir: "${params.outdir}/pipeline_info",
+        name: 'nf_core_tfactivity_software_versions.yml',
+        sort: true,
+        newLine: true,
+    )
 
     emit:
-    versions       = ch_versions                 // channel: [ path(versions.yml) ]
-
+    versions = ch_versions // channel: [ path(versions.yml) ]
 }
-
-/*
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    THE END
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*/

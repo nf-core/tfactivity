@@ -1,22 +1,23 @@
 process FILTER_SCALES_MOTIFS {
+    label "process_single"
 
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/cb/cb82daa12e6ef372e8f2d11da512607b2111ac6bfafd91532de554cc583eae4b/data':
-        'community.wave.seqera.io/library/pandas_pyyaml:aee7106480c2e582' }"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/7c/7c256e63e08633ac420692d3ceec1f554fe4fcc794e5bdd331994f743096a46d/data'
+        : 'community.wave.seqera.io/library/pandas_pyyaml:c0acbb47d05e4f9c'}"
 
     input:
-        path motifs_transfac
-        path scale_file
-        path motif_regions
+    path motifs_transfac
+    path scale_file
+    path motif_regions
 
     output:
-        path "filtered_${motifs_transfac}", emit: transfac
-        path "filtered_${scale_file}",      emit: scale_file
-        path "versions.yml",                emit: versions
+    path "filtered_${motifs_transfac}", emit: transfac
+    path "filtered_${scale_file}", emit: scale_file
+    path "versions.yml", emit: versions
 
     script:
-    template 'filter_scales_motifs.py'
+    template('filter_scales_motifs.py')
 
     stub:
     """
