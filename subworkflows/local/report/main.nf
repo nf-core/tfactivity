@@ -1,6 +1,7 @@
 include { UNTAR                           } from "../../../modules/nf-core/untar"
 include { REPORT_PREPROCESS as PREPROCESS } from "../../../modules/local/report/preprocess"
 include { REPORT_CREATE as CREATE         } from "../../../modules/local/report/create"
+include { ZIP                             } from "../../../modules/nf-core/zip"
 
 include { paramsSummaryMap                } from 'plugin/nf-schema'
 include { paramsSummaryToYAML             } from '../../nf-core/utils_nfcore_pipeline'
@@ -67,4 +68,6 @@ workflow REPORT {
         PREPROCESS.out.regression_coefficients,
         PREPROCESS.out.transcription_factors,
     )
+
+    ZIP(CREATE.out)
 }

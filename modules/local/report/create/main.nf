@@ -16,7 +16,7 @@ process REPORT_CREATE {
     path transcription_factors
 
     output:
-    path "report"
+    tuple val(meta), path("report")
 
     script:
     def build_dir = "build"
