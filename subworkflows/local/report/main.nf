@@ -1,4 +1,10 @@
-include { REPORT_PREPROCESS } from "../../../modules/local/report/preprocess"
+include { UNTAR                           } from "../../../modules/nf-core/untar"
+include { REPORT_PREPROCESS as PREPROCESS } from "../../../modules/local/report/preprocess"
+include { REPORT_CREATE as CREATE         } from "../../../modules/local/report/create"
+
+include { paramsSummaryMap                } from 'plugin/nf-schema'
+include { paramsSummaryToYAML             } from '../../nf-core/utils_nfcore_pipeline'
+include { softwareVersionsToYAML          } from '../../nf-core/utils_nfcore_pipeline'
 
 workflow REPORT {
     take:
@@ -13,12 +19,31 @@ workflow REPORT {
     affinity_ratio
     affinities
     regression_coefficients
-    summary_params
-    versions
+    ch_versions
 
     main:
+    UNTAR([[id: 'report'], file("https://github.com/daisybio/nfcore-tfactivity-report/archive/refs/tags/v0.1.1.tar.gz", checkIfExists: true)])
+    ch_versions = ch_versions.mix(UNTAR.out.versions)
 
-    REPORT_PREPROCESS(
+    //
+    // Collate and save software versions
+    //
+    softwareVersionsToYAML(ch_versions)
+        .collectFile(
+            storeDir: "${params.outdir}/pipeline_info",
+            name: 'nf_core_tfactivity_software_versions.yml',
+            sort: true,
+            newLine: true,
+        )
+        .set { ch_collatted_versions }
+
+    summary_params = paramsSummaryMap(
+        workflow,
+        parameters_schema: "nextflow_schema.json"
+    )
+    ch_workflow_summary = Channel.value(paramsSummaryToYAML(summary_params))
+
+    PREPROCESS(
         tf_rankings,
         tg_rankings,
         deseq2_differential,
@@ -30,7 +55,16 @@ workflow REPORT {
         affinity_ratio,
         affinities,
         regression_coefficients,
-        summary_params,
-        versions
+        ch_workflow_summary.collectFile(name: 'params.yaml'),
+        ch_collatted_versions,
+    )
+
+    CREATE(
+        UNTAR.out.untar,
+        PREPROCESS.out.metadata,
+        PREPROCESS.out.params,
+        PREPROCESS.out.ranking,
+        PREPROCESS.out.regression_coefficients,
+        PREPROCESS.out.transcription_factors,
     )
 }
