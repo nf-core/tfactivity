@@ -43,6 +43,10 @@ df_ranking['q99'] = df_genes.quantile(0.99)
 df_ranking['median'] = df_genes.median()
 df_ranking['p-value'] = df_genes.apply(lambda x: mann_whitney_u(background, x))
 
+# Multiple testing correction using Benjamini-Hochberg
+df_ranking.loc[pd.isna(df_ranking["p-value"]), "p-value"] = 1.0
+df_ranking['p-value'] = stats.false_discovery_control(df_ranking['p-value'], method="bh")
+
 df_ranking = df_ranking[(df_ranking['median'] > background_median) & (df_ranking['p-value'] < float("$alpha"))]
 
 df_ranking.sort_values(by=['median'], ascending=False, inplace=True)
