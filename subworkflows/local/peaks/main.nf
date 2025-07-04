@@ -165,6 +165,7 @@ workflow PEAKS {
     emit:
     affinity_ratio    = AFFINITY_RATIO.out.combined
     affinity_sum      = AFFINITY_SUM.out.combined
+    affinities        = AGGREGATE_SYNONYMS.out.affinities
     candidate_regions = ch_peaks
     versions          = ch_versions // channel: [ versions.yml ]
 }

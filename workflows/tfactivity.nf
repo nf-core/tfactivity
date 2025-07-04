@@ -6,7 +6,7 @@
 
 // include { MULTIQC             } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-schema'
-include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
+include { paramsSummaryToYAML    } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_tfactivity_pipeline'
 
@@ -18,6 +18,7 @@ include { DYNAMITE               } from '../subworkflows/local/dynamite'
 include { RANKING                } from '../subworkflows/local/ranking'
 include { FIMO                   } from '../subworkflows/local/fimo'
 include { SNEEP                  } from '../subworkflows/local/sneep'
+include { REPORT                 } from '../subworkflows/local/report'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -133,7 +134,7 @@ workflow TFACTIVITY {
     RANKING(
         COUNTS.out.differential,
         PEAKS.out.affinity_sum,
-        DYNAMITE.out.regression_coefficients,
+        DYNAMITE.out.filtered_coefficients,
         alpha,
     )
     ch_versions = ch_versions.mix(RANKING.out.versions)
@@ -150,20 +151,21 @@ workflow TFACTIVITY {
 
     if (!params.skip_sneep) {
         if (!sneep_scale_file) {
-            error "In order to run sneep, please provide a sneep scale file (--sneep_scale_file). If you set --genome to either hg38 or mm10, the sneep scale file will be automatically downloaded."
+            error("In order to run sneep, please provide a sneep scale file (--sneep_scale_file). If you set --genome to either hg38 or mm10, the sneep scale file will be automatically downloaded.")
         }
 
         if (!sneep_motif_file) {
-            error "In order to run sneep, please provide a sneep motif file (--sneep_motif_file). If you set --genome to either hg38 or mm10, the sneep motif file will be automatically downloaded."
+            error("In order to run sneep, please provide a sneep motif file (--sneep_motif_file). If you set --genome to either hg38 or mm10, the sneep motif file will be automatically downloaded.")
         }
 
         if (!snps) {
-            error "In order to run sneep, please provide a snps file (--snps). If you set --genome to either hg38 or mm10, the snps file will be automatically downloaded."
+            error("In order to run sneep, please provide a snps file (--snps). If you set --genome to either hg38 or mm10, the snps file will be automatically downloaded.")
         }
 
         if (params.skip_fimo) {
-            log.warn "Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false."
-        } else {
+            log.warn("Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false.")
+        }
+        else {
             SNEEP(
                 snps,
                 sneep_scale_file,
@@ -178,11 +180,35 @@ workflow TFACTIVITY {
     //
     // Collate and save software versions
     //
-    softwareVersionsToYAML(ch_versions).collectFile(
-        storeDir: "${params.outdir}/pipeline_info",
-        name: 'nf_core_tfactivity_software_versions.yml',
-        sort: true,
-        newLine: true,
+    softwareVersionsToYAML(ch_versions)
+        .collectFile(
+            storeDir: "${params.outdir}/pipeline_info",
+            name: 'nf_core_tfactivity_software_versions.yml',
+            sort: true,
+            newLine: true,
+        )
+        .set { ch_collatted_versions }
+
+    summary_params = paramsSummaryMap(
+        workflow,
+        parameters_schema: "nextflow_schema.json"
+    )
+    ch_workflow_summary = Channel.value(paramsSummaryToYAML(summary_params))
+
+    REPORT(
+        RANKING.out.tf_ranking.map { _meta, ranking -> ranking }.collect(),
+        RANKING.out.tg_ranking.map { _meta, ranking -> ranking }.collect(),
+        COUNTS.out.differential.map { _meta, differential -> differential }.collect(),
+        COUNTS.out.raw_counts.map { _meta, raw_counts -> raw_counts }.collect(),
+        COUNTS.out.normalized.map { _meta, normalized -> normalized }.collect(),
+        COUNTS.out.tpms.map { _meta, tpms -> tpms }.collect(),
+        counts_design.map { _meta, design -> design }.collect(),
+        PEAKS.out.affinity_sum.map { _meta, affinity_sum -> affinity_sum }.collect(),
+        PEAKS.out.affinity_ratio.map { _meta, affinity_ratio -> affinity_ratio }.collect(),
+        PEAKS.out.affinities.map { _meta, affinities -> affinities }.collect(),
+        DYNAMITE.out.all_coefficients.map { _meta, all_coefficients -> all_coefficients }.collect(),
+        ch_workflow_summary.collectFile(name: 'params.yaml'),
+        ch_collatted_versions,
     )
 
     emit:
