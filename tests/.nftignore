@@ -3,3 +3,4 @@ pipeline_info/*.{html,json,txt,yml}
 06_fimo/04_combined_results/*.tsv
 06_fimo/04_combined_results/*.gff
 03_peaks/07_affinity_mean/*.tsv
+08_report/**

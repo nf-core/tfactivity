@@ -977,31 +977,14 @@
                 "filtered_L1_H3K27ac.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "filtered_L1_H3K4me3.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "filtered_p6_H3K27ac.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "filtered_p6_H3K4me3.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "report.zip:md5,4e6ef8a643e113654de13e3b9b9a48fd",
-                "index.BIXhhK9X.css:md5,b3a650991be83f8f2ab4f4b6145e6d2c",
-                "nf-core-tfactivity_logo_light.I2d50A6U.png:md5,423fa0a20cda3531fc792ed773084fa6",
-                "favicon.svg:md5,8c13f40658976ea1dfb8ba37a8be0e8d",
-                "genecards.ico:md5,4da7293e798ed2d35ba626f22e9367c8",
-                "index.html:md5,bce35a332f1a700d00af8d9389445dfa",
-                "index.html:md5,17b037414b64a7f4a3374e1903a109e7",
-                "index.html:md5,a5b0fe7fddbee7c155d871807c062d3a",
-                "index.html:md5,621c9ba90c2246421ddd038331b011d5",
-                "index.html:md5,b80df865e84cec3ff1f9bb6babfa915b",
-                "index.html:md5,b64ffed09c0eebf0edd998c594ad8528",
-                "index.html:md5,d7efb6442d0c3281e96ea1005f32dcf6",
-                "ARID5A.json:md5,f3cf7b1ef0e4e5dd618b75d53390521a",
-                "ATF3.json:md5,308a8775afe8a30262ccf035a1f87ae7",
-                "NPAS2.json:md5,ae4531f0b4fd7cfe44bd10c06aa27314",
-                "TFCP2L1.json:md5,ec11987ccae3737816ea8e5ae66bbd8d",
-                "TWIST2.json:md5,aeee74c80b420e8a18c8c168a686d805"
+                "filtered_p6_H3K4me3.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-07-05T08:26:51.268403372"
+        "timestamp": "2025-07-05T10:28:33.077912485"
     },
     "Should run with both bed and bam input": {
         "content": [
@@ -2748,30 +2731,13 @@
                 "filtered_p6_H3K27ac.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "filtered_p6_H3K4me3.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "filtered_p6_chromHMM_enhancers.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "filtered_p6_chromHMM_promoters.bed:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "report.zip:md5,350daa1b15ecce50cae23cef1db1cf39",
-                "index.BIXhhK9X.css:md5,b3a650991be83f8f2ab4f4b6145e6d2c",
-                "nf-core-tfactivity_logo_light.I2d50A6U.png:md5,423fa0a20cda3531fc792ed773084fa6",
-                "favicon.svg:md5,8c13f40658976ea1dfb8ba37a8be0e8d",
-                "genecards.ico:md5,4da7293e798ed2d35ba626f22e9367c8",
-                "index.html:md5,ee19fcb219d05dee95d213b8d1c1897f",
-                "index.html:md5,d2ed3680160391422ed4b5ffb2994178",
-                "index.html:md5,cf90f3ada785b188460a673d696ab765",
-                "index.html:md5,f3abaa552835195e6db9966f5119fb5e",
-                "index.html:md5,f62d820b02988e271ad0a0a1ea234aba",
-                "index.html:md5,029c0363e23edd7595a843d404997b43",
-                "index.html:md5,2ff6157a890232294706fbde5ac7f78f",
-                "ARID5A.json:md5,0f3226c45eb4b9c778915569d065f37f",
-                "ATF3.json:md5,2cbecf752ad01321c838bad26f3c525a",
-                "NPAS2.json:md5,9251a1faf9158e752c969e005151367f",
-                "TFCP2L1.json:md5,c2407733de2aa39b7160221c6da20a34",
-                "TWIST2.json:md5,6841b928a0fd05a18e8743076cd1aed1"
+                "filtered_p6_chromHMM_promoters.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-07-05T08:21:33.578068271"
+        "timestamp": "2025-07-05T10:25:42.459159986"
     }
 }

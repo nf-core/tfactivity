@@ -31,7 +31,6 @@ process REPORT_CREATE {
     cp -Lr $transcription_factors $public_dir/transcription_factors
 
     cd $build_dir
-    npm cache clean --force
     npm install
     npm run build
 
