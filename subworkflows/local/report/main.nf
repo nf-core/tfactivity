@@ -4,7 +4,7 @@ include { REPORT_CREATE as CREATE         } from "../../../modules/local/report/
 include { ZIP                             } from "../../../modules/nf-core/zip"
 
 include { paramsSummaryMap                } from 'plugin/nf-schema'
-include { paramsSummaryToYAML             } from '../../nf-core/utils_nfcore_pipeline'
+include { paramsSummaryToYAML             } from '../../local/utils_nfcore_tfactivity_pipeline'
 include { softwareVersionsToYAML          } from '../../nf-core/utils_nfcore_pipeline'
 
 workflow REPORT {

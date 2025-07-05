@@ -246,3 +246,24 @@ def methodsDescriptionText(mqc_methods_yaml) {
 
     return description_html.toString()
 }
+
+def paramsSummaryToYAML(summary_params) {
+    def yaml_file_text = ""
+    summary_params
+        .keySet()
+        .sort()
+        .each { group ->
+            def group_params = summary_params.get(group)
+            if (group_params) {
+                yaml_file_text += "${group}:\n"
+                group_params
+                    .keySet()
+                    .sort()
+                    .each { param ->
+                        def value = group_params.get(param)
+                        yaml_file_text += "  ${param}: ${value ?: 'null'}\n"
+                    }
+            }
+        }
+    return yaml_file_text.trim()
+}
