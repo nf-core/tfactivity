@@ -59,7 +59,7 @@ pairings = set()
 
 for file in tf_ranking_dir.glob("*.tf_ranking.tsv"):
     assay = file.stem.split(".")[0]
-    
+
     df_tf = pd.read_csv(file, sep="\t", index_col=0)
     ranking[assay] = df_tf["dcg"].to_dict()
 
@@ -162,7 +162,7 @@ for tf in tfs:
         for sample in samples:
             if sample in df_tpm.index:
                 tfs[tf]["tpm"][condition][sample] = df_tpm.loc[sample, tf]
-    
+
     # Restructure counts data: condition -> sample -> value
     tfs[tf]["counts"] = {}
     for condition, samples in condition_to_samples.items():
