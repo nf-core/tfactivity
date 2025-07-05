@@ -36,7 +36,7 @@ workflow REPORT {
             sort: true,
             newLine: true,
         )
-        .set { ch_collatted_versions }
+        .set { ch_collated_versions }
 
     summary_params = paramsSummaryMap(
         workflow,
@@ -57,7 +57,7 @@ workflow REPORT {
         affinities,
         regression_coefficients,
         ch_workflow_summary.collectFile(name: 'params.yaml'),
-        ch_collatted_versions,
+        ch_collated_versions,
     )
 
     CREATE(
