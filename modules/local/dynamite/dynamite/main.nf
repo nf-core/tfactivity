@@ -15,10 +15,11 @@ process DYNAMITE_DYNAMITE {
     val(randomize)
 
     output:
-    tuple val(meta), path("${meta.id}_dynamite/Regression_Coefficients_Entire_Data_Set_classification.txt"), emit: regression_coefficients
+    tuple val(meta), path("${prefix}_regression_coefficients.txt"), emit: regression_coefficients
     path "versions.yml", emit: versions
 
     script:
+    prefix = task.ext.prefix ?: "${meta.id}_dynamite"
     """
     DYNAMITE.R \\
         --dataDir=input \\
@@ -31,6 +32,8 @@ process DYNAMITE_DYNAMITE {
         --randomise=$randomize \\
         --cores=$task.cpus
 
+    mv ${meta.id}_dynamite/Regression_Coefficients_Entire_Data_Set_classification.txt ${prefix}_regression_coefficients.txt
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         DYNAMITE: 1.0
@@ -38,9 +41,9 @@ process DYNAMITE_DYNAMITE {
     """
 
     stub:
+    prefix = task.ext.prefix ?: "${meta.id}_dynamite"
     """
-    mkdir -p ${meta.id}_dynamite
-    touch ${meta.id}_dynamite/Regression_Coefficients_Entire_Data_Set_classification.txt
+    touch ${prefix}_regression_coefficients.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
