@@ -40,7 +40,7 @@ n_total = len(counts)
 n_missing = (~mapped_index.isin(existing_symbols)).sum()
 if n_total > 0 and n_missing / n_total > 0.10:
     sys.stderr.write(
-        f"Error: {n_missing} out of {n_total} genes ({100 * n_missing/n_total:.1f}%) are not present in the GTF file. Please make sure the GTF file is the same as the one used to generate the counts. Aborting.\\n"
+        f"Error: {n_missing} out of {n_total} genes ({100 * n_missing/n_total:.1f}%) are not present in the GTF file.\\nPlease make sure the gene names/IDs used in the count matrix are available in the GTF in either the gene_id or gene_name attribute.\\nThis should always be the case if the provided GTF file is the same as the one used to generate the counts.\\nAborting.\\n"
     )
     sys.exit(1)
 
