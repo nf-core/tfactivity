@@ -9,7 +9,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10.bed:md5,e5c2cea50c2906bf8a00af69c9fa85e5"
+                        "L10.bed:md5,2bfb78f5f170c8b80ee95060df64d64e"
                     ],
                     [
                         {
@@ -17,7 +17,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "p6.bed:md5,5bb69971e407308b39588bc1f180d59d"
+                        "p6.bed:md5,07c3c0b32940aff61ecf4cbb5569dd4d"
                     ]
                 ],
                 "1": [
@@ -27,7 +27,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10.bed:md5,fce8945749da09035a79494c8c9bd426"
+                        "L10.bed:md5,46370a62d3fa1d1cf1c6ae05c6794e5d"
                     ],
                     [
                         {
@@ -35,7 +35,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "p6.bed:md5,416873c88aceed34ce2125b2f49a1bac"
+                        "p6.bed:md5,fe4281f664a38c46492a641f829aea4e"
                     ]
                 ],
                 "2": [
@@ -53,7 +53,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10.bed:md5,e5c2cea50c2906bf8a00af69c9fa85e5"
+                        "L10.bed:md5,2bfb78f5f170c8b80ee95060df64d64e"
                     ],
                     [
                         {
@@ -61,7 +61,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "p6.bed:md5,5bb69971e407308b39588bc1f180d59d"
+                        "p6.bed:md5,07c3c0b32940aff61ecf4cbb5569dd4d"
                     ]
                 ],
                 "promoters": [
@@ -71,7 +71,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10.bed:md5,fce8945749da09035a79494c8c9bd426"
+                        "L10.bed:md5,46370a62d3fa1d1cf1c6ae05c6794e5d"
                     ],
                     [
                         {
@@ -79,7 +79,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "p6.bed:md5,416873c88aceed34ce2125b2f49a1bac"
+                        "p6.bed:md5,fe4281f664a38c46492a641f829aea4e"
                     ]
                 ],
                 "versions": [
@@ -94,9 +94,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-12T14:15:03.276889474"
+        "timestamp": "2025-07-12T11:30:13.086062392"
     },
     "Should run without failures - stub": {
         "content": [
@@ -207,7 +207,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10.bed:md5,60faa9ede4f7ed46b2db46fddb843b4e"
+                        "L10.bed:md5,f9546933cefd8013f18701ed757c44a6"
                     ],
                     [
                         {
@@ -215,7 +215,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "p6.bed:md5,1a1d069fb1a0371a0d22af1cdb4cecdf"
+                        "p6.bed:md5,6615b24f4b4b49e4c09652e61bae353d"
                     ]
                 ],
                 "1": [
@@ -225,7 +225,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10.bed:md5,b36ab10e2e730996459baa71186e1cd5"
+                        "L10.bed:md5,92c472e63fd4aaa1cbdb828b35aa95ba"
                     ],
                     [
                         {
@@ -233,7 +233,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "p6.bed:md5,672928dc8d4e42785d34e0eafbf72cf4"
+                        "p6.bed:md5,f210174222d089f9656d623bf832773d"
                     ]
                 ],
                 "2": [
@@ -251,7 +251,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10.bed:md5,60faa9ede4f7ed46b2db46fddb843b4e"
+                        "L10.bed:md5,f9546933cefd8013f18701ed757c44a6"
                     ],
                     [
                         {
@@ -259,7 +259,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "p6.bed:md5,1a1d069fb1a0371a0d22af1cdb4cecdf"
+                        "p6.bed:md5,6615b24f4b4b49e4c09652e61bae353d"
                     ]
                 ],
                 "promoters": [
@@ -269,7 +269,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10.bed:md5,b36ab10e2e730996459baa71186e1cd5"
+                        "L10.bed:md5,92c472e63fd4aaa1cbdb828b35aa95ba"
                     ],
                     [
                         {
@@ -277,7 +277,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "p6.bed:md5,672928dc8d4e42785d34e0eafbf72cf4"
+                        "p6.bed:md5,f210174222d089f9656d623bf832773d"
                     ]
                 ],
                 "versions": [
@@ -294,6 +294,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-11T19:58:52.859036182"
+        "timestamp": "2025-07-12T11:26:25.870662295"
     }
 }
