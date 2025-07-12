@@ -1,0 +1,63 @@
+nextflow_process {
+
+    name "Test Process COMBINE_RESULTS"
+    script "modules/local/fimo/combine_results/main.nf"
+    process "COMBINE_RESULTS"
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_enhancers_MA0145.2/fimo.gff', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_enhancers_MA0518.2/fimo.gff', checkIfExists: true)
+                    ],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_enhancers_MA0145.2/fimo.tsv', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_enhancers_MA0518.2/fimo.tsv', checkIfExists: true)
+                    ]
+                ]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_enhancers_MA0145.2/fimo.gff', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_enhancers_MA0518.2/fimo.gff', checkIfExists: true)
+                    ],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_enhancers_MA0145.2/fimo.tsv', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_enhancers_MA0518.2/fimo.tsv', checkIfExists: true)
+                    ]
+                ]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

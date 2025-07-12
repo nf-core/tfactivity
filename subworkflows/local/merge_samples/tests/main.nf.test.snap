@@ -1,0 +1,324 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "L10_H3K27ac",
+                            "condition": "L10",
+                            "assay": "H3K27ac"
+                        },
+                        "L10_H3K27ac.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac",
+                            "condition": "L1",
+                            "assay": "H3K27ac"
+                        },
+                        "L1_H3K27ac.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K4me3",
+                            "condition": "L1",
+                            "assay": "H3K4me3"
+                        },
+                        "L1_H3K4me3.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K27ac",
+                            "condition": "p6",
+                            "assay": "H3K27ac"
+                        },
+                        "p6_H3K27ac.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K4me3",
+                            "condition": "p6",
+                            "assay": "H3K4me3"
+                        },
+                        "p6_H3K4me3.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb"
+                ],
+                "merged": [
+                    [
+                        {
+                            "id": "L10_H3K27ac",
+                            "condition": "L10",
+                            "assay": "H3K27ac"
+                        },
+                        "L10_H3K27ac.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac",
+                            "condition": "L1",
+                            "assay": "H3K27ac"
+                        },
+                        "L1_H3K27ac.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K4me3",
+                            "condition": "L1",
+                            "assay": "H3K4me3"
+                        },
+                        "L1_H3K4me3.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K27ac",
+                            "condition": "p6",
+                            "assay": "H3K27ac"
+                        },
+                        "p6_H3K27ac.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K4me3",
+                            "condition": "p6",
+                            "assay": "H3K4me3"
+                        },
+                        "p6_H3K4me3.clean.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T17:23:21.357380872"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "L10_H3K27ac",
+                            "condition": "L10",
+                            "assay": "H3K27ac"
+                        },
+                        "L10_H3K27ac.clean.bed:md5,1f95c2eb2407db88620e38ea6afa5c3d"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac",
+                            "condition": "L1",
+                            "assay": "H3K27ac"
+                        },
+                        "L1_H3K27ac.clean.bed:md5,85c8d4e25f3c66a7ada61c5ec920ad6f"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K4me3",
+                            "condition": "L1",
+                            "assay": "H3K4me3"
+                        },
+                        "L1_H3K4me3.clean.bed:md5,441572760bb39a908b49708dfaa7d191"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K27ac",
+                            "condition": "p6",
+                            "assay": "H3K27ac"
+                        },
+                        "p6_H3K27ac.clean.bed:md5,1e2b0e8e4f665488dc24356ace025df6"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K4me3",
+                            "condition": "p6",
+                            "assay": "H3K4me3"
+                        },
+                        "p6_H3K4me3.clean.bed:md5,7c540213f93e8494a101bbca4c5685eb"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb"
+                ],
+                "merged": [
+                    [
+                        {
+                            "id": "L10_H3K27ac",
+                            "condition": "L10",
+                            "assay": "H3K27ac"
+                        },
+                        "L10_H3K27ac.clean.bed:md5,1f95c2eb2407db88620e38ea6afa5c3d"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac",
+                            "condition": "L1",
+                            "assay": "H3K27ac"
+                        },
+                        "L1_H3K27ac.clean.bed:md5,85c8d4e25f3c66a7ada61c5ec920ad6f"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K4me3",
+                            "condition": "L1",
+                            "assay": "H3K4me3"
+                        },
+                        "L1_H3K4me3.clean.bed:md5,441572760bb39a908b49708dfaa7d191"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K27ac",
+                            "condition": "p6",
+                            "assay": "H3K27ac"
+                        },
+                        "p6_H3K27ac.clean.bed:md5,1e2b0e8e4f665488dc24356ace025df6"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K4me3",
+                            "condition": "p6",
+                            "assay": "H3K4me3"
+                        },
+                        "p6_H3K4me3.clean.bed:md5,7c540213f93e8494a101bbca4c5685eb"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,25519ff37e790357e12ce9ced43e3e15",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,4217f0b5064224a71f74fe373803a40f",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,6094a957766c0f03d02a47c98eb188ac",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,655eafde4b3833a70cd7d30d95d2fe5f",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,7673dd5991707eca0968047516091924",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb",
+                    "versions.yml:md5,82558bf87ab3ffd2f98041d74728d1eb"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T17:22:58.664282183"
+    }
+}

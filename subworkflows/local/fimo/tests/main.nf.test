@@ -1,0 +1,87 @@
+nextflow_workflow {
+
+    name "Test Workflow FIMO"
+    script "subworkflows/local/fimo/main.nf"
+    workflow "FIMO"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+
+        run("CONVERT_MOTIFS") {
+            script "../../../../modules/local/motifs/convert_motifs"
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true),
+                    'jaspar'
+                ]
+                input[1] = 'meme'
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        when {
+            workflow {
+                """
+                input[0] = PREPARE_GENOME.out.fasta
+                input[1] = [
+                    [ id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/ranking/tf_across_assays.tsv', checkIfExists: true)
+                ]
+                input[2] = [
+                    [id: 'test', assay: 'chromHMM_promoters', condition: 'L10' ],
+                    file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/promoter/L10.bed', checkIfExists: true)
+                ]
+                input[3] = CONVERT_MOTIFS.out.converted
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = PREPARE_GENOME.out.fasta
+                input[1] = [
+                    [ id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/ranking/tf_across_assays.tsv', checkIfExists: true)
+                ]
+                input[2] = [
+                    [id: 'test', assay: 'chromHMM_promoters', condition: 'L10' ],
+                    file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/promoter/L10.bed', checkIfExists: true)
+                ]
+                input[3] = CONVERT_MOTIFS.out.converted
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}
