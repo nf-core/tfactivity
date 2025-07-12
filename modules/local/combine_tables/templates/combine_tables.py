@@ -66,6 +66,9 @@ elif method == "ratio":
 
     print(f"Number of rows after dropping NA or inf values: {len(result)}")
 
+    # Round to 5 decimal places to stabilize hashes
+    result = result.round(5)
+
 # Write the result to a file
 result.to_csv("${prefix}.${extension}", sep='\\t', index=True, quoting=0)
 

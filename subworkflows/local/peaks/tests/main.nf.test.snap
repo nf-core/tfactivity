@@ -838,7 +838,7 @@
                             "condition2": "p6",
                             "assay": "H3K27ac"
                         },
-                        "L10:p6_H3K27ac.tsv:md5,47b18acd2926d1198c6ff04c15a0c1d2"
+                        "L10:p6_H3K27ac.tsv:md5,3b4afe6b6e878c54d359e01bfa46bf1f"
                     ],
                     [
                         {
@@ -848,7 +848,7 @@
                             "condition2": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10:p6_chromHMM_enhancers.tsv:md5,93db747848d1e981bc344bee7651122f"
+                        "L10:p6_chromHMM_enhancers.tsv:md5,58a34227af39eb6e42dbfd02d3038ffb"
                     ],
                     [
                         {
@@ -858,7 +858,7 @@
                             "condition2": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10:p6_chromHMM_promoters.tsv:md5,7790490cd3922ac0fa3a655644748aa8"
+                        "L10:p6_chromHMM_promoters.tsv:md5,5b934d8b5e3ce149bb189d9617111388"
                     ],
                     [
                         {
@@ -868,7 +868,7 @@
                             "condition2": "L10",
                             "assay": "H3K27ac"
                         },
-                        "L1:L10_H3K27ac.tsv:md5,a8044b9c799c2bb205bf465d82750f3b"
+                        "L1:L10_H3K27ac.tsv:md5,1d759cad10135a076ed4248ae82d15b9"
                     ],
                     [
                         {
@@ -878,7 +878,7 @@
                             "condition2": "L10",
                             "assay": "H3K27ac"
                         },
-                        "L1:L10_H3K27ac.tsv:md5,e848a9a1959720dcef4d508fb9e9763c"
+                        "L1:L10_H3K27ac.tsv:md5,cb214651ffd028492cfe0e1bc75525a0"
                     ],
                     [
                         {
@@ -888,7 +888,7 @@
                             "condition2": "p6",
                             "assay": "H3K27ac"
                         },
-                        "L1:p6_H3K27ac.tsv:md5,2a45ceb6624f6b94ea0d0de156d164ed"
+                        "L1:p6_H3K27ac.tsv:md5,4ab841802c9003cc1c1ec47158c5dde0"
                     ],
                     [
                         {
@@ -898,7 +898,7 @@
                             "condition2": "p6",
                             "assay": "H3K27ac"
                         },
-                        "L1:p6_H3K27ac.tsv:md5,a3ab161fe5980e1ea1be36a9e46ccfac"
+                        "L1:p6_H3K27ac.tsv:md5,e1b2d34b555424c7c8614e8086dc53f8"
                     ],
                     [
                         {
@@ -908,7 +908,7 @@
                             "condition2": "p6",
                             "assay": "H3K4me3"
                         },
-                        "L1:p6_H3K4me3.tsv:md5,368dbd53e185b53805ddc63402d46b71"
+                        "L1:p6_H3K4me3.tsv:md5,d7e2d4eeab6fb17146bea3538eac9d67"
                     ]
                 ],
                 "1": [
@@ -930,7 +930,7 @@
                             "condition2": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10:p6_chromHMM_enhancers.tsv:md5,105c5516bb661215e2dd65858443e60a"
+                        "L10:p6_chromHMM_enhancers.tsv:md5,7093068a1e3d8ce05334a8e359aab657"
                     ],
                     [
                         {
@@ -940,7 +940,7 @@
                             "condition2": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10:p6_chromHMM_promoters.tsv:md5,06ddaa1adf5b9cbd70c9f8c601d83e4b"
+                        "L10:p6_chromHMM_promoters.tsv:md5,1eaac15d61871b269c50ed7fa298e6d9"
                     ],
                     [
                         {
@@ -1008,7 +1008,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10_chromHMM_enhancers.agg_affinities.tsv:md5,eb8d959da8a751685a25b41805b3aa2f"
+                        "L10_chromHMM_enhancers.agg_affinities.tsv:md5,722825a3474e37300fb033d10d1dc87e"
                     ],
                     [
                         {
@@ -1016,7 +1016,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10_chromHMM_promoters.agg_affinities.tsv:md5,f085c529f63a52d330f36dc82c1adbf9"
+                        "L10_chromHMM_promoters.agg_affinities.tsv:md5,f8b9fb636e8fd63a2ae258d2cdfd0924"
                     ],
                     [
                         {
@@ -1064,7 +1064,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "p6_chromHMM_enhancers.agg_affinities.tsv:md5,0043ea21c48797c1ca4bb544af3e4085"
+                        "p6_chromHMM_enhancers.agg_affinities.tsv:md5,a2b532ee933e13a0f83ab6a1f8783b5a"
                     ],
                     [
                         {
@@ -1072,7 +1072,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "p6_chromHMM_promoters.agg_affinities.tsv:md5,f8d315fc418373ef4811a7f95d3bd775"
+                        "p6_chromHMM_promoters.agg_affinities.tsv:md5,c3b391cafc097a15de8688b3b1dd30bb"
                     ]
                 ],
                 "3": [
@@ -1090,7 +1090,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10_chromHMM_enhancers_stitched.bed:md5,ff9736f929b7aaebcfd645f10d3a9aa0"
+                        "L10_chromHMM_enhancers_stitched.bed:md5,b6df24b214c1e55048088dad3ebf5a46"
                     ],
                     [
                         {
@@ -1098,7 +1098,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10_chromHMM_promoters_stitched.bed:md5,34562c015f76b77c886546e192c609fe"
+                        "L10_chromHMM_promoters_stitched.bed:md5,300db49826ff44731ad99bced2882aa8"
                     ],
                     [
                         {
@@ -1146,7 +1146,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "p6_chromHMM_enhancers_stitched.bed:md5,2e04892da2d9a7357763aec485be1344"
+                        "p6_chromHMM_enhancers_stitched.bed:md5,b6861704f88ab81615c4c33c4b84bfd9"
                     ],
                     [
                         {
@@ -1154,7 +1154,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "p6_chromHMM_promoters_stitched.bed:md5,93858197a7b5f0637d541bb101574449"
+                        "p6_chromHMM_promoters_stitched.bed:md5,53e6abb8116690ebca2f026a339af6c7"
                     ]
                 ],
                 "4": [
@@ -1296,7 +1296,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10_chromHMM_enhancers.agg_affinities.tsv:md5,eb8d959da8a751685a25b41805b3aa2f"
+                        "L10_chromHMM_enhancers.agg_affinities.tsv:md5,722825a3474e37300fb033d10d1dc87e"
                     ],
                     [
                         {
@@ -1304,7 +1304,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10_chromHMM_promoters.agg_affinities.tsv:md5,f085c529f63a52d330f36dc82c1adbf9"
+                        "L10_chromHMM_promoters.agg_affinities.tsv:md5,f8b9fb636e8fd63a2ae258d2cdfd0924"
                     ],
                     [
                         {
@@ -1352,7 +1352,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "p6_chromHMM_enhancers.agg_affinities.tsv:md5,0043ea21c48797c1ca4bb544af3e4085"
+                        "p6_chromHMM_enhancers.agg_affinities.tsv:md5,a2b532ee933e13a0f83ab6a1f8783b5a"
                     ],
                     [
                         {
@@ -1360,7 +1360,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "p6_chromHMM_promoters.agg_affinities.tsv:md5,f8d315fc418373ef4811a7f95d3bd775"
+                        "p6_chromHMM_promoters.agg_affinities.tsv:md5,c3b391cafc097a15de8688b3b1dd30bb"
                     ]
                 ],
                 "affinity_ratio": [
@@ -1372,7 +1372,7 @@
                             "condition2": "p6",
                             "assay": "H3K27ac"
                         },
-                        "L10:p6_H3K27ac.tsv:md5,47b18acd2926d1198c6ff04c15a0c1d2"
+                        "L10:p6_H3K27ac.tsv:md5,3b4afe6b6e878c54d359e01bfa46bf1f"
                     ],
                     [
                         {
@@ -1382,7 +1382,7 @@
                             "condition2": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10:p6_chromHMM_enhancers.tsv:md5,93db747848d1e981bc344bee7651122f"
+                        "L10:p6_chromHMM_enhancers.tsv:md5,58a34227af39eb6e42dbfd02d3038ffb"
                     ],
                     [
                         {
@@ -1392,7 +1392,7 @@
                             "condition2": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10:p6_chromHMM_promoters.tsv:md5,7790490cd3922ac0fa3a655644748aa8"
+                        "L10:p6_chromHMM_promoters.tsv:md5,5b934d8b5e3ce149bb189d9617111388"
                     ],
                     [
                         {
@@ -1402,7 +1402,7 @@
                             "condition2": "L10",
                             "assay": "H3K27ac"
                         },
-                        "L1:L10_H3K27ac.tsv:md5,a8044b9c799c2bb205bf465d82750f3b"
+                        "L1:L10_H3K27ac.tsv:md5,1d759cad10135a076ed4248ae82d15b9"
                     ],
                     [
                         {
@@ -1412,7 +1412,7 @@
                             "condition2": "L10",
                             "assay": "H3K27ac"
                         },
-                        "L1:L10_H3K27ac.tsv:md5,e848a9a1959720dcef4d508fb9e9763c"
+                        "L1:L10_H3K27ac.tsv:md5,cb214651ffd028492cfe0e1bc75525a0"
                     ],
                     [
                         {
@@ -1422,7 +1422,7 @@
                             "condition2": "p6",
                             "assay": "H3K27ac"
                         },
-                        "L1:p6_H3K27ac.tsv:md5,2a45ceb6624f6b94ea0d0de156d164ed"
+                        "L1:p6_H3K27ac.tsv:md5,4ab841802c9003cc1c1ec47158c5dde0"
                     ],
                     [
                         {
@@ -1432,7 +1432,7 @@
                             "condition2": "p6",
                             "assay": "H3K27ac"
                         },
-                        "L1:p6_H3K27ac.tsv:md5,a3ab161fe5980e1ea1be36a9e46ccfac"
+                        "L1:p6_H3K27ac.tsv:md5,e1b2d34b555424c7c8614e8086dc53f8"
                     ],
                     [
                         {
@@ -1442,7 +1442,7 @@
                             "condition2": "p6",
                             "assay": "H3K4me3"
                         },
-                        "L1:p6_H3K4me3.tsv:md5,368dbd53e185b53805ddc63402d46b71"
+                        "L1:p6_H3K4me3.tsv:md5,d7e2d4eeab6fb17146bea3538eac9d67"
                     ]
                 ],
                 "affinity_sum": [
@@ -1464,7 +1464,7 @@
                             "condition2": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10:p6_chromHMM_enhancers.tsv:md5,105c5516bb661215e2dd65858443e60a"
+                        "L10:p6_chromHMM_enhancers.tsv:md5,7093068a1e3d8ce05334a8e359aab657"
                     ],
                     [
                         {
@@ -1474,7 +1474,7 @@
                             "condition2": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10:p6_chromHMM_promoters.tsv:md5,06ddaa1adf5b9cbd70c9f8c601d83e4b"
+                        "L10:p6_chromHMM_promoters.tsv:md5,1eaac15d61871b269c50ed7fa298e6d9"
                     ],
                     [
                         {
@@ -1542,7 +1542,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_enhancers"
                         },
-                        "L10_chromHMM_enhancers_stitched.bed:md5,ff9736f929b7aaebcfd645f10d3a9aa0"
+                        "L10_chromHMM_enhancers_stitched.bed:md5,b6df24b214c1e55048088dad3ebf5a46"
                     ],
                     [
                         {
@@ -1550,7 +1550,7 @@
                             "condition": "L10",
                             "assay": "chromHMM_promoters"
                         },
-                        "L10_chromHMM_promoters_stitched.bed:md5,34562c015f76b77c886546e192c609fe"
+                        "L10_chromHMM_promoters_stitched.bed:md5,300db49826ff44731ad99bced2882aa8"
                     ],
                     [
                         {
@@ -1598,7 +1598,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_enhancers"
                         },
-                        "p6_chromHMM_enhancers_stitched.bed:md5,2e04892da2d9a7357763aec485be1344"
+                        "p6_chromHMM_enhancers_stitched.bed:md5,b6861704f88ab81615c4c33c4b84bfd9"
                     ],
                     [
                         {
@@ -1606,7 +1606,7 @@
                             "condition": "p6",
                             "assay": "chromHMM_promoters"
                         },
-                        "p6_chromHMM_promoters_stitched.bed:md5,93858197a7b5f0637d541bb101574449"
+                        "p6_chromHMM_promoters_stitched.bed:md5,53e6abb8116690ebca2f026a339af6c7"
                     ]
                 ],
                 "versions": [
@@ -1739,6 +1739,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-07-05T08:29:20.197467421"
+        "timestamp": "2025-07-12T15:17:44.288276642"
     }
 }
