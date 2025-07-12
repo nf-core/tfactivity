@@ -260,6 +260,9 @@ def paramsSummaryToYAML(summary_params) {
                     .keySet()
                     .sort()
                     .each { param ->
+                        if (param == "runName" || param == "trace_report_suffix") {
+                            return // skip these keys to stabilize the hashes
+                        }
                         def value = group_params.get(param)
                         yaml_file_text += "  ${param}: ${value ?: 'null'}\n"
                     }

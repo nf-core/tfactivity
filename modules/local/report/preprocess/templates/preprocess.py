@@ -50,6 +50,7 @@ metadata = {
 }
 
 params = yaml.load(open(params_path), yaml.CSafeLoader)
+params = {k: v for k, v in params.items() if v is not None}
 json.dump(params, open("params.json", "w"), indent=4)
 
 ranking = {}
