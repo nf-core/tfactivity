@@ -1,6 +1,7 @@
 include { GUNZIP as GUNZIP_FASTA                                                         } from '../../../modules/nf-core/gunzip'
 include { GUNZIP as GUNZIP_GTF                                                           } from '../../../modules/nf-core/gunzip'
-
+include { AGAT_CONVERTSPGXF2GXF                                                          } from '../../../modules/nf-core/agat/convertspgxf2gxf'
+include { AGAT_CONVERTSPGFF2GTF                                                          } from '../../../modules/nf-core/agat/convertspgff2gtf'
 include { ATLASGENEANNOTATIONMANIPULATION_GTF2FEATUREANNOTATION as EXTRACT_ID_SYMBOL_MAP } from '../../../modules/nf-core/atlasgeneannotationmanipulation/gtf2featureannotation'
 include { GTFTOOLS_LENGTH                                                                } from '../../../modules/local/gtftools/length'
 include { SAMTOOLS_FAIDX                                                                 } from '../../../modules/nf-core/samtools/faidx'
@@ -28,6 +29,15 @@ workflow PREPARE_GENOME {
         ch_gtf = GUNZIP_GTF.out.gunzip
         ch_versions = ch_versions.mix(GUNZIP_GTF.out.versions)
     }
+
+    // Add missing genes to the GTF file
+    AGAT_CONVERTSPGXF2GXF(ch_gtf)
+    ch_versions = ch_versions.mix(AGAT_CONVERTSPGXF2GXF.out.versions)
+
+    // Convert GFF to GTF
+    AGAT_CONVERTSPGFF2GTF(AGAT_CONVERTSPGXF2GXF.out.output_gff)
+    ch_gtf = AGAT_CONVERTSPGFF2GTF.out.output_gtf
+    ch_versions = ch_versions.mix(AGAT_CONVERTSPGFF2GTF.out.versions)
 
     // Prepare gene map
 

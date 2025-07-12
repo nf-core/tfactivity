@@ -39,13 +39,15 @@
                         {
                             "id": "gtf"
                         },
-                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.gtf"
+                        "gtf.agat.gtf:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "5": [
                     "versions.yml:md5,0c2b130943874bfa2b36d05498b3d1a8",
+                    "versions.yml:md5,9444ab97a04f3544f5cf3445bf258eb9",
                     "versions.yml:md5,a25ed283914bd95de5acbc4bb54b21d7",
-                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95"
+                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95",
+                    "versions.yml:md5,fdb34feacca11b9c889e18325e7229b4"
                 ],
                 "chrom_sizes": [
                     [
@@ -84,13 +86,15 @@
                         {
                             "id": "gtf"
                         },
-                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.gtf"
+                        "gtf.agat.gtf:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "versions": [
                     "versions.yml:md5,0c2b130943874bfa2b36d05498b3d1a8",
+                    "versions.yml:md5,9444ab97a04f3544f5cf3445bf258eb9",
                     "versions.yml:md5,a25ed283914bd95de5acbc4bb54b21d7",
-                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95"
+                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95",
+                    "versions.yml:md5,fdb34feacca11b9c889e18325e7229b4"
                 ]
             }
         ],
@@ -98,7 +102,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-11T14:32:47.130386949"
+        "timestamp": "2025-07-11T20:54:16.232717317"
     },
     "Should run without failures": {
         "content": [
@@ -108,7 +112,7 @@
                         {
                             "id": "gtf"
                         },
-                        "gtf.anno.tsv:md5,c2c5b33ebf372c618290cdfdd50e15fc"
+                        "gtf.anno.tsv:md5,5be3a0626d25f73fef0a3244bdf9cb14"
                     ]
                 ],
                 "1": [
@@ -140,13 +144,15 @@
                         {
                             "id": "gtf"
                         },
-                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.gtf"
+                        "gtf.agat.gtf:md5,aad121ec6d6bddb2480b8d55b86a1eea"
                     ]
                 ],
                 "5": [
                     "versions.yml:md5,67124f8c3356bccd688e07c65a52e48a",
+                    "versions.yml:md5,9444ab97a04f3544f5cf3445bf258eb9",
                     "versions.yml:md5,a25ed283914bd95de5acbc4bb54b21d7",
-                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95"
+                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95",
+                    "versions.yml:md5,fdb34feacca11b9c889e18325e7229b4"
                 ],
                 "chrom_sizes": [
                     [
@@ -177,7 +183,7 @@
                         {
                             "id": "gtf"
                         },
-                        "gtf.anno.tsv:md5,c2c5b33ebf372c618290cdfdd50e15fc"
+                        "gtf.anno.tsv:md5,5be3a0626d25f73fef0a3244bdf9cb14"
                     ]
                 ],
                 "gtf": [
@@ -185,13 +191,15 @@
                         {
                             "id": "gtf"
                         },
-                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.gtf"
+                        "gtf.agat.gtf:md5,aad121ec6d6bddb2480b8d55b86a1eea"
                     ]
                 ],
                 "versions": [
                     "versions.yml:md5,67124f8c3356bccd688e07c65a52e48a",
+                    "versions.yml:md5,9444ab97a04f3544f5cf3445bf258eb9",
                     "versions.yml:md5,a25ed283914bd95de5acbc4bb54b21d7",
-                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95"
+                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95",
+                    "versions.yml:md5,fdb34feacca11b9c889e18325e7229b4"
                 ]
             }
         ],
@@ -199,6 +207,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
         },
-        "timestamp": "2025-06-11T14:32:39.701170275"
+        "timestamp": "2025-07-11T20:54:08.181460469"
     }
 }
