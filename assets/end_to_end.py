@@ -17,6 +17,7 @@ parser.add_argument('--outdir', type=str, required=False, help='Path to output d
 
 parser.add_argument('--rna_seq', type=str, required=False, help='RNA-Seq directory')
 parser.add_argument('--chip_seq', type=str, required=False, help='ChIP-Seq directory')
+parser.add_argument('--atac_seq', type=str, required=False, help='ATAC-Seq directory')
 
 parser.add_argument('--profile', type=str, required=False, help='nextflow profile', default="apptainer")
 parser.add_argument('--apptainer_cache', type=str, required=False, help='Path to the apptainer cache directory')
@@ -24,6 +25,7 @@ parser.add_argument('--process_executor', type=str, required=False, help='Execut
 parser.add_argument('--process_queue', type=str, required=False, help='scheduler queue')
 
 parser.add_argument('--chipseq_read_length', type=int, help='Read length used to calculate MACS3 genome size for peak calling', default=50, required=False)
+parser.add_argument('--atacseq_read_length', type=int, help='Read length used to calculate MACS3 genome size for peak calling', default=50, required=False)
 
 args = parser.parse_args()
 
@@ -39,6 +41,7 @@ outdir = args.outdir
 
 rna_seq = args.rna_seq
 chip_seq = args.chip_seq
+atac_seq = args.atac_seq
 
 profile = args.profile
 apptainer_cache = args.apptainer_cache
@@ -46,6 +49,7 @@ process_executor = args.process_executor
 process_queue = args.process_queue
 
 chipseq_read_length = args.chipseq_read_length
+atacseq_read_length = args.atacseq_read_length
 
 os.environ["NXF_APPTAINER_CACHEDIR"] = apptainer_cache
 
@@ -193,7 +197,7 @@ chipseq_samplesheet['control'] = chipseq_samplesheet['control'].apply(lambda x: 
 chipseq_samplesheet.loc[chipseq_samplesheet['sample'].str.contains('CONTROL'), ['antibody', 'control', 'control_replicate']] = ''
 chipseq_samplesheet.to_csv(path_samplesheet_chipseq, index=False)
 
-# TODO: Change revision to correct stable version after next nf-core/rnaseq release
+# TODO: Change revision to correct stable version after next nf-core/chipseq release
 chipseq_run = f"""
 nextflow run \
     nf-core/chipseq \
@@ -220,6 +224,66 @@ nextflow run \
 os.chdir(path_nfcore_chipseq)
 os.system(chipseq_run)
 
+# Run nf-core/atacseq pipeline
+path_nfcore_atacseq = os.path.join(outdir, 'nfcore-atacseq')
+path_outdir_atacseq = os.path.join(path_nfcore_atacseq, 'output')
+path_samplesheet_atacseq = os.path.join(path_nfcore_atacseq, 'samplesheet_atacseq.csv')
+
+if not os.path.exists(path_nfcore_atacseq):
+    os.makedirs(path_nfcore_atacseq)
+
+file_paths = list_files(atac_seq, recursive=True)
+
+samples = {}
+for file_path in file_paths:
+    condition = file_path.split('/')[-2]
+    basename = os.path.basename(file_path)
+
+    # Remove .fq.gz and split file name
+    sample, rep, read = basename.split('.')[0].split('_')
+
+    sample_name = "_".join([condition, sample, rep])
+    rep = rep.replace('REP', '')
+
+    if sample_name not in samples:
+        samples[sample_name] = {
+            'sample': sample_name,
+            'fastq_1': '',
+            'fastq_2': '',
+            'replicate': rep,
+            'control': f'{condition}_CONTROL_REP{rep}',
+            'control_replicate': rep.strip(string.ascii_letters),
+        }
+
+    if read == 'R1':
+        samples[sample_name]['fastq_1'] = file_path
+    elif read == 'R2':
+        samples[sample_name]['fastq_2'] = file_path
+
+atacseq_samplesheet = pd.DataFrame.from_dict(samples, orient='index')
+
+atacseq_samplesheet['control'] = atacseq_samplesheet['control'].apply(lambda x: x if x in atacseq_samplesheet['sample'].values else '')
+atacseq_samplesheet.loc[atacseq_samplesheet['sample'].str.contains('CONTROL'), ['control', 'control_replicate']] = ''
+atacseq_samplesheet.to_csv(path_samplesheet_atacseq, index=False)
+
+chipseq_run = f"""
+nextflow run \
+    nf-core/atacseq \
+    -r 1a1dbe52ff \
+    --input {path_samplesheet_atacseq} \
+    --outdir {path_outdir_atacseq} \
+    --gtf {gtf} \
+    --fasta {fasta} \
+    --read_length {atacseq_read_length} \
+    -profile {profile} \
+    -process.executor {process_executor} \
+    -process.queue {process_queue} \
+    -resume
+"""
+
+os.chdir(path_nfcore_atacseq)
+os.system(atacseq_run)
+
 
 # Run nfcore/tfactivity pipeline
 path_nfcore_tfactivity = os.path.join(outdir, 'nfcore-tfactivity')
@@ -234,6 +298,7 @@ if not os.path.exists(path_nfcore_tfactivity):
     os.makedirs(path_nfcore_tfactivity)
 
 # Create samplesheet peaks
+# Implement nf-core/atacseq option here
 file_paths = list_files(os.path.join(path_outdir_chipseq, 'bwa', 'merged_library', 'macs3', 'broad_peak'), suffix='.broadPeak')
 
 samples = {}
