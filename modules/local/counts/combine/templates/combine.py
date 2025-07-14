@@ -25,7 +25,8 @@ else:
     counts = counts.iloc[1:]
 
 for sample, sample_df in sample_files.items():
-    counts[sample] = sample_df[0].to_list()
+    # Convert to numeric to ensure values are not strings - will crash on invalid values
+    counts[sample] = pd.to_numeric(sample_df[0]).to_list()
 
 df_genes.index = df_genes.index.map(remove_version)
 counts.index = counts.index.map(remove_version)
@@ -48,6 +49,10 @@ counts.index = mapped_index
 
 # Keep only count values for genes which are present in the gene symbol mapping file
 counts = counts[counts.index.isin(existing_symbols)]
+
+# Ensure all values are numeric before aggregation - will crash on invalid values
+for col in counts.columns:
+    counts[col] = pd.to_numeric(counts[col])
 
 counts = counts.groupby(counts.index).agg("$agg_method")
 
