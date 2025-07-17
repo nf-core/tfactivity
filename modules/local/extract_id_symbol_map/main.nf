@@ -1,6 +1,6 @@
 process EXTRACT_ID_SYMBOL_MAP {
     tag "${meta.id}"
-    label "process_single"
+    label "process_medium"
 
     conda "environment.yml"
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
