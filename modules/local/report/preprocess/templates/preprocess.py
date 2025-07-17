@@ -61,10 +61,10 @@ pairings = set()
 for file in tf_ranking_dir.glob("*.tf_ranking.tsv"):
     assay = file.stem.split(".")[0]
 
-    df_tf = pd.read_csv(file, sep="\t", index_col=0)
+    df_tf = pd.read_csv(file, sep="\\t", index_col=0)
     ranking[assay] = df_tf["dcg"].to_dict()
 
-    df_tg = pd.read_csv(tg_ranking_dir / f"{assay}.tg_ranking.tsv", sep="\t", index_col=0)
+    df_tg = pd.read_csv(tg_ranking_dir / f"{assay}.tg_ranking.tsv", sep="\\t", index_col=0)
 
     for tf in df_tf.index:
         if tf not in tfs:
@@ -81,7 +81,7 @@ for file in deseq2_differential_dir.glob("*.deseq2.results.tsv"):
     pair_string = file.stem.split(".")[0]
     pairings.add(pair_string)
 
-    df_deseq2 = pd.read_csv(file, sep="\t", index_col=0)
+    df_deseq2 = pd.read_csv(file, sep="\\t", index_col=0)
 
     for tf in tfs:
         tf_row = df_deseq2.loc[tf]
@@ -102,8 +102,8 @@ conditions = list(metadata["conditions"].keys())
 tf_dir = Path("transcription_factors")
 tf_dir.mkdir(parents=True, exist_ok=True)
 
-df_tpm = pd.read_csv(tpm_dir / "counts.tpm.tsv", sep="\t", index_col=0).T
-df_counts = pd.read_csv(raw_counts_dir / "counts.counts_filtered.tsv", sep="\t", index_col=0).T
+df_tpm = pd.read_csv(tpm_dir / "counts.tpm.tsv", sep="\\t", index_col=0).T
+df_counts = pd.read_csv(raw_counts_dir / "counts.counts_filtered.tsv", sep="\\t", index_col=0).T
 
 # Create condition-to-sample mapping for restructuring data
 condition_to_samples = metadata["conditions"]
@@ -114,7 +114,7 @@ for pairing, assay in product(pairings, assays):
     df_path = regression_coefficients_dir / f"{pairing}_{assay}_dynamite_regression_coefficients.txt"
     if not df_path.exists():
         continue
-    df_coefficients = pd.read_csv(df_path, sep="\t", index_col=0)
+    df_coefficients = pd.read_csv(df_path, sep="\\t", index_col=0)
     # Drop rows where all values are NaN
     df_coefficients = df_coefficients.dropna(how="all")
 
@@ -123,7 +123,7 @@ for pairing, assay in product(pairings, assays):
 
     affinity_ratio_path = affinity_ratio_dir / f"{pairing}_{assay}.tsv"
     if affinity_ratio_path.exists():
-        df_affinity_ratio = pd.read_csv(affinity_ratio_path, sep="\t", index_col=0)
+        df_affinity_ratio = pd.read_csv(affinity_ratio_path, sep="\\t", index_col=0)
         for tf in tfs:
             tfs[tf]["affinity_ratio"][pairing] = {}
             if tf not in df_affinity_ratio.columns:
@@ -132,7 +132,7 @@ for pairing, assay in product(pairings, assays):
 
     affinity_sum_path = affinity_sum_dir / f"{pairing}_{assay}.tsv"
     if affinity_sum_path.exists():
-        df_affinity_sum = pd.read_csv(affinity_sum_path, sep="\t", index_col=0)
+        df_affinity_sum = pd.read_csv(affinity_sum_path, sep="\\t", index_col=0)
         for tf in tfs:
             tfs[tf]["affinity_sum"][pairing] = {}
             if tf not in df_affinity_sum.columns:
@@ -146,7 +146,7 @@ for condition, assay in product(conditions, assays):
 
     if not df_path.exists():
         continue
-    df_affinities = pd.read_csv(df_path, sep="\t", index_col=0)
+    df_affinities = pd.read_csv(df_path, sep="\\t", index_col=0)
 
     for tf in tfs:
         if tf not in df_affinities.columns:
