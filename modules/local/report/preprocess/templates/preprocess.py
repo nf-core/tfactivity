@@ -84,7 +84,8 @@ for file in deseq2_differential_dir.glob("*.deseq2.results.tsv"):
     df_deseq2 = pd.read_csv(file, sep="\\t", index_col=0)
 
     for tf in tfs:
-        tf_row = df_deseq2.loc[tf]
+        tf_trimmed = tf.split(".")[0]
+        tf_row = df_deseq2.loc[tf] if tf in df_deseq2.index else df_deseq2.loc[tf_trimmed]
         tfs[tf]["differential_expression"][pair_string] = {
             "baseMean": tf_row["baseMean"],
             "log2FoldChange": tf_row["log2FoldChange"],
@@ -156,13 +157,14 @@ for condition, assay in product(conditions, assays):
         tfs[tf]["tg_affinities"][condition][assay] = df_affinities[tf].to_dict()
 
 for tf in tfs:
+    tf_trimmed = tf.split(".")[0]
     # Restructure TPM data: condition -> sample -> value
     tfs[tf]["tpm"] = {}
     for condition, samples in condition_to_samples.items():
         tfs[tf]["tpm"][condition] = {}
         for sample in samples:
             if sample in df_tpm.index:
-                tfs[tf]["tpm"][condition][sample] = df_tpm.loc[sample, tf]
+                tfs[tf]["tpm"][condition][sample] = df_tpm.loc[sample, tf] if tf in df_tpm.columns else df_tpm.loc[sample, tf_trimmed]
 
     # Restructure counts data: condition -> sample -> value
     tfs[tf]["counts"] = {}
@@ -170,7 +172,7 @@ for tf in tfs:
         tfs[tf]["counts"][condition] = {}
         for sample in samples:
             if sample in df_counts.index:
-                tfs[tf]["counts"][condition][sample] = df_counts.loc[sample, tf]
+                tfs[tf]["counts"][condition][sample] = df_counts.loc[sample, tf] if tf in df_counts.columns else df_counts.loc[sample, tf_trimmed]
 
     json.dump(tfs[tf], open(tf_dir / f"{tf}.json", "w"), indent=4)
 
