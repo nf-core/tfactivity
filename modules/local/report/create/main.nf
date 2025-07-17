@@ -4,8 +4,8 @@ process REPORT_CREATE {
 
     conda "environment.yml"
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/12/1288d89bc91a57e6b0362b21a3d8f2f96264bcb3da43983077a5dbad379424d7/data'
-        : 'community.wave.seqera.io/library/nodejs:22.13.0--eaccf6c1415d3161'}"
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/43/43c7b329cc3c4ce5ea033e750aec1caeb43f7129636993e346fd522a6d68bb84/data'
+        : 'community.wave.seqera.io/library/nodejs:24.4.0--758d3687057162e5'}"
 
     input:
     tuple val(meta), path(report_dir, stageAs: 'template')
@@ -29,6 +29,11 @@ process REPORT_CREATE {
     cp -L $ranking $assets_dir/ranking.json
     cp -L $regression_coefficients $assets_dir/regression_coefficients.json
     cp -Lr $transcription_factors $public_dir/transcription_factors
+
+    # NPM does not work without a writable home directory
+    # Leads to problems with singularity/apptainer
+    mkdir -p temp
+    export HOME=\$(pwd)/temp
 
     cd $build_dir
     npm install
