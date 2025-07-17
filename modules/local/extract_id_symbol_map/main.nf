@@ -18,4 +18,17 @@ process EXTRACT_ID_SYMBOL_MAP {
     prefix = task.ext.prefix ?: "${meta.id}"
     VERSION="0.7.1"
     template("id_symbol_map.py")
+
+    stub:
+    prefix = task.ext.prefix ?: "${meta.id}"
+    VERSION="0.7.1"
+    """
+    touch ${prefix}.txt
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        python: \$(python3 --version | cut -f 2 -d " ")
+        bcbio: "${VERSION}"
+    END_VERSIONS
+    """
 }
