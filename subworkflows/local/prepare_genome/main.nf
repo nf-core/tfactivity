@@ -1,7 +1,5 @@
 include { GUNZIP as GUNZIP_FASTA } from '../../../modules/nf-core/gunzip'
 include { GUNZIP as GUNZIP_GTF   } from '../../../modules/nf-core/gunzip'
-include { AGAT_CONVERTSPGXF2GXF  } from '../../../modules/nf-core/agat/convertspgxf2gxf'
-include { AGAT_CONVERTSPGFF2GTF  } from '../../../modules/nf-core/agat/convertspgff2gtf'
 include { EXTRACT_ID_SYMBOL_MAP  } from '../../../modules/local/extract_id_symbol_map'
 include { GTFTOOLS_LENGTH        } from '../../../modules/local/gtftools/length'
 include { SAMTOOLS_FAIDX         } from '../../../modules/nf-core/samtools/faidx'
