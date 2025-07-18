@@ -37,7 +37,7 @@ workflow SNEEP {
 
     // Remove SNPs that are not within regions
     ch_filter_snps_by_regions = MERGE_DUPLICATE_REGIONS.out.bed
-        .map { meta, regions -> [meta, regions, snps] }
+        .map { meta, regions -> [meta, snps, regions] }
     FILTER_SNPS_BY_REGION(ch_filter_snps_by_regions, [[], []])
     ch_versions = ch_versions.mix(FILTER_SNPS_BY_REGION.out.versions)
 
