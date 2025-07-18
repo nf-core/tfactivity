@@ -53,5 +53,18 @@ workflow SNEEP {
     ch_versions = ch_versions.mix(RUN_SNEEP.out.versions)
 
     emit:
+    pfms                        = RUN_SNEEP.out.pfms
+    indels                      = RUN_SNEEP.out.indels
+    info                        = RUN_SNEEP.out.info
+    motifinfo                   = RUN_SNEEP.out.motifinfo
+    notconsideredsnps           = RUN_SNEEP.out.notconsideredsnps
+    result                      = RUN_SNEEP.out.result
+    snpregions_bed              = RUN_SNEEP.out.snpregions_bed
+    snpregions_fa               = RUN_SNEEP.out.snpregions_fa
+    snpsregions_notuniq_sorted  = RUN_SNEEP.out.snpsregions_notuniq_sorted
+    snpsregions_notuniq         = RUN_SNEEP.out.snpsregions_notuniq
+    snpsunique                  = RUN_SNEEP.out.snpsunique
+    sortedsnpsnotunique         = RUN_SNEEP.out.sortedsnpsnotunique
+    tf_count                    = RUN_SNEEP.out.tf_count
     versions = ch_versions
 }
