@@ -1,23 +1,27 @@
 #!/usr/bin/env python3
 
+import argparse
 import os
 import argparse
 import string
 import pandas as pd
-from typing import List
+from typing import List, Optional
+from pathlib import Path
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--fasta', type=str, required=False, help='Path to the FASTA file')
-parser.add_argument('--gtf', type=str, required=False, help='Path to the GTF file')
-parser.add_argument('--genome', type=str, required=False, help='genome name/version')
-parser.add_argument('--motifs', type=str, required=False, help='Path to JASPAR motif file')
+parser.add_argument('--fasta', type=Path, required=False, help='Path to the FASTA file')
+parser.add_argument('--gtf', type=Path, required=False, help='Path to the GTF file')
+parser.add_argument('--genome', type=Path, required=False, help='genome name/version')
+parser.add_argument('--motifs', type=Path, required=False, help='Path to JASPAR motif file')
 parser.add_argument('--taxon_id', type=str, required=False, help='JASPAR taxon ID for motif download')
-parser.add_argument('--outdir', type=str, required=False, help='Path to output directory')
+parser.add_argument('--outdir', type=Path, required=False, help='Path to output directory', default='output')
 
-parser.add_argument('--rna_seq', type=str, required=False, help='RNA-Seq directory')
-parser.add_argument('--chip_seq', type=str, required=False, help='ChIP-Seq directory')
-parser.add_argument('--atac_seq', type=str, required=False, help='ATAC-Seq directory')
+# ChIP-Seq and ATAC-Seq are mutually exclusive
+parser.add_argument('--rna_seq', type=Path, required=True, help='RNA-Seq directory')
+atac_seq_chip_seq_group = parser.add_mutually_exclusive_group(required=True)
+atac_seq_chip_seq_group.add_argument('--chip_seq', type=Path, help='ChIP-Seq directory', default=None)
+atac_seq_chip_seq_group.add_argument('--atac_seq', type=Path, help='ATAC-Seq directory', default=None)
 
 parser.add_argument('--profile', type=str, required=False, help='nextflow profile', default="apptainer")
 parser.add_argument('--apptainer_cache', type=str, required=False, help='Path to the apptainer cache directory')
@@ -27,38 +31,29 @@ parser.add_argument('--process_queue', type=str, required=False, help='scheduler
 parser.add_argument('--chipseq_read_length', type=int, help='Read length used to calculate MACS3 genome size for peak calling', default=50, required=False)
 parser.add_argument('--atacseq_read_length', type=int, help='Read length used to calculate MACS3 genome size for peak calling', default=50, required=False)
 
+parser.add_argument('--rna_seq_args', type=str, required=False, help='Additional arguments for nf-core/rnaseq pipeline.')
+parser.add_argument('--chip_seq_args', type=str, required=False, help='Additional arguments for nf-core/chipseq pipeline.')
+parser.add_argument('--atac_seq_args', type=str, required=False, help='Additional arguments for nf-core/atacseq pipeline.')
+parser.add_argument('--tfactivity_args', type=str, required=False, help='Additional arguments for nf-core/tfactivity pipeline.')
+
 args = parser.parse_args()
 
 if args.taxon_id is None and (args.genome is None or args.motifs is None):
     parser.error("If --taxon_id is not specified, both --genome and --motifs must be provided.")
 
-fasta = args.fasta
-gtf = args.gtf
-genome = args.genome
-motifs = args.motifs
-taxon_id = args.taxon_id
-outdir = args.outdir
-
-rna_seq = args.rna_seq
-chip_seq = args.chip_seq
-atac_seq = args.atac_seq
-
-profile = args.profile
-apptainer_cache = args.apptainer_cache
-process_executor = args.process_executor
-process_queue = args.process_queue
-
-chipseq_read_length = args.chipseq_read_length
-atacseq_read_length = args.atacseq_read_length
-
-os.environ["NXF_APPTAINER_CACHEDIR"] = apptainer_cache
+os.environ["NXF_APPTAINER_CACHEDIR"] = args.apptainer_cache or ""
 
 # Create output directory if not exisiting
-if not os.path.exists(outdir):
-    os.makedirs(outdir)
+if not os.path.exists(args.outdir):
+    os.makedirs(args.outdir)
 
 
-def list_files(directory, prefix=None, suffix=None, recursive=False) -> List[str]:
+def list_files(
+    directory: Path,
+    prefix: Optional[str] = None,
+    suffix: Optional[str] = None,
+    recursive: Optional[bool] = False,
+    ) -> List[str]:
     """
     List files in the specified directory, optionally including subdirectories.
 
@@ -91,305 +86,456 @@ def list_files(directory, prefix=None, suffix=None, recursive=False) -> List[str
     return file_list
 
 
-# Run nf-core/rnaseq pipeline
-path_nfcore_rnaseq = os.path.join(outdir, 'nfcore-rnaseq')
-path_outdir_rnaseq = os.path.join(path_nfcore_rnaseq, 'output')
-path_samplesheet_rnaseq = os.path.join(path_nfcore_rnaseq, 'samplesheet_rnaseq.csv')
+def run_nfcore_rnaseq(
+    input_dir: Path,
+    output_dir: Path,
+    gtf: Path,
+    fasta: Path,
+    profile: Optional[str],
+    process_executor: Optional[str],
+    process_queue: Optional[str],
+    args: Optional[str] = '',
+    ) -> Path:
+    """
+    Run the nf-core/rnaseq pipeline.
 
-if not os.path.exists(path_nfcore_rnaseq):
-    os.makedirs(path_nfcore_rnaseq)
+    Parameters:
+        input_dir (Path): Path to the input directory containing the RNA-Seq data.
+        output_dir (Path): Path to the base output directory where end_to_end results will be stored.
+        gtf (Path): Path to the genome annotation file in GTF format.
+        fasta (Path): Path to the genome reference file in FASTA format.
+        profile (str): Nextflow execution profile (e.g. docker, apptainer, slurm).
+        process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
+        process_queue (str): Name of the job queue (if applicable).
+        args (str, optional): Additional arguments for the nf-core/rnaseq pipeline.
 
-file_paths = list_files(rna_seq, recursive=True)
+    Returns:
+        Path: Path to the directory containing the nf-core/rnaseq pipeline output.
+    """
 
-samples = {}
-for file_path in file_paths:
-    condition = file_path.split('/')[-2]
-    basename = os.path.basename(file_path)
+    # Create output directory structure
+    execution_dir = os.path.join(output_dir, 'nfcore-rnaseq')
+    pipeline_output_dir = os.path.join(execution_dir, 'output')
+    path_samplesheet = os.path.join(execution_dir, 'samplesheet.csv')
 
-    # Remove .fq.gz and split file name
-    sample, rep, read = basename.split('.')[0].split('_')
+    # Convert parameters into Nextflow arguments
+    profile_arg = f'-profile {profile}' if profile else ''
+    process_executor_arg = f'-process.executor {process_executor}' if process_executor else ''
+    process_queue_arg = f'-process.queue {process_queue}' if process_queue else ''
 
-    sample_name = "_".join([condition, sample, rep])
+    if not os.path.exists(execution_dir):
+        os.makedirs(execution_dir)
 
-    if sample_name not in samples:
-        samples[sample_name] = {'sample': sample_name,
+    file_paths = list_files(input_dir, recursive=True)
+
+    samples = {}
+    for file_path in file_paths:
+        condition = file_path.split('/')[-2]
+        basename = os.path.basename(file_path)
+
+        # Remove .fq.gz and split file name
+        sample, rep, read = basename.split('.')[0].split('_')
+
+        sample_name = "_".join([condition, sample, rep])
+
+        if sample_name not in samples:
+            samples[sample_name] = {'sample': sample_name,
+                                    'fastq_1': '',
+                                    'fastq_2': '',
+                                    'strandedness': 'auto'}
+
+        if read == 'R1':
+            samples[sample_name]['fastq_1'] = file_path
+        elif read == 'R2':
+            samples[sample_name]['fastq_2'] = file_path
+
+    samplesheet = pd.DataFrame.from_dict(samples, orient='index')
+    samplesheet.to_csv(path_samplesheet, index=False)
+
+    pipeline_run_cmd = f"""
+    nextflow run \
+        nf-core/rnaseq \
+        -r 3.17.0 \
+        --input {samplesheet} \
+        --outdir {pipeline_output_dir} \
+        --gtf {gtf} \
+        --fasta {fasta} \
+        --igenomes_ignore \
+        --genome null \
+        {profile_arg} \
+        {process_executor_arg} \
+        {process_queue_arg} \
+        -resume \
+        --skip_deseq2_qc true \
+        --skip_multiqc true \
+        --skip_preseq true \
+        --skip_biotype_qc true \
+        --skip_dupradar true \
+        --skip_bigwig true \
+        --skip_rseqc true \
+        {args}
+    """
+    os.chdir(execution_dir)
+    #os.system(pipeline_run_cmd)
+    return Path(pipeline_output_dir)
+
+
+def run_nfcore_chipseq(
+    input_dir: Path,
+    output_dir: Path,
+    gtf: Path,
+    fasta: Path,
+    profile: Optional[str],
+    process_executor: Optional[str],
+    process_queue: Optional[str],
+    read_length: int,
+    args: Optional[str] = '',
+    ) -> Path:
+    """
+    Run the nf-core/chipseq pipeline.
+
+    Parameters:
+        input_dir (Path): Path to the input directory containing the ChIP-Seq data.
+        output_dir (Path): Path to the base output directory where end_to_end results will be stored.
+        gtf (Path): Path to the genome annotation file in GTF format.
+        fasta (Path): Path to the genome reference file in FASTA format.
+        profile (str): Nextflow execution profile (e.g. docker, apptainer, slurm).
+        process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
+        process_queue (str): Name of the job queue (if applicable).
+        read_length (int): Read length used to calculate MACS3 genome size for peak calling.
+        args (str, optional): Additional arguments for the nf-core/chipseq pipeline.
+
+    Returns:
+        Path: Path to the directory containing the nf-core/chipseq pipeline output.
+    """
+
+    # Create output directory structure
+    execution_dir = os.path.join(output_dir, 'nfcore-chipseq')
+    pipeline_output_dir = os.path.join(execution_dir, 'output')
+    path_samplesheet = os.path.join(execution_dir, 'samplesheet.csv')
+
+    # Convert parameters into Nextflow arguments
+    profile_arg = f'-profile {profile}' if profile else ''
+    process_executor_arg = f'-process.executor {process_executor}' if process_executor else ''
+    process_queue_arg = f'-process.queue {process_queue}' if process_queue else ''
+
+    if not os.path.exists(execution_dir):
+        os.makedirs(execution_dir)
+
+    file_paths = list_files(input_dir, recursive=True)
+
+    samples = {}
+    for file_path in file_paths:
+        condition = file_path.split('/')[-3]
+        antibody = file_path.split('/')[-2]
+        basename = os.path.basename(file_path)
+
+        # Remove .fq.gz and split file name
+        sample, rep, read = basename.split('.')[0].split('_')
+
+        condition_antibody_sample = "_".join([condition, antibody, sample])
+
+        sample_rep = '_'.join([condition_antibody_sample, rep])
+
+        # Strip 'REP' from replicate
+        if sample_rep not in samples:
+            samples[sample_rep] = {'sample': condition_antibody_sample,
                                 'fastq_1': '',
                                 'fastq_2': '',
-                                'strandedness': 'auto'}
+                                'replicate': rep.strip(string.ascii_letters),
+                                'antibody': antibody,
+                                'control': f'{condition}_CONTROL_{sample}',
+                                'control_replicate': rep.strip(string.ascii_letters)}
 
-    if read == 'R1':
-        samples[sample_name]['fastq_1'] = file_path
-    elif read == 'R2':
-        samples[sample_name]['fastq_2'] = file_path
+        if read == 'R1':
+            samples[sample_rep]['fastq_1'] = file_path
+        elif read == 'R2':
+            samples[sample_rep]['fastq_2'] = file_path
 
-df = pd.DataFrame.from_dict(samples, orient='index').to_csv(path_samplesheet_rnaseq, index=False)
+    samplesheet = pd.DataFrame.from_dict(samples, orient='index')
 
-rnaseq_run = f"""
-nextflow run \
-    nf-core/rnaseq \
-    -r 3.17.0 \
-    --input {path_samplesheet_rnaseq} \
-    --outdir {path_outdir_rnaseq} \
-    --gtf {gtf} \
-    --fasta {fasta} \
-    --igenomes_ignore \
-    --genome null \
-    -profile {profile} \
-    -process.executor {process_executor} \
-    -process.queue {process_queue} \
-    -resume \
-    --skip_deseq2_qc true \
-    --skip_multiqc true \
-    --skip_preseq true \
-    --skip_biotype_qc true \
-    --skip_dupradar true \
-    --skip_bigwig true \
-    --skip_rseqc true
-"""
-os.chdir(path_nfcore_rnaseq)
-os.system(rnaseq_run)
+    # Remove control files that do not exist
+    samplesheet['control'] = samplesheet['control'].apply(lambda x: x if x in samplesheet['sample'].values else '')
 
+    # Remove antibody, control and control_replicate column from dataframe
+    samplesheet.loc[samplesheet['sample'].str.contains('CONTROL'), ['antibody', 'control', 'control_replicate']] = ''
+    samplesheet.to_csv(path_samplesheet, index=False)
 
-# Run nfcore/chipseq pipeline
-path_nfcore_chipseq = os.path.join(outdir, 'nfcore-chipseq')
-path_outdir_chipseq = os.path.join(path_nfcore_chipseq, 'output')
-path_samplesheet_chipseq = os.path.join(path_nfcore_chipseq, 'samplesheet_chipseq.csv')
-
-if not os.path.exists(path_nfcore_chipseq):
-    os.makedirs(path_nfcore_chipseq)
-
-file_paths = list_files(chip_seq, recursive=True)
-
-samples = {}
-for file_path in file_paths:
-    condition = file_path.split('/')[-3]
-    antibody = file_path.split('/')[-2]
-    basename = os.path.basename(file_path)
-
-    # Remove .fq.gz and split file name
-    sample, rep, read = basename.split('.')[0].split('_')
-
-    condition_antibody_sample = "_".join([condition, antibody, sample])
-
-    sample_rep = '_'.join([condition_antibody_sample, rep])
-
-    # Strip 'REP' from replicate
-    if sample_rep not in samples:
-        samples[sample_rep] = {'sample': condition_antibody_sample,
-                               'fastq_1': '',
-                               'fastq_2': '',
-                               'replicate': rep.strip(string.ascii_letters),
-                               'antibody': antibody,
-                               'control': f'{condition}_CONTROL_{sample}',
-                               'control_replicate': rep.strip(string.ascii_letters)}
-
-    if read == 'R1':
-        samples[sample_rep]['fastq_1'] = file_path
-    elif read == 'R2':
-        samples[sample_rep]['fastq_2'] = file_path
-
-chipseq_samplesheet = pd.DataFrame.from_dict(samples, orient='index')
-
-# Remove control files that do not exist
-chipseq_samplesheet['control'] = chipseq_samplesheet['control'].apply(lambda x: x if x in chipseq_samplesheet['sample'].values else '')
-
-# Remove antibody, control and control_replicate column from dataframe
-chipseq_samplesheet.loc[chipseq_samplesheet['sample'].str.contains('CONTROL'), ['antibody', 'control', 'control_replicate']] = ''
-chipseq_samplesheet.to_csv(path_samplesheet_chipseq, index=False)
-
-# TODO: Change revision to correct stable version after next nf-core/chipseq release
-chipseq_run = f"""
-nextflow run \
-    nf-core/chipseq \
-    -r 16a7d15e29 \
-    --input {path_samplesheet_chipseq} \
-    --outdir {path_outdir_chipseq} \
-    --gtf {gtf} \
-    --fasta {fasta} \
-    --read_length {chipseq_read_length} \
-    --save_align_intermeds \
-    -profile {profile} \
-    -process.executor {process_executor} \
-    -process.queue {process_queue} \
-    -resume \
-    --skip_preseq true \
-    --skip_picard_metrics true \
-    --skip_plot_profile true \
-    --skip_plot_fingerprint true \
-    --skip_spp true \
-    --skip_multiqc true \
-    --skip_igv true
-"""
-
-os.chdir(path_nfcore_chipseq)
-os.system(chipseq_run)
-
-# Run nf-core/atacseq pipeline
-path_nfcore_atacseq = os.path.join(outdir, 'nfcore-atacseq')
-path_outdir_atacseq = os.path.join(path_nfcore_atacseq, 'output')
-path_samplesheet_atacseq = os.path.join(path_nfcore_atacseq, 'samplesheet_atacseq.csv')
-
-if not os.path.exists(path_nfcore_atacseq):
-    os.makedirs(path_nfcore_atacseq)
-
-file_paths = list_files(atac_seq, recursive=True)
-
-samples = {}
-for file_path in file_paths:
-    condition = file_path.split('/')[-2]
-    basename = os.path.basename(file_path)
-
-    # Remove .fq.gz and split file name
-    sample, rep, read = basename.split('.')[0].split('_')
-
-    sample_name = "_".join([condition, sample, rep])
-    rep = rep.replace('REP', '')
-
-    if sample_name not in samples:
-        samples[sample_name] = {
-            'sample': sample_name,
-            'fastq_1': '',
-            'fastq_2': '',
-            'replicate': rep,
-            'control': f'{condition}_CONTROL_REP{rep}',
-            'control_replicate': rep.strip(string.ascii_letters),
-        }
-
-    if read == 'R1':
-        samples[sample_name]['fastq_1'] = file_path
-    elif read == 'R2':
-        samples[sample_name]['fastq_2'] = file_path
-
-atacseq_samplesheet = pd.DataFrame.from_dict(samples, orient='index')
-
-atacseq_samplesheet['control'] = atacseq_samplesheet['control'].apply(lambda x: x if x in atacseq_samplesheet['sample'].values else '')
-atacseq_samplesheet.loc[atacseq_samplesheet['sample'].str.contains('CONTROL'), ['control', 'control_replicate']] = ''
-atacseq_samplesheet.to_csv(path_samplesheet_atacseq, index=False)
-
-chipseq_run = f"""
-nextflow run \
-    nf-core/atacseq \
-    -r 1a1dbe52ff \
-    --input {path_samplesheet_atacseq} \
-    --outdir {path_outdir_atacseq} \
-    --gtf {gtf} \
-    --fasta {fasta} \
-    --read_length {atacseq_read_length} \
-    -profile {profile} \
-    -process.executor {process_executor} \
-    -process.queue {process_queue} \
-    -resume
-"""
-
-os.chdir(path_nfcore_atacseq)
-os.system(atacseq_run)
+    # TODO: Change revision to correct stable version after next nf-core/chipseq release
+    pipeline_run_cmd = f"""
+    nextflow run \
+        nf-core/chipseq \
+        -r 16a7d15e29 \
+        --input {path_samplesheet} \
+        --outdir {pipeline_output_dir} \
+        --gtf {gtf} \
+        --fasta {fasta} \
+        --read_length {read_length} \
+        --save_align_intermeds \
+        {profile_arg} \
+        {process_executor_arg} \
+        {process_queue_arg} \
+        -resume \
+        --skip_preseq true \
+        --skip_picard_metrics true \
+        --skip_plot_profile true \
+        --skip_plot_fingerprint true \
+        --skip_spp true \
+        --skip_multiqc true \
+        --skip_igv true \
+        {args}
+    """
+    os.chdir(execution_dir)
+    os.system(pipeline_run_cmd)
+    return Path(pipeline_output_dir)
 
 
-# Run nfcore/tfactivity pipeline
-path_nfcore_tfactivity = os.path.join(outdir, 'nfcore-tfactivity')
-path_outdir_tfactivity = os.path.join(path_nfcore_tfactivity, 'output')
-path_samplesheet_tfactivity_peaks = os.path.join(path_nfcore_tfactivity, 'samplesheet_tfactivity_peaks.csv')
-path_samplesheet_tfactivity_bams = os.path.join(path_nfcore_tfactivity, 'samplesheet_tfactivity_bams.csv')
+def run_atac_seq(
+        input_dir: Path,
+        output_dir: Path,
+        gtf: Path,
+        fasta: Path,
+        profile: Optional[str],
+        process_executor: Optional[str],
+        process_queue: Optional[str],
+        read_length: int,
+        args: Optional[str] = ''
+        ) -> None:
+    """
+    Run the nf-core/atacseq pipeline.
 
-path_design_tfactivity_rna = os.path.join(path_nfcore_tfactivity, 'design_tfactivity_rna.csv')
-path_counts_tfactivity_rna = os.path.join(path_nfcore_tfactivity, 'counts_tfactivity_rna.csv')
+    Parameters:
+        input_dir (Path): Path to the input directory containing the ATAC-Seq data.
+        output_dir (Path): Path to the base output directory where end_to_end results will be stored.
+        gtf (Path): Path to the genome annotation file in GTF format.
+        fasta (Path): Path to the genome reference file in FASTA format.
+        profile (str): Nextflow execution profile (e.g. docker, apptainer, slurm).
+        process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
+        process_queue (str): Name of the job queue (if applicable).
+        read_length (int): Read length used to calculate MACS3 genome size for peak calling.
+        args (str, optional): Additional arguments for the nf-core/atacseq pipeline.
 
-if not os.path.exists(path_nfcore_tfactivity):
-    os.makedirs(path_nfcore_tfactivity)
+    Returns:
+        Path: Path to the directory containing the nf-core/chipseq pipeline output.
+    """
 
-# Create samplesheet peaks
-# Implement nf-core/atacseq option here
-file_paths = list_files(os.path.join(path_outdir_chipseq, 'bwa', 'merged_library', 'macs3', 'broad_peak'), suffix='.broadPeak')
+    # Create output directory structure
+    execution_dir = os.path.join(output_dir, 'nfcore-atacseq')
+    pipeline_output_dir = os.path.join(execution_dir, 'output')
+    path_samplesheet = os.path.join(execution_dir, 'samplesheet.csv')
 
-samples = {}
-for file_path in file_paths:
-    basename = os.path.basename(file_path)
-    condition, antibody, sample, rep, _ = basename.split('_')
+    # Convert parameters into Nextflow arguments
+    profile_arg = f'-profile {profile}' if profile else ''
+    process_executor_arg = f'-process.executor {process_executor}' if process_executor else ''
+    process_queue_arg = f'-process.queue {process_queue}' if process_queue else ''
 
-    sample_id = '_'.join([condition, antibody, sample, rep])
+    if not os.path.exists(execution_dir):
+        os.makedirs(execution_dir)
 
-    if sample_id not in samples:
-        # TODO: Set 'footprinting' for ChIP-Seq but not for ATAC-Seq and DNase-Seq
-        samples[sample_id] = {
-            'sample': sample_id,
+    file_paths = list_files(input_dir, recursive=True)
+
+    samples = {}
+    for file_path in file_paths:
+        condition = file_path.split('/')[-2]
+        basename = os.path.basename(file_path)
+
+        # Remove .fq.gz and split file name
+        sample, rep, read = basename.split('.')[0].split('_')
+
+        sample_name = "_".join([condition, sample, rep])
+        rep = rep.replace('REP', '')
+
+        if sample_name not in samples:
+            samples[sample_name] = {
+                'sample': sample_name,
+                'fastq_1': '',
+                'fastq_2': '',
+                'replicate': rep,
+                'control': f'{condition}_CONTROL_REP{rep}',
+                'control_replicate': rep.strip(string.ascii_letters),
+            }
+
+        if read == 'R1':
+            samples[sample_name]['fastq_1'] = file_path
+        elif read == 'R2':
+            samples[sample_name]['fastq_2'] = file_path
+
+    samplesheet = pd.DataFrame.from_dict(samples, orient='index')
+    samplesheet['control'] = samplesheet['control'].apply(lambda x: x if x in samplesheet['sample'].values else '')
+    samplesheet.loc[samplesheet['sample'].str.contains('CONTROL'), ['control', 'control_replicate']] = ''
+    samplesheet.to_csv(path_samplesheet, index=False)
+
+    pipeline_run_cmd = f"""
+    nextflow run \
+        nf-core/atacseq \
+        -r 1a1dbe52ff \
+        --input {path_samplesheet} \
+        --outdir {pipeline_output_dir} \
+        --gtf {gtf} \
+        --fasta {fasta} \
+        --read_length {read_length} \
+        {profile_arg} \
+        {process_executor_arg} \
+        {process_queue_arg} \
+        -resume \
+        {args}
+    """
+    os.chdir(execution_dir)
+    os.system(pipeline_run_cmd)
+    return Path(pipeline_output_dir)
+
+
+def run_tfactivity(
+        output_dir: Path,
+        path_outdir_chipseq: Path,
+        path_outdir_rnaseq: Path,
+        motifs: Path,
+        genome: Path,
+        gtf: Path,
+        fasta: Path,
+        profile: Optional[str],
+        process_executor: Optional[str],
+        process_queue: Optional[str],
+        args: Optional[str] = ''
+        ) -> Path:
+    """
+    Run the nf-core/tfactivity pipeline.
+
+    Parameters:
+        output_dir (Path): Path to the base output directory where end_to_end results will be stored.
+        path_outdir_chipseq (Path): Path to the output directory of the nf-core/chipseq pipeline.
+        path_outdir_rnaseq (Path): Path to the output directory of the nf-core/rnaseq pipeline.
+        motifs (Path): Path to the JASPAR motif file.
+        genome (Path): Genome name/version for the JASPAR motifs.
+        gtf (Path): Path to the genome annotation file in GTF format.
+        fasta (Path): Path to the genome reference file in FASTA format.
+        profile (str): Nextflow execution profile (e.g. docker, apptainer, slurm).
+        process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
+        process_queue (str): Name of the job queue (if applicable).
+        args (str, optional): Additional arguments for the nf-core/tfactivity pipeline.
+
+    Returns:
+        Path: Path to the directory containing the nf-core/chipseq pipeline output.
+    """
+
+    # Create output directory structure
+    execution_dir = os.path.join(output_dir, 'nfcore-tfactivity')
+    pipeline_output_dir = os.path.join(execution_dir, 'output')
+    path_samplesheet_peaks = os.path.join(execution_dir, 'samplesheet_peaks.csv')
+    path_samplesheet_bams = os.path.join(execution_dir, 'samplesheet_bams.csv')
+
+    path_design_rna = os.path.join(execution_dir, 'design_rna.csv')
+    path_counts_rna = os.path.join(execution_dir, 'counts_rna.csv')
+
+    # Convert parameters into Nextflow arguments
+    profile_arg = f'-profile {profile}' if profile else ''
+    process_executor_arg = f'-process.executor {process_executor}' if process_executor else ''
+    process_queue_arg = f'-process.queue {process_queue}' if process_queue else ''
+
+    if not os.path.exists(execution_dir):
+        os.makedirs(execution_dir)
+
+    # Create samplesheet peaks
+    file_paths_peaks = list_files(os.path.join(path_outdir_chipseq, 'bwa', 'merged_library', 'macs3', 'broad_peak'), suffix='.broadPeak')
+
+    samples = {}
+    for file_path in file_paths_peaks:
+        basename = os.path.basename(file_path)
+        condition, antibody, sample, rep, _ = basename.split('_')
+
+        sample_id = '_'.join([condition, antibody, sample, rep])
+
+        if sample_id not in samples:
+            # TODO: Set 'footprinting' for ChIP-Seq but not for ATAC-Seq and DNase-Seq
+            samples[sample_id] = {
+                'sample': sample_id,
+                'condition': condition,
+                'assay': antibody,
+                'peak_file': file_path,
+            }
+        else:
+            raise ValueError('Duplicate sample_id detected!')
+
+    pd.DataFrame.from_dict(samples, orient='index').sort_values(by='sample').to_csv(path_samplesheet_peaks, index=False)
+
+    # Create samplesheet bams
+    file_paths_bams = list_files(os.path.join(path_outdir_chipseq, 'bwa', 'merged_library'), suffix='.mLb.clN.sorted.bam')
+
+    samples = {}
+    controls = {}
+    for file_path in file_paths_bams:
+        basename = os.path.basename(file_path)
+        condition, antibody, sample, rep = basename.split('.')[0].split('_')
+
+        sample_id = '_'.join([condition, antibody, sample, rep])
+
+        if antibody != 'CONTROL' and sample_id not in samples:
+            samples[sample_id] = {
+                'sample': sample_id,
+                'condition': condition,
+                'assay': antibody,
+                'signal': file_path,
+                'merge_key': f'{condition}_{sample}_{rep}',
+            }
+        elif antibody == 'CONTROL' and sample_id not in controls:
+            controls[sample_id] = {
+                'merge_key': f'{condition}_{sample}_{rep}',
+                'control': file_path,
+            }
+        else:
+            raise ValueError('Duplicated sample_id detected!')
+
+    samplesheet_bam = pd.DataFrame.from_dict(samples, orient='index')
+    controls = pd.DataFrame.from_dict(controls, orient='index')
+
+    samplesheet_bam = samplesheet_bam.merge(controls, on='merge_key', how='inner').drop(columns='merge_key').sort_values(by='sample')
+    samplesheet_bam.to_csv(path_samplesheet_bams, index=False)
+
+    # Convert rna counts to csv
+    counts_rna_tsv = pd.read_csv(os.path.join(path_outdir_rnaseq, 'star_salmon', 'salmon.merged.gene_counts.tsv'), sep='\t')
+    counts_rna_tsv['gene_id'].to_csv(path_counts_rna, header=False, index=False)
+
+    counts_design = {}
+    for sample in counts_rna_tsv.drop(columns=['gene_id', 'gene_name']).columns:
+        condition = sample.split('_')[0]
+        path_sample_counts = os.path.join(execution_dir, f'{sample}_counts.txt')
+
+        counts_rna_tsv[sample].to_csv(path_sample_counts, index=False, header=False)
+        counts_design[sample] = {
+            'sample': sample,
             'condition': condition,
-            'assay': antibody,
-            'peak_file': file_path,
+            'counts_file': path_sample_counts,
         }
-    else:
-        raise ValueError('Duplicate sample_id detected!')
 
-pd.DataFrame.from_dict(samples, orient='index').sort_values(by='sample').to_csv(path_samplesheet_tfactivity_peaks, index=False)
+    pd.DataFrame.from_dict(counts_design, orient='index').to_csv(path_design_rna, index=False)
 
-# Create samplesheet bams
-file_paths = list_files(os.path.join(path_outdir_chipseq, 'bwa', 'merged_library'), suffix='.mLb.clN.sorted.bam')
+    pipeline_run_cmd = f"""
+    nextflow run \
+        nf-core/tfactivity \
+        -r dev \
+        --input {path_samplesheet_peaks} \
+        --input_bam {path_samplesheet_bams} \
+        --counts {path_counts_rna} \
+        --counts_design {path_design_rna} \
+        --motifs {motifs} \
+        --genome {genome} \
+        --fasta {fasta} \
+        --gtf {gtf} \
+        --outdir {pipeline_output_dir} \
+        {profile_arg} \
+        {process_executor_arg} \
+        {process_queue_arg} \
+        -resume \
+        {args}
+    """
+    os.chdir(execution_dir)
+    os.system(pipeline_run_cmd)
+    return Path(pipeline_output_dir)
 
-samples = {}
-controls = {}
-for file_path in file_paths:
-    basename = os.path.basename(file_path)
-    condition, antibody, sample, rep = basename.split('.')[0].split('_')
 
-    sample_id = '_'.join([condition, antibody, sample, rep])
+def main():
+    pass
 
-    if antibody != 'CONTROL' and sample_id not in samples:
-        samples[sample_id] = {
-            'sample': sample_id,
-            'condition': condition,
-            'assay': antibody,
-            'signal': file_path,
-            'merge_key': f'{condition}_{sample}_{rep}',
-        }
-    elif antibody == 'CONTROL' and sample_id not in controls:
-        controls[sample_id] = {
-            'merge_key': f'{condition}_{sample}_{rep}',
-            'control': file_path,
-        }
-    else:
-        raise ValueError('Duplicated sample_id detected!')
 
-samplesheet_bam = pd.DataFrame.from_dict(samples, orient='index')
-controls = pd.DataFrame.from_dict(controls, orient='index')
-
-samplesheet_bam = samplesheet_bam.merge(controls, on='merge_key', how='inner').drop(columns='merge_key').sort_values(by='sample')
-samplesheet_bam.to_csv(path_samplesheet_tfactivity_bams, index=False)
-
-# Convert rna counts to csv
-counts_rna_tsv = pd.read_csv(os.path.join(path_outdir_rnaseq, 'star_salmon', 'salmon.merged.gene_counts.tsv'), sep='\t')
-counts_rna_tsv['gene_id'].to_csv(path_counts_tfactivity_rna, header=False, index=False)
-
-counts_design = {}
-for sample in counts_rna_tsv.drop(columns=['gene_id', 'gene_name']).columns:
-    condition = sample.split('_')[0]
-    path_sample_counts = os.path.join(path_nfcore_tfactivity, f'{sample}_counts.txt')
-
-    counts_rna_tsv[sample].to_csv(path_sample_counts, index=False, header=False)
-    counts_design[sample] = {
-        'sample': sample,
-        'condition': condition,
-        'counts_file': path_sample_counts,
-    }
-
-pd.DataFrame.from_dict(counts_design, orient='index').to_csv(path_design_tfactivity_rna, index=False)
-
-tfactivity_run = f"""
-nextflow run \
-    nf-core/tfactivity \
-    -r dev \
-    --input {path_samplesheet_tfactivity_peaks} \
-    --input_bam {path_samplesheet_tfactivity_bams} \
-    --counts {path_counts_tfactivity_rna} \
-    --counts_design {path_design_tfactivity_rna} \
-    --motifs {motifs} \
-    --genome {genome} \
-    --fasta {fasta} \
-    --gtf {gtf} \
-    --outdir {path_outdir_tfactivity} \
-    -profile {profile} \
-    -process.executor {process_executor} \
-    -process.queue {process_queue} \
-    -resume
-"""
-
-os.chdir(path_nfcore_tfactivity)
-os.system(tfactivity_run)
+if __name__ == "__main__":
+    pass
