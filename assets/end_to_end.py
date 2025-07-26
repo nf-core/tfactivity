@@ -381,6 +381,18 @@ def run_nfcore_atacseq(
         {process_executor_arg} \
         {process_queue_arg} \
         -resume \
+        --skip_peak_qc \
+        --skip_consensus_peaks \
+        --skip_deseq2_qc \
+        --skip_fastqc \
+        --skip_picard_metrics \
+        --skip_preseq \
+        --skip_plot_profile \
+        --skip_plot_fingerprint \
+        --skip_igv \
+        --skip_multiqc \
+        --skip_qc \
+        --skip_ataqv \
         {args or ''}
     """
     print(f"Running command: {pipeline_run_cmd}")
