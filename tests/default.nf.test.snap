@@ -1,7 +1,7 @@
 {
     "Should run with bed only": {
         "content": [
-            161,
+            159,
             {
                 "AFFINITY_MEAN": {
                     "numpy": "2.2.6",
@@ -174,7 +174,7 @@
                 "00_prepare_genome/02_gtf",
                 "00_prepare_genome/02_gtf/chr1.gtf",
                 "00_prepare_genome/03_id_symbol_map",
-                "00_prepare_genome/03_id_symbol_map/gtf.anno.tsv",
+                "00_prepare_genome/03_id_symbol_map/id_symbol_map.txt",
                 "00_prepare_genome/04_gtftools_length",
                 "00_prepare_genome/04_gtftools_length/gtf.txt",
                 "00_prepare_genome/05_samtools_faidx",
@@ -650,8 +650,8 @@
             [
                 "chr1.fa:md5,465c1dfdf60714d61e3e80b9efa0bffe",
                 "chr1.gtf:md5,1b6199ee21f4230c6af0070794c36720",
-                "gtf.anno.tsv:md5,1ee5d04d5f4b3f0e9eaaa73669175d3f",
-                "gtf.txt:md5,12fb9901135625428517060971858b3b",
+                "id_symbol_map.txt:md5,b38949b5039cc9dee98d16743c604164",
+                "gtf.txt:md5,f12c828f90ee22f071cc4bca60694df0",
                 "chr1.fa.fai:md5,824f350c902b18dc18222eea23bd4be1",
                 "counts.clean.tsv:md5,45d709f53f5789c97e534b56865c49f3",
                 "genes.txt:md5,383f48ac40deb0f3c7cfd79a6960bfd9",
@@ -711,15 +711,15 @@
                 "L1_H3K4me3_R2.bed:md5,f4fa5eeff7e6eb4a3576e1a042a90b8a",
                 "p6_H3K27ac_R2.bed:md5,ade4c5c7cb18b46e3e83afdcc3848aca",
                 "p6_H3K4me3_R1.bed:md5,3ef06abb0248f151518a0cda3944ac7e",
-                "gtf.bed:md5,ac15ec1bac0525fcb82acb02be625c98",
-                "gtf_sorted.bed:md5,93deb0c1451502a7aefe73ff5c4d0ecd",
+                "gtf.bed:md5,284836b1543ddf17f81cddc40111a74d",
+                "gtf_sorted.bed:md5,e14840399e906e84f754af2e18fba8ea",
                 "fasta_sorted.fa.fai:md5,824f350c902b18dc18222eea23bd4be1",
-                "tss.bed:md5,1f22adb20a68919feb6df206b28a84c3",
+                "tss.bed:md5,2824b766b6b53ca0e1a3ce749fee0c54",
                 "gtf.bed:md5,2e76f0b07e4baac321d3a2c4f1090e68",
-                "L10_H3K27ac_R2_TF_Gene_Affinities.txt:md5,3e7e96ae707a11ca93e13ae146aa57d1",
-                "L1_H3K27ac_R1_TF_Gene_Affinities.txt:md5,54ce061d984b973719495aa1e01c0546",
-                "L1_H3K27ac_R3_TF_Gene_Affinities.txt:md5,8a66aef1f307955ce22d7a186e451980",
-                "L1_H3K4me3_R2_TF_Gene_Affinities.txt:md5,1fe534c2e8812fc82bba266add4611fe",
+                "L10_H3K27ac_R2_TF_Gene_Affinities.txt:md5,1231fca4490c8f0e08495c52ea3479d4",
+                "L1_H3K27ac_R1_TF_Gene_Affinities.txt:md5,602bba27d8bb071342191a879d0f7e1b",
+                "L1_H3K27ac_R3_TF_Gene_Affinities.txt:md5,3fffd445437352f84721ee0be1ff043e",
+                "L1_H3K4me3_R2_TF_Gene_Affinities.txt:md5,e4173273d187aaac7f6f2efdfae05ac8",
                 "p6_H3K27ac_R2_TF_Gene_Affinities.txt:md5,7395ff0296e48d27035aae3f29ff603b",
                 "p6_H3K4me3_R1_TF_Gene_Affinities.txt:md5,84da5779a7bcdb7b0657e34c3b2304c1",
                 "L10_H3K27ac.agg_affinities.tsv:md5,03c1aa0115abac9f839ad01c98c5e533",
@@ -982,13 +982,13 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-12T16:12:20.33678541"
+        "timestamp": "2025-07-17T13:28:42.697001372"
     },
     "Should run with both bed and bam input": {
         "content": [
-            365,
+            363,
             {
                 "AFFINITY_MEAN": {
                     "numpy": "2.2.6",
@@ -1198,7 +1198,7 @@
                 "00_prepare_genome/02_gtf",
                 "00_prepare_genome/02_gtf/chr1.gtf",
                 "00_prepare_genome/03_id_symbol_map",
-                "00_prepare_genome/03_id_symbol_map/gtf.anno.tsv",
+                "00_prepare_genome/03_id_symbol_map/id_symbol_map.txt",
                 "00_prepare_genome/04_gtftools_length",
                 "00_prepare_genome/04_gtftools_length/gtf.txt",
                 "00_prepare_genome/05_samtools_faidx",
@@ -2251,8 +2251,8 @@
             [
                 "chr1.fa:md5,465c1dfdf60714d61e3e80b9efa0bffe",
                 "chr1.gtf:md5,1b6199ee21f4230c6af0070794c36720",
-                "gtf.anno.tsv:md5,1ee5d04d5f4b3f0e9eaaa73669175d3f",
-                "gtf.txt:md5,12fb9901135625428517060971858b3b",
+                "id_symbol_map.txt:md5,b38949b5039cc9dee98d16743c604164",
+                "gtf.txt:md5,f12c828f90ee22f071cc4bca60694df0",
                 "chr1.fa.fai:md5,824f350c902b18dc18222eea23bd4be1",
                 "counts.clean.tsv:md5,45d709f53f5789c97e534b56865c49f3",
                 "genes.txt:md5,383f48ac40deb0f3c7cfd79a6960bfd9",
@@ -2325,10 +2325,10 @@
                 "L1.bed:md5,2ec41d105d6af848f4347538a5c580a9",
                 "L10.bed:md5,3d7001b85808b8dd4e6d303dc73166b3",
                 "p6.bed:md5,51d24d18e9ec7767ddde643f216c66da",
-                "gtf.bed:md5,ac15ec1bac0525fcb82acb02be625c98",
-                "gtf_sorted.bed:md5,93deb0c1451502a7aefe73ff5c4d0ecd",
+                "gtf.bed:md5,284836b1543ddf17f81cddc40111a74d",
+                "gtf_sorted.bed:md5,e14840399e906e84f754af2e18fba8ea",
                 "fasta_sorted.fa.fai:md5,824f350c902b18dc18222eea23bd4be1",
-                "tss.bed:md5,1f22adb20a68919feb6df206b28a84c3",
+                "tss.bed:md5,2824b766b6b53ca0e1a3ce749fee0c54",
                 "gtf.bed:md5,2e76f0b07e4baac321d3a2c4f1090e68",
                 "L10_chromHMM_enhancers_filtered.bed:md5,8970f23487a80d4c22ae0040f9b998f9",
                 "L10_chromHMM_promoters_filtered.bed:md5,97d35100dfd391f91cd505c682a7abdf",
@@ -2344,7 +2344,7 @@
                 "p6_chromHMM_promoters_stitched.bed:md5,8e43d79684756fdd7ca220ae83f61df6",
                 "L10_chromHMM_enhancers_tss-overlap-counts.bed:md5,d135324adc42e4154326655ae90070d5",
                 "L10_chromHMM_promoters_tss-overlap-counts.bed:md5,7751d078cfe9cc0e4ebc32f6430a5647",
-                "L1_chromHMM_enhancers_tss-overlap-counts.bed:md5,e756faa98cde1d21e3e632c0071bd62d",
+                "L1_chromHMM_enhancers_tss-overlap-counts.bed:md5,ae03d9a77a5cbf8b3b3c8a2d84f8082f",
                 "L1_chromHMM_promoters_tss-overlap-counts.bed:md5,07477108d1dc66e32b9c22a5aa868b76",
                 "p6_chromHMM_enhancers_tss-overlap-counts.bed:md5,1adddb979857044c6e6fae6fe683120a",
                 "p6_chromHMM_promoters_tss-overlap-counts.bed:md5,7410fde2484964d2ca15f3951a8e4ace",
@@ -2372,18 +2372,18 @@
                 "L1_chromHMM_promoters_stitched.bed:md5,15ebdd5fef7cc69b8fbe29843218266a",
                 "p6_chromHMM_enhancers_stitched.bed:md5,17d181527b484dcc814e740cb2531380",
                 "p6_chromHMM_promoters_stitched.bed:md5,aa256844d40e5a4f7a99696e1fbef361",
-                "L10_H3K27ac_R2_TF_Gene_Affinities.txt:md5,3e7e96ae707a11ca93e13ae146aa57d1",
-                "L10_chromHMM_enhancers_TF_Gene_Affinities.txt:md5,aa63878db07a038082afdb53959043e7",
+                "L10_H3K27ac_R2_TF_Gene_Affinities.txt:md5,1231fca4490c8f0e08495c52ea3479d4",
+                "L10_chromHMM_enhancers_TF_Gene_Affinities.txt:md5,de6e0cfb02f6bdfd9f15f611ce7fed3c",
                 "L10_chromHMM_promoters_TF_Gene_Affinities.txt:md5,7505a479a2b61907e0910142fd3d0059",
-                "L1_H3K27ac_R1_TF_Gene_Affinities.txt:md5,54ce061d984b973719495aa1e01c0546",
-                "L1_H3K27ac_R3_TF_Gene_Affinities.txt:md5,8a66aef1f307955ce22d7a186e451980",
-                "L1_H3K4me3_R2_TF_Gene_Affinities.txt:md5,1fe534c2e8812fc82bba266add4611fe",
-                "L1_chromHMM_enhancers_TF_Gene_Affinities.txt:md5,3dd413fb13cbf1bcf3ed6e7300a1131e",
+                "L1_H3K27ac_R1_TF_Gene_Affinities.txt:md5,602bba27d8bb071342191a879d0f7e1b",
+                "L1_H3K27ac_R3_TF_Gene_Affinities.txt:md5,3fffd445437352f84721ee0be1ff043e",
+                "L1_H3K4me3_R2_TF_Gene_Affinities.txt:md5,e4173273d187aaac7f6f2efdfae05ac8",
+                "L1_chromHMM_enhancers_TF_Gene_Affinities.txt:md5,1d9ebb867e087de6e1788b0f76eb316e",
                 "L1_chromHMM_promoters_TF_Gene_Affinities.txt:md5,05ce581e47d7ea25459a1f07f6c81ac2",
                 "p6_H3K27ac_R2_TF_Gene_Affinities.txt:md5,7395ff0296e48d27035aae3f29ff603b",
                 "p6_H3K4me3_R1_TF_Gene_Affinities.txt:md5,84da5779a7bcdb7b0657e34c3b2304c1",
                 "p6_chromHMM_enhancers_TF_Gene_Affinities.txt:md5,82b81da13094f44670b035137dc6b8d3",
-                "p6_chromHMM_promoters_TF_Gene_Affinities.txt:md5,ff7a461cf33541fa9402dc72fe47072f",
+                "p6_chromHMM_promoters_TF_Gene_Affinities.txt:md5,54cb7165f3ab0e3dfb6c6f082080aad2",
                 "L10_H3K27ac.agg_affinities.tsv:md5,03c1aa0115abac9f839ad01c98c5e533",
                 "L10_chromHMM_enhancers.agg_affinities.tsv:md5,15485c542c61cf5daddbb37fbb296833",
                 "L10_chromHMM_promoters.agg_affinities.tsv:md5,846b73c85df2fde63ad22c0dfd110434",
@@ -3058,8 +3058,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-12T16:07:53.797938644"
+        "timestamp": "2025-07-17T13:25:49.657082477"
     }
 }
