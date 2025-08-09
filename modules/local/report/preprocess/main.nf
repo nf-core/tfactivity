@@ -24,8 +24,7 @@ process REPORT_PREPROCESS {
     output:
     path "metadata.json", emit: metadata
     path "params.json", emit: params
-    path "ranking.json", emit: ranking
-    path "regression_coefficients.json", emit: regression_coefficients
+    path "overview.json", emit: overview
     path "transcription_factors", emit: transcription_factors
 
     script:
