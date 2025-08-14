@@ -19,10 +19,6 @@ df_affinities.index = df_affinities.index.map(conversion_dict).str.upper()
 # Aggregate across genes
 df_affinities = df_affinities.groupby(df_affinities.index).agg(agg_method)
 
-# Aggregate across TFs
-df_affinities.columns = df_affinities.columns.str.replace(r"\\(.*\\)", "").str.strip()
-df_affinities = df_affinities.groupby(df_affinities.columns, axis=1).agg(agg_method)
-
 # Save to file
 df_affinities.to_csv("${meta.id}.agg_affinities.tsv", sep="\\t")
 
