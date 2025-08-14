@@ -35,6 +35,7 @@ def mann_whitney_u(background, foreground):
     _, p = stats.mannwhitneyu(background, foreground)
     return p
 
+# Compute statistics for each TF
 df_ranking = pd.DataFrame(columns=['sum', 'mean', 'q95', 'q99', 'median', 'p-value'])
 df_ranking['sum'] = df_genes.sum()
 df_ranking['mean'] = df_genes.mean()
