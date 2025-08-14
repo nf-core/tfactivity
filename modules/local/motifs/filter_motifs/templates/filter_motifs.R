@@ -12,6 +12,9 @@ tfs <- toupper(readLines("$tfs"))
 # Filter motifs based on altname
 u.motif <- filter_motifs(u.motif, altname = tfs)
 
+# Add ID to symbol to make TFs unique
+u.motif <- lapply(u.motif, function(m) {m@altname <- toupper(sprintf("%s(%s)", m@altname, m@name)); m})
+
 saveRDS(u.motif, "$out_file")
 
 writeLines(
