@@ -138,6 +138,7 @@ workflow TFACTIVITY {
         PEAKS.out.affinity_sum,
         DYNAMITE.out.regression_coefficients,
         alpha,
+        affinity_agg_method,
     )
     ch_versions = ch_versions.mix(RANKING.out.versions)
 

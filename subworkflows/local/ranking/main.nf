@@ -11,6 +11,7 @@ workflow RANKING {
     ch_affinities
     ch_regression_coefficients
     alpha
+    agg_method
 
     main:
 
@@ -40,7 +41,7 @@ workflow RANKING {
         }
 
     TF_TG_SCORE(ch_combined)
-    CREATE_RANKING(TF_TG_SCORE.out.score, alpha)
+    CREATE_RANKING(TF_TG_SCORE.out.score, alpha, agg_method)
     COMBINE_TFS_PER_ASSAY(
         CREATE_RANKING.out.tfs.map { meta, ranking -> [[id: meta.assay], ranking] }.groupTuple(),
         "rank",
