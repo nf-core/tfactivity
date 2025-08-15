@@ -14,7 +14,7 @@ process RUN_SNEEP {
     path scale_file
 
     output:
-    tuple val(meta), path("sneep_${meta.id}/PFMs/*.txt"), emit: pfms
+    tuple val(meta), path("sneep_${meta.id}/PFMs/*.txt"), emit: pfms, optional: true
     tuple val(meta), path("sneep_${meta.id}/InDels.bed"), emit: indels
     tuple val(meta), path("sneep_${meta.id}/info.txt"), emit: info
     tuple val(meta), path("sneep_${meta.id}/motifInfo.txt"), emit: motifinfo

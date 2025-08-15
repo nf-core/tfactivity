@@ -23,8 +23,6 @@ nextflow_process {
                 """
                 ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
-                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
-                    .filter { row -> row.assay.startsWith("H3") }
                     .map { row ->
                         [
                             [
@@ -70,8 +68,6 @@ nextflow_process {
                 """
                 ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
-                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
-                    .filter { row -> row.assay.startsWith("H3") }
                     .map { row ->
                         [
                             [
@@ -115,8 +111,6 @@ nextflow_process {
                 """
                 ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
-                    .filter { row -> row.condition == "L10" || row.condition == "p6" }
-                    .filter { row -> row.assay.startsWith("H3") }
                     .map { row ->
                         [
                             [

@@ -1,0 +1,72 @@
+include { UNTAR                           } from "../../../modules/nf-core/untar"
+include { REPORT_PREPROCESS as PREPROCESS } from "../../../modules/local/report/preprocess"
+include { REPORT_CREATE as CREATE         } from "../../../modules/local/report/create"
+include { ZIP                             } from "../../../modules/nf-core/zip"
+
+include { paramsSummaryMap                } from 'plugin/nf-schema'
+include { paramsSummaryToYAML             } from '../../local/utils_nfcore_tfactivity_pipeline'
+include { softwareVersionsToYAML          } from '../../nf-core/utils_nfcore_pipeline'
+
+workflow REPORT {
+    take:
+    tf_rankings
+    tg_rankings
+    deseq2_differential
+    raw_counts
+    normalized
+    tpms
+    counts_design
+    affinity_sum
+    affinity_ratio
+    affinities
+    regression_coefficients
+    ch_versions
+
+    main:
+    UNTAR([[id: 'report'], file("https://github.com/daisybio/nfcore-tfactivity-report/archive/refs/tags/v0.2.0.tar.gz", checkIfExists: true)])
+    ch_versions = ch_versions.mix(UNTAR.out.versions)
+
+    //
+    // Collate and save software versions
+    //
+    softwareVersionsToYAML(ch_versions)
+        .collectFile(
+            storeDir: "${params.outdir}/pipeline_info",
+            name: 'nf_core_tfactivity_software_versions.yml',
+            sort: true,
+            newLine: true,
+        )
+        .set { ch_collated_versions }
+
+    summary_params = paramsSummaryMap(
+        workflow,
+        parameters_schema: "nextflow_schema.json"
+    )
+    ch_workflow_summary = Channel.value(paramsSummaryToYAML(summary_params))
+
+    PREPROCESS(
+        tf_rankings,
+        tg_rankings,
+        deseq2_differential,
+        raw_counts,
+        normalized,
+        tpms,
+        counts_design,
+        affinity_sum,
+        affinity_ratio,
+        affinities,
+        regression_coefficients,
+        ch_workflow_summary.collectFile(name: 'params.yaml'),
+        ch_collated_versions,
+    )
+
+    CREATE(
+        UNTAR.out.untar,
+        PREPROCESS.out.metadata,
+        PREPROCESS.out.params,
+        PREPROCESS.out.overview,
+        PREPROCESS.out.transcription_factors,
+    )
+
+    ZIP(CREATE.out)
+}

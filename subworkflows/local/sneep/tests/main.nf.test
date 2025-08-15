@@ -37,7 +37,22 @@ nextflow_workflow {
 
         then {
             assert workflow.success
-            assert snapshot(workflow.out).match()
+            assert snapshot(
+                workflow.out.pfms,
+                workflow.out.indels,
+                // workflow.out.info, -> Contains execution time, thus cannot be hashed
+                workflow.out.motifinfo,
+                workflow.out.notconsideredsnps,
+                workflow.out.result,
+                workflow.out.snpregions_bed,
+                workflow.out.snpregions_fa,
+                workflow.out.snpsregions_notuniq_sorted,
+                workflow.out.snpsregions_notuniq,
+                workflow.out.snpsunique,
+                workflow.out.sortedsnpsnotunique,
+                // workflow.out.tf_count, -> Column order is not deterministic
+                workflow.out.versions
+            ).match()
         }
 
     }

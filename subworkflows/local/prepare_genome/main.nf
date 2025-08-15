@@ -1,9 +1,8 @@
-include { GUNZIP as GUNZIP_FASTA                                                         } from '../../../modules/nf-core/gunzip'
-include { GUNZIP as GUNZIP_GTF                                                           } from '../../../modules/nf-core/gunzip'
-
-include { ATLASGENEANNOTATIONMANIPULATION_GTF2FEATUREANNOTATION as EXTRACT_ID_SYMBOL_MAP } from '../../../modules/nf-core/atlasgeneannotationmanipulation/gtf2featureannotation'
-include { GTFTOOLS_LENGTH                                                                } from '../../../modules/local/gtftools/length'
-include { SAMTOOLS_FAIDX                                                                 } from '../../../modules/nf-core/samtools/faidx'
+include { GUNZIP as GUNZIP_FASTA } from '../../../modules/nf-core/gunzip'
+include { GUNZIP as GUNZIP_GTF   } from '../../../modules/nf-core/gunzip'
+include { EXTRACT_ID_SYMBOL_MAP  } from '../../../modules/local/extract_id_symbol_map'
+include { GTFTOOLS_LENGTH        } from '../../../modules/local/gtftools/length'
+include { SAMTOOLS_FAIDX         } from '../../../modules/nf-core/samtools/faidx'
 
 workflow PREPARE_GENOME {
     take:
@@ -29,21 +28,17 @@ workflow PREPARE_GENOME {
         ch_versions = ch_versions.mix(GUNZIP_GTF.out.versions)
     }
 
-    // Prepare gene map
+    EXTRACT_ID_SYMBOL_MAP(ch_gtf)
+    ch_versions = ch_versions.mix(EXTRACT_ID_SYMBOL_MAP.out.versions)
 
-    EXTRACT_ID_SYMBOL_MAP(ch_gtf, [[], []])
     GTFTOOLS_LENGTH(ch_gtf)
+    ch_versions = ch_versions.mix(GTFTOOLS_LENGTH.out.versions)
 
     SAMTOOLS_FAIDX(ch_fasta, [[], []])
-
-    ch_versions = ch_versions.mix(
-        EXTRACT_ID_SYMBOL_MAP.out.versions,
-        GTFTOOLS_LENGTH.out.versions,
-        SAMTOOLS_FAIDX.out.versions,
-    )
+    ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
 
     emit:
-    gene_map     = EXTRACT_ID_SYMBOL_MAP.out.feature_annotation
+    gene_map     = EXTRACT_ID_SYMBOL_MAP.out.id_symbol_map
     gene_lengths = GTFTOOLS_LENGTH.out.lengths
     chrom_sizes  = SAMTOOLS_FAIDX.out.fai.collect()
     fasta        = ch_fasta
