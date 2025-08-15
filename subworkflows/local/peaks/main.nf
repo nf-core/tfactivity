@@ -26,6 +26,7 @@ workflow PEAKS {
     contrasts
     gene_map
     agg_method
+    merge_duplicate_motifs
     ch_samplesheet_bam
     chrom_sizes
     chromhmm_states
@@ -125,8 +126,15 @@ workflow PEAKS {
         ch_affinities,
         gene_map,
         agg_method,
+        merge_duplicate_motifs,
     )
     ch_versions = ch_versions.mix(AGGREGATE_SYNONYMS.out.versions)
+
+    // Output warnings for merged duplicate motifs
+    AGGREGATE_SYNONYMS.out.python_output
+        .splitText() { it.trim() }
+        .filter { it.startsWith("Merging duplicate motif in") }
+        .subscribe { log.warn(it) }
 
     ch_affinities_spread = AGGREGATE_SYNONYMS.out.affinities.map { meta, affinities -> [meta.condition, meta.assay, affinities] }
 

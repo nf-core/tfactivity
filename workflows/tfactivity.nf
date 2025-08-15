@@ -113,6 +113,7 @@ workflow TFACTIVITY {
         ch_contrasts,
         gene_map,
         affinity_agg_method,
+        duplicated_motifs == "merge",
         ch_samplesheet_bam,
         chrom_sizes,
         chromhmm_states,
@@ -141,6 +142,10 @@ workflow TFACTIVITY {
     ch_versions = ch_versions.mix(RANKING.out.versions)
 
     if (!params.skip_fimo) {
+        if (duplicated_motifs == "merge") {
+            error "Fimo can only be run if duplicate motifs are not merged. Please set --skip_fimo true or --duplicated_motifs [remove|keep]."
+        }
+
         FIMO(
             fasta,
             RANKING.out.tf_total_ranking,
@@ -166,6 +171,7 @@ workflow TFACTIVITY {
         if (params.skip_fimo) {
             error "Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false."
         }
+
         SNEEP(
             snps,
             sneep_scale_file,

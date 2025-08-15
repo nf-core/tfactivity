@@ -11,10 +11,12 @@ process AGGREGATE_SYNONYMS {
     tuple val(meta), path(affinities)
     tuple val(meta2), path(gene_map)
     val agg_method
+    val merge_duplicate_motifs
 
     output:
     tuple val(meta), path("${meta.id}.agg_affinities.tsv"), emit: affinities
-    path "versions.yml", emit: versions
+    stdout                                                  emit: python_output
+    path "versions.yml"                                   , emit: versions
 
     script:
     template("aggregate_synonyms.py")
