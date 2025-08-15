@@ -164,17 +164,16 @@ workflow TFACTIVITY {
         }
 
         if (params.skip_fimo) {
-            log.warn "Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false."
-        } else {
-            SNEEP(
-                snps,
-                sneep_scale_file,
-                sneep_motif_file,
-                fasta,
-                FIMO.out.gff,
-            )
-            ch_versions = ch_versions.mix(SNEEP.out.versions)
+            error "Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false."
         }
+        SNEEP(
+            snps,
+            sneep_scale_file,
+            sneep_motif_file,
+            fasta,
+            FIMO.out.gff,
+        )
+        ch_versions = ch_versions.mix(SNEEP.out.versions)
     }
 
     //
