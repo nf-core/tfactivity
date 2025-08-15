@@ -187,6 +187,7 @@
                 "affinity_aggregation": {
                     "type": "string",
                     "default": "max",
+                    "enum": ["mean", "max", "sum"],
                     "description": "Method to aggregate affinity values.",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "help_text": "Method to aggregate affinity values. The default value is `max`."
