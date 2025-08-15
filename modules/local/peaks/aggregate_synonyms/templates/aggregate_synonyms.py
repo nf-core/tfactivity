@@ -2,6 +2,7 @@
 
 import pandas as pd
 import re
+from collections import defaultdict
 import platform
 import yaml
 
@@ -24,8 +25,9 @@ df_affinities = df_affinities.groupby(df_affinities.index).agg(agg_method)
 if "$merge_duplicate_motifs" == "true":
     # Match "Symbol(ID)" and capture sym and id
     pattern = re.compile(r"^(?P<sym>[^()]+?)(?:\\((?P<id>[^()]+)\\))?\$")
-    parsed = []
-    symbol_to_id = {}
+    symbol_to_id = defaultdict(list)  # sym -> list of ids
+    col_map = defaultdict(list)       # sym -> list of original column names
+    symbol_order = []                 # preserve first seen order
 
     for col in df_affinities.columns:
         m = pattern.match(col)
@@ -35,15 +37,28 @@ if "$merge_duplicate_motifs" == "true":
 
         sym = m.group("sym").strip()
         id_ = m.group("id").strip()
-        parsed.append((sym, id_))
-        symbol_to_id.setdefault(sym, []).append(id_)
+        if sym not in symbol_order:
+            symbol_order.append(sym)
+        symbol_to_id[sym].append(id_)
+        col_map[sym].append(col)
 
-    for sym, ids in symbol_to_id.items():
-        if len(ids) > 1:
-            print(f"Merging duplicate motif in '{"$meta.id"}' with symbol '{sym}' and IDs: {', '.join(ids)}")
+    new_cols = []
+    new_data = []
 
-    df_affinities.columns = pd.MultiIndex.from_tuples(parsed, names=["symbol", "id"])
-    df_affinities = df_affinities.T.groupby(level="symbol").agg(agg_method).T
+    for sym in symbol_order:
+        ids = symbol_to_id[sym]
+        cols = col_map[sym]
+        if len(cols) > 1:
+            print(f"Merging duplicate motif in '{'$meta.id'}' with symbol '{sym}' and IDs: {', '.join(ids)}")
+            merged = df_affinities[cols].T.agg(agg_method).T
+            new_cols.append(sym)
+            new_data.append(merged)
+        else:
+            new_cols.append(cols[0])
+            new_data.append(df_affinities[cols[0]])
+
+    df_affinities = pd.concat(new_data, axis=1)
+    df_affinities.columns = new_cols
 
 # Save to file
 df_affinities.to_csv("${meta.id}.agg_affinities.tsv", sep="\\t")
