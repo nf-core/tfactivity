@@ -113,6 +113,21 @@
                 }
             }
         },
+        "motif_options": {
+            "title": "Motif options",
+            "type": "object",
+            "fa_icon": "fas fa-dna",
+            "description": "Options for motif workflow",
+            "properties": {
+                "duplicated_motifs": {
+                    "type": "string",
+                    "default": "remove",
+                    "description": "Specifies how to handle duplicated motifs. Available options are `remove` (only keep first occurrence of motif), `merge` (average motifs with same symbol), and `keep` (keep all motifs and adjust background during statistical testing).",
+                    "fa_icon": "fas fa-compress-arrows-alt",
+                    "enum": ["remove", "merge", "keep"]
+                }
+            }
+        },
         "peak_merging": {
             "title": "Peak merging",
             "type": "object",
@@ -544,6 +559,9 @@
         },
         {
             "$ref": "#/$defs/expression_options"
+        },
+        {
+            "$ref": "#/$defs/motif_options"
         },
         {
             "$ref": "#/$defs/peak_merging"
