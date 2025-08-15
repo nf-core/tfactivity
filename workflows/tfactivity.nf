@@ -47,6 +47,7 @@ workflow TFACTIVITY {
     decay
     merge_samples
     affinity_agg_method
+    duplicated_motifs
     counts
     extra_counts
     counts_design
@@ -96,6 +97,7 @@ workflow TFACTIVITY {
         motifs,
         COUNTS.out.tfs,
         taxon_id,
+        duplicated_motifs == "remove",
     )
     ch_versions = ch_versions.mix(MOTIFS.out.versions)
 

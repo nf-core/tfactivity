@@ -6,6 +6,19 @@ library(universalmotif)
 u.motif <- readRDS("$in_file")
 u.motif <- lapply(u.motif, function(m) {m@altname <- toupper(m@altname); m})
 
+# Remove motifs with duplicated altname (only keep first occurrence)
+if ("$remove_duplicates" == "true") {
+    altnames <- vapply(u.motif, function(m) m@altname, character(1))
+    dup_idx <- duplicated(altnames)
+    if (any(dup_idx)) {
+        msgs <- vapply(which(dup_idx), function(i)
+            sprintf("Removing duplicate motif with symbol '%s' and ID '%s'", u.motif[[i]]@altname, u.motif[[i]]@name),
+        character(1))
+        writeLines(msgs)
+        u.motif <- u.motif[!dup_idx]
+    }
+}
+
 # Read TFs and convert to uppercase
 tfs <- toupper(readLines("$tfs"))
 

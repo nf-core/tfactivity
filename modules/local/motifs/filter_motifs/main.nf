@@ -10,9 +10,11 @@ process FILTER_MOTIFS {
     input:
     tuple val(meta), path(in_file)
     tuple val(meta2), path(tfs)
+    val remove_duplicates
 
     output:
     tuple val(meta), path("${out_file}"), emit: filtered
+    stdout                                emit: python_output
     path "versions.yml"                 , emit: versions
 
     script:
