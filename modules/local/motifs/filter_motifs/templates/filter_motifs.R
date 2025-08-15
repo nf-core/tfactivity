@@ -6,7 +6,7 @@ library(universalmotif)
 u.motif <- readRDS("$in_file")
 u.motif <- lapply(u.motif, function(m) {m@altname <- toupper(m@altname); m})
 
-# Remove motifs with duplicated altname (only keep first occurrence)
+# Remove motifs with duplicate altname (only keep first occurrence)
 if ("$remove_duplicates" == "true") {
     altnames <- vapply(u.motif, function(m) m@altname, character(1))
     dup_idx <- duplicated(altnames)

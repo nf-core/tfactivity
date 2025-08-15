@@ -47,7 +47,7 @@ workflow TFACTIVITY {
     decay
     merge_samples
     affinity_agg_method
-    duplicated_motifs
+    duplicate_motifs
     counts
     extra_counts
     counts_design
@@ -97,7 +97,7 @@ workflow TFACTIVITY {
         motifs,
         COUNTS.out.tfs,
         taxon_id,
-        duplicated_motifs == "remove",
+        duplicate_motifs == "remove",
     )
     ch_versions = ch_versions.mix(MOTIFS.out.versions)
 
@@ -113,7 +113,7 @@ workflow TFACTIVITY {
         ch_contrasts,
         gene_map,
         affinity_agg_method,
-        duplicated_motifs == "merge",
+        duplicate_motifs == "merge",
         ch_samplesheet_bam,
         chrom_sizes,
         chromhmm_states,
@@ -143,8 +143,8 @@ workflow TFACTIVITY {
     ch_versions = ch_versions.mix(RANKING.out.versions)
 
     if (!params.skip_fimo) {
-        if (duplicated_motifs == "merge") {
-            error "Fimo can only be run if duplicate motifs are not merged. Please set --skip_fimo true or --duplicated_motifs [remove|keep]."
+        if (duplicate_motifs == "merge") {
+            error "Fimo can only be run if duplicate motifs are not merged. Please set --skip_fimo true or --duplicate_motifs [remove|keep]."
         }
 
         FIMO(

@@ -119,10 +119,10 @@
             "fa_icon": "fas fa-dna",
             "description": "Options for motif workflow",
             "properties": {
-                "duplicated_motifs": {
+                "duplicate_motifs": {
                     "type": "string",
                     "default": "remove",
-                    "description": "Specifies how to handle duplicated motifs. Available options are `remove` (only keep first occurrence of motif), `merge` (average motifs with same symbol), and `keep` (keep all motifs and adjust background during statistical testing).",
+                    "description": "Specifies how to handle duplicate motifs. Available options are `remove` (only keep first occurrence of motif), `merge` (average motifs with same symbol), and `keep` (keep all motifs and adjust background during statistical testing).",
                     "fa_icon": "fas fa-compress-arrows-alt",
                     "enum": ["remove", "merge", "keep"]
                 }
