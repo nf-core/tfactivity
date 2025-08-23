@@ -23,6 +23,7 @@ else:
     counts.columns = counts.iloc[0]
     # Remove first row
     counts = counts.iloc[1:]
+    counts.index.name = "gene_id"
 
 for sample, sample_df in sample_files.items():
     # Convert to numeric to ensure values are not strings - will crash on invalid values
