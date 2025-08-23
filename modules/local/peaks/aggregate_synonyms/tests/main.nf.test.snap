@@ -1,5 +1,5 @@
 {
-    "Should run sum without failures": {
+    "Should run sum (merge duplicates) without failures": {
         "content": [
             {
                 "0": [
@@ -7,10 +7,13 @@
                         {
                             "id": "test"
                         },
-                        "test.agg_affinities.tsv:md5,d0bde8b52720f8f657b0d344fa40173b"
+                        "test.agg_affinities.tsv:md5,3bd9140107f52e4f0bf8de0d800e35ee"
                     ]
                 ],
                 "1": [
+                    ""
+                ],
+                "2": [
                     "versions.yml:md5,7a832e1900c2d9cf55a90b8e7b9d02e8"
                 ],
                 "affinities": [
@@ -18,8 +21,11 @@
                         {
                             "id": "test"
                         },
-                        "test.agg_affinities.tsv:md5,d0bde8b52720f8f657b0d344fa40173b"
+                        "test.agg_affinities.tsv:md5,3bd9140107f52e4f0bf8de0d800e35ee"
                     ]
+                ],
+                "python_output": [
+                    ""
                 ],
                 "versions": [
                     "versions.yml:md5,7a832e1900c2d9cf55a90b8e7b9d02e8"
@@ -28,9 +34,48 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-11T22:08:13.243396204"
+        "timestamp": "2025-08-23T15:16:40.310356577"
+    },
+    "Should run sum without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.agg_affinities.tsv:md5,3bd9140107f52e4f0bf8de0d800e35ee"
+                    ]
+                ],
+                "1": [
+                    ""
+                ],
+                "2": [
+                    "versions.yml:md5,7a832e1900c2d9cf55a90b8e7b9d02e8"
+                ],
+                "affinities": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.agg_affinities.tsv:md5,3bd9140107f52e4f0bf8de0d800e35ee"
+                    ]
+                ],
+                "python_output": [
+                    ""
+                ],
+                "versions": [
+                    "versions.yml:md5,7a832e1900c2d9cf55a90b8e7b9d02e8"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-23T15:16:14.939004495"
     },
     "Should run max without failures - stub": {
         "content": [
@@ -44,6 +89,9 @@
                     ]
                 ],
                 "1": [
+                    ""
+                ],
+                "2": [
                     "versions.yml:md5,99349f6fab90fa1a13d278fb0679a855"
                 ],
                 "affinities": [
@@ -54,6 +102,9 @@
                         "test.agg_affinities.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
+                "python_output": [
+                    ""
+                ],
                 "versions": [
                     "versions.yml:md5,99349f6fab90fa1a13d278fb0679a855"
                 ]
@@ -61,9 +112,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-12T13:25:25.144716685"
+        "timestamp": "2025-08-23T14:06:32.52823341"
     },
     "Should run mean without failures": {
         "content": [
@@ -73,10 +124,13 @@
                         {
                             "id": "test"
                         },
-                        "test.agg_affinities.tsv:md5,c12e0afffcb70e79859b1b768ee76f8b"
+                        "test.agg_affinities.tsv:md5,4b0a7befc9566e2cdf9a289a4ca851fc"
                     ]
                 ],
                 "1": [
+                    ""
+                ],
+                "2": [
                     "versions.yml:md5,7a832e1900c2d9cf55a90b8e7b9d02e8"
                 ],
                 "affinities": [
@@ -84,8 +138,11 @@
                         {
                             "id": "test"
                         },
-                        "test.agg_affinities.tsv:md5,c12e0afffcb70e79859b1b768ee76f8b"
+                        "test.agg_affinities.tsv:md5,4b0a7befc9566e2cdf9a289a4ca851fc"
                     ]
+                ],
+                "python_output": [
+                    ""
                 ],
                 "versions": [
                     "versions.yml:md5,7a832e1900c2d9cf55a90b8e7b9d02e8"
@@ -94,9 +151,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-11T22:07:53.68819964"
+        "timestamp": "2025-08-23T15:15:48.480243012"
     },
     "Should run max without failures": {
         "content": [
@@ -106,10 +163,13 @@
                         {
                             "id": "test"
                         },
-                        "test.agg_affinities.tsv:md5,54ef9e624b2d3c9b4398d1b5b25bc5e2"
+                        "test.agg_affinities.tsv:md5,459daf1d3056017b8d66d282479ead16"
                     ]
                 ],
                 "1": [
+                    ""
+                ],
+                "2": [
                     "versions.yml:md5,7a832e1900c2d9cf55a90b8e7b9d02e8"
                 ],
                 "affinities": [
@@ -117,8 +177,11 @@
                         {
                             "id": "test"
                         },
-                        "test.agg_affinities.tsv:md5,54ef9e624b2d3c9b4398d1b5b25bc5e2"
+                        "test.agg_affinities.tsv:md5,459daf1d3056017b8d66d282479ead16"
                     ]
+                ],
+                "python_output": [
+                    ""
                 ],
                 "versions": [
                     "versions.yml:md5,7a832e1900c2d9cf55a90b8e7b9d02e8"
@@ -127,8 +190,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-11T22:07:35.210909061"
+        "timestamp": "2025-08-23T15:15:21.314886078"
     }
 }
