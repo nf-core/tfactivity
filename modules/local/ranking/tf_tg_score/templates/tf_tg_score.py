@@ -4,16 +4,10 @@ import pandas as pd
 import platform
 import yaml
 
-def remove_version(gene_id):
-    return gene_id.split(".")[0]
 
 df_differential = pd.read_csv("$differential".replace("\\\\", ""), sep='\\t', index_col=0)
 df_affinities = pd.read_csv("$affinities".replace("\\\\", ""), sep='\\t', index_col=0)
 df_coefficients = pd.read_csv("$regression_coefficients".replace("\\\\", ""), sep='\\t', index_col=0)
-
-# Remove version from gene ids
-df_differential.index = df_differential.index.map(remove_version)
-df_affinities.index = df_affinities.index.map(remove_version)
 
 # Make sure genes are in common between the differential expression and affinities files
 gene_intersection = df_differential.index.intersection(df_affinities.index)
