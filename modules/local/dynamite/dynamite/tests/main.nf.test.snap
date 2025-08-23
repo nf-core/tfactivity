@@ -40,7 +40,7 @@
                         {
                             "id": "test"
                         },
-                        "test_dynamite_regression_coefficients.txt:md5,9b0b81ce444a8c8ca1eb35e8ced2968c"
+                        "test_dynamite_regression_coefficients.txt:md5,492f71af04955fb0f56d4f59b4de663f"
                     ]
                 ],
                 "1": [
@@ -51,7 +51,7 @@
                         {
                             "id": "test"
                         },
-                        "test_dynamite_regression_coefficients.txt:md5,9b0b81ce444a8c8ca1eb35e8ced2968c"
+                        "test_dynamite_regression_coefficients.txt:md5,492f71af04955fb0f56d4f59b4de663f"
                     ]
                 ],
                 "versions": [
@@ -61,8 +61,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-07-05T07:50:30.444411401"
+        "timestamp": "2025-08-23T16:14:43.343419528"
     }
 }
