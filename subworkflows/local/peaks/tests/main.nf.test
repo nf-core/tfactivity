@@ -15,25 +15,14 @@ nextflow_workflow {
             }
         }
 
-        run("CONVERT_MOTIFS") {
-            script "../../../../modules/local/motifs/convert_motifs"
+        run("MOTIFS") {
+            script "../../motifs"
             process {
                 """
-                input[0] = [
-                    [ id: 'test' ],
-                    file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true),
-                    'jaspar'
-                ]
-                input[1] = 'transfac'
-                """
-            }
-        }
-
-        run("TRANSFAC_TO_PSEM") {
-            script "../../../../modules/local/motifs/transfac_to_psem"
-            process {
-                """
-                input[0] = CONVERT_MOTIFS.out.converted
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true)
+                input[1] = [[id: "test"], file(params.pipelines_testdata_base_path + '/intermediates/tf_list_big.txt', checkIfExists: true)]
+                input[2] = []
+                input[3] = true
                 """
             }
         }
@@ -57,7 +46,7 @@ nextflow_workflow {
                 input[1] = PREPARE_GENOME.out.fasta
                 input[2] = PREPARE_GENOME.out.gtf
                 input[3] = file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true)
-                input[4] = TRANSFAC_TO_PSEM.out.psem.collect()
+                input[4] = MOTIFS.out.psem
                 input[5] = 50000 // window_size
                 input[6] = true // decay
                 input[7] = true // merge_samples
@@ -119,7 +108,7 @@ nextflow_workflow {
                 input[1] = PREPARE_GENOME.out.fasta
                 input[2] = PREPARE_GENOME.out.gtf
                 input[3] = file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true)
-                input[4] = TRANSFAC_TO_PSEM.out.psem.collect()
+                input[4] = MOTIFS.out.psem
                 input[5] = 50000 // window_size
                 input[6] = true // decay
                 input[7] = true // merge_samples
