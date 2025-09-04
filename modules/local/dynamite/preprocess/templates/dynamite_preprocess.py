@@ -9,12 +9,6 @@ import yaml
 df_affinities = pd.read_csv("$affinity_ratio".replace("\\\\", ""), sep="\\t", index_col=0)
 df_expression = pd.read_csv("$differential_expression".replace("\\\\", ""), sep="\\t", index_col=0)
 
-def remove_version(gene_id):
-    return gene_id.split(".")[0]
-
-df_affinities.index = df_affinities.index.map(remove_version)
-df_expression.index = df_expression.index.map(remove_version)
-
 gene_intersection = df_affinities.index.intersection(df_expression.index)
 
 df_affinities = df_affinities.loc[gene_intersection]

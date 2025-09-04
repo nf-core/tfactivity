@@ -3,6 +3,7 @@ nextflow_workflow {
     name "Test Workflow COUNTS"
     script "subworkflows/local/counts/main.nf"
     workflow "COUNTS"
+    config "./nextflow.config"
 
     setup {
         run("PREPARE_GENOME") {

@@ -10,6 +10,7 @@ workflow MOTIFS {
     motifs
     ch_tfs
     taxon_id
+    remove_duplicates
 
     main:
     ch_versions = Channel.empty()
@@ -34,8 +35,14 @@ workflow MOTIFS {
     )
     ch_versions = ch_versions.mix(CONVERT_TO_UNIVERSAL.out.versions)
 
-    ch_filtered = FILTER_MOTIFS(CONVERT_TO_UNIVERSAL.out.converted, ch_tfs).filtered.map { meta, m -> [meta, m, "universal"] }
+    ch_filtered = FILTER_MOTIFS(CONVERT_TO_UNIVERSAL.out.converted, ch_tfs, remove_duplicates).filtered.map { meta, m -> [meta, m, "universal"] }
     ch_versions = ch_versions.mix(FILTER_MOTIFS.out.versions)
+
+    // Output warnings for removed duplicate motifs
+    FILTER_MOTIFS.out.python_output
+        .splitText() { it.trim() }
+        .filter { it.startsWith("Removing duplicate motif with symbol") }
+        .subscribe { log.warn(it) }
 
     CONVERT_TO_MEME(ch_filtered, "meme")
     ch_versions = ch_versions.mix(CONVERT_TO_MEME.out.versions)

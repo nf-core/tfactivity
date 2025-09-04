@@ -42,6 +42,7 @@ workflow TFACTIVITY {
     decay
     merge_samples
     affinity_agg_method
+    duplicate_motifs
     counts
     extra_counts
     counts_design
@@ -91,6 +92,7 @@ workflow TFACTIVITY {
         motifs,
         COUNTS.out.tfs,
         taxon_id,
+        duplicate_motifs == "remove",
     )
     ch_versions = ch_versions.mix(MOTIFS.out.versions)
 
@@ -106,6 +108,7 @@ workflow TFACTIVITY {
         ch_contrasts,
         gene_map,
         affinity_agg_method,
+        duplicate_motifs == "merge",
         ch_samplesheet_bam,
         chrom_sizes,
         chromhmm_states,
@@ -130,10 +133,15 @@ workflow TFACTIVITY {
         PEAKS.out.affinity_sum,
         DYNAMITE.out.filtered_coefficients,
         alpha,
+        affinity_agg_method,
     )
     ch_versions = ch_versions.mix(RANKING.out.versions)
 
     if (!params.skip_fimo) {
+        if (duplicate_motifs == "merge") {
+            error "Fimo can only be run if duplicate motifs are not merged. Please set --skip_fimo true or --duplicate_motifs [remove|keep]."
+        }
+
         FIMO(
             fasta,
             RANKING.out.tf_total_ranking,
@@ -157,18 +165,17 @@ workflow TFACTIVITY {
         }
 
         if (params.skip_fimo) {
-            log.warn("Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false.")
+            error "Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false."
         }
-        else {
-            SNEEP(
-                snps,
-                sneep_scale_file,
-                sneep_motif_file,
-                fasta,
-                FIMO.out.gff,
-            )
-            ch_versions = ch_versions.mix(SNEEP.out.versions)
-        }
+
+        SNEEP(
+            snps,
+            sneep_scale_file,
+            sneep_motif_file,
+            fasta,
+            FIMO.out.gff,
+        )
+        ch_versions = ch_versions.mix(SNEEP.out.versions)
     }
 
     REPORT(

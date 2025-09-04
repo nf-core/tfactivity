@@ -100,6 +100,7 @@ workflow NFCORE_TFACTIVITY {
         params.decay,
         params.merge_samples,
         params.affinity_aggregation,
+        params.duplicate_motifs,
         ch_counts,
         ch_extra_counts,
         Channel.value([[id: "design"], file(params.counts_design, checkIfExists: true)]),

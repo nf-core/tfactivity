@@ -40,7 +40,7 @@
                         {
                             "id": "test"
                         },
-                        "test.preprocessed.tsv:md5,5a68baae3fc659115040952734954f43"
+                        "test.preprocessed.tsv:md5,d2c2b502e3847d127e3b64147ec47487"
                     ]
                 ],
                 "1": [
@@ -51,7 +51,7 @@
                         {
                             "id": "test"
                         },
-                        "test.preprocessed.tsv:md5,5a68baae3fc659115040952734954f43"
+                        "test.preprocessed.tsv:md5,d2c2b502e3847d127e3b64147ec47487"
                     ]
                 ],
                 "versions": [
@@ -61,8 +61,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.04.6"
         },
-        "timestamp": "2025-06-12T08:45:57.558143869"
+        "timestamp": "2025-08-23T16:16:18.95513008"
     }
 }

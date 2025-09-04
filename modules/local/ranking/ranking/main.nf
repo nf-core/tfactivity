@@ -10,6 +10,7 @@ process RANKING {
     input:
     tuple val(meta), path(tf_tg_score)
     val alpha
+    val agg_method
 
     output:
     tuple val(meta), path("*.tf_ranking.tsv"), emit: tfs

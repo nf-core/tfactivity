@@ -15,6 +15,7 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
                 ]
                 input[2] = null
+                input[3] = false
                 """
             }
         }
@@ -39,6 +40,7 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
                 ]
                 input[2] = null
+                input[3] = false
                 """
             }
         }
@@ -61,6 +63,7 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
                 ]
                 input[2] = '9606'
+                input[3] = false
                 """
             }
         }
@@ -85,6 +88,55 @@ nextflow_workflow {
                     file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
                 ]
                 input[2] = '9606'
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run with input motifs (filtering duplicates)") {
+
+        when {
+            workflow {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true)
+                input[1] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
+                ]
+                input[2] = null
+                input[3] = true
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run with input motifs (filtering duplicates) - stub") {
+
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true)
+                input[1] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/tf_list.txt', checkIfExists: true)
+                ]
+                input[2] = null
+                input[3] = true
                 """
             }
         }

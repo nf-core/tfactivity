@@ -27,6 +27,7 @@ nextflow_process {
                 """
                 input[0] = TF_TG_SCORE.out.score
                 input[1] = 0.05
+                input[2] = 'max'
                 """
             }
         }
@@ -47,6 +48,7 @@ nextflow_process {
                 """
                 input[0] = TF_TG_SCORE.out.score
                 input[1] = 0.05
+                input[2] = 'max'
                 """
             }
         }

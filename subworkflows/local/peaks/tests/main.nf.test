@@ -15,25 +15,14 @@ nextflow_workflow {
             }
         }
 
-        run("CONVERT_MOTIFS") {
-            script "../../../../modules/local/motifs/convert_motifs"
+        run("MOTIFS") {
+            script "../../motifs"
             process {
                 """
-                input[0] = [
-                    [ id: 'test' ],
-                    file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true),
-                    'jaspar'
-                ]
-                input[1] = 'transfac'
-                """
-            }
-        }
-
-        run("TRANSFAC_TO_PSEM") {
-            script "../../../../modules/local/motifs/transfac_to_psem"
-            process {
-                """
-                input[0] = CONVERT_MOTIFS.out.converted
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true)
+                input[1] = [[id: "test"], file(params.pipelines_testdata_base_path + '/intermediates/tf_list_big.txt', checkIfExists: true)]
+                input[2] = []
+                input[3] = true
                 """
             }
         }
@@ -57,7 +46,7 @@ nextflow_workflow {
                 input[1] = PREPARE_GENOME.out.fasta
                 input[2] = PREPARE_GENOME.out.gtf
                 input[3] = file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true)
-                input[4] = TRANSFAC_TO_PSEM.out.psem.collect()
+                input[4] = MOTIFS.out.psem
                 input[5] = 50000 // window_size
                 input[6] = true // decay
                 input[7] = true // merge_samples
@@ -68,7 +57,8 @@ nextflow_workflow {
                 ])
                 input[9] = PREPARE_GENOME.out.gene_map
                 input[10] = 'max' // Duplicate aggregation method
-                input[11] = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                input[11] = true // merge_duplicate_motifs
+                input[12] = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .filter { row -> row.condition == "L10" || row.condition == "p6" }
                     .filter { row -> row.assay.startsWith("H3") }
@@ -83,11 +73,11 @@ nextflow_workflow {
                             file(row.control, checkIfExists: true)
                         ]
                     }
-                input[12] = PREPARE_GENOME.out.chrom_sizes
-                input[13] = 4 // chromhmm_states
-                input[14] = 0.75 // chromhmm_threshold
-                input[15] = ["H3K27ac"] // chromhmm_enhancer_marks
-                input[16] = ["H3K4me3"] // chromhmm_promoter_marks
+                input[13] = PREPARE_GENOME.out.chrom_sizes
+                input[14] = 4 // chromhmm_states
+                input[15] = 0.75 // chromhmm_threshold
+                input[16] = ["H3K27ac"] // chromhmm_enhancer_marks
+                input[17] = ["H3K4me3"] // chromhmm_promoter_marks
                 """
             }
         }
@@ -118,7 +108,7 @@ nextflow_workflow {
                 input[1] = PREPARE_GENOME.out.fasta
                 input[2] = PREPARE_GENOME.out.gtf
                 input[3] = file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true)
-                input[4] = TRANSFAC_TO_PSEM.out.psem.collect()
+                input[4] = MOTIFS.out.psem
                 input[5] = 50000 // window_size
                 input[6] = true // decay
                 input[7] = true // merge_samples
@@ -129,7 +119,8 @@ nextflow_workflow {
                 ])
                 input[9] = PREPARE_GENOME.out.gene_map
                 input[10] = 'max' // Duplicate aggregation method
-                input[11] = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                input[11] = true // merge_duplicate_motifs
+                input[12] = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .filter { row -> row.condition == "L10" || row.condition == "p6" }
                     .filter { row -> row.assay.startsWith("H3") }
@@ -144,11 +135,11 @@ nextflow_workflow {
                             file(row.control, checkIfExists: true)
                         ]
                     }
-                input[12] = PREPARE_GENOME.out.chrom_sizes
-                input[13] = 4 // chromhmm_states
-                input[14] = 0.75 // chromhmm_threshold
-                input[15] = ["H3K27ac"] // chromhmm_enhancer_marks
-                input[16] = ["H3K4me3"] // chromhmm_promoter_marks
+                input[13] = PREPARE_GENOME.out.chrom_sizes
+                input[14] = 4 // chromhmm_states
+                input[15] = 0.75 // chromhmm_threshold
+                input[16] = ["H3K27ac"] // chromhmm_enhancer_marks
+                input[17] = ["H3K4me3"] // chromhmm_promoter_marks
                 """
             }
         }
