@@ -181,8 +181,8 @@ def run_nfcore_rnaseq(
         {args or ''}
     """
     print(f"Running command: {pipeline_run_cmd}")
-    os.chdir(execution_dir)
     if not dry_run:
+        os.chdir(execution_dir)
         os.system(pipeline_run_cmd)
     return Path(pipeline_output_dir)
 
@@ -295,8 +295,8 @@ def run_nfcore_chipseq(
         {args or ''}
     """
     print(f"Running command: {pipeline_run_cmd}")
-    os.chdir(execution_dir)
     if not dry_run:
+        os.chdir(execution_dir)
         os.system(pipeline_run_cmd)
     return Path(pipeline_output_dir)
 
@@ -406,8 +406,8 @@ def run_nfcore_atacseq(
         {args or ''}
     """
     print(f"Running command: {pipeline_run_cmd}")
-    os.chdir(execution_dir)
     if not dry_run:
+        os.chdir(execution_dir)
         os.system(pipeline_run_cmd)
     return Path(pipeline_output_dir)
 
@@ -514,8 +514,8 @@ def run_nfcore_tfactivity(
         {args or ''}
     """
     print(f"Running command: {pipeline_run_cmd}")
-    os.chdir(execution_dir)
     if not dry_run:
+        os.chdir(execution_dir)
         os.system(pipeline_run_cmd)
 
 
