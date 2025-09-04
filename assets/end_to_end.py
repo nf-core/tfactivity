@@ -41,6 +41,8 @@ def parse_args():
     parser.add_argument('--atac_seq_args', type=str, required=False, help='Additional arguments for nf-core/atacseq pipeline.')
     parser.add_argument('--tfactivity_args', type=str, required=False, help='Additional arguments for nf-core/tfactivity pipeline.')
 
+    parser.add_argument('--dry_run', action='store_true', help='If set, pipeline inputs will be created but no pipeline executed.')
+
     args = parser.parse_args()
 
     if args.taxon_id is None and (args.genome is None or args.motifs is None):
@@ -95,6 +97,7 @@ def run_nfcore_rnaseq(
     profile: Optional[str],
     process_executor: Optional[str],
     process_queue: Optional[str],
+    dry_run: bool = False,
     args: Optional[str] = '',
     ) -> Path:
     """
@@ -108,6 +111,7 @@ def run_nfcore_rnaseq(
         profile (str): Nextflow execution profile (e.g. docker, apptainer, slurm).
         process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
         process_queue (str): Name of the job queue (if applicable).
+        dry_run (bool): If True, only create input files but do not run the pipeline.
         args (str, optional): Additional arguments for the nf-core/rnaseq pipeline.
 
     Returns:
@@ -178,7 +182,8 @@ def run_nfcore_rnaseq(
     """
     print(f"Running command: {pipeline_run_cmd}")
     os.chdir(execution_dir)
-    #os.system(pipeline_run_cmd)
+    if not dry_run:
+        os.system(pipeline_run_cmd)
     return Path(pipeline_output_dir)
 
 
@@ -191,6 +196,7 @@ def run_nfcore_chipseq(
     process_executor: Optional[str],
     process_queue: Optional[str],
     read_length: int,
+    dry_run: bool = False,
     args: Optional[str] = '',
     ) -> Path:
     """
@@ -205,6 +211,7 @@ def run_nfcore_chipseq(
         process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
         process_queue (str): Name of the job queue (if applicable).
         read_length (int): Read length used to calculate MACS3 genome size for peak calling.
+        dry_run (bool): If True, only create input files but do not run the pipeline.
         args (str, optional): Additional arguments for the nf-core/chipseq pipeline.
 
     Returns:
@@ -289,7 +296,8 @@ def run_nfcore_chipseq(
     """
     print(f"Running command: {pipeline_run_cmd}")
     os.chdir(execution_dir)
-    #os.system(pipeline_run_cmd)
+    if not dry_run:
+        os.system(pipeline_run_cmd)
     return Path(pipeline_output_dir)
 
 
@@ -302,6 +310,7 @@ def run_nfcore_atacseq(
     process_executor: Optional[str],
     process_queue: Optional[str],
     read_length: int,
+    dry_run: bool = False,
     args: Optional[str] = ''
     ) -> None:
     """
@@ -316,6 +325,7 @@ def run_nfcore_atacseq(
         process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
         process_queue (str): Name of the job queue (if applicable).
         read_length (int): Read length used to calculate MACS3 genome size for peak calling.
+        dry_run (bool): If True, only create input files but do not run the pipeline.
         args (str, optional): Additional arguments for the nf-core/atacseq pipeline.
 
     Returns:
@@ -397,7 +407,8 @@ def run_nfcore_atacseq(
     """
     print(f"Running command: {pipeline_run_cmd}")
     os.chdir(execution_dir)
-    #os.system(pipeline_run_cmd)
+    if not dry_run:
+        os.system(pipeline_run_cmd)
     return Path(pipeline_output_dir)
 
 
@@ -414,6 +425,7 @@ def run_nfcore_tfactivity(
     profile: Optional[str],
     process_executor: Optional[str],
     process_queue: Optional[str],
+    dry_run: bool = False,
     args: Optional[str] = ''
     ) -> None:
     """
@@ -431,6 +443,7 @@ def run_nfcore_tfactivity(
         profile (str): Nextflow execution profile (e.g. docker, apptainer, slurm).
         process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
         process_queue (str): Name of the job queue (if applicable).
+        dry_run (bool): If True, only create input files but do not run the pipeline.
         args (str, optional): Additional arguments for the nf-core/tfactivity pipeline.
 
     Returns:
@@ -502,7 +515,8 @@ def run_nfcore_tfactivity(
     """
     print(f"Running command: {pipeline_run_cmd}")
     os.chdir(execution_dir)
-    #os.system(pipeline_run_cmd)
+    if not dry_run:
+        os.system(pipeline_run_cmd)
 
 
 def create_counts_design_rna(
