@@ -42,6 +42,7 @@ def parse_args():
     parser.add_argument('--tfactivity_args', type=str, required=False, help='Additional arguments for nf-core/tfactivity pipeline.')
 
     parser.add_argument('--dry_run', action='store_true', help='If set, pipeline inputs will be created but no pipeline executed.')
+    parser.add_argument('--verbose', action='store_true', help='If set, print verbose output.')
 
     args = parser.parse_args()
 
@@ -98,6 +99,7 @@ def run_nfcore_rnaseq(
     process_executor: Optional[str],
     process_queue: Optional[str],
     dry_run: bool = False,
+    verbose: bool = False,
     args: Optional[str] = '',
     ) -> Path:
     """
@@ -112,6 +114,7 @@ def run_nfcore_rnaseq(
         process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
         process_queue (str): Name of the job queue (if applicable).
         dry_run (bool): If True, only create input files but do not run the pipeline.
+        verbose (bool): If True, print verbose output.
         args (str, optional): Additional arguments for the nf-core/rnaseq pipeline.
 
     Returns:
@@ -180,7 +183,8 @@ def run_nfcore_rnaseq(
         --skip_rseqc true \
         {args or ''}
     """
-    print(f"Running command: {pipeline_run_cmd}")
+    if verbose:
+        print(f"Running command: {pipeline_run_cmd}")
     if not dry_run:
         os.chdir(execution_dir)
         os.system(pipeline_run_cmd)
@@ -197,6 +201,7 @@ def run_nfcore_chipseq(
     process_queue: Optional[str],
     read_length: int,
     dry_run: bool = False,
+    verbose: bool = False,
     args: Optional[str] = '',
     ) -> Path:
     """
@@ -212,6 +217,7 @@ def run_nfcore_chipseq(
         process_queue (str): Name of the job queue (if applicable).
         read_length (int): Read length used to calculate MACS3 genome size for peak calling.
         dry_run (bool): If True, only create input files but do not run the pipeline.
+        verbose (bool): If True, print verbose output.
         args (str, optional): Additional arguments for the nf-core/chipseq pipeline.
 
     Returns:
@@ -294,7 +300,8 @@ def run_nfcore_chipseq(
         --skip_igv true \
         {args or ''}
     """
-    print(f"Running command: {pipeline_run_cmd}")
+    if verbose:
+        print(f"Running command: {pipeline_run_cmd}")
     if not dry_run:
         os.chdir(execution_dir)
         os.system(pipeline_run_cmd)
@@ -311,6 +318,7 @@ def run_nfcore_atacseq(
     process_queue: Optional[str],
     read_length: int,
     dry_run: bool = False,
+    verbose: bool = False,
     args: Optional[str] = ''
     ) -> None:
     """
@@ -326,6 +334,7 @@ def run_nfcore_atacseq(
         process_queue (str): Name of the job queue (if applicable).
         read_length (int): Read length used to calculate MACS3 genome size for peak calling.
         dry_run (bool): If True, only create input files but do not run the pipeline.
+        verbose (bool): If True, print verbose output.
         args (str, optional): Additional arguments for the nf-core/atacseq pipeline.
 
     Returns:
@@ -405,7 +414,8 @@ def run_nfcore_atacseq(
         --skip_ataqv \
         {args or ''}
     """
-    print(f"Running command: {pipeline_run_cmd}")
+    if verbose:
+        print(f"Running command: {pipeline_run_cmd}")
     if not dry_run:
         os.chdir(execution_dir)
         os.system(pipeline_run_cmd)
@@ -426,6 +436,7 @@ def run_nfcore_tfactivity(
     process_executor: Optional[str],
     process_queue: Optional[str],
     dry_run: bool = False,
+    verbose: bool = False,
     args: Optional[str] = ''
     ) -> None:
     """
@@ -444,6 +455,7 @@ def run_nfcore_tfactivity(
         process_executor (str): Executor to be used for running individual processes (e.g. local, slurm).
         process_queue (str): Name of the job queue (if applicable).
         dry_run (bool): If True, only create input files but do not run the pipeline.
+        verbose (bool): If True, print verbose output.
         args (str, optional): Additional arguments for the nf-core/tfactivity pipeline.
 
     Returns:
@@ -513,7 +525,8 @@ def run_nfcore_tfactivity(
         -resume \
         {args or ''}
     """
-    print(f"Running command: {pipeline_run_cmd}")
+    if verbose:
+        print(f"Running command: {pipeline_run_cmd}")
     if not dry_run:
         os.chdir(execution_dir)
         os.system(pipeline_run_cmd)
@@ -649,7 +662,8 @@ def main():
     if not os.path.exists(args.outdir):
         os.makedirs(args.outdir)
 
-    #print("Running nf-core/rnaseq pipeline...")
+    if args.verbose:
+        print("Running nf-core/rnaseq pipeline...")
     path_outdir_rnaseq = run_nfcore_rnaseq(
         input_dir=args.rna_seq,
         output_dir=args.outdir,
@@ -658,12 +672,15 @@ def main():
         profile=args.profile,
         process_executor=args.process_executor,
         process_queue=args.process_queue,
+        dry_run=args.dry_run,
+        verbose=args.verbose,
         args=args.rna_seq_args,
     )
     path_outdir_chipseq = None
     path_outdir_atacseq = None
     if args.chip_seq is not None:
-        #print("Running nf-core/chipseq pipeline...")
+        if args.verbose:
+            print("Running nf-core/chipseq pipeline...")
         path_outdir_chipseq = run_nfcore_chipseq(
             input_dir=args.chip_seq,
             output_dir=args.outdir,
@@ -673,10 +690,13 @@ def main():
             process_executor=args.process_executor,
             process_queue=args.process_queue,
             read_length=args.chipseq_read_length,
+            dry_run=args.dry_run,
+            verbose=args.verbose,
             args=args.chip_seq_args,
         )
     elif args.atac_seq is not None:
-        #print("Running nf-core/atacseq pipeline...")
+        if args.verbose:
+            print("Running nf-core/atacseq pipeline...")
         path_outdir_atacseq = run_nfcore_atacseq(
             input_dir=args.atac_seq,
             output_dir=args.outdir,
@@ -686,12 +706,15 @@ def main():
             process_executor=args.process_executor,
             process_queue=args.process_queue,
             read_length=args.atacseq_read_length,
+            dry_run=args.dry_run,
+            verbose=args.verbose,
             args=args.atac_seq_args,
         )
     else:
         raise ValueError("Either --chip_seq or --atac_seq must be provided.")
 
-    #print("Running nf-core/tfactivity pipeline...")
+    if args.verbose:
+        print("Running nf-core/tfactivity pipeline...")
     run_nfcore_tfactivity(
         output_dir=args.outdir,
         path_outdir_rnaseq=path_outdir_rnaseq,
@@ -705,6 +728,8 @@ def main():
         profile=args.profile,
         process_executor=args.process_executor,
         process_queue=args.process_queue,
+        dry_run=args.dry_run,
+        verbose=args.verbose,
         args=args.tfactivity_args,
     )
 
