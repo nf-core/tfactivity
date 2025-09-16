@@ -69,6 +69,8 @@ workflow COUNTS {
                 variable,
                 reference,
                 target,
+                null,
+                null
             ]
         },
         PREPARE_DESIGN.out.design.map { _meta, design -> design }.combine(FILTER_GENES.out.counts).map { design, meta, counts -> [meta, design, counts] }.collect(),

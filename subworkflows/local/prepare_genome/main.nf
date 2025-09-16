@@ -34,7 +34,7 @@ workflow PREPARE_GENOME {
     GTFTOOLS_LENGTH(ch_gtf)
     ch_versions = ch_versions.mix(GTFTOOLS_LENGTH.out.versions)
 
-    SAMTOOLS_FAIDX(ch_fasta, [[], []])
+    SAMTOOLS_FAIDX(ch_fasta, [[], []], false)
     ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions)
 
     emit:

@@ -25,7 +25,7 @@ workflow SNEEP {
     ch_versions = ch_versions.mix(FILTER_SCALES_MOTIFS.out.versions)
 
     // Convert gff with motif regions to bed
-    GFF_TO_BED(motif_regions, [])
+    GFF_TO_BED(motif_regions, [], false)
     ch_versions = ch_versions.mix(GFF_TO_BED.out.versions)
 
     // Merge regions that overlap

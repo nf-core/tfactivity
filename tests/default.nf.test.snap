@@ -142,10 +142,10 @@
                     "fimo": "5.5.8"
                 },
                 "SORT_BED": {
-                    "coreutils": 9.1
+                    "coreutils": 9.3
                 },
                 "SORT_CHROM_SIZES": {
-                    "coreutils": 9.1
+                    "coreutils": 9.3
                 },
                 "SORT_PEAKS": {
                     "bedtools": "2.31.1"
@@ -979,7 +979,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-09-16T11:35:55.723015165"
+        "timestamp": "2025-09-16T14:02:10.641660834"
     },
     "Should run with both bed and bam input": {
         "content": [
@@ -1046,7 +1046,7 @@
                     "python": "3.13.3"
                 },
                 "CONCAT_AND_SORT": {
-                    "coreutils": 9.1
+                    "coreutils": 9.3
                 },
                 "CONSTRUCT_TSS": {
                     "bedtools": "2.31.1"
@@ -1149,10 +1149,10 @@
                     "fimo": "5.5.8"
                 },
                 "SORT_BED": {
-                    "coreutils": 9.1
+                    "coreutils": 9.3
                 },
                 "SORT_CHROM_SIZES": {
-                    "coreutils": 9.1
+                    "coreutils": 9.3
                 },
                 "SORT_PEAKS": {
                     "bedtools": "2.31.1"
@@ -3048,6 +3048,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
         },
-        "timestamp": "2025-09-16T11:33:10.424681217"
+        "timestamp": "2025-09-16T13:58:50.684749632"
     }
 }
