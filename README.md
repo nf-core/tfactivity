@@ -128,7 +128,7 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
-nf-core/tfactivty is based on the previously published "TF-Prioritizer" pipeline. As long as there is no dedicated nf-core/tfactivity publication, please cite the following paper: 
+nf-core/tfactivty is based on the previously published "TF-Prioritizer" pipeline. As long as there is no dedicated nf-core/tfactivity publication, please cite the following paper:
 
 > **TF-Prioritizer: a Java pipeline to prioritize condition-specific transcription factors**
 >
