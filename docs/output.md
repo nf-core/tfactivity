@@ -2,7 +2,9 @@
 
 ## Introduction
 
-This document describes the output produced by the pipeline.
+This document describes the output produced by the pipeline. Most of the plots and analyses are generated from the test dataset for the pipeline.
+
+The pipeline identifies the most differentially active transcription factors (TFs) between multiple conditions by integrating gene expression data with open chromatin information (ATAC-seq, DNase-seq, ChIP-seq). It uses a sophisticated workflow that combines chromatin accessibility, motif scanning, differential expression analysis, and machine learning approaches to rank transcription factors based on their regulatory activity.
 
 The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
@@ -38,7 +40,13 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### Prepare genome
 
-This step prepares reference assets used throughout the workflow. If compressed inputs are provided, the reference FASTA and GTF are transparently decompressed to standard formats. From the GTF, the pipeline derives a mapping between stable gene identifiers and gene symbols, as well as gene/transcript length tables needed for downstream quantification and normalization. The reference FASTA is indexed to obtain chromosome sizes and enable efficient random access for subsequent tools. The directories below capture these artifacts in a structured layout similar in spirit to other nf-core workflows.
+This step prepares essential reference assets used throughout the workflow, ensuring all downstream analyses have access to properly formatted and indexed reference data. The pipeline handles both compressed and uncompressed input formats seamlessly.
+
+If compressed inputs are provided (`.fa.gz`, `.gtf.gz`), the reference FASTA and GTF files are transparently decompressed to standard formats for compatibility with downstream tools. From the GTF annotation file, the pipeline extracts critical information including a comprehensive mapping between stable gene identifiers and gene symbols, as well as detailed gene and transcript length tables that are essential for accurate quantification and normalization in expression analyses.
+
+The reference FASTA genome file is indexed using SAMtools to obtain chromosome sizes and enable efficient random access for subsequent genomic tools. This indexing step is crucial for tools like STARE that need to access genomic sequences rapidly during transcription factor binding site analysis.
+
+The structured output layout follows nf-core conventions, making it easy to locate and reuse reference files across different pipeline runs.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -59,9 +67,17 @@ This step prepares reference assets used throughout the workflow. If compressed 
 
 ### Counts
 
-This step consolidates raw count tables (and optional extras), derives TPMs using reference gene lengths, and filters features based on user-defined thresholds. It also prepares the experimental design and performs differential expression analysis, producing normalized counts and per-contrast results suitable for downstream interpretation and integration with TF activity scoring. Outputs are organized to separate combined inputs, derived quantifications, filtered feature sets, and DESeq2 artifacts.
+This comprehensive step processes gene expression data through multiple stages, from raw count integration to sophisticated differential expression analysis. The workflow consolidates count matrices from multiple sources, performs quality filtering, and conducts statistical analysis to identify differentially expressed genes between conditions.
 
-Each pairing of conditions will be used as a contrast.
+The pipeline begins by combining raw count tables from the primary input with any optional additional count sources specified by the user. It then calculates Transcripts Per Million (TPM) values using reference gene lengths extracted from the GTF annotation, providing normalized expression values that account for gene length differences and sequencing depth variations.
+
+Multiple filtering steps ensure data quality: genes are filtered based on minimum total counts (`--min_count`) and minimum TPM values (`--min_tpm`) to remove lowly expressed features that may introduce noise. Transcription factors receive special treatment with separate filtering thresholds (`--min_count_tf`, `--min_tpm_tf`) to retain potentially important regulatory genes that might be expressed at lower levels.
+
+The experimental design is automatically prepared from the counts design input, and [DESeq2](https://doi.org/10.1186/s13059-014-0550-8) performs robust differential expression analysis. DESeq2 uses negative binomial generalized linear models to test for differential expression while controlling for library size and dispersion. Each pairwise comparison between conditions generates comprehensive statistical results including normalized counts, variance-stabilized transformations, log2 fold changes, and adjusted p-values.
+
+The outputs are systematically organized to separate combined inputs, derived quantifications, filtered feature sets, and DESeq2 analysis results, making it easy to trace the analysis workflow and access intermediate results for quality control or downstream analysis.
+
+DESeq2 generates diagnostic plots including dispersion plots that show the relationship between mean expression and dispersion estimates, helping users assess the quality of the statistical model fit.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -96,7 +112,19 @@ Each pairing of conditions will be used as a contrast.
 
 ### Motifs
 
-This step prepares TF binding motifs for downstream scanning and scoring. You can either provide your own motif file via `--motifs`, or the pipeline can fetch a taxon-specific collection from JASPAR when `--taxon_id` is supplied. The selected motifs are converted to a universal internal representation, optionally filtered (including duplicate removal), and exported to common formats (MEME, TRANSFAC, and position-specific energy matrices). The outputs are structured to separate acquisition, normalization, filtering, and format conversions.
+This critical step prepares transcription factor binding motifs for downstream scanning and scoring analyses. The pipeline supports flexible motif input options and performs comprehensive processing to ensure motifs are in the correct format for various downstream tools.
+
+**Motif Acquisition**: You can either provide your own curated motif collection via `--motifs` (supporting multiple formats including JASPAR, MEME, TRANSFAC, CisBP, HOMER, and UniPROBE), or the pipeline can automatically fetch a comprehensive, taxon-specific collection from the [JASPAR database](https://doi.org/10.1093/nar/gkad1059) when `--taxon_id` is supplied. JASPAR provides high-quality, manually curated transcription factor binding profiles derived from experimental data.
+
+**Processing Pipeline**: All motifs are converted to a universal internal representation using the [universalmotif](https://doi.org/10.21105/joss.07012) R package, ensuring consistent handling regardless of input format. The pipeline then applies intelligent filtering based on user-defined parameters, including removal of low-quality motifs and handling of duplicate motifs according to the `--duplicate_motifs` setting (remove, merge, or keep).
+
+**Format Conversion**: The processed motifs are exported to multiple standard formats to ensure compatibility with different analysis tools:
+
+- **MEME format**: For use with MEME Suite tools like FIMO
+- **TRANSFAC format**: For compatibility with various motif analysis software
+- **Position-Specific Energy Matrices (PSEM)**: Optimized format for STARE affinity calculations
+
+The systematic organization of outputs allows users to trace the motif processing workflow and access motifs in the format most suitable for their downstream analyses or external tools.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -119,7 +147,19 @@ This step prepares TF binding motifs for downstream scanning and scoring. You ca
 
 ### Peaks
 
-This step processes peak regions to produce candidate regulatory regions and TF–DNA affinity estimates used for TF activity inference. It first cleans and optionally footprints the provided peak sets, then either merges peaks across samples or sorts them per sample. If enabled, ChromHMM learns chromatin states from BAMs to derive enhancer and promoter regions; optionally, ROSE refines these predictions by TSS-based filtering and stitching. STARE computes motif affinities over the resulting regions using the provided PWMs and reference genome, with optional blacklist masking. Affinities can be averaged across replicates, gene symbol synonyms are aggregated, and per-contrast affinity ratios and sums are derived for matched assays. Outputs are organized to reflect each processing stage and conditional branch.
+This sophisticated step transforms raw chromatin accessibility data into quantitative transcription factor-gene regulatory relationships through a multi-stage analysis pipeline. The workflow processes peak regions from ChIP-seq, ATAC-seq, or DNase-seq experiments to identify candidate regulatory elements and calculate precise TF-DNA binding affinities.
+
+**Peak Processing**: The pipeline begins by cleaning and standardizing peak coordinates, ensuring consistent 6-column BED format. When `--footprinting` is enabled, closely spaced peaks (within `--max_peak_gap`) are merged to create more biologically meaningful regulatory regions. Users can choose to either merge peaks across samples with the same condition and assay (`--merge_samples`) or process them individually, depending on experimental design and analysis goals.
+
+**Chromatin State Annotation**: When BAM files are provided and ChromHMM is enabled, the pipeline uses [ChromHMM](https://doi.org/10.1038/nprot.2017.124) to learn chromatin states from histone modification patterns. ChromHMM applies unsupervised learning to identify `--chromhmm_states` distinct chromatin states, then classifies regions as enhancers or promoters based on user-specified histone marks (`--chromhmm_enhancer_marks`, `--chromhmm_promoter_marks`) and confidence thresholds (`--chromhmm_threshold`).
+
+**Regulatory Region Refinement**: The optional ROSE analysis serves as a post-processing tool that refines ChromHMM predictions by applying additional filtering and stitching operations. ROSE performs TSS proximity filtering and stitches nearby regions within `--rose_stitching_window` to create more coherent regulatory domains. The tool removes regions that overlap with multiple transcription start sites, helping to distinguish distal regulatory elements from promoter-proximal regions and reducing potential confounding effects in downstream analyses.
+
+**Affinity Calculation**: [STARE](https://doi.org/10.1093/bioinformatics/btad062) computes quantitative TF-gene binding affinities by combining position weight matrix scanning with distance-based decay functions. STARE uses the Activity-By-Contact model to estimate regulatory potential, considering both binding site strength and genomic distance from target genes. The `--window_size` parameter defines the search radius around genes, while `--decay` controls distance-dependent attenuation of regulatory effects.
+
+**Data Integration**: For multi-replicate experiments, affinities are averaged across biological replicates. Gene symbol synonyms are aggregated using the specified method (`--affinity_aggregation`), and duplicate motifs are handled according to user preferences. Finally, per-contrast affinity ratios and sums are calculated for matched assays, providing the quantitative regulatory relationships needed for downstream TF activity scoring.
+
+The comprehensive output organization reflects each processing stage, allowing users to access intermediate results for quality control and understand how regulatory relationships were derived.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -172,7 +212,17 @@ This step processes peak regions to produce candidate regulatory regions and TF�
 
 ### DYNAMITE
 
-This step runs DYNAMITE to detect dynamic regulatory elements from signal tracks where applicable. Inputs are preprocessed into the expected format, DYNAMITE is executed (with safeguards for small inputs), and results are optionally filtered on regression magnitude to retain robust events. Outputs are separated into preprocessing artifacts, raw tool outputs, and filtered summaries.
+This step employs [DYNAMITE](https://doi.org/10.1093/bioinformatics/bty856), a machine learning approach that identifies transcription factors responsible for differential gene expression through regularized linear regression analysis. DYNAMITE integrates differential expression data with TF-gene binding affinities to determine which transcription factors are the most likely drivers of observed expression changes between conditions.
+
+**Statistical Framework**: DYNAMITE uses elastic net regularization to build predictive models that relate TF binding affinities to gene expression changes. The method performs nested cross-validation with `--dynamite_ofolds` outer folds and `--dynamite_ifolds` inner folds to ensure robust model selection and prevent overfitting. The `--dynamite_alpha` parameter controls the balance between L1 (LASSO) and L2 (Ridge) regularization, allowing the model to both select relevant features and handle correlated predictors.
+
+**Input Processing**: The pipeline preprocesses differential expression results and TF-gene affinity matrices into the format required by DYNAMITE. This includes proper scaling and alignment of gene identifiers between the expression and affinity datasets.
+
+**Model Execution**: DYNAMITE fits regularized regression models to identify TF-gene regulatory relationships that best explain observed expression changes. The algorithm can optionally randomize input data (`--dynamite_randomize`) for negative control analysis. The pipeline includes safeguards to handle cases where input datasets are too small for robust statistical modeling (exit status 139).
+
+**Results Filtering**: Raw DYNAMITE regression coefficients are filtered based on `--dynamite_min_regression` to retain only transcription factors with substantial regulatory effects. This threshold helps focus on biologically meaningful regulatory relationships while reducing noise from weak or spurious associations.
+
+The DYNAMITE analysis provides quantitative estimates of each transcription factor's contribution to differential gene expression, forming a crucial component of the overall TF activity scoring framework.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -189,7 +239,27 @@ This step runs DYNAMITE to detect dynamic regulatory elements from signal tracks
 
 ### Ranking
 
-This step combines TF–target gene scores across inputs and computes ranked lists of TFs and targets per assay and across assays. It generates intermediate TF–TG scores, constructs ranking tables, and provides convenience matrices aggregated within and across assays.
+This final analytical step integrates all upstream analyses to generate comprehensive transcription factor activity rankings. The workflow combines differential expression data, TF-gene binding affinities, and DYNAMITE regression coefficients to calculate composite TF-target gene (TF-TG) scores, then performs statistical testing to rank transcription factors by their regulatory activity.
+
+**Score Calculation**: The pipeline computes TF-TG scores by integrating three key components:
+
+1. **Differential Expression**: Log2 fold changes and significance levels from DESeq2 analysis
+2. **Binding Affinity**: Quantitative TF-gene binding predictions from STARE
+3. **Regulatory Coefficients**: DYNAMITE-derived estimates of TF contributions to expression changes
+
+These components are combined using a weighted scoring function that accounts for both the magnitude of expression changes and the strength of regulatory relationships.
+
+**Statistical Testing**: The pipeline performs Mann-Whitney U tests to assess the statistical significance of TF activity differences between conditions. The `--alpha` parameter sets the significance threshold for identifying differentially active transcription factors. This non-parametric test is robust to outliers and does not assume normal distributions, making it well-suited for gene expression and regulatory data.
+
+**Ranking Generation**: Transcription factors are ranked based on their composite activity scores, with separate rankings generated for each chromatin accessibility assay (e.g., H3K27ac, H3K4me3, ChromHMM-derived enhancers/promoters). Target genes are also ranked to identify the most strongly regulated genes for each transcription factor.
+
+**Cross-Assay Integration**: The pipeline generates several levels of ranking aggregation:
+
+- **Per-assay rankings**: Individual rankings for each chromatin assay type
+- **Cross-assay integration**: Combined rankings that integrate evidence across multiple assay types
+- **Comprehensive matrices**: Easy-to-use tables that facilitate downstream analysis and visualization
+
+The ranking outputs provide the primary results of the pipeline: prioritized lists of transcription factors most likely to drive differential gene expression between experimental conditions.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -213,7 +283,24 @@ This step combines TF–target gene scores across inputs and computes ranked lis
 
 ### FIMO
 
-This step optionally runs FIMO motif scanning on candidate regions using the filtered motif set and reference sequences. Motifs are filtered ahead of scanning, sequences are extracted from the reference FASTA, per-sample/group scans are executed, and results are aggregated.
+This optional analysis step uses [FIMO (Find Individual Motif Occurrences)](https://doi.org/10.1093/bioinformatics/btr064) from the MEME Suite to perform comprehensive motif scanning within candidate regulatory regions. FIMO provides detailed, site-specific predictions of transcription factor binding sites that complement the STARE affinity calculations.
+
+**Motif Preparation**: The pipeline filters the processed motif collection to include only high-quality motifs suitable for scanning. Motifs are converted to MEME format, which is the native input format for FIMO analysis.
+
+**Sequence Extraction**: Genomic sequences are extracted from the reference FASTA file for all candidate regulatory regions identified in the Peaks step. This includes regions from ChIP-seq peaks, ChromHMM-predicted enhancers/promoters, and ROSE-identified super-enhancers.
+
+**Motif Scanning**: FIMO scans each regulatory region for occurrences of all transcription factor binding motifs using position weight matrices. The algorithm calculates p-values for each potential binding site based on the motif's scoring distribution. FIMO's statistical framework accounts for multiple testing correction and provides reliable significance estimates for predicted binding sites.
+
+**Output Formats**: FIMO generates multiple output formats for each scan:
+
+- **TSV files**: Tab-separated tables with detailed binding site predictions including coordinates, scores, p-values, and sequences
+- **GFF files**: Genomic feature format files compatible with genome browsers for visualization
+- **HTML reports**: Human-readable summaries with graphical representations of motif matches
+- **XML files**: Machine-readable results in standardized format
+
+**Result Aggregation**: Individual FIMO results are combined across all scanned regions and motifs, providing comprehensive binding site catalogs for downstream analysis or integration with other genomic datasets.
+
+FIMO analysis is particularly valuable for users who need detailed binding site predictions, want to validate STARE affinity calculations, or plan to integrate results with other motif analysis pipelines.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -234,7 +321,26 @@ This step optionally runs FIMO motif scanning on candidate regions using the fil
 
 ### SNEEP
 
-This step evaluates nucleotide variants within regulatory regions using SNEEP. Motifs are prefiltered and scaled if needed, genomic annotations are converted and sorted, duplicate regions are merged, SNPs are filtered to fall within regions of interest, and SNEEP is run on the resulting sets.
+This optional variant analysis step uses [SNEEP (SNP Effect on Expression Prediction)](https://doi.org/10.1016/j.isci.2024.109765), a statistical approach for identifying single nucleotide variants that affect transcription factor binding and potentially alter gene expression. SNEEP provides insights into how genetic variants within regulatory regions might contribute to phenotypic differences between individuals or conditions.
+
+**Variant-Motif Analysis Framework**: SNEEP evaluates the impact of SNPs on transcription factor binding by comparing motif scores between reference and alternative alleles. The method uses a probabilistic framework to assess whether variants significantly alter binding site strength, accounting for the natural variation in motif scores across the genome.
+
+**Motif Processing**: The pipeline prepares motifs specifically for SNEEP analysis by applying organism-specific scaling factors (`--sneep_scale_file`) and using curated motif collections (`--sneep_motif_file`). These preprocessing steps ensure that binding site predictions are calibrated appropriately for variant effect analysis.
+
+**Region Preparation**: Candidate regulatory regions from the Peaks analysis are converted from GFF to BED format and sorted for efficient intersection with variant datasets. Overlapping or duplicate regions are merged to create a non-redundant set of regulatory intervals.
+
+**SNP Filtering**: The pipeline intersects the provided SNP dataset (`--snps`) with regulatory regions to identify variants that fall within potential transcription factor binding sites. This filtering step focuses the analysis on variants most likely to have functional regulatory effects.
+
+**Statistical Analysis**: SNEEP performs statistical tests to identify SNPs that significantly alter transcription factor binding affinity. The method accounts for multiple testing correction and provides effect size estimates for each variant-motif combination.
+
+**Applications**: SNEEP results are particularly valuable for:
+
+- **Functional annotation** of variants from GWAS or population genetics studies
+- **Prioritization** of regulatory variants for experimental validation
+- **Understanding** the molecular mechanisms by which genetic variants affect gene expression
+- **Integration** with expression QTL (eQTL) mapping studies
+
+The SNEEP analysis extends the pipeline's capabilities beyond condition-based comparisons to include genetic variation as a source of regulatory differences.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -257,7 +363,39 @@ This step evaluates nucleotide variants within regulatory regions using SNEEP. M
 
 ### Report
 
-This step collates selected results, assets, and provenance into an HTML/ZIP report bundle for sharing and archiving. Intermediate unpacking and preprocessing are not published; only the final report artifacts are saved.
+This final step generates a comprehensive, interactive HTML report that consolidates all pipeline results into an accessible format for sharing with collaborators and stakeholders. The report provides an intuitive interface for exploring transcription factor rankings, understanding regulatory relationships, and accessing detailed analysis results.
+
+**Interactive Visualization**: The report features a modern, responsive web interface built with JavaScript frameworks that allows users to:
+
+- **Dynamically filter** transcription factor rankings by assay type
+- **Search** for specific transcription factors or target genes
+- **Explore detailed views** for individual TFs including expression plots and regulatory networks
+- **Compare results** across different experimental conditions and chromatin assays
+- **Access parameter settings** used for the analysis
+
+**Content Organization**: The report includes several key sections:
+
+- **Main Rankings Page**: Interactive tables showing transcription factor activity scores across all assays
+- **Individual TF Pages**: Detailed views for each transcription factor with expression analysis, target gene lists, and regulatory evidence
+- **Parameters Page**: Complete documentation of all analysis parameters and settings used in the pipeline run
+- **Navigation System**: Intuitive menu structure with links to external resources like GeneCards
+
+**Data Integration**: The report integrates results from all pipeline steps:
+
+- Transcription factor activity rankings from the statistical analysis
+- Expression data and differential expression results from DESeq2
+- Binding affinity predictions from STARE
+- Regulatory coefficients from DYNAMITE analysis
+- Motif information and binding site predictions
+
+**Distribution Formats**: Results are provided in two convenient formats:
+
+- **ZIP Archive**: Complete report bundle optimized for email sharing or archiving
+- **HTML Directory**: Expanded report structure that can be hosted on web servers or opened directly in browsers
+
+**Quality Assurance**: The report includes data quality indicators, analysis statistics, and links to the pipeline documentation, ensuring users can assess the reliability of results and understand the analytical methods.
+
+The report serves as the primary deliverable for most users, providing both high-level summaries for quick interpretation and detailed data for in-depth analysis.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -269,3 +407,22 @@ This step collates selected results, assets, and provenance into an HTML/ZIP rep
   - `report/tf/<symbol>(<motifId>)/index.html`: Per-TF pages.
 
 </details>
+
+## Workflow reporting and genomes
+
+### Pipeline information
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `pipeline_info/`
+  - Reports generated by Nextflow: `execution_report.html`, `execution_timeline.html`, `execution_trace.txt` and `pipeline_dag.dot`/`pipeline_dag.svg`.
+  - Reports generated by the pipeline: `pipeline_report.html`, `pipeline_report.txt` and `nf_core_tfactivity_software_versions.yml`. The `pipeline_report*` files will only be present if the `--email` / `--email_on_fail` parameters are used when running the pipeline.
+  - Reformatted samplesheet files used as input to the pipeline: `samplesheet.valid.csv`.
+  - Parameters used by the pipeline run: `params.json`.
+
+</details>
+
+[Nextflow](https://www.nextflow.io/docs/latest/tracing.html) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
+
+The `nf_core_tfactivity_software_versions.yml` file contains all software versions used in the pipeline execution, ensuring full reproducibility of results. This is particularly important for transcription factor analysis where different tool versions may produce slightly different results due to algorithm improvements or parameter changes.
