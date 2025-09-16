@@ -56,7 +56,7 @@ workflow NFCORE_TFACTIVITY {
     fasta = file(params.fasta, checkIfExists: true)
     gtf = file(params.gtf, checkIfExists: true)
 
-    ch_blacklist = params.blacklist ? file(params.blacklist, checkIfExists: true) : []
+    ch_blacklist = Channel.value(params.blacklist ? file(params.blacklist, checkIfExists: true) : [])
     ch_motifs = params.motifs ? file(params.motifs, checkIfExists: true) : null
     ch_counts = Channel.value(file(params.counts, checkIfExists: true))
 
@@ -96,8 +96,6 @@ workflow NFCORE_TFACTIVITY {
         params.chromhmm_threshold,
         params.chromhmm_enhancer_marks.split(','),
         params.chromhmm_promoter_marks.split(','),
-        params.window_size,
-        params.decay,
         params.merge_samples,
         params.affinity_aggregation,
         params.duplicate_motifs,

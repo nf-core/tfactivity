@@ -1,7 +1,7 @@
 // Modules
 include { GAWK as CLEAN_BED                } from '../../../modules/nf-core/gawk/main'
 include { BEDTOOLS_SORT as SORT_PEAKS      } from '../../../modules/nf-core/bedtools/sort/main'
-include { STARE                            } from '../../../modules/local/stare'
+include { STARE                            } from '../../../modules/nf-core/stare'
 include { AGGREGATE_SYNONYMS               } from '../../../modules/local/peaks/aggregate_synonyms/main'
 include { COMBINE_TABLES as AFFINITY_MEAN  } from '../../../modules/local/combine_tables/main'
 include { COMBINE_TABLES as AFFINITY_RATIO } from '../../../modules/local/combine_tables/main'
@@ -20,8 +20,6 @@ workflow PEAKS {
     gtf
     blacklist
     pwms
-    window_size
-    decay
     merge_samples
     contrasts
     gene_map
@@ -92,13 +90,12 @@ workflow PEAKS {
         }
 
     STARE(
-        ch_peaks,
-        fasta,
+        ch_peaks.map { meta, peaks -> [meta, peaks, [], []] },
         gtf,
-        blacklist,
+        fasta,
         pwms.collect(),
-        window_size,
-        decay,
+        blacklist.map{ b -> [[id: 'blacklist'], b] },
+        [[], []]
     )
     ch_versions = ch_versions.mix(STARE.out.versions)
 

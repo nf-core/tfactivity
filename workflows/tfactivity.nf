@@ -38,8 +38,6 @@ workflow TFACTIVITY {
     chromhmm_threshold
     chromhmm_enhancer_marks
     chromhmm_promoter_marks
-    window_size
-    decay
     merge_samples
     affinity_agg_method
     duplicate_motifs
@@ -102,8 +100,6 @@ workflow TFACTIVITY {
         gtf,
         blacklist,
         MOTIFS.out.psem,
-        window_size,
-        decay,
         merge_samples,
         ch_contrasts,
         gene_map,
