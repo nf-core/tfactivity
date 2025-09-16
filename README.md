@@ -128,6 +128,8 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 ## Citations
 
+nf-core/tfactivty is based on the previously published "TF-Prioritizer" pipeline. As long as there is no dedicated nf-core/tfactivity publication, please cite the following paper:
+
 > **TF-Prioritizer: a Java pipeline to prioritize condition-specific transcription factors**
 >
 > Markus Hoffmann, Nico Trummer, Leon Schwartz, Jakub Jankowski, Hye Kyung Lee, Lina-Liv Willruth, Olga Lazareva, Kevin Yuan, Nina Baumgarten, Florian Schmidt, Jan Baumbach, Marcel H Schulz, David B Blumenthal, Lothar Hennighausen & Markus List
@@ -136,8 +138,6 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below and update Zenodo doi and badge at the top of this file. -->
 <!-- If you use nf-core/tfactivity for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 

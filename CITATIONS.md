@@ -26,6 +26,34 @@
 
   > Hong-Dong Li, Cui-Xiang Lin, Jiantao Zheng, GTFtools: a software package for analyzing various features of gene models, Bioinformatics, Volume 38, Issue 20, 15 October 2022, Pages 4806–4808,
 
+- [ChromHMM](https://doi.org/10.1038/nprot.2017.124)
+
+  > Ernst, J., Kellis, M. Chromatin-state discovery and genome annotation with ChromHMM. Nat Protoc 12, 2478–2492 (2017)
+
+- [DYNAMITE](https://doi.org/10.1093/bioinformatics/bty856)
+
+  > Florian Schmidt, Fabian Kern, Peter Ebert, Nina Baumgarten, Marcel H Schulz, TEPIC 2—an extended framework for transcription factor binding prediction and integrative epigenomic analysis, Bioinformatics, Volume 35, Issue 9, May 2019, Pages 1608–160
+
+- [Biopython](https://doi.org/10.1093/bioinformatics/btp163)
+
+  > Peter J. A. Cock, Tiago Antao, Jeffrey T. Chang, Brad A. Chapman, Cymon J. Cox, Andrew Dalke, Iddo Friedberg, Thomas Hamelryck, Frank Kauff, Bartek Wilczynski, Michiel J. L. de Hoon, Biopython: freely available Python tools for computational molecular biology and bioinformatics, Bioinformatics, Volume 25, Issue 11, June 2009, Pages 1422–1423
+
+- [FIMO](https://doi.org/10.1093/bioinformatics/btr064)
+
+  > Grant CE, Bailey TL, Noble WS. FIMO: scanning for occurrences of a given motif. Bioinformatics. 2011 Apr 1;27(7):1017-8
+
+- [JASPAR](https://doi.org/10.1093/nar/gkad1059)
+
+  > Rauluseviciute I, Riudavets-Puig R, Blanc-Mathieu R, Castro-Mondragon JA, Ferenc K, Kumar V, Lemma RB, Lucas J, Chèneby J, Baranasic D, Khan A, Fornes O, Gundersen S, Johansen M, Hovig E, Lenhard B, Sandelin A, Wasserman WW, Parcy F, Mathelier A JASPAR 2024: 20th anniversary of the open-access database of transcription factor binding profiles Nucleic Acids Res. 2024 Jan 5;52(D1):D174-D182
+
+- [universalmotif](https://doi.org/10.21105/joss.07012)
+
+  > Tremblay, B. J., (2024). universalmotif: An R package for biological motif analysis. Journal of Open Source Software, 9(100), 701
+
+- [SNEEP](https://doi.org/10.1016/j.isci.2024.109765)
+
+  > Baumgarten N, Ebert P, Schmidt F, Kern F, Schulz MH. A statistical approach for identifying single nucleotide variants that affect transcription factor binding. iScience, Volume 27, Issue 5, 109765
+
 ## Software packaging/containerisation tools
 
 - [Anaconda](https://anaconda.com)

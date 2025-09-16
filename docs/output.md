@@ -6,13 +6,20 @@ This document describes the output produced by the pipeline.
 
 The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
-<!-- TODO nf-core: Write this documentation describing your workflow's output -->
-
 ## Pipeline overview
 
 The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes data using the following steps:
 
-- [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
+- [Pipeline information](#pipeline-information)
+- [Prepare genome](#prepare-genome)
+- [Counts](#counts)
+- [Motifs](#motifs)
+- [Peaks](#peaks)
+- [DYNAMITE](#dynamite)
+- [Ranking](#ranking)
+- [FIMO](#fimo)
+- [SNEEP](#sneep)
+- [Report](#report)
 
 ### Pipeline information
 
@@ -28,3 +35,218 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 </details>
 
 [Nextflow](https://www.nextflow.io/docs/latest/tracing.html) provides excellent functionality for generating various reports relevant to the running and execution of the pipeline. This will allow you to troubleshoot errors with the running of the pipeline, and also provide you with other information such as launch commands, run times and resource usage.
+
+### Prepare genome
+
+This step prepares reference assets used throughout the workflow. If compressed inputs are provided, the reference FASTA and GTF are transparently decompressed to standard formats. From the GTF, the pipeline derives a mapping between stable gene identifiers and gene symbols, as well as gene/transcript length tables needed for downstream quantification and normalization. The reference FASTA is indexed to obtain chromosome sizes and enable efficient random access for subsequent tools. The directories below capture these artifacts in a structured layout similar in spirit to other nf-core workflows.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `00_prepare_genome/`
+  - `01_fasta/`
+    - Decompressed reference FASTA when input `--fasta` is `.fa.gz` (GUNZIP_FASTA).
+  - `02_gtf/`
+    - Decompressed reference GTF when input `--gtf` is `.gtf.gz` (GUNZIP_GTF).
+  - `03_id_symbol_map/`
+    - `id_symbol_map.*`: Gene ID to gene symbol mapping extracted from the GTF (EXTRACT_ID_SYMBOL_MAP).
+  - `04_gtftools_length/`
+    - Transcript/gene length table derived from the GTF (GTFTOOLS_LENGTH).
+  - `05_samtools_faidx/`
+    - `.fa.fai`: FASTA index and chromosome sizes generated from the reference FASTA (SAMTOOLS_FAIDX).
+
+</details>
+
+### Counts
+
+This step consolidates raw count tables (and optional extras), derives TPMs using reference gene lengths, and filters features based on user-defined thresholds. It also prepares the experimental design and performs differential expression analysis, producing normalized counts and per-contrast results suitable for downstream interpretation and integration with TF activity scoring. Outputs are organized to separate combined inputs, derived quantifications, filtered feature sets, and DESeq2 artifacts.
+
+Each pairing of conditions will be used as a contrast.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `01_counts/`
+  - `01_combined/`
+    - Combined count matrix from primary counts and any extra count sources, aggregated using the provided gene ID ↔ symbol map and selected aggregation method.
+  - `02_tpm/`
+    - TPM matrix computed from counts using reference gene lengths and the gene map.
+  - `03_filtered_genes/`
+    - Gene-level counts filtered by `--min_count` and `--min_tpm` thresholds.
+  - `04_filtered_tfs/`
+    - Transcription factor subset filtered by `--min_count_tf` and `--min_tpm_tf` thresholds.
+  - `05_deseq2/`
+    - Design files prepared from the counts design input.
+    - `<contrast_id>/`: Per-contrast DESeq2 outputs including normalized counts and differential results for each `reference:target` contrast.
+
+</details>
+
+### Motifs
+
+This step prepares TF binding motifs for downstream scanning and scoring. You can either provide your own motif file via `--motifs`, or the pipeline can fetch a taxon-specific collection from JASPAR when `--taxon_id` is supplied. The selected motifs are converted to a universal internal representation, optionally filtered (including duplicate removal), and exported to common formats (MEME, TRANSFAC, and position-specific energy matrices). The outputs are structured to separate acquisition, normalization, filtering, and format conversions.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `02_motifs/`
+  - `01_jaspar/`
+    - Retrieved motif collection and metadata from the specified JASPAR release.
+  - `02_universal/`
+    - Motifs converted into a pipeline-universal format for consistent processing.
+  - `03_filtered/`
+    - Universal motifs after applying user-defined filtering parameters.
+  - `04_meme/`
+    - Motif set exported in MEME format for compatibility with MEME Suite tools.
+  - `05_transfac/`
+    - Motif set exported in TRANSFAC-like format.
+  - `06_psem/`
+    - Position-specific energy matrices (PSEM) derived from the filtered motifs.
+
+</details>
+
+### Peaks
+
+This step processes peak regions to produce candidate regulatory regions and TF–DNA affinity estimates used for TF activity inference. It first cleans and optionally footprints the provided peak sets, then either merges peaks across samples or sorts them per sample. If enabled, ChromHMM learns chromatin states from BAMs to derive enhancer and promoter regions; optionally, ROSE refines these predictions by TSS-based filtering and stitching. STARE computes motif affinities over the resulting regions using the provided PWMs and reference genome, with optional blacklist masking. Affinities can be averaged across replicates, gene symbol synonyms are aggregated, and per-contrast affinity ratios and sums are derived for matched assays. Outputs are organized to reflect each processing stage and conditional branch.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `03_peaks/`
+  - `01_cleaned/`
+    - Peak BEDs normalized to 6 columns (CLEAN_BED).
+  - `02_footprinting/`
+    - `01_merged/`: Peaks merged within `max_peak_gap` per sample/assay (BEDTOOLS_MERGE).
+    - `02_subtracted/`: Footprinted regions after subtracting overlaps as configured (BEDTOOLS_SUBTRACT).
+  - `03_merged_samples/` (only if `--merge_samples` is true)
+    - `01_annotated/`: Peaks annotated with sample identifiers (ANNOTATE_SAMPLES).
+    - `02_concatenated/`: Sample BEDs concatenated (CONCAT_SAMPLES).
+    - `03_sorted/`: Concatenated BEDs sorted (BEDTOOLS_SORT).
+    - `04_merged/`: Merged regions with occurrence counts across samples (BEDTOOLS_MERGE).
+    - `04_filtered/`: Regions filtered by `--min_peak_occurrence`.
+    - `05_cleaned/`: Final 3-column BED of merged regions (CLEAN_BED).
+  - `03_sorted/` (only if samples are not merged)
+    - Per-sample/assay sorted BEDs (SORT_PEAKS).
+  - `04_chromhmm/` (created unless `--skip_chromhmm`)
+    - `01_binarized/`: Binarized signals from input BAMs (BINARIZE_BAMS; requires `chrom_sizes`).
+    - `02_learned/`: Learned model and state assignments (LEARN_MODEL; `--chromhmm_states`).
+    - `03_enhancers/`: Enhancer regions at `--chromhmm_threshold` from selected marks.
+    - `04_promoters/`: Promoter regions at `--chromhmm_threshold` from selected marks.
+  - `05_rose/` (created only if ChromHMM ran and `--skip_rose` is false)
+    - `01_filtered/`: GTF filtered and converted to BED starts (FILTER_CONVERT_GTF).
+    - `02_sorted/`: Sorted BED of TSS inputs (SORT_BED for GTF-derived BED).
+    - `03_sorted/`: Sorted chromosome sizes matching BED order (SORT_CHROM_SIZES).
+    - `04_tss/`: ±`--rose_tss_window` TSS windows (CONSTRUCT_TSS).
+    - `05_inverted/`: Inverted TSS windows for promoter filtering (INVERT_TSS).
+    - `06_filtered/`: Predicted regions after TSS filtering (FILTER_PREDICTIONS).
+    - `07_stitched/`: Stitched regions within `--rose_stitching_window` (STITCHING).
+    - `08_tss_overlap/`: Overlap counts of stitched regions with TSS (TSS_OVERLAP).
+    - `09_filtered/`: Regions overlapping ≥2 TSS (FILTER_OVERLAPS).
+    - `10_subtracted/`: Stitched regions with multi-TSS overlaps removed (SUBTRACT_OVERLAPS).
+    - `11_unstitched/`: Original unstitched regions corresponding to multi-TSS overlaps (UNSTITCHED_REGIONS).
+    - `12_concatenated/`: Combined correctly-stitched and original unstitched, sorted (CONCAT_AND_SORT).
+  - `06_stare/`
+    - TF–DNA affinity tracks computed by STARE using PWMs, FASTA, GTF, and blacklist; per `condition`/`assay`.
+  - `07_affinity_mean/` (only when samples are not merged)
+    - Replicate affinities averaged across samples per condition and assay (AFFINITY_MEAN).
+  - `08_aggregated/`
+    - Affinities after aggregating gene symbol synonyms and optional duplicate motif merging (AGGREGATE_SYNONYMS).
+  - `09_affinity_ratio/`
+    - Per-contrast affinity ratio results for matched assays, labeled as `condition1:condition2_assay` (AFFINITY_RATIO).
+  - `09_affinity_sum/`
+    - Per-contrast affinity sum results for matched assays, labeled as `condition1:condition2_assay` (AFFINITY_SUM).
+
+</details>
+
+### DYNAMITE
+
+This step runs DYNAMITE to detect dynamic regulatory elements from signal tracks where applicable. Inputs are preprocessed into the expected format, DYNAMITE is executed (with safeguards for small inputs), and results are optionally filtered on regression magnitude to retain robust events. Outputs are separated into preprocessing artifacts, raw tool outputs, and filtered summaries.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `04_dynamite/`
+  - `01_preprocessed/`
+    - Inputs converted/prepared for DYNAMITE (PREPROCESS).
+  - `02_dynamite/`
+    - Raw DYNAMITE outputs; runs with too-small input may be ignored per module error strategy (RUN_DYNAMITE).
+  - `03_filtered/`
+    - Tabular results filtered by `--dynamite_min_regression` threshold (FILTER).
+
+</details>
+
+### Ranking
+
+This step combines TF–target gene scores across inputs and computes ranked lists of TFs and targets per assay and across assays. It generates intermediate TF–TG scores, constructs ranking tables, and provides convenience matrices aggregated within and across assays.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `05_ranking/`
+  - `01_tf_tg_score/`
+    - Intermediate TF–TG scores derived from affinities and counts (TF_TG_SCORE).
+  - `02_ranking/`
+    - Ranked outputs for TFs and TGs by chosen criteria (CREATE_RANKING).
+  - `03_combined_tfs_per_assay/`
+    - TF ranking matrices per assay; files end with `.tf_ranking.tsv` (COMBINE_TFS_PER_ASSAY).
+  - `04_combined_tfs_across_assays/`
+    - TF ranking matrices combined across assays (COMBINE_TFS_ACROSS_ASSAYS).
+  - `05_combined_tgs_per_assay/`
+    - TG ranking matrices per assay; files end with `.tg_ranking.tsv` (COMBINE_TGS_PER_ASSAY).
+  - `06_combined_tgs_across_assays/`
+    - TG ranking matrices combined across assays (COMBINE_TGS_ACROSS_ASSAYS).
+
+</details>
+
+### FIMO
+
+This step optionally runs FIMO motif scanning on candidate regions using the filtered motif set and reference sequences. Motifs are filtered ahead of scanning, sequences are extracted from the reference FASTA, per-sample/group scans are executed, and results are aggregated.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `06_fimo/`
+  - `01_filtered_motifs/`
+    - Final motif subset for FIMO scanning (FILTER_MOTIFS in FIMO context).
+  - `02_extracted_sequence/`
+    - FASTA sequences extracted from regions to be scanned (EXTRACT_SEQUENCE).
+  - `03_fimo/`
+    - `<id>/`: Per-sample/condition FIMO outputs and logs (RUN_FIMO).
+  - `04_combined_results/`
+    - Collated FIMO hits across inputs (COMBINE_RESULTS).
+
+</details>
+
+### SNEEP
+
+This step evaluates nucleotide variants within regulatory regions using SNEEP. Motifs are prefiltered and scaled if needed, genomic annotations are converted and sorted, duplicate regions are merged, SNPs are filtered to fall within regions of interest, and SNEEP is run on the resulting sets.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `07_sneep/`
+  - `01_filtered_scales_motifs/`
+    - Motif set prepared for SNEEP (FILTER_SCALES_MOTIFS).
+  - `02_gff_to_bed/`
+    - Genomic annotations converted from GFF to BED (GFF_TO_BED).
+  - `03_sorted/`
+    - Sorted BED regions for downstream intersection (SORT_BED).
+  - `04_merged/`
+    - Duplicate/overlapping regions merged per ID (MERGE_DUPLICATE_REGIONS).
+  - `05_filtered_snps/`
+    - SNPs filtered to annotated regions (FILTER_SNPS_BY_REGION; BEDTools intersect-style).
+  - `06_sneep/`
+    - SNEEP outputs for variant effect analysis (RUN_SNEEP).
+
+</details>
+
+### Report
+
+This step collates selected results, assets, and provenance into an HTML/ZIP report bundle for sharing and archiving. Intermediate unpacking and preprocessing are not published; only the final report artifacts are saved.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `08_report/`
+  - Final HTML/ZIP report bundles (CREATE/ZIP).
+
+</details>

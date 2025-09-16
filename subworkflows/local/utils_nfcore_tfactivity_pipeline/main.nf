@@ -189,23 +189,42 @@ def genomeExistsError() {
 // Generate methods description for MultiQC
 //
 def toolCitationText() {
-    // TODO nf-core: Optionally add in-text citation tools to this list.
-    // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "Tool (Foo et al. 2023)" : "",
-    // Uncomment function in methodsDescriptionText to render in MultiQC report
-    def citation_text = [
-            "Tools used in the workflow included:",
-            "."
-        ].join(' ').trim()
+    def tools = [
+            'DESeq2 (Love et al. 2014)',
+            'STARE (Hecker et al. 2023)',
+            'BEDTools (Quinlan et al. 2010)',
+            'GTFtools (Li et al. 2022)',
+            params.input_bam ? 'ChromHMM (Ernst et al. 2017)' : '',
+            'DYNAMITE (Schmidt et al. 2019)',
+            'Biopython (Cock et al. 2009)',
+            'JASPAR (Rauluseviciute et al. 2024)',
+            'universalmotif (Tremblay 2024)',
+            params.skip_fimo ? '' : 'FIMO (Grant et al. 2011)',
+            params.skip_sneep ? '' : 'SNEEP (Baumgarten et al. 2024)'
+        ]
+
+    def citation_text = "Tools used in the workflow included: ${tools.join(', ')}."
 
     return citation_text
 }
 
 def toolBibliographyText() {
-    // TODO nf-core: Optionally add bibliographic entries to this list.
-    // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
-    // Uncomment function in methodsDescriptionText to render in MultiQC report
-    def reference_text = [
-        ].join(' ').trim()
+    def references = [
+            // Pipeline tools (from CITATIONS.md)
+            "<li>Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol. 2014;15:550. doi:10.1186/s13059-014-0550-8.</li>",
+            "<li>Hecker D, Behjati Ardakani F, Karollus A, Gagneur J, Schulz MH. The adapted Activity-By-Contact model for enhancer–gene assignment and its application to single-cell data (STARE). Bioinformatics. 2023;39(2). doi:10.1093/bioinformatics/btad062.</li>",
+            "<li>Quinlan AR, Hall IM. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics. 2010;26(6):841-842. doi:10.1093/bioinformatics/btq033.</li>",
+            "<li>Li H-D, Lin C-X, Zheng J. GTFtools: a software package for analyzing various features of gene models. Bioinformatics. 2022;38(20):4806–4808. doi:10.1093/bioinformatics/btac561.</li>",
+            (params.input_bam ? "<li>Ernst J, Kellis M. Chromatin-state discovery and genome annotation with ChromHMM. Nat Protoc. 2017;12:2478–2492. doi:10.1038/nprot.2017.124.</li>" : ""),
+            "<li>Schmidt F, Kern F, Ebert P, Baumgarten N, Schulz MH. TEPIC 2—an extended framework for transcription factor binding prediction and integrative epigenomic analysis (DYNAMITE). Bioinformatics. 2019;35(9):1608–1610. doi:10.1093/bioinformatics/bty856.</li>",
+            "<li>Cock PJA, Antao T, Chang JT, et al. Biopython: freely available Python tools for computational molecular biology and bioinformatics. Bioinformatics. 2009;25(11):1422–1423. doi:10.1093/bioinformatics/btp163.</li>",
+            (params.skip_fimo ? "" : "<li>Grant CE, Bailey TL, Noble WS. FIMO: scanning for occurrences of a given motif. Bioinformatics. 2011;27(7):1017–1018. doi:10.1093/bioinformatics/btr064.</li>"),
+            "<li>Rauluseviciute I, Riudavets-Puig R, Blanc-Mathieu R, et al. JASPAR 2024: 20th anniversary of the open-access database of transcription factor binding profiles. Nucleic Acids Res. 2024;52(D1):D174–D182. doi:10.1093/nar/gkad1059.</li>",
+            "<li>Tremblay BJ. universalmotif: An R package for biological motif analysis. Journal of Open Source Software. 2024;9(100):7012. doi:10.21105/joss.07012.</li>",
+            (params.skip_sneep ? "" : "<li>Baumgarten N, Ebert P, Schmidt F, Kern F, Schulz MH. A statistical approach for identifying single nucleotide variants that affect transcription factor binding (SNEEP). iScience. 2024;27(5):109765. doi:10.1016/j.isci.2024.109765.</li>")
+        ].findAll { it }
+
+    def reference_text = references.join(' ').trim()
 
     return reference_text
 }
@@ -231,12 +250,8 @@ def methodsDescriptionText(mqc_methods_yaml) {
     meta["nodoi_text"] = meta.manifest_map.doi ? "" : "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
 
     // Tool references
-    meta["tool_citations"] = ""
-    meta["tool_bibliography"] = ""
-
-    // TODO nf-core: Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
-    // meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
-    // meta["tool_bibliography"] = toolBibliographyText()
+    meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+    meta["tool_bibliography"] = toolBibliographyText()
 
 
     def methods_text = mqc_methods_yaml.text
