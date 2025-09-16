@@ -45,15 +45,15 @@ This step prepares reference assets used throughout the workflow. If compressed 
 
 - `00_prepare_genome/`
   - `01_fasta/`
-    - Decompressed reference FASTA when input `--fasta` is `.fa.gz` (GUNZIP_FASTA).
+    - `chr1.fa`: Decompressed reference FASTA when input `--fasta` is `.fa.gz` (GUNZIP_FASTA).
   - `02_gtf/`
-    - Decompressed reference GTF when input `--gtf` is `.gtf.gz` (GUNZIP_GTF).
+    - `chr1.gtf`: Decompressed reference GTF when input `--gtf` is `.gtf.gz` (GUNZIP_GTF).
   - `03_id_symbol_map/`
-    - `id_symbol_map.*`: Gene ID to gene symbol mapping extracted from the GTF (EXTRACT_ID_SYMBOL_MAP).
+    - `id_symbol_map.txt`: Gene ID to gene symbol mapping extracted from the GTF (EXTRACT_ID_SYMBOL_MAP).
   - `04_gtftools_length/`
-    - Transcript/gene length table derived from the GTF (GTFTOOLS_LENGTH).
+    - `gtf.txt`: Transcript/gene length table derived from the GTF (GTFTOOLS_LENGTH).
   - `05_samtools_faidx/`
-    - `.fa.fai`: FASTA index and chromosome sizes generated from the reference FASTA (SAMTOOLS_FAIDX).
+    - `chr1.fa.fai`: FASTA index and chromosome sizes generated from the reference FASTA (SAMTOOLS_FAIDX).
 
 </details>
 
@@ -68,16 +68,29 @@ Each pairing of conditions will be used as a contrast.
 
 - `01_counts/`
   - `01_combined/`
-    - Combined count matrix from primary counts and any extra count sources, aggregated using the provided gene ID ↔ symbol map and selected aggregation method.
+    - `counts.clean.tsv`: Combined count matrix from primary and extra sources after aggregation.
+    - `genes.txt`: List of genes retained after combination.
   - `02_tpm/`
-    - TPM matrix computed from counts using reference gene lengths and the gene map.
+    - `counts.tpm.tsv`: TPM matrix computed from counts using reference gene lengths and the gene map.
   - `03_filtered_genes/`
-    - Gene-level counts filtered by `--min_count` and `--min_tpm` thresholds.
+    - `counts.counts_filtered.tsv`: Counts after gene-level filtering by `--min_count`.
+    - `counts.tpm_filtered.tsv`: TPM after gene-level filtering by `--min_tpm`.
+    - `counts.genes_filtered.txt`: Gene list retained after filtering.
   - `04_filtered_tfs/`
-    - Transcription factor subset filtered by `--min_count_tf` and `--min_tpm_tf` thresholds.
+    - `TFs.counts_filtered.tsv`: TF counts filtered by `--min_count_tf`.
+    - `TFs.tpm_filtered.tsv`: TF TPM filtered by `--min_tpm_tf`.
+    - `TFs.genes_filtered.txt`: TF gene list retained after filtering.
   - `05_deseq2/`
-    - Design files prepared from the counts design input.
-    - `<contrast_id>/`: Per-contrast DESeq2 outputs including normalized counts and differential results for each `reference:target` contrast.
+    - `design.design.csv`: Experimental design prepared from the counts design input.
+    - `<contrast_id>/`: Per-contrast DESeq2 outputs, e.g. `L1:L10/` containing:
+      - `<contrast>.normalised_counts.tsv`
+      - `<contrast>.vst.tsv`
+      - `<contrast>.deseq2.results.tsv`
+      - `<contrast>.deseq2.sizefactors.tsv`
+      - `<contrast>.deseq2.model.txt`
+      - `<contrast>.deseq2.dispersion.png`
+      - `<contrast>.dds.rld.rds`
+      - `<contrast>.R_sessionInfo.log`
 
 </details>
 
@@ -90,17 +103,17 @@ This step prepares TF binding motifs for downstream scanning and scoring. You ca
 
 - `02_motifs/`
   - `01_jaspar/`
-    - Retrieved motif collection and metadata from the specified JASPAR release.
+    - `motifs.jaspar`: Retrieved motif collection and metadata from the specified JASPAR release.
   - `02_universal/`
-    - Motifs converted into a pipeline-universal format for consistent processing.
+    - `motifs.converted.universal`: Motifs converted into a pipeline-universal format for consistent processing.
   - `03_filtered/`
-    - Universal motifs after applying user-defined filtering parameters.
+    - `motifs.filtered.RDS`: Universal motifs after applying user-defined filtering parameters.
   - `04_meme/`
-    - Motif set exported in MEME format for compatibility with MEME Suite tools.
+    - `motifs.converted.meme`: Motif set exported in MEME format for compatibility with MEME Suite tools.
   - `05_transfac/`
-    - Motif set exported in TRANSFAC-like format.
+    - `motifs.converted.transfac`: Motif set exported in TRANSFAC-like format.
   - `06_psem/`
-    - Position-specific energy matrices (PSEM) derived from the filtered motifs.
+    - `motifs.psem`: Position-specific energy matrices (PSEM) derived from the filtered motifs.
 
 </details>
 
@@ -113,7 +126,7 @@ This step processes peak regions to produce candidate regulatory regions and TF�
 
 - `03_peaks/`
   - `01_cleaned/`
-    - Peak BEDs normalized to 6 columns (CLEAN_BED).
+    - `<sample>.clean.bed`: Peak BEDs normalized to 6 columns (CLEAN_BED).
   - `02_footprinting/`
     - `01_merged/`: Peaks merged within `max_peak_gap` per sample/assay (BEDTOOLS_MERGE).
     - `02_subtracted/`: Footprinted regions after subtracting overlaps as configured (BEDTOOLS_SUBTRACT).
@@ -125,35 +138,35 @@ This step processes peak regions to produce candidate regulatory regions and TF�
     - `04_filtered/`: Regions filtered by `--min_peak_occurrence`.
     - `05_cleaned/`: Final 3-column BED of merged regions (CLEAN_BED).
   - `03_sorted/` (only if samples are not merged)
-    - Per-sample/assay sorted BEDs (SORT_PEAKS).
+    - `<condition>_<assay>_sorted.bed`: Per-sample/assay sorted BEDs (SORT_PEAKS).
   - `04_chromhmm/` (created unless `--skip_chromhmm`)
     - `01_binarized/`: Binarized signals from input BAMs (BINARIZE_BAMS; requires `chrom_sizes`).
     - `02_learned/`: Learned model and state assignments (LEARN_MODEL; `--chromhmm_states`).
     - `03_enhancers/`: Enhancer regions at `--chromhmm_threshold` from selected marks.
     - `04_promoters/`: Promoter regions at `--chromhmm_threshold` from selected marks.
   - `05_rose/` (created only if ChromHMM ran and `--skip_rose` is false)
-    - `01_filtered/`: GTF filtered and converted to BED starts (FILTER_CONVERT_GTF).
-    - `02_sorted/`: Sorted BED of TSS inputs (SORT_BED for GTF-derived BED).
-    - `03_sorted/`: Sorted chromosome sizes matching BED order (SORT_CHROM_SIZES).
-    - `04_tss/`: ±`--rose_tss_window` TSS windows (CONSTRUCT_TSS).
-    - `05_inverted/`: Inverted TSS windows for promoter filtering (INVERT_TSS).
-    - `06_filtered/`: Predicted regions after TSS filtering (FILTER_PREDICTIONS).
-    - `07_stitched/`: Stitched regions within `--rose_stitching_window` (STITCHING).
-    - `08_tss_overlap/`: Overlap counts of stitched regions with TSS (TSS_OVERLAP).
-    - `09_filtered/`: Regions overlapping ≥2 TSS (FILTER_OVERLAPS).
-    - `10_subtracted/`: Stitched regions with multi-TSS overlaps removed (SUBTRACT_OVERLAPS).
-    - `11_unstitched/`: Original unstitched regions corresponding to multi-TSS overlaps (UNSTITCHED_REGIONS).
-    - `12_concatenated/`: Combined correctly-stitched and original unstitched, sorted (CONCAT_AND_SORT).
+    - `01_filtered/`: `<cond>_<assay>_filtered.bed` (FILTER_CONVERT_GTF).
+    - `02_sorted/`: Sorted GTF-derived BED.
+    - `03_sorted/`: Sorted chromosome sizes matching BED order (`*_sorted.fa.fai`).
+    - `04_tss/`: `tss.bed`: ±`--rose_tss_window` TSS windows.
+    - `05_inverted/`: Inverted TSS windows for promoter filtering.
+    - `06_filtered/`: `<cond>_<assay>_filtered.bed`: Predicted regions after TSS filtering.
+    - `07_stitched/`: `<cond>_<assay>_stitched.bed`: Stitched regions within `--rose_stitching_window`.
+    - `08_tss_overlap/`: `<cond>_<assay>_tss-overlap-counts.bed`: Overlap counts of stitched regions with TSS.
+    - `09_filtered/`: `<cond>_<assay>_overlap.bed`: Regions overlapping ≥2 TSS.
+    - `10_subtracted/`: `<cond>_<assay>.bed`: Stitched regions with multi-TSS overlaps removed.
+    - `11_unstitched/`: `<cond>_<assay>_original_regions.bed`: Original unstitched regions for multi-TSS overlaps.
+    - `12_concatenated/`: `<cond>_<assay>_stitched.bed`: Combined correctly-stitched and original unstitched, sorted.
   - `06_stare/`
-    - TF–DNA affinity tracks computed by STARE using PWMs, FASTA, GTF, and blacklist; per `condition`/`assay`.
+    - `<condition>_<assay>/Gene_TF_matrices/<condition>_<assay>_TF_Gene_Affinities.txt`: TF–gene affinities computed by STARE.
   - `07_affinity_mean/` (only when samples are not merged)
-    - Replicate affinities averaged across samples per condition and assay (AFFINITY_MEAN).
+    - `<condition>_<assay>.tsv`: Replicate affinities averaged across samples per condition and assay (AFFINITY_MEAN).
   - `08_aggregated/`
-    - Affinities after aggregating gene symbol synonyms and optional duplicate motif merging (AGGREGATE_SYNONYMS).
+    - `<condition>_<assay>.agg_affinities.tsv`: Affinities after aggregating gene symbol synonyms and optional duplicate motif merging (AGGREGATE_SYNONYMS).
   - `09_affinity_ratio/`
-    - Per-contrast affinity ratio results for matched assays, labeled as `condition1:condition2_assay` (AFFINITY_RATIO).
+    - `<condition1:condition2>_<assay>.tsv`: Per-contrast affinity ratio results for matched assays (AFFINITY_RATIO).
   - `09_affinity_sum/`
-    - Per-contrast affinity sum results for matched assays, labeled as `condition1:condition2_assay` (AFFINITY_SUM).
+    - `<condition1:condition2>_<assay>.tsv`: Per-contrast affinity sum results for matched assays (AFFINITY_SUM).
 
 </details>
 
@@ -183,17 +196,18 @@ This step combines TF–target gene scores across inputs and computes ranked lis
 
 - `05_ranking/`
   - `01_tf_tg_score/`
-    - Intermediate TF–TG scores derived from affinities and counts (TF_TG_SCORE).
+    - `<contrast>_<assay>.score.tsv`: Intermediate TF–TG scores derived from affinities and counts (TF_TG_SCORE).
   - `02_ranking/`
-    - Ranked outputs for TFs and TGs by chosen criteria (CREATE_RANKING).
+    - `<contrast>_<assay>.tf_ranking.tsv`
+    - `<contrast>_<assay>.tg_ranking.tsv`: Ranked outputs for TFs and TGs by chosen criteria (CREATE_RANKING).
   - `03_combined_tfs_per_assay/`
-    - TF ranking matrices per assay; files end with `.tf_ranking.tsv` (COMBINE_TFS_PER_ASSAY).
+    - `<assay>.tf_ranking.tsv`: TF ranking matrices per assay (COMBINE_TFS_PER_ASSAY).
   - `04_combined_tfs_across_assays/`
-    - TF ranking matrices combined across assays (COMBINE_TFS_ACROSS_ASSAYS).
+    - `all.tsv`: TF ranking matrices combined across assays (COMBINE_TFS_ACROSS_ASSAYS).
   - `05_combined_tgs_per_assay/`
-    - TG ranking matrices per assay; files end with `.tg_ranking.tsv` (COMBINE_TGS_PER_ASSAY).
+    - `<assay>.tg_ranking.tsv`: TG ranking matrices per assay (COMBINE_TGS_PER_ASSAY).
   - `06_combined_tgs_across_assays/`
-    - TG ranking matrices combined across assays (COMBINE_TGS_ACROSS_ASSAYS).
+    - `all.tsv`: TG ranking matrices combined across assays (COMBINE_TGS_ACROSS_ASSAYS).
 
 </details>
 
@@ -206,13 +220,15 @@ This step optionally runs FIMO motif scanning on candidate regions using the fil
 
 - `06_fimo/`
   - `01_filtered_motifs/`
-    - Final motif subset for FIMO scanning (FILTER_MOTIFS in FIMO context).
+    - `motifs.filtered.meme` or similar: Final motif subset for FIMO scanning (FILTER_MOTIFS in FIMO context).
   - `02_extracted_sequence/`
-    - FASTA sequences extracted from regions to be scanned (EXTRACT_SEQUENCE).
+    - `<condition>_<assay>.fa`: FASTA sequences extracted from regions to be scanned (EXTRACT_SEQUENCE).
   - `03_fimo/`
-    - `<id>/`: Per-sample/condition FIMO outputs and logs (RUN_FIMO).
+    - `<region_or_assay>_<motifId>/`: Per-id FIMO outputs (RUN_FIMO), including:
+      - `*.tsv`, `*.gff`, `*.html`, `*.xml`, `*cisml.xml`, `*best_site.narrowPeak`.
   - `04_combined_results/`
-    - Collated FIMO hits across inputs (COMBINE_RESULTS).
+    - `<condition>_<assay>.tsv`
+    - `<condition>_<assay>.gff`: Collated FIMO hits across inputs (COMBINE_RESULTS).
 
 </details>
 
@@ -225,17 +241,17 @@ This step evaluates nucleotide variants within regulatory regions using SNEEP. M
 
 - `07_sneep/`
   - `01_filtered_scales_motifs/`
-    - Motif set prepared for SNEEP (FILTER_SCALES_MOTIFS).
+    - `filtered_sneep_*_mouse_*.txt`: Motif set prepared for SNEEP (FILTER_SCALES_MOTIFS).
   - `02_gff_to_bed/`
-    - Genomic annotations converted from GFF to BED (GFF_TO_BED).
+    - `<condition>_<assay>.bed`: Genomic annotations converted from GFF to BED (GFF_TO_BED).
   - `03_sorted/`
-    - Sorted BED regions for downstream intersection (SORT_BED).
+    - `<condition>_<assay>_sorted.bed`: Sorted BED regions for downstream intersection (SORT_BED).
   - `04_merged/`
-    - Duplicate/overlapping regions merged per ID (MERGE_DUPLICATE_REGIONS).
+    - `merged_<condition>_<assay>.bed`: Duplicate/overlapping regions merged per ID (MERGE_DUPLICATE_REGIONS).
   - `05_filtered_snps/`
-    - SNPs filtered to annotated regions (FILTER_SNPS_BY_REGION; BEDTools intersect-style).
+    - `filtered_<condition>_<assay>.bed`: SNPs filtered to annotated regions (FILTER_SNPS_BY_REGION).
   - `06_sneep/`
-    - SNEEP outputs for variant effect analysis (RUN_SNEEP).
+    - `<condition>_<assay>/*`: SNEEP outputs for variant effect analysis (RUN_SNEEP).
 
 </details>
 
@@ -247,6 +263,9 @@ This step collates selected results, assets, and provenance into an HTML/ZIP rep
 <summary>Output files</summary>
 
 - `08_report/`
-  - Final HTML/ZIP report bundles (CREATE/ZIP).
+  - `report.zip`: Final report bundle, optimal for sending to collaborators.
+  - `report/index.html`: Entry point for the interactive report, can be opened in the browser with a double-click.
+  - `report/parameters/index.html`: Parameters used for the run.
+  - `report/tf/<symbol>(<motifId>)/index.html`: Per-TF pages.
 
 </details>
