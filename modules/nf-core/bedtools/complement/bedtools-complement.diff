@@ -1,4 +1,5 @@
 Changes in component 'nf-core/bedtools/complement'
+'modules/nf-core/bedtools/complement/environment.yml' is unchanged
 Changes in 'bedtools/complement/main.nf':
 --- modules/nf-core/bedtools/complement/main.nf
 +++ modules/nf-core/bedtools/complement/main.nf
@@ -20,8 +21,6 @@ Changes in 'bedtools/complement/main.nf':
  }
 
 'modules/nf-core/bedtools/complement/meta.yml' is unchanged
-'modules/nf-core/bedtools/complement/environment.yml' is unchanged
-'modules/nf-core/bedtools/complement/tests/main.nf.test' is unchanged
 'modules/nf-core/bedtools/complement/tests/main.nf.test.snap' is unchanged
-'modules/nf-core/bedtools/complement/tests/tags.yml' is unchanged
+'modules/nf-core/bedtools/complement/tests/main.nf.test' is unchanged
 ************************************************************

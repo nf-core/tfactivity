@@ -36,7 +36,7 @@ workflow PEAKS {
 
     ch_versions = Channel.empty()
 
-    CLEAN_BED(ch_peaks, [])
+    CLEAN_BED(ch_peaks, [], true)
     ch_peaks = CLEAN_BED.out.output
     ch_versions = ch_versions.mix(CLEAN_BED.out.versions)
 

@@ -21,7 +21,7 @@ workflow ROSE {
     ch_versions = Channel.empty()
 
     // Convert GTF to BED format and collapse regions to a single base pair at their start positions
-    FILTER_CONVERT_GTF(ch_gtf, [])
+    FILTER_CONVERT_GTF(ch_gtf, [], true)
     ch_versions = ch_versions.mix(FILTER_CONVERT_GTF.out.versions)
 
     // Downstream methods require sorted inputs
@@ -68,7 +68,7 @@ workflow ROSE {
     ch_versions = ch_versions.mix(TSS_OVERLAP.out.versions)
 
     // Filter regions that overlap at least 2 TSS
-    FILTER_OVERLAPS(TSS_OVERLAP.out.intersect, [])
+    FILTER_OVERLAPS(TSS_OVERLAP.out.intersect, [], true)
     ch_versions = ch_versions.mix(FILTER_OVERLAPS.out.versions)
 
     // Remove regions that overlap at least 2 TSS from stitched regions

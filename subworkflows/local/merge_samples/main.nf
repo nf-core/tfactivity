@@ -13,7 +13,7 @@ workflow MERGE_SAMPLES {
 
     ch_versions = Channel.empty()
 
-    ANNOTATE_SAMPLES(ch_peaks, [])
+    ANNOTATE_SAMPLES(ch_peaks, [], true)
     ch_versions = ch_versions.mix(ANNOTATE_SAMPLES.out.versions)
 
     ch_grouped = ANNOTATE_SAMPLES.out.output
@@ -29,10 +29,10 @@ workflow MERGE_SAMPLES {
     BEDTOOLS_MERGE(BEDTOOLS_SORT.out.sorted)
     ch_versions = ch_versions.mix(BEDTOOLS_MERGE.out.versions)
 
-    FILTER_MIN_OCCURRENCE(BEDTOOLS_MERGE.out.bed, [])
+    FILTER_MIN_OCCURRENCE(BEDTOOLS_MERGE.out.bed, [], true)
     ch_versions = ch_versions.mix(FILTER_MIN_OCCURRENCE.out.versions)
 
-    CLEAN_BED(FILTER_MIN_OCCURRENCE.out.output, [])
+    CLEAN_BED(FILTER_MIN_OCCURRENCE.out.output, [], true)
     ch_versions = ch_versions.mix(CLEAN_BED.out.versions)
 
     emit:
