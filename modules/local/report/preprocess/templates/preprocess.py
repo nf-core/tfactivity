@@ -20,6 +20,10 @@ TF_TEMPLATE = {
     "counts": {}
 }
 
+def remove_motif_id(tf):
+    """Remove everything in parentheses"""
+    return tf.split("(")[0]
+
 def load_paths_and_validate():
     """Load and validate all required paths."""
     paths = {
@@ -88,10 +92,11 @@ def process_differential_expression(paths, overview, tfs):
         df_deseq2 = pd.read_csv(file, sep="\t", index_col=0)
 
         for tf in tfs:
-            if tf not in df_deseq2.index:
+            tf_no_motif_id = remove_motif_id(tf)
+            if tf_no_motif_id not in df_deseq2.index:
                 continue
 
-            tf_row = df_deseq2.loc[tf]
+            tf_row = df_deseq2.loc[tf_no_motif_id]
             diff_expr_data = {
                 "baseMean": tf_row["baseMean"],
                 "log2FoldChange": tf_row["log2FoldChange"],
@@ -166,33 +171,35 @@ def process_expression_data(df_tpm, df_counts, overview, tfs, condition_to_sampl
     """Process TPM and counts data efficiently."""
     # Process TPM for overview (only TFs that exist in overview)
     for tf in overview:
-        if tf in df_tpm.columns:
+        tf_no_motif_id = remove_motif_id(tf)
+        if tf_no_motif_id in df_tpm.columns:
             overview[tf]["tpm"] = {}
             for condition, samples in condition_to_samples.items():
                 overview[tf]["tpm"][condition] = {}
                 for sample in samples:
                     if sample in df_tpm.index:
-                        overview[tf]["tpm"][condition][sample] = df_tpm.loc[sample, tf]
+                        overview[tf]["tpm"][condition][sample] = df_tpm.loc[sample, tf_no_motif_id]
 
     # Process expression data for individual TFs
     for tf in tfs:
         # TPM data
-        if tf in df_tpm.columns:
+        tf_no_motif_id = remove_motif_id(tf)
+        if tf_no_motif_id in df_tpm.columns:
             tfs[tf]["tpm"] = {}
             for condition, samples in condition_to_samples.items():
                 tfs[tf]["tpm"][condition] = {}
                 for sample in samples:
                     if sample in df_tpm.index:
-                        tfs[tf]["tpm"][condition][sample] = df_tpm.loc[sample, tf]
+                        tfs[tf]["tpm"][condition][sample] = df_tpm.loc[sample, tf_no_motif_id]
 
         # Counts data
-        if tf in df_counts.columns:
+        if tf_no_motif_id in df_counts.columns:
             tfs[tf]["counts"] = {}
             for condition, samples in condition_to_samples.items():
                 tfs[tf]["counts"][condition] = {}
                 for sample in samples:
                     if sample in df_counts.index:
-                        tfs[tf]["counts"][condition][sample] = df_counts.loc[sample, tf]
+                        tfs[tf]["counts"][condition][sample] = df_counts.loc[sample, tf_no_motif_id]
 
 def clean_params_data(params):
     """Remove null/None values from params dictionary."""
