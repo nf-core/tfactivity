@@ -188,6 +188,7 @@ workflow TFACTIVITY {
         PEAKS.out.affinity_sum.map { _meta, affinity_sum -> affinity_sum }.collect(),
         PEAKS.out.affinity_ratio.map { _meta, affinity_ratio -> affinity_ratio }.collect(),
         PEAKS.out.affinities.map { _meta, affinities -> affinities }.collect(),
+        PEAKS.out.candidate_regions.map { _meta, candidate_regions -> candidate_regions }.collect(),
         DYNAMITE.out.all_coefficients.map { _meta, all_coefficients -> all_coefficients }.collect(),
         ch_fimo_binding_sites.map { _meta, fimo_binding_sites -> fimo_binding_sites }.collect(),
         ch_versions

@@ -45,6 +45,7 @@ def load_paths_and_validate():
         'tg_ranking_dir': Path("tg_rankings"),
         'tpm_dir': Path("tpms"),
         'fimo_binding_sites_dir': Path("fimo_binding_sites"),
+        'candidate_regions_dir': Path("candidate_regions"),
     }
 
     # Validate all paths exist
@@ -286,12 +287,50 @@ def merge_overview_data(overview, tfs):
             if "tpm" in overview[tf] and overview[tf]["tpm"]:
                 tfs[tf]["tpm"] = overview[tf]["tpm"]
 
-def write_output_files(overview, tfs, metadata, params):
+def process_candidate_regions(paths, conditions, assays):
+    """Read candidate regions BED files into condition→assay→sample hierarchy."""
+    candidate_regions = {}
+
+    for condition, assay in product(conditions, assays):
+        sample_to_regions = {}
+        for bed_path in paths['candidate_regions_dir'].glob(f"{condition}_{assay}_*.bed"):
+            stem = bed_path.stem
+            prefix = f"{condition}_{assay}_"
+            # Remove exact '<condition>_<assay>_' prefix, even if those contain underscores
+            sample = stem[len(prefix):] if stem.startswith(prefix) else stem
+
+            chrom_to_intervals = {}
+            with open(bed_path, "r") as fh:
+                for line in fh:
+                    if not line or line.startswith("#"):
+                        continue
+                    fields = line.rstrip("\\n").split("\\t")
+                    if len(fields) < 3:
+                        continue
+                    chrom = fields[0]
+                    try:
+                        start = int(fields[1])
+                        end = int(fields[2])
+                    except ValueError:
+                        continue
+                    if chrom not in chrom_to_intervals:
+                        chrom_to_intervals[chrom] = []
+                    chrom_to_intervals[chrom].append([start, end])
+
+            sample_to_regions[sample] = chrom_to_intervals
+
+        if sample_to_regions:
+            candidate_regions.setdefault(condition, {})[assay] = sample_to_regions
+
+    return candidate_regions
+
+def write_output_files(overview, tfs, metadata, params, candidate_regions):
     """Write all output files."""
     # Write main output files
     json.dump(params, open("params.json", "w"), indent=4)
     json.dump(overview, open("overview.json", "w"), indent=4)
     json.dump(metadata, open("metadata.json", "w"), indent=4)
+    json.dump(candidate_regions, open("candidate_regions.json", "w"), indent=4)
 
     # Write individual TF files
     tf_dir = Path("transcription_factors")
@@ -351,8 +390,11 @@ def main():
 
     metadata["transcription_factors"] = list(tfs.keys())
 
+    # Candidate regions
+    candidate_regions = process_candidate_regions(paths, conditions, assays)
+
     # Write outputs
-    write_output_files(overview, tfs, metadata, params)
+    write_output_files(overview, tfs, metadata, params, candidate_regions)
 
 if __name__ == "__main__":
     main()

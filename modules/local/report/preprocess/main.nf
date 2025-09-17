@@ -17,6 +17,7 @@ process REPORT_PREPROCESS {
     path affinity_sum, stageAs: 'affinity_sum/'
     path affinity_ratio, stageAs: 'affinity_ratio/'
     path affinities, stageAs: 'affinities/'
+    path candidate_regions, stageAs: 'candidate_regions/'
     path regression_coefficients, stageAs: 'regression_coefficients/'
     path fimo_binding_sites, stageAs: 'fimo_binding_sites/'
     path summary_params
@@ -28,6 +29,7 @@ process REPORT_PREPROCESS {
     path "params.json", emit: params
     path "overview.json", emit: overview
     path "transcription_factors", emit: transcription_factors
+        path "candidate_regions.json", emit: candidate_regions
 
     script:
     template("preprocess.py")

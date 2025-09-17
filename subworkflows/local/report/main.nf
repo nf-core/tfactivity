@@ -20,6 +20,7 @@ workflow REPORT {
     affinity_sum
     affinity_ratio
     affinities
+    candidate_regions
     regression_coefficients
     fimo_binding_sites
     ch_versions
@@ -58,6 +59,7 @@ workflow REPORT {
         affinity_sum,
         affinity_ratio,
         affinities,
+        candidate_regions,
         regression_coefficients,
         fimo_binding_sites,
         ch_workflow_summary.collectFile(name: 'params.yaml'),
