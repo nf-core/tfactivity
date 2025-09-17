@@ -5,6 +5,7 @@ include { ZIP                             } from "../../../modules/nf-core/zip"
 
 include { paramsSummaryMap                } from 'plugin/nf-schema'
 include { paramsSummaryToYAML             } from '../../local/utils_nfcore_tfactivity_pipeline'
+include { methodsDescriptionText          } from '../../local/utils_nfcore_tfactivity_pipeline'
 include { softwareVersionsToYAML          } from '../../nf-core/utils_nfcore_pipeline'
 
 workflow REPORT {
@@ -43,6 +44,7 @@ workflow REPORT {
         parameters_schema: "nextflow_schema.json"
     )
     ch_workflow_summary = Channel.value(paramsSummaryToYAML(summary_params))
+    ch_methods_description = Channel.value(methodsDescriptionText())
 
     PREPROCESS(
         tf_rankings,
@@ -58,6 +60,7 @@ workflow REPORT {
         regression_coefficients,
         ch_workflow_summary.collectFile(name: 'params.yaml'),
         ch_collated_versions,
+        ch_methods_description.collectFile(name: 'methods_description.json'),
     )
 
     CREATE(

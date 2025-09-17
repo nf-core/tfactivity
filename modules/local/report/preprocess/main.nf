@@ -20,6 +20,7 @@ process REPORT_PREPROCESS {
     path regression_coefficients, stageAs: 'regression_coefficients/'
     path summary_params
     path versions
+    path methods_description_meta
 
     output:
     path "metadata.json", emit: metadata

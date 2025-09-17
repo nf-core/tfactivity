@@ -283,7 +283,8 @@ def main():
     # Load design and params
     df_design = pd.read_csv(paths['counts_design'])
     metadata = {
-        "conditions": df_design.groupby("condition").apply(lambda x: x["sample"].tolist()).to_dict()
+        "conditions": df_design.groupby("condition").apply(lambda x: x["sample"].tolist()).to_dict(),
+        "methods_description": json.load(open('${methods_description_meta}'))
     }
     condition_to_samples = metadata["conditions"]
     conditions = list(condition_to_samples.keys())
