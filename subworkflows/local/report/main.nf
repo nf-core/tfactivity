@@ -21,6 +21,7 @@ workflow REPORT {
     affinity_ratio
     affinities
     regression_coefficients
+    fimo_binding_sites
     ch_versions
 
     main:
@@ -58,6 +59,7 @@ workflow REPORT {
         affinity_ratio,
         affinities,
         regression_coefficients,
+        fimo_binding_sites,
         ch_workflow_summary.collectFile(name: 'params.yaml'),
         ch_collated_versions,
         ch_methods_description.collectFile(name: 'methods_description.json'),

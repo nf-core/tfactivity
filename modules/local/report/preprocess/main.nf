@@ -18,6 +18,7 @@ process REPORT_PREPROCESS {
     path affinity_ratio, stageAs: 'affinity_ratio/'
     path affinities, stageAs: 'affinities/'
     path regression_coefficients, stageAs: 'regression_coefficients/'
+    path fimo_binding_sites, stageAs: 'fimo_binding_sites/'
     path summary_params
     path versions
     path methods_description_meta

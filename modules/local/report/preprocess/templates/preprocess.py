@@ -17,12 +17,17 @@ TF_TEMPLATE = {
     "affinity_ratio": {},
     "affinity_sum": {},
     "tpm": {},
-    "counts": {}
+    "counts": {},
+    "fimo_binding_sites": {},
 }
 
 def remove_motif_id(tf):
     """Remove everything in parentheses"""
     return tf.split("(")[0]
+
+def get_motif_id(tf):
+    """Get the motif ID from the TF name"""
+    return tf.split("(")[1].split(")")[0]
 
 def load_paths_and_validate():
     """Load and validate all required paths."""
@@ -38,7 +43,8 @@ def load_paths_and_validate():
         'regression_coefficients_dir': Path("regression_coefficients"),
         'tf_ranking_dir': Path("tf_rankings"),
         'tg_ranking_dir': Path("tg_rankings"),
-        'tpm_dir': Path("tpms")
+        'tpm_dir': Path("tpms"),
+        'fimo_binding_sites_dir': Path("fimo_binding_sites"),
     }
 
     # Validate all paths exist
@@ -66,8 +72,8 @@ def process_ranking_data(paths, overview, tfs):
     for file in paths['tf_ranking_dir'].glob("*.tf_ranking.tsv"):
         assay = file.stem.split(".")[0]
 
-        df_tf = pd.read_csv(file, sep="\t", index_col=0)
-        df_tg = pd.read_csv(paths['tg_ranking_dir'] / f"{assay}.tg_ranking.tsv", sep="\t", index_col=0)
+        df_tf = pd.read_csv(file, sep="\\t", index_col=0)
+        df_tg = pd.read_csv(paths['tg_ranking_dir'] / f"{assay}.tg_ranking.tsv", sep="\\t", index_col=0)
 
         # Process all TFs from this assay
         for tf, dcg_score in df_tf["dcg"].items():
@@ -89,7 +95,7 @@ def process_differential_expression(paths, overview, tfs):
         pair_string = file.stem.split(".")[0]
         pairings.add(pair_string)
 
-        df_deseq2 = pd.read_csv(file, sep="\t", index_col=0)
+        df_deseq2 = pd.read_csv(file, sep="\\t", index_col=0)
 
         for tf in tfs:
             tf_no_motif_id = remove_motif_id(tf)
@@ -118,7 +124,7 @@ def process_regression_coefficients(paths, overview, pairings, assays):
         if not df_path.exists():
             continue
 
-        df_coefficients = pd.read_csv(df_path, sep="\t", index_col=0)
+        df_coefficients = pd.read_csv(df_path, sep="\\t", index_col=0)
         df_coefficients = df_coefficients.dropna(how="all")
 
         if len(df_coefficients) > 0:
@@ -134,7 +140,7 @@ def process_affinity_data(paths, tfs, pairings, assays):
         # Process affinity ratio
         affinity_ratio_path = paths['affinity_ratio_dir'] / f"{pairing}_{assay}.tsv"
         if affinity_ratio_path.exists():
-            df_affinity_ratio = pd.read_csv(affinity_ratio_path, sep="\t", index_col=0)
+            df_affinity_ratio = pd.read_csv(affinity_ratio_path, sep="\\t", index_col=0)
             for tf in tfs:
                 if pairing not in tfs[tf]["affinity_ratio"]:
                     tfs[tf]["affinity_ratio"][pairing] = {}
@@ -144,7 +150,7 @@ def process_affinity_data(paths, tfs, pairings, assays):
         # Process affinity sum
         affinity_sum_path = paths['affinity_sum_dir'] / f"{pairing}_{assay}.tsv"
         if affinity_sum_path.exists():
-            df_affinity_sum = pd.read_csv(affinity_sum_path, sep="\t", index_col=0)
+            df_affinity_sum = pd.read_csv(affinity_sum_path, sep="\\t", index_col=0)
             for tf in tfs:
                 if pairing not in tfs[tf]["affinity_sum"]:
                     tfs[tf]["affinity_sum"][pairing] = {}
@@ -158,7 +164,7 @@ def process_tg_affinities(paths, tfs, conditions, assays):
         if not df_path.exists():
             continue
 
-        df_affinities = pd.read_csv(df_path, sep="\t", index_col=0)
+        df_affinities = pd.read_csv(df_path, sep="\\t", index_col=0)
 
         for tf in tfs:
             if tf not in df_affinities.columns:
@@ -200,6 +206,20 @@ def process_expression_data(df_tpm, df_counts, overview, tfs, condition_to_sampl
                 for sample in samples:
                     if sample in df_counts.index:
                         tfs[tf]["counts"][condition][sample] = df_counts.loc[sample, tf_no_motif_id]
+
+def process_fimo_binding_sites(paths, tfs, conditions, assays):
+    """Process FIMO binding sites data."""
+    for condition, assay in product(conditions, assays):
+        df_path = paths['fimo_binding_sites_dir'] / f"{condition}_{assay}.tsv"
+        if not df_path.exists():
+            continue
+        df_fimo = pd.read_csv(df_path, sep="\\t", index_col=1)
+        for tf in tfs:
+            if tf not in df_fimo.index:
+                continue
+            if condition not in tfs[tf]["fimo_binding_sites"]:
+                tfs[tf]["fimo_binding_sites"][condition] = {}
+            tfs[tf]["fimo_binding_sites"][condition][assay] = df_fimo.loc[tf].to_dict()
 
 def clean_params_data(params):
     """Remove null/None values from params dictionary."""
@@ -313,14 +333,15 @@ def main():
     process_regression_coefficients(paths, overview, pairings, assays)
     process_affinity_data(paths, tfs, pairings, assays)
     process_tg_affinities(paths, tfs, conditions, assays)
+    process_fimo_binding_sites(paths, tfs, conditions, assays)
 
     # Load expression data once and process
-    df_tpm = pd.read_csv(paths['tpm_dir'] / "counts.tpm.tsv", sep="\t", index_col=0).T
-    df_counts = pd.read_csv(paths['raw_counts_dir'] / "counts.counts_filtered.tsv", sep="\t", index_col=0).T
+    df_tpm = pd.read_csv(paths['tpm_dir'] / "counts.tpm.tsv", sep="\\t", index_col=0).T
+    df_counts = pd.read_csv(paths['raw_counts_dir'] / "counts.counts_filtered.tsv", sep="\\t", index_col=0).T
 
     process_expression_data(df_tpm, df_counts, overview, tfs, condition_to_samples)
 
-        # Merge data and finalize
+    # Merge data and finalize
     merge_overview_data(overview, tfs)
 
     # Clean up empty data structures
