@@ -73,6 +73,7 @@ workflow REPORT {
         PREPROCESS.out.params,
         PREPROCESS.out.overview,
         PREPROCESS.out.transcription_factors,
+        PREPROCESS.out.candidate_regions
     )
 
     ZIP(CREATE.out)

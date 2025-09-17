@@ -29,7 +29,7 @@ process REPORT_PREPROCESS {
     path "params.json", emit: params
     path "overview.json", emit: overview
     path "transcription_factors", emit: transcription_factors
-        path "candidate_regions.json", emit: candidate_regions
+    path "candidate_regions.json", emit: candidate_regions
 
     script:
     template("preprocess.py")

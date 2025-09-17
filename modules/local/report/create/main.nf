@@ -13,6 +13,7 @@ process REPORT_CREATE {
     path parameters
     path overview
     path transcription_factors
+    path candidate_regions
 
     output:
     tuple val(meta), path("report")
@@ -25,6 +26,7 @@ process REPORT_CREATE {
     cp -L $metadata $assets_dir/metadata.json
     cp -L $parameters $assets_dir/params.json
     cp -L $overview $assets_dir/overview.json
+    cp -L $candidate_regions $assets_dir/candidate_regions.json
     cp -Lr $transcription_factors $assets_dir/transcription_factors
 
     # NPM does not work without a writable home directory
