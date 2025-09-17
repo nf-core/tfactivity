@@ -213,13 +213,15 @@ def process_fimo_binding_sites(paths, tfs, conditions, assays):
         df_path = paths['fimo_binding_sites_dir'] / f"{condition}_{assay}.tsv"
         if not df_path.exists():
             continue
-        df_fimo = pd.read_csv(df_path, sep="\\t", index_col=1)
+        df_fimo = pd.read_csv(df_path, sep="\\t", index_col=None)
         for tf in tfs:
-            if tf not in df_fimo.index:
+            df_tf = df_fimo[df_fimo["motif_alt_id"] == tf].copy()
+            df_tf = df_tf.drop(columns=["motif_alt_id", "motif_id"])
+            if df_tf.empty:
                 continue
             if condition not in tfs[tf]["fimo_binding_sites"]:
                 tfs[tf]["fimo_binding_sites"][condition] = {}
-            tfs[tf]["fimo_binding_sites"][condition][assay] = df_fimo.loc[tf].to_dict()
+            tfs[tf]["fimo_binding_sites"][condition][assay] = df_tf.to_dict(orient="records")
 
 def clean_params_data(params):
     """Remove null/None values from params dictionary."""
