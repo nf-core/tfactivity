@@ -178,6 +178,7 @@ workflow TFACTIVITY {
     }
 
     REPORT(
+        gtf,
         RANKING.out.tf_ranking.map { _meta, ranking -> ranking }.collect(),
         RANKING.out.tg_ranking.map { _meta, ranking -> ranking }.collect(),
         COUNTS.out.differential.map { _meta, differential -> differential }.collect(),

@@ -7,9 +7,10 @@ from collections import defaultdict
 from itertools import product
 import numpy as np
 import yaml
+from gtfparse import read_gtf
 
 # Constants
-OVERVIEW_TEMPLATE = {"dcg": {}, "regression_coefficients": {}, "differential_expression": {}, "tpm": {}}
+OVERVIEW_TEMPLATE = {"dcg": {}, "regression_coefficients": {}, "differential_expression": {}, "tpm": {}, "genomic_location": {}}
 TF_TEMPLATE = {
     "target_genes": {},
     "differential_expression": {},
@@ -19,6 +20,7 @@ TF_TEMPLATE = {
     "tpm": {},
     "counts": {},
     "fimo_binding_sites": {},
+    "genomic_location": {},
 }
 
 def remove_motif_id(tf):
@@ -34,6 +36,7 @@ def load_paths_and_validate():
     paths = {
         'counts_design': Path("${counts_design}"),
         'summary_params': Path("${summary_params}"),
+        'gtf': Path("${gtf}"),
         'affinity_ratio_dir': Path("affinity_ratio"),
         'affinity_sum_dir': Path("affinity_sum"),
         'affinities_dir': Path("affinities"),
@@ -224,6 +227,53 @@ def process_fimo_binding_sites(paths, tfs, conditions, assays):
                 tfs[tf]["fimo_binding_sites"][condition] = {}
             tfs[tf]["fimo_binding_sites"][condition][assay] = df_tf.to_dict(orient="records")
 
+def process_tf_genomic_locations(paths, overview, tfs):
+    """Parse GTF and add genomic location for each TF gene.
+
+    Uses gene features from the GTF and maps by gene_name to TF names
+    (with motif IDs removed). Stores location in both overview and
+    individual TF structures.
+    """
+    # Read GTF (expects standard columns from gtfparse)
+    df_gtf = read_gtf(str(paths['gtf']), result_type='pandas')
+
+    # Keep only gene features and necessary columns if present
+    required_cols = ["gene_name", "gene_id", "seqname", "start", "end", "strand"]
+    missing_cols = [col for col in required_cols if col not in df_gtf.columns]
+    if missing_cols:
+        raise ValueError(f"Missing required columns in GTF: {', '.join(missing_cols)}")
+
+    df_genes = df_gtf[df_gtf["feature"] == "gene"][required_cols].dropna(subset=["gene_name"])
+
+    # Use first occurrence per gene_name
+    df_genes = df_genes.drop_duplicates(subset=["gene_name"], keep="first")
+
+    # Normalize keys for robust matching (case/space-insensitive)
+    gene_name_to_location = {
+        str(row["gene_name"]).strip().upper(): {
+            "chrom": row["seqname"],
+            "start": int(row["start"]),
+            "end": int(row["end"]),
+            "strand": row["strand"],
+            "gene_id": row["gene_id"],
+        }
+        for _, row in df_genes.iterrows()
+    }
+
+    total_tfs = len(tfs)
+    matched = 0
+    for tf in list(tfs.keys()):
+        tf_no_motif_id = str(remove_motif_id(tf)).strip().upper()
+        if tf_no_motif_id in gene_name_to_location:
+            location = gene_name_to_location[tf_no_motif_id]
+            # Ensure overview entry exists
+            init_tf_overview(tf, overview)
+            tfs[tf]["genomic_location"] = location
+            overview[tf]["genomic_location"] = location
+            matched += 1
+
+    # No debug prints in production
+
 def clean_params_data(params):
     """Remove null/None values from params dictionary."""
     keys_to_remove = []
@@ -254,6 +304,9 @@ def clean_empty_data(overview, tfs):
         # Remove empty TPM (though this should be rare)
         if not overview[tf]["tpm"]:
             del overview[tf]["tpm"]
+        # Remove empty genomic_location
+        if not overview[tf]["genomic_location"]:
+            del overview[tf]["genomic_location"]
 
     # Clean individual TF structures
     for tf in tfs:
@@ -271,6 +324,9 @@ def clean_empty_data(overview, tfs):
         # Remove empty target_genes
         if not tfs[tf]["target_genes"]:
             del tfs[tf]["target_genes"]
+        # Remove empty genomic_location
+        if not tfs[tf]["genomic_location"]:
+            del tfs[tf]["genomic_location"]
 
 def merge_overview_data(overview, tfs):
     """Merge overview data into individual TF structures."""
@@ -286,6 +342,9 @@ def merge_overview_data(overview, tfs):
             # Use overview TPM if available, otherwise keep individual processing
             if "tpm" in overview[tf] and overview[tf]["tpm"]:
                 tfs[tf]["tpm"] = overview[tf]["tpm"]
+            # Genomic location
+            if "genomic_location" in overview[tf] and overview[tf]["genomic_location"]:
+                tfs[tf]["genomic_location"] = overview[tf]["genomic_location"]
 
 def process_candidate_regions(paths, conditions, assays):
     """Read candidate regions BED files into condition→assay→sample hierarchy."""
@@ -375,6 +434,7 @@ def main():
     process_affinity_data(paths, tfs, pairings, assays)
     process_tg_affinities(paths, tfs, conditions, assays)
     process_fimo_binding_sites(paths, tfs, conditions, assays)
+    process_tf_genomic_locations(paths, overview, tfs)
 
     # Load expression data once and process
     df_tpm = pd.read_csv(paths['tpm_dir'] / "counts.tpm.tsv", sep="\\t", index_col=0).T

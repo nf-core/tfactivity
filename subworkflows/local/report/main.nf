@@ -10,6 +10,7 @@ include { softwareVersionsToYAML          } from '../../nf-core/utils_nfcore_pip
 
 workflow REPORT {
     take:
+    gtf
     tf_rankings
     tg_rankings
     deseq2_differential
@@ -49,6 +50,7 @@ workflow REPORT {
     ch_methods_description = Channel.value(methodsDescriptionText())
 
     PREPROCESS(
+        gtf,
         tf_rankings,
         tg_rankings,
         deseq2_differential,
