@@ -176,6 +176,41 @@ def process_tg_affinities(paths, tfs, conditions, assays):
                 tfs[tf]["tg_affinities"][condition] = {}
             tfs[tf]["tg_affinities"][condition][assay] = df_affinities[tf].to_dict()
 
+def filter_target_genes_top_n(tfs, assays, top_n=200):
+    """Keep the top N genes per TF by average score across assays.
+
+    - Computes mean across available assays for each gene (per TF).
+    - Keeps the top_n genes by mean score and prunes per-assay maps accordingly.
+    """
+    for tf, tf_data in tfs.items():
+        target_genes = tf_data.get("target_genes", {})
+        if not target_genes:
+            continue
+
+        gene_to_values = defaultdict(list)
+        for assay in assays:
+            assay_map = target_genes.get(assay, {})
+            for gene, value in assay_map.items():
+                try:
+                    gene_to_values[gene].append(float(value))
+                except Exception:
+                    continue
+
+        if not gene_to_values:
+            # Nothing to keep
+            tf_data["target_genes"] = {assay: {} for assay in target_genes.keys()}
+            continue
+
+        # Compute means and select top N
+        gene_means = {gene: float(np.mean(values)) for gene, values in gene_to_values.items() if values}
+        # Sort genes by mean descending and take top_n
+        top_genes = [g for g, _ in sorted(gene_means.items(), key=lambda kv: kv[1], reverse=True)[: int(top_n)]]
+        keep_genes = set(top_genes)
+
+        # Prune per-assay maps
+        for assay, assay_map in list(target_genes.items()):
+            tf_data["target_genes"][assay] = {gene: score for gene, score in assay_map.items() if gene in keep_genes}
+
 def process_expression_data(df_tpm, df_counts, overview, tfs, condition_to_samples):
     """Process TPM and counts data efficiently."""
     # Process TPM for overview (only TFs that exist in overview)
@@ -414,6 +449,9 @@ def main():
     df_counts = pd.read_csv(paths['raw_counts_dir'] / "counts.counts_filtered.tsv", sep="\\t", index_col=0).T
 
     process_expression_data(df_tpm, df_counts, overview, tfs, condition_to_samples)
+
+    # Keep only top 200 target genes per TF by average score across assays
+    filter_target_genes_top_n(tfs, assays, top_n=200)
 
     # Merge data and finalize
     merge_overview_data(overview, tfs)
