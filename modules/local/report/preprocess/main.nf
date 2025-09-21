@@ -32,6 +32,7 @@ process REPORT_PREPROCESS {
     path "transcription_factors", emit: transcription_factors
     path "candidate_regions.json", emit: candidate_regions
     path "gene_locations.json", emit: gene_locations
+    path "target_genes", emit: target_genes
 
     script:
     template("preprocess.py")

@@ -27,7 +27,7 @@ workflow REPORT {
     ch_versions
 
     main:
-    UNTAR([[id: 'report'], file("https://github.com/daisybio/nfcore-tfactivity-report/archive/refs/tags/v0.3.1.tar.gz", checkIfExists: true)])
+    UNTAR([[id: 'report'], file("https://github.com/daisybio/nfcore-tfactivity-report/archive/refs/tags/v0.4.1.tar.gz", checkIfExists: true)])
     ch_versions = ch_versions.mix(UNTAR.out.versions)
 
     //
@@ -76,7 +76,8 @@ workflow REPORT {
         PREPROCESS.out.overview,
         PREPROCESS.out.transcription_factors,
         PREPROCESS.out.candidate_regions,
-        PREPROCESS.out.gene_locations
+        PREPROCESS.out.gene_locations,
+        PREPROCESS.out.target_genes
     )
 
     ZIP(CREATE.out)

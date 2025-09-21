@@ -351,6 +351,67 @@ def merge_overview_data(overview, tfs):
             if "tpm" in overview[tf] and overview[tf]["tpm"]:
                 tfs[tf]["tpm"] = overview[tf]["tpm"]
 
+def build_target_genes_structure(tfs, overview, condition_to_samples):
+    """Build target genes structure with genes as top-level keys and assays as second-level keys.
+    Also includes differential expression and TPM data for each gene.
+
+    Returns: dict[gene] -> {transcription_factors: {tf: score}, differential_expression: {...}, tpm: {...}}
+    """
+    target_genes = {}
+
+    # First, collect all target genes and their TF associations
+    for tf, tf_data in tfs.items():
+        target_genes_data = tf_data.get("target_genes", {})
+        for assay, gene_scores in target_genes_data.items():
+            for gene, score in gene_scores.items():
+                if gene not in target_genes:
+                    target_genes[gene] = {"transcription_factors": {}}
+                if assay not in target_genes[gene]["transcription_factors"]:
+                    target_genes[gene]["transcription_factors"][assay] = {}
+                target_genes[gene]["transcription_factors"][assay][tf] = score
+
+    # Now add differential expression and TPM data for each gene
+    for gene in target_genes:
+        # Initialize differential expression structure
+        target_genes[gene]["differential_expression"] = {}
+
+        # Add differential expression data from TFs that have this gene as a target
+        for tf, tf_data in tfs.items():
+            if tf in overview and "differential_expression" in overview[tf]:
+                target_genes_data = tf_data.get("target_genes", {})
+                # Check if this gene is a target of this TF
+                gene_is_target = any(gene in gene_scores for gene_scores in target_genes_data.values())
+                if gene_is_target:
+                    for pairing, diff_expr_data in overview[tf]["differential_expression"].items():
+                        if pairing not in target_genes[gene]["differential_expression"]:
+                            target_genes[gene]["differential_expression"][pairing] = diff_expr_data
+
+        # Initialize TPM structure
+        target_genes[gene]["tpm"] = {}
+
+        # Add TPM data from TFs that have this gene as a target
+        for tf, tf_data in tfs.items():
+            if tf in overview and "tpm" in overview[tf]:
+                target_genes_data = tf_data.get("target_genes", {})
+                # Check if this gene is a target of this TF
+                gene_is_target = any(gene in gene_scores for gene_scores in target_genes_data.values())
+                if gene_is_target:
+                    for condition, samples in overview[tf]["tpm"].items():
+                        if condition not in target_genes[gene]["tpm"]:
+                            target_genes[gene]["tpm"][condition] = {}
+                        for sample, tpm_value in samples.items():
+                            target_genes[gene]["tpm"][condition][sample] = tpm_value
+
+    return target_genes
+
+def write_target_genes_files(target_genes):
+    """Write individual JSON files for each target gene."""
+    target_genes_dir = Path("target_genes")
+    target_genes_dir.mkdir(parents=True, exist_ok=True)
+
+    for gene, gene_data in target_genes.items():
+        json.dump(gene_data, open(target_genes_dir / f"{gene}.json", "w"), indent=4)
+
 def process_candidate_regions(paths, conditions, assays):
     """Read candidate regions BED files into condition→assay→sample hierarchy."""
     candidate_regions = {}
@@ -388,7 +449,7 @@ def process_candidate_regions(paths, conditions, assays):
 
     return candidate_regions
 
-def write_output_files(overview, tfs, metadata, params, candidate_regions):
+def write_output_files(overview, tfs, metadata, params, candidate_regions, target_genes):
     """Write all output files."""
     # Write main output files
     json.dump(params, open("params.json", "w"), indent=4)
@@ -402,6 +463,9 @@ def write_output_files(overview, tfs, metadata, params, candidate_regions):
 
     for tf in tfs:
         json.dump(tfs[tf], open(tf_dir / f"{tf}.json", "w"), indent=4)
+
+    # Write individual target gene files
+    write_target_genes_files(target_genes)
 
 def main():
     """Main processing function."""
@@ -464,8 +528,12 @@ def main():
     # Candidate regions
     candidate_regions = process_candidate_regions(paths, conditions, assays)
 
+    # Build target genes structure
+    target_genes = build_target_genes_structure(tfs, overview, condition_to_samples)
+    metadata["target_genes"] = list(target_genes.keys())
+
     # Write outputs
-    write_output_files(overview, tfs, metadata, params, candidate_regions)
+    write_output_files(overview, tfs, metadata, params, candidate_regions, target_genes)
 
 if __name__ == "__main__":
     main()
