@@ -133,6 +133,8 @@ workflow TFACTIVITY {
     )
     ch_versions = ch_versions.mix(RANKING.out.versions)
 
+    ch_fimo_binding_sites = Channel.empty()
+
     if (!params.skip_fimo) {
         if (duplicate_motifs == "merge") {
             error "Fimo can only be run if duplicate motifs are not merged. Please set --skip_fimo true or --duplicate_motifs [remove|keep]."
@@ -145,6 +147,7 @@ workflow TFACTIVITY {
             MOTIFS.out.meme,
         )
         ch_versions = ch_versions.mix(FIMO.out.versions)
+        ch_fimo_binding_sites = FIMO.out.tsv
     }
 
     if (!params.skip_sneep) {
@@ -175,6 +178,7 @@ workflow TFACTIVITY {
     }
 
     REPORT(
+        gtf,
         RANKING.out.tf_ranking.map { _meta, ranking -> ranking }.collect(),
         RANKING.out.tg_ranking.map { _meta, ranking -> ranking }.collect(),
         COUNTS.out.differential.map { _meta, differential -> differential }.collect(),
@@ -185,7 +189,9 @@ workflow TFACTIVITY {
         PEAKS.out.affinity_sum.map { _meta, affinity_sum -> affinity_sum }.collect(),
         PEAKS.out.affinity_ratio.map { _meta, affinity_ratio -> affinity_ratio }.collect(),
         PEAKS.out.affinities.map { _meta, affinities -> affinities }.collect(),
+        PEAKS.out.candidate_regions.map { _meta, candidate_regions -> candidate_regions }.collect(),
         DYNAMITE.out.all_coefficients.map { _meta, all_coefficients -> all_coefficients }.collect(),
+        ch_fimo_binding_sites.map { _meta, fimo_binding_sites -> fimo_binding_sites }.collect(),
         ch_versions
     )
 

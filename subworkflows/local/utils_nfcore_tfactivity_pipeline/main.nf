@@ -210,7 +210,6 @@ def toolCitationText() {
 
 def toolBibliographyText() {
     def references = [
-            // Pipeline tools (from CITATIONS.md)
             "<li>Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol. 2014;15:550. doi:10.1186/s13059-014-0550-8.</li>",
             "<li>Hecker D, Behjati Ardakani F, Karollus A, Gagneur J, Schulz MH. The adapted Activity-By-Contact model for enhancer–gene assignment and its application to single-cell data (STARE). Bioinformatics. 2023;39(2). doi:10.1093/bioinformatics/btad062.</li>",
             "<li>Quinlan AR, Hall IM. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics. 2010;26(6):841-842. doi:10.1093/bioinformatics/btq033.</li>",
@@ -229,11 +228,11 @@ def toolBibliographyText() {
     return reference_text
 }
 
-def methodsDescriptionText(mqc_methods_yaml) {
+def methodsDescriptionText() {
     // Convert  to a named map so can be used as with familiar NXF ${workflow} variable syntax in the MultiQC YML file
     def meta = [:]
-    meta.workflow = workflow.toMap()
-    meta["manifest_map"] = workflow.manifest.toMap()
+   //  meta.workflow = workflow.toMap()
+   meta["manifest_map"] = workflow.manifest.toMap()
 
     // Pipeline DOI
     if (meta.manifest_map.doi) {
@@ -254,12 +253,8 @@ def methodsDescriptionText(mqc_methods_yaml) {
     meta["tool_bibliography"] = toolBibliographyText()
 
 
-    def methods_text = mqc_methods_yaml.text
-
-    def engine =  new groovy.text.SimpleTemplateEngine()
-    def description_html = engine.createTemplate(methods_text).make(meta)
-
-    return description_html.toString()
+    // Serialize to JSON so downstream can store it directly
+    return groovy.json.JsonOutput.toJson(meta)
 }
 
 def paramsSummaryToYAML(summary_params) {
