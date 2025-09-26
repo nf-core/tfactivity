@@ -4,6 +4,8 @@ nextflow_workflow {
     script "subworkflows/local/fimo/main.nf"
     workflow "FIMO"
 
+    config "./nextflow.config"
+
     setup {
         run("PREPARE_GENOME") {
             script "../../prepare_genome"
