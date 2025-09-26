@@ -4,7 +4,7 @@ include { RUN_FIMO                              } from "../../../modules/local/f
 include { GAWK as CONCAT_FILTER_GFF             } from "../../../modules/nf-core/gawk"
 include { GNU_SORT as SORT_GFF                  } from "../../../modules/nf-core/gnu/sort"
 include { CSVTK_CONCAT as CONCAT_FILTER_TSV     } from "../../../modules/nf-core/csvtk/concat"
-include { CSVTK_SORT as SORT_TSV                } from "../../../modules/local/csvtk/sort"
+include { CSVTK_SORT as SORT_TSV                } from '../../../modules/nf-core/csvtk/sort'
 
 workflow FIMO {
     take:
