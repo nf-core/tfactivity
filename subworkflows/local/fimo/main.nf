@@ -56,9 +56,6 @@ workflow FIMO {
     SORT_GFF(CONCAT_FILTER_GFF.out.output)
     ch_versions = ch_versions.mix(SORT_GFF.out.versions)
 
-    // AWK mit RUN_FIMO.out.tsv -> CONCAT_FILTER_TSV (entferne comments und empty lines, aber behalte header 1x)
-    // Sort TSV basierend auf 1, 3, 4, 5 mit csvtk
-
     // Concat per condition_assay and remove comments and empty lines
     CONCAT_FILTER_TSV(
         RUN_FIMO.out.tsv.map { meta, tsv -> [[id: meta.condition + '_' + meta.assay], tsv] }.groupTuple(),
