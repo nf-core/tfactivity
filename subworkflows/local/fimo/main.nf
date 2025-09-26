@@ -1,7 +1,6 @@
 include { FILTER_MOTIFS                         } from "../../../modules/local/fimo/filter_motifs"
 include { BEDTOOLS_GETFASTA as EXTRACT_SEQUENCE } from "../../../modules/nf-core/bedtools/getfasta"
 include { RUN_FIMO                              } from "../../../modules/local/fimo/run_fimo"
-include { COMBINE_RESULTS                       } from "../../../modules/local/fimo/combine_results"
 include { GAWK as CONCAT_FILTER_GFF             } from "../../../modules/nf-core/gawk"
 include { GNU_SORT as SORT_GFF                  } from "../../../modules/nf-core/gnu/sort"
 include { CSVTK_CONCAT as CONCAT_FILTER_TSV     } from "../../../modules/nf-core/csvtk/concat"
