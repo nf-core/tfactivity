@@ -60,7 +60,7 @@
                     "gawk": "5.3.0"
                 },
                 "CONCAT_FILTER_TSV": {
-                    "csvtk": "0.31.0"
+                    "gawk": "5.3.0"
                 },
                 "CONSTRUCT_TSS": {
                     "bedtools": "2.31.1"
@@ -3977,7 +3977,7 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.2"
         },
-        "timestamp": "2025-09-27T19:58:46.021387303"
+        "timestamp": "2025-09-28T13:58:48.753999494"
     },
     "Should run with both bed and bam input": {
         "content": [
@@ -4046,7 +4046,7 @@
                     "gawk": "5.3.0"
                 },
                 "CONCAT_FILTER_TSV": {
-                    "csvtk": "0.31.0"
+                    "gawk": "5.3.0"
                 },
                 "CONSTRUCT_TSS": {
                     "bedtools": "2.31.1"
@@ -10106,6 +10106,6 @@
             "nf-test": "0.9.2",
             "nextflow": "25.04.2"
         },
-        "timestamp": "2025-09-27T19:53:55.900985292"
+        "timestamp": "2025-09-28T13:53:09.941876368"
     }
 }
