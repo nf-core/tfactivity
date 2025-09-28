@@ -3,7 +3,7 @@ include { BEDTOOLS_GETFASTA as EXTRACT_SEQUENCE } from "../../../modules/nf-core
 include { RUN_FIMO                              } from "../../../modules/local/fimo/run_fimo"
 include { GAWK as CONCAT_FILTER_GFF             } from "../../../modules/nf-core/gawk"
 include { GNU_SORT as SORT_GFF                  } from "../../../modules/nf-core/gnu/sort"
-include { CSVTK_CONCAT as CONCAT_FILTER_TSV     } from "../../../modules/nf-core/csvtk/concat"
+include { GAWK as CONCAT_FILTER_TSV             } from "../../../modules/nf-core/gawk"
 include { CSVTK_SORT as SORT_TSV                } from '../../../modules/nf-core/csvtk/sort'
 
 workflow FIMO {
@@ -59,12 +59,12 @@ workflow FIMO {
     // Concat per condition_assay and remove comments and empty lines
     CONCAT_FILTER_TSV(
         RUN_FIMO.out.tsv.map { meta, tsv -> [[id: meta.condition + '_' + meta.assay], tsv] }.groupTuple(),
-        'tsv',
-        'tsv'
+        [],
+        []
     )
     ch_versions = ch_versions.mix(CONCAT_FILTER_TSV.out.versions)
 
-    SORT_TSV(CONCAT_FILTER_TSV.out.csv, 'tsv', 'tsv')
+    SORT_TSV(CONCAT_FILTER_TSV.out.output, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(SORT_TSV.out.versions)
 
     emit:
