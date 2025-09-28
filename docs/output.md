@@ -315,7 +315,7 @@ FIMO analysis is particularly valuable for users who need detailed binding site 
       - `*.tsv`, `*.gff`, `*.html`, `*.xml`, `*cisml.xml`, `*best_site.narrowPeak`.
   - `04_combined_results/`
     - `<condition>_<assay>.tsv`
-    - `<condition>_<assay>.gff`: Collated FIMO hits across inputs (COMBINE_RESULTS).
+    - `<condition>_<assay>.gff`: Collated FIMO hits across inputs.
 
 </details>
 

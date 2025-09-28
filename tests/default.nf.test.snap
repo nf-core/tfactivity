@@ -1,7 +1,7 @@
 {
     "Should run with bed only": {
         "content": [
-            159,
+            174,
             {
                 "AFFINITY_MEAN": {
                     "numpy": "2.2.6",
@@ -36,10 +36,6 @@
                     "pandas": "2.3.0",
                     "python": "3.13.3"
                 },
-                "COMBINE_RESULTS": {
-                    "pandas": "2.3.0",
-                    "python": "3.13.3"
-                },
                 "COMBINE_TFS_ACROSS_ASSAYS": {
                     "numpy": "2.2.6",
                     "pandas": "2.3.0",
@@ -59,6 +55,12 @@
                     "numpy": "2.2.6",
                     "pandas": "2.3.0",
                     "python": "3.13.3"
+                },
+                "CONCAT_FILTER_GFF": {
+                    "gawk": "5.3.0"
+                },
+                "CONCAT_FILTER_TSV": {
+                    "gawk": "5.3.0"
                 },
                 "CONSTRUCT_TSS": {
                     "bedtools": "2.31.1"
@@ -147,8 +149,14 @@
                 "SORT_CHROM_SIZES": {
                     "coreutils": 9.3
                 },
+                "SORT_GFF": {
+                    "coreutils": 9.3
+                },
                 "SORT_PEAKS": {
                     "bedtools": "2.31.1"
+                },
+                "SORT_TSV": {
+                    "csvtk": "0.31.0"
                 },
                 "STARE": {
                     "stare": "1.0.5"
@@ -579,16 +587,18 @@
                 "06_fimo/03_fimo/p6_H3K4me3_R1_MA1988.2/p6_H3K4me3_R1_MA1988.2_best_site.narrowPeak",
                 "06_fimo/03_fimo/p6_H3K4me3_R1_MA1988.2/p6_H3K4me3_R1_MA1988.2_cisml.xml",
                 "06_fimo/04_combined_results",
-                "06_fimo/04_combined_results/L10_H3K27ac.gff",
-                "06_fimo/04_combined_results/L10_H3K27ac.tsv",
-                "06_fimo/04_combined_results/L1_H3K27ac.gff",
-                "06_fimo/04_combined_results/L1_H3K27ac.tsv",
-                "06_fimo/04_combined_results/L1_H3K4me3.gff",
-                "06_fimo/04_combined_results/L1_H3K4me3.tsv",
-                "06_fimo/04_combined_results/p6_H3K27ac.gff",
-                "06_fimo/04_combined_results/p6_H3K27ac.tsv",
-                "06_fimo/04_combined_results/p6_H3K4me3.gff",
-                "06_fimo/04_combined_results/p6_H3K4me3.tsv",
+                "06_fimo/04_combined_results/gff",
+                "06_fimo/04_combined_results/gff/L10_H3K27ac_sorted.gff",
+                "06_fimo/04_combined_results/gff/L1_H3K27ac_sorted.gff",
+                "06_fimo/04_combined_results/gff/L1_H3K4me3_sorted.gff",
+                "06_fimo/04_combined_results/gff/p6_H3K27ac_sorted.gff",
+                "06_fimo/04_combined_results/gff/p6_H3K4me3_sorted.gff",
+                "06_fimo/04_combined_results/tsv",
+                "06_fimo/04_combined_results/tsv/L10_H3K27ac.tsv",
+                "06_fimo/04_combined_results/tsv/L1_H3K27ac.tsv",
+                "06_fimo/04_combined_results/tsv/L1_H3K4me3.tsv",
+                "06_fimo/04_combined_results/tsv/p6_H3K27ac.tsv",
+                "06_fimo/04_combined_results/tsv/p6_H3K4me3.tsv",
                 "07_sneep",
                 "07_sneep/01_filtered_scales_motifs",
                 "07_sneep/01_filtered_scales_motifs/filtered_sneep_scale_mouse_218.txt",
@@ -3929,13 +3939,23 @@
                 "p6_H3K4me3_R1_MA1988.2.xml:md5,1529c4d0e58a5160aa1697e11bf2d693",
                 "p6_H3K4me3_R1_MA1988.2_best_site.narrowPeak:md5,5ea161742b28e693b9fa24019e42456f",
                 "p6_H3K4me3_R1_MA1988.2_cisml.xml:md5,2d8bac35c0788120722a7c0944c932d3",
+                "L10_H3K27ac_sorted.gff:md5,c8c0bc47bc2ec152b236a1b0a635903c",
+                "L1_H3K27ac_sorted.gff:md5,d25c5f74a6a0fbac8bdd281e4f64ba5d",
+                "L1_H3K4me3_sorted.gff:md5,a1c89f1e04912c6fba7f299bd8da8e66",
+                "p6_H3K27ac_sorted.gff:md5,64faf57c18abd66238cd996b9374733d",
+                "p6_H3K4me3_sorted.gff:md5,bac538bb36426400a780c130d0416b34",
+                "L10_H3K27ac.tsv:md5,63b8fb8c769c5b416c9ae6738ad260a1",
+                "L1_H3K27ac.tsv:md5,12883732469b5ef8f0e566cf88e8360e",
+                "L1_H3K4me3.tsv:md5,234fdab4f7c07b423f8f022b6c3d0d8a",
+                "p6_H3K27ac.tsv:md5,d75f51f8af229ad6082a3bbe38f94f14",
+                "p6_H3K4me3.tsv:md5,b1004c2222c3b0e75062dbb0083d46eb",
                 "filtered_sneep_scale_mouse_218.txt:md5,26199aaf8103de723163c03bfa8b88b2",
                 "filtered_sneep_transfac_mouse_218.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "L10_H3K27ac.bed:md5,90803f84c9a8f0d9a71358ab4ee837ab",
-                "L1_H3K27ac.bed:md5,085d04b69d7901d6654f9fd55624a64c",
-                "L1_H3K4me3.bed:md5,e7ad7fac4dde8e85f8a0bea89f026b59",
-                "p6_H3K27ac.bed:md5,d037c0747dcf5cb0bf8dd7895e18247c",
-                "p6_H3K4me3.bed:md5,e2317934928c0dd970ce33348c4fd949",
+                "L10_H3K27ac.bed:md5,4e48a06e991fdd12712c25823eebc5be",
+                "L1_H3K27ac.bed:md5,50e217da5309f9ce6077eca37e3fe719",
+                "L1_H3K4me3.bed:md5,7130db5773aee77f7e731e4bdd6684d5",
+                "p6_H3K27ac.bed:md5,945f29a18cdb6d623fba2cd4ab434fd0",
+                "p6_H3K4me3.bed:md5,fe6ec84a126fc396c334b3805130e9d5",
                 "L10_H3K27ac_sorted.bed:md5,4e48a06e991fdd12712c25823eebc5be",
                 "L1_H3K27ac_sorted.bed:md5,50e217da5309f9ce6077eca37e3fe719",
                 "L1_H3K4me3_sorted.bed:md5,7130db5773aee77f7e731e4bdd6684d5",
@@ -3955,13 +3975,13 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.7"
+            "nextflow": "25.04.2"
         },
-        "timestamp": "2025-09-24T20:00:51.401101759"
+        "timestamp": "2025-09-28T13:58:48.753999494"
     },
     "Should run with both bed and bam input": {
         "content": [
-            363,
+            396,
             {
                 "AFFINITY_MEAN": {
                     "numpy": "2.2.6",
@@ -3999,10 +4019,6 @@
                     "pandas": "2.3.0",
                     "python": "3.13.3"
                 },
-                "COMBINE_RESULTS": {
-                    "pandas": "2.3.0",
-                    "python": "3.13.3"
-                },
                 "COMBINE_TFS_ACROSS_ASSAYS": {
                     "numpy": "2.2.6",
                     "pandas": "2.3.0",
@@ -4025,6 +4041,12 @@
                 },
                 "CONCAT_AND_SORT": {
                     "coreutils": 9.3
+                },
+                "CONCAT_FILTER_GFF": {
+                    "gawk": "5.3.0"
+                },
+                "CONCAT_FILTER_TSV": {
+                    "gawk": "5.3.0"
                 },
                 "CONSTRUCT_TSS": {
                     "bedtools": "2.31.1"
@@ -4132,8 +4154,14 @@
                 "SORT_CHROM_SIZES": {
                     "coreutils": 9.3
                 },
+                "SORT_GFF": {
+                    "coreutils": 9.3
+                },
                 "SORT_PEAKS": {
                     "bedtools": "2.31.1"
+                },
+                "SORT_TSV": {
+                    "csvtk": "0.31.0"
                 },
                 "STARE": {
                     "stare": "1.0.5"
@@ -5111,28 +5139,30 @@
                 "06_fimo/03_fimo/p6_chromHMM_promoters_MA1988.2/p6_chromHMM_promoters_MA1988.2_best_site.narrowPeak",
                 "06_fimo/03_fimo/p6_chromHMM_promoters_MA1988.2/p6_chromHMM_promoters_MA1988.2_cisml.xml",
                 "06_fimo/04_combined_results",
-                "06_fimo/04_combined_results/L10_H3K27ac.gff",
-                "06_fimo/04_combined_results/L10_H3K27ac.tsv",
-                "06_fimo/04_combined_results/L10_chromHMM_enhancers.gff",
-                "06_fimo/04_combined_results/L10_chromHMM_enhancers.tsv",
-                "06_fimo/04_combined_results/L10_chromHMM_promoters.gff",
-                "06_fimo/04_combined_results/L10_chromHMM_promoters.tsv",
-                "06_fimo/04_combined_results/L1_H3K27ac.gff",
-                "06_fimo/04_combined_results/L1_H3K27ac.tsv",
-                "06_fimo/04_combined_results/L1_H3K4me3.gff",
-                "06_fimo/04_combined_results/L1_H3K4me3.tsv",
-                "06_fimo/04_combined_results/L1_chromHMM_enhancers.gff",
-                "06_fimo/04_combined_results/L1_chromHMM_enhancers.tsv",
-                "06_fimo/04_combined_results/L1_chromHMM_promoters.gff",
-                "06_fimo/04_combined_results/L1_chromHMM_promoters.tsv",
-                "06_fimo/04_combined_results/p6_H3K27ac.gff",
-                "06_fimo/04_combined_results/p6_H3K27ac.tsv",
-                "06_fimo/04_combined_results/p6_H3K4me3.gff",
-                "06_fimo/04_combined_results/p6_H3K4me3.tsv",
-                "06_fimo/04_combined_results/p6_chromHMM_enhancers.gff",
-                "06_fimo/04_combined_results/p6_chromHMM_enhancers.tsv",
-                "06_fimo/04_combined_results/p6_chromHMM_promoters.gff",
-                "06_fimo/04_combined_results/p6_chromHMM_promoters.tsv",
+                "06_fimo/04_combined_results/gff",
+                "06_fimo/04_combined_results/gff/L10_H3K27ac_sorted.gff",
+                "06_fimo/04_combined_results/gff/L10_chromHMM_enhancers_sorted.gff",
+                "06_fimo/04_combined_results/gff/L10_chromHMM_promoters_sorted.gff",
+                "06_fimo/04_combined_results/gff/L1_H3K27ac_sorted.gff",
+                "06_fimo/04_combined_results/gff/L1_H3K4me3_sorted.gff",
+                "06_fimo/04_combined_results/gff/L1_chromHMM_enhancers_sorted.gff",
+                "06_fimo/04_combined_results/gff/L1_chromHMM_promoters_sorted.gff",
+                "06_fimo/04_combined_results/gff/p6_H3K27ac_sorted.gff",
+                "06_fimo/04_combined_results/gff/p6_H3K4me3_sorted.gff",
+                "06_fimo/04_combined_results/gff/p6_chromHMM_enhancers_sorted.gff",
+                "06_fimo/04_combined_results/gff/p6_chromHMM_promoters_sorted.gff",
+                "06_fimo/04_combined_results/tsv",
+                "06_fimo/04_combined_results/tsv/L10_H3K27ac.tsv",
+                "06_fimo/04_combined_results/tsv/L10_chromHMM_enhancers.tsv",
+                "06_fimo/04_combined_results/tsv/L10_chromHMM_promoters.tsv",
+                "06_fimo/04_combined_results/tsv/L1_H3K27ac.tsv",
+                "06_fimo/04_combined_results/tsv/L1_H3K4me3.tsv",
+                "06_fimo/04_combined_results/tsv/L1_chromHMM_enhancers.tsv",
+                "06_fimo/04_combined_results/tsv/L1_chromHMM_promoters.tsv",
+                "06_fimo/04_combined_results/tsv/p6_H3K27ac.tsv",
+                "06_fimo/04_combined_results/tsv/p6_H3K4me3.tsv",
+                "06_fimo/04_combined_results/tsv/p6_chromHMM_enhancers.tsv",
+                "06_fimo/04_combined_results/tsv/p6_chromHMM_promoters.tsv",
                 "07_sneep",
                 "07_sneep/01_filtered_scales_motifs",
                 "07_sneep/01_filtered_scales_motifs/filtered_sneep_scale_mouse_218.txt",
@@ -10002,19 +10032,41 @@
                 "p6_chromHMM_promoters_MA1988.2.xml:md5,4315461c1c9ee2c58e1f8f38aaf05d45",
                 "p6_chromHMM_promoters_MA1988.2_best_site.narrowPeak:md5,564e4c493a12d3ad66e15371fdc33a3f",
                 "p6_chromHMM_promoters_MA1988.2_cisml.xml:md5,2ed0bb79340763d6f5ce80eda16e0911",
+                "L10_H3K27ac_sorted.gff:md5,2ed2f4a21f118db68ac665d1eba872e8",
+                "L10_chromHMM_enhancers_sorted.gff:md5,647e9c9fe0151160a9ee394d9d219d6f",
+                "L10_chromHMM_promoters_sorted.gff:md5,633c7db4f13b7e1d1d841a6bab1ca0de",
+                "L1_H3K27ac_sorted.gff:md5,c5c8a1042686e8245560e512d95ca01f",
+                "L1_H3K4me3_sorted.gff:md5,05258d1704d0947047f4bf6588f1a3c8",
+                "L1_chromHMM_enhancers_sorted.gff:md5,a4a713a7841fde5a75da35807db11041",
+                "L1_chromHMM_promoters_sorted.gff:md5,e521c30fedcf1b5e7b826d0280215f89",
+                "p6_H3K27ac_sorted.gff:md5,6e622c02c8a87621b75c0c1d649fa92b",
+                "p6_H3K4me3_sorted.gff:md5,908e9f5ff80b4dc44f45c0878779fdcc",
+                "p6_chromHMM_enhancers_sorted.gff:md5,ad9b13a4e1d1aa21dc4fd0c0ab0dd112",
+                "p6_chromHMM_promoters_sorted.gff:md5,bbfca43809136df8fa5d1d35509198ac",
+                "L10_H3K27ac.tsv:md5,24d653ea709b789434d3ed499f3f18a1",
+                "L10_chromHMM_enhancers.tsv:md5,ab2e7f37b34e9e89f28df631612d5060",
+                "L10_chromHMM_promoters.tsv:md5,e54088d7d9784893025cd0d28ab0d6a6",
+                "L1_H3K27ac.tsv:md5,037bed292f657dae6193905ae2b344c7",
+                "L1_H3K4me3.tsv:md5,60d5e4285ee3b994723179a5e0e2b007",
+                "L1_chromHMM_enhancers.tsv:md5,7819fa7d9f1b41d7d5b82bee9719475c",
+                "L1_chromHMM_promoters.tsv:md5,19dbefd418f29956c0c4554d4899f76b",
+                "p6_H3K27ac.tsv:md5,e2990bf40dcc5090097cca11dde0dba4",
+                "p6_H3K4me3.tsv:md5,264817038ac5cd1062b224364c96a451",
+                "p6_chromHMM_enhancers.tsv:md5,38f7bdbc36fbe617905a88934d402630",
+                "p6_chromHMM_promoters.tsv:md5,95a3cfa56a471160f6d1d2b35ddd5362",
                 "filtered_sneep_scale_mouse_218.txt:md5,26199aaf8103de723163c03bfa8b88b2",
                 "filtered_sneep_transfac_mouse_218.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "L10_H3K27ac.bed:md5,5fead49857235290629dcfab266cd2ec",
-                "L10_chromHMM_enhancers.bed:md5,a0c9c2e7870ef43eba19c71c6081197b",
-                "L10_chromHMM_promoters.bed:md5,f30b4958c32c83366bdee011f1c4e5d0",
-                "L1_H3K27ac.bed:md5,4c1fb98d7e3760d738fb993006ec4f53",
-                "L1_H3K4me3.bed:md5,69554cc579fbd03815bed5bce6bbb71a",
-                "L1_chromHMM_enhancers.bed:md5,c295ecf045028da026583d91b1385972",
-                "L1_chromHMM_promoters.bed:md5,5211d15f728dabaa21191b144e0c68d4",
-                "p6_H3K27ac.bed:md5,60841180cde22918e8aa0f74139cc886",
-                "p6_H3K4me3.bed:md5,934fd2b020187c07c01009d11975914d",
-                "p6_chromHMM_enhancers.bed:md5,0f083c9fb262495d8eb897560268e94a",
-                "p6_chromHMM_promoters.bed:md5,1ef7da002c3df13cb00241d787f66014",
+                "L10_H3K27ac.bed:md5,59f68dd95564876b3fe43e9af1195bfa",
+                "L10_chromHMM_enhancers.bed:md5,67117840a589811ee4d2c3c1e3f1f3dc",
+                "L10_chromHMM_promoters.bed:md5,9a6f196230638208efbe1b6e44ee878c",
+                "L1_H3K27ac.bed:md5,4410dca268ad4a46e692c7a08ff99272",
+                "L1_H3K4me3.bed:md5,77e128df3e063557e57af543e755d92b",
+                "L1_chromHMM_enhancers.bed:md5,87b2074de0cc86239bb67c8ae83c1f6a",
+                "L1_chromHMM_promoters.bed:md5,5844d379f9ccbdb5c0fc7c5275eb4801",
+                "p6_H3K27ac.bed:md5,c03e85775f667d42bc928eb8f1106d77",
+                "p6_H3K4me3.bed:md5,1d90f0ea49a21f93e760b4c71cf916b3",
+                "p6_chromHMM_enhancers.bed:md5,00949fadf97f644cb012a7a1dbc6da52",
+                "p6_chromHMM_promoters.bed:md5,c375e4dab2c4a7d65e8a759af378ea53",
                 "L10_H3K27ac_sorted.bed:md5,59f68dd95564876b3fe43e9af1195bfa",
                 "L10_chromHMM_enhancers_sorted.bed:md5,67117840a589811ee4d2c3c1e3f1f3dc",
                 "L10_chromHMM_promoters_sorted.bed:md5,9a6f196230638208efbe1b6e44ee878c",
@@ -10052,8 +10104,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.7"
+            "nextflow": "25.04.2"
         },
-        "timestamp": "2025-09-24T19:57:42.531689238"
+        "timestamp": "2025-09-28T13:53:09.941876368"
     }
 }
