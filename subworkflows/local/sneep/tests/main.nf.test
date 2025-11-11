@@ -27,7 +27,7 @@ nextflow_workflow {
                 input[1] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
                 input[2] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
                 input[3] = PREPARE_GENOME.out.fasta
-                input[4] = Channel.value([
+                input[4] = channel.value([
                     [ id: 'test' ],
                     file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_promoters.gff', checkIfExists: true)
                 ])
@@ -69,7 +69,7 @@ nextflow_workflow {
                 input[1] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
                 input[2] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
                 input[3] = PREPARE_GENOME.out.fasta
-                input[4] = Channel.value([
+                input[4] = channel.value([
                     [ id: 'test' ],
                     file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_promoters.gff', checkIfExists: true)
                 ])

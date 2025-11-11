@@ -18,7 +18,7 @@ workflow ROSE {
     chrom_sizes
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     // Convert GTF to BED format and collapse regions to a single base pair at their start positions
     FILTER_CONVERT_GTF(ch_gtf, [], false)
@@ -44,7 +44,7 @@ workflow ROSE {
         promoters: meta.assay.contains('promoters')
     }
 
-    ch_filter_predictions = Channel.empty()
+    ch_filter_predictions = channel.empty()
         .mix(
             predicted_regions.enhancers.combine(CONSTRUCT_TSS.out.bed),
             predicted_regions.promoters.combine(INVERT_TSS.out.bed),

@@ -13,10 +13,10 @@ workflow MOTIFS {
     remove_duplicates
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     if (motifs) {
-        ch_motifs = Channel.value(motifs)
+        ch_motifs = channel.value(motifs)
     }
     else {
         if (taxon_id) {

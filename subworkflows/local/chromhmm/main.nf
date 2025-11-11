@@ -14,7 +14,7 @@ workflow CHROMHMM {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     ch_files = ch_samplesheet_bam.map{ _meta, signal, control -> [signal, control]}.flatten().filter { f -> f != null }
 
