@@ -21,7 +21,7 @@ nextflow_process {
         when {
             process {
                 """
-                ch_samplesheet = channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .map { row ->
                         [
@@ -66,7 +66,7 @@ nextflow_process {
         when {
             process {
                 """
-                ch_samplesheet = channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .map { row ->
                         [
@@ -109,7 +109,7 @@ nextflow_process {
         when {
             process {
                 """
-                ch_samplesheet = channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .map { row ->
                         [

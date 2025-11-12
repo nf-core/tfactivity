@@ -14,7 +14,7 @@ workflow SNEEP {
     motif_regions
 
     main:
-    ch_versions = channel.empty()
+    ch_versions = Channel.empty()
 
     // Filter transfac and scale file for motifs found with FIMO
     FILTER_SCALES_MOTIFS(

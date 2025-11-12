@@ -23,7 +23,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = channel.of(
+                input[0] = Channel.of(
                     [
                         [id: 'p6_chromHMM_enhancers', condition: 'p6', assay: 'chromHMM_enhancers'],
                         file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/enhancer/p6.bed', checkIfExists: true)
@@ -62,7 +62,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = channel.of(
+                input[0] = Channel.of(
                     [
                         [id: 'p6_chromHMM_enhancers', condition: 'p6', assay: 'chromHMM_enhancers'],
                         file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/enhancer/p6.bed', checkIfExists: true)

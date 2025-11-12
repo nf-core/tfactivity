@@ -51,14 +51,14 @@ workflow NFCORE_TFACTIVITY {
 
     main:
 
-    ch_versions = channel.empty()
+    ch_versions = Channel.empty()
 
     fasta = file(params.fasta, checkIfExists: true)
     gtf = file(params.gtf, checkIfExists: true)
 
-    ch_blacklist = channel.value(params.blacklist ? file(params.blacklist, checkIfExists: true) : [])
+    ch_blacklist = Channel.value(params.blacklist ? file(params.blacklist, checkIfExists: true) : [])
     ch_motifs = params.motifs ? file(params.motifs, checkIfExists: true) : null
-    ch_counts = channel.value(file(params.counts, checkIfExists: true))
+    ch_counts = Channel.value(file(params.counts, checkIfExists: true))
 
     snps = params.snps ? file(params.snps, checkIfExists: true) : null
     sneep_scale_file = params.sneep_scale_file ? file(params.sneep_scale_file, checkIfExists: true) : null
@@ -101,7 +101,7 @@ workflow NFCORE_TFACTIVITY {
         params.duplicate_motifs,
         ch_counts,
         ch_extra_counts,
-        channel.value([[id: "design"], file(params.counts_design, checkIfExists: true)]),
+        Channel.value([[id: "design"], file(params.counts_design, checkIfExists: true)]),
         params.min_count,
         params.min_tpm,
         params.expression_aggregation,

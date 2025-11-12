@@ -59,7 +59,7 @@ workflow TFACTIVITY {
 
     main:
 
-    ch_versions = channel.empty()
+    ch_versions = Channel.empty()
 
     ch_conditions = ch_samplesheet
         .map { meta, _peak_file -> meta.condition }
@@ -133,7 +133,7 @@ workflow TFACTIVITY {
     )
     ch_versions = ch_versions.mix(RANKING.out.versions)
 
-    ch_fimo_binding_sites = channel.empty()
+    ch_fimo_binding_sites = Channel.empty()
 
     if (!params.skip_fimo) {
         if (duplicate_motifs == "merge") {

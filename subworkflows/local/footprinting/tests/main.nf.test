@@ -11,7 +11,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = channel.from([
+                input[0] = Channel.from([
                     [[id: 'L1_H3K27ac_R1', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
                     [[id: 'L1_H3K27ac_R3', footprinting: false, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
                     [[id: 'L1_H3K4me3_R2', footprinting: true, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],
@@ -38,7 +38,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = channel.from([
+                input[0] = Channel.from([
                     [[id: 'L1_H3K27ac_R1', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
                     [[id: 'L1_H3K27ac_R3', footprinting: false, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
                     [[id: 'L1_H3K4me3_R2', footprinting: true, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],

@@ -15,7 +15,7 @@ workflow FIMO {
     motifs_meme
 
     main:
-    ch_versions = channel.empty()
+    ch_versions = Channel.empty()
 
     FILTER_MOTIFS(tf_ranking, motifs_meme)
     ch_versions = ch_versions.mix(FILTER_MOTIFS.out.versions)

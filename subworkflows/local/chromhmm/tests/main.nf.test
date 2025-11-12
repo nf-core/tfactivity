@@ -21,7 +21,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                ch_samplesheet = channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .filter { row -> row.condition == "L10" || row.condition == "p6" }
                     .filter { row -> row.assay.startsWith("H3") }
@@ -60,7 +60,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                ch_samplesheet = channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .filter { row -> row.condition == "L10" || row.condition == "p6" }
                     .filter { row -> row.assay.startsWith("H3") }
@@ -98,7 +98,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                ch_samplesheet = channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                ch_samplesheet = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .filter { row -> row.condition == "L10" || row.condition == "p6" }
                     .filter { row -> row.assay.startsWith("H3") }

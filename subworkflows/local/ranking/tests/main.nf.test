@@ -9,15 +9,15 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = channel.value([
+                input[0] = Channel.value([
                     [id: "test", condition1: "L1", condition2: "L10"],
                     file(params.pipelines_testdata_base_path + '/intermediates/deseq2/L1:L10.deseq2.results.tsv', checkIfExists: true)
                 ])
-                input[1] = channel.value([
+                input[1] = Channel.value([
                     [id: "test", condition1: "L1", condition2: "L10", assay: "chromHMM_promoters"],
                     file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters_sum.tsv', checkIfExists: true)
                 ])
-                input[2] = channel.value([
+                input[2] = Channel.value([
                     [id: "test", condition1: "L1", condition2: "L10", assay: "chromHMM_promoters"],
                     file(params.pipelines_testdata_base_path + '/intermediates/dynamite/L1:L10_chromHMM_promoters.filtered.tsv', checkIfExists: true)
                 ])
@@ -41,15 +41,15 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = channel.value([
+                input[0] = Channel.value([
                     [id: "test", condition1: "L1", condition2: "L10"],
                     file(params.pipelines_testdata_base_path + '/intermediates/deseq2/L1:L10.deseq2.results.tsv', checkIfExists: true)
                 ])
-                input[1] = channel.value([
+                input[1] = Channel.value([
                     [id: "test", condition1: "L1", condition2: "L10", assay: "chromHMM_promoters"],
                     file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters_sum.tsv', checkIfExists: true)
                 ])
-                input[2] = channel.value([
+                input[2] = Channel.value([
                     [id: "test", condition1: "L1", condition2: "L10", assay: "chromHMM_promoters"],
                     file(params.pipelines_testdata_base_path + '/intermediates/dynamite/L1:L10_chromHMM_promoters.filtered.tsv', checkIfExists: true)
                 ])

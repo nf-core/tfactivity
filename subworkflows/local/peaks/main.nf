@@ -34,7 +34,7 @@ workflow PEAKS {
 
     main:
 
-    ch_versions = channel.empty()
+    ch_versions = Channel.empty()
 
     CLEAN_BED(ch_peaks, [], false)
     ch_peaks = CLEAN_BED.out.output
@@ -55,14 +55,14 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
-    ch_chromhmm_out = channel.empty()
+    ch_chromhmm_out = Channel.empty()
     if (!params.skip_chromhmm) {
         CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_enhancer_marks, chromhmm_promoter_marks)
         ch_chromhmm_out = ch_chromhmm_out.mix(CHROMHMM.out.enhancers.mix(CHROMHMM.out.promoters))
         ch_versions = ch_versions.mix(CHROMHMM.out.versions)
     }
 
-    ch_rose_out = channel.empty()
+    ch_rose_out = Channel.empty()
     if (!params.skip_rose) {
         if (params.skip_chromhmm) {
             log.warn("Rose can only be run if chromhmm is also run. If you want to run rose, please set --skip_chromhmm to false.")
