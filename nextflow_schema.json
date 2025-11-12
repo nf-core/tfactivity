@@ -270,6 +270,21 @@
                 }
             }
         },
+        "fimo_options": {
+            "title": "FIMO options",
+            "type": "object",
+            "fa_icon": "fas fa-search",
+            "description": "Options for FIMO (Find Individual Motif Occurrences) analysis.",
+            "properties": {
+                "fimo_qvalue_threshold": {
+                    "type": "number",
+                    "default": 0.05,
+                    "description": "Q-value threshold for filtering significant FIMO results.",
+                    "fa_icon": "fas fa-filter",
+                    "help_text": "Q-value threshold for filtering significant FIMO results. Only motif occurrences with q-values below this threshold will be kept. The default value is 0.05."
+                }
+            }
+        },
         "dynamite_options": {
             "title": "DYNAMITE options",
             "type": "object",
@@ -581,6 +596,9 @@
         },
         {
             "$ref": "#/$defs/optional_steps"
+        },
+        {
+            "$ref": "#/$defs/fimo_options"
         },
         {
             "$ref": "#/$defs/dynamite_options"

@@ -147,7 +147,7 @@ workflow TFACTIVITY {
             MOTIFS.out.meme,
         )
         ch_versions = ch_versions.mix(FIMO.out.versions)
-        ch_fimo_binding_sites = FIMO.out.tsv
+        ch_fimo_binding_sites = FIMO.out.tsv_significant
     }
 
     if (!params.skip_sneep) {

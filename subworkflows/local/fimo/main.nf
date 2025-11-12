@@ -5,6 +5,7 @@ include { GAWK as CONCAT_FILTER_GFF             } from "../../../modules/nf-core
 include { GNU_SORT as SORT_GFF                  } from "../../../modules/nf-core/gnu/sort"
 include { GAWK as CONCAT_FILTER_TSV             } from "../../../modules/nf-core/gawk"
 include { CSVTK_SORT as SORT_TSV                } from '../../../modules/nf-core/csvtk/sort'
+include { GAWK as SELECT_SIGNIFICANT            } from "../../../modules/nf-core/gawk"
 
 workflow FIMO {
     take:
@@ -67,8 +68,12 @@ workflow FIMO {
     SORT_TSV(CONCAT_FILTER_TSV.out.output, 'tsv', 'tsv')
     ch_versions = ch_versions.mix(SORT_TSV.out.versions)
 
+    SELECT_SIGNIFICANT(SORT_TSV.out.sorted, [], false)
+    ch_versions = ch_versions.mix(SELECT_SIGNIFICANT.out.versions)
+
     emit:
-    gff      = SORT_GFF.out.sorted
-    tsv      = SORT_TSV.out.sorted
-    versions = ch_versions
+    gff             = SORT_GFF.out.sorted
+    tsv             = SORT_TSV.out.sorted
+    tsv_significant = SELECT_SIGNIFICANT.out.output
+    versions        = ch_versions
 }
