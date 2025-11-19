@@ -19,6 +19,14 @@
                     ]
                 ],
                 "2": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters_significant.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
                     "versions.yml:md5,09deaa382cdc983ffad29500b0c47210",
                     "versions.yml:md5,270cc8fd3cf5da52f09e2bcfb66844d1",
                     "versions.yml:md5,37d1f45c834fbc3c356023cdfed0918a",
@@ -26,6 +34,7 @@
                     "versions.yml:md5,612da238fbeb03191d349ddc72093946",
                     "versions.yml:md5,612da238fbeb03191d349ddc72093946",
                     "versions.yml:md5,c1dfd15a1f2163efd0fc318809c8a071",
+                    "versions.yml:md5,d9cf2bc9a6b5f0916586f0b5184b580f",
                     "versions.yml:md5,def0f65b2a7925e2541586ea7ad06118",
                     "versions.yml:md5,e50e1883b0220a195e1c520411dcbc63"
                 ],
@@ -45,6 +54,14 @@
                         "L10_chromHMM_promoters.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
+                "tsv_significant": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters_significant.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
                 "versions": [
                     "versions.yml:md5,09deaa382cdc983ffad29500b0c47210",
                     "versions.yml:md5,270cc8fd3cf5da52f09e2bcfb66844d1",
@@ -53,6 +70,7 @@
                     "versions.yml:md5,612da238fbeb03191d349ddc72093946",
                     "versions.yml:md5,612da238fbeb03191d349ddc72093946",
                     "versions.yml:md5,c1dfd15a1f2163efd0fc318809c8a071",
+                    "versions.yml:md5,d9cf2bc9a6b5f0916586f0b5184b580f",
                     "versions.yml:md5,def0f65b2a7925e2541586ea7ad06118",
                     "versions.yml:md5,e50e1883b0220a195e1c520411dcbc63"
                 ]
@@ -60,9 +78,9 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-09-28T13:45:59.335325874"
+        "timestamp": "2025-11-13T18:36:04.422878191"
     },
     "Should run without failures": {
         "content": [
@@ -80,16 +98,25 @@
                         {
                             "id": "L10_chromHMM_promoters"
                         },
-                        "L10_chromHMM_promoters.tsv:md5,b9dccc98df70fa127fed3ec9f5d2b0cd"
+                        "L10_chromHMM_promoters.tsv:md5,903892dbd88b1cf1fe69f6e85ede5974"
                     ]
                 ],
                 "2": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters_significant.tsv:md5,6ec71314deae3fb80be236a018899406"
+                    ]
+                ],
+                "3": [
                     "versions.yml:md5,270cc8fd3cf5da52f09e2bcfb66844d1",
                     "versions.yml:md5,37d1f45c834fbc3c356023cdfed0918a",
                     "versions.yml:md5,612da238fbeb03191d349ddc72093946",
                     "versions.yml:md5,612da238fbeb03191d349ddc72093946",
                     "versions.yml:md5,91d4e73ea846dae7e805279e47204dc7",
                     "versions.yml:md5,c1dfd15a1f2163efd0fc318809c8a071",
+                    "versions.yml:md5,d9cf2bc9a6b5f0916586f0b5184b580f",
                     "versions.yml:md5,def0f65b2a7925e2541586ea7ad06118",
                     "versions.yml:md5,e50e1883b0220a195e1c520411dcbc63"
                 ],
@@ -106,7 +133,15 @@
                         {
                             "id": "L10_chromHMM_promoters"
                         },
-                        "L10_chromHMM_promoters.tsv:md5,b9dccc98df70fa127fed3ec9f5d2b0cd"
+                        "L10_chromHMM_promoters.tsv:md5,903892dbd88b1cf1fe69f6e85ede5974"
+                    ]
+                ],
+                "tsv_significant": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters"
+                        },
+                        "L10_chromHMM_promoters_significant.tsv:md5,6ec71314deae3fb80be236a018899406"
                     ]
                 ],
                 "versions": [
@@ -116,6 +151,7 @@
                     "versions.yml:md5,612da238fbeb03191d349ddc72093946",
                     "versions.yml:md5,91d4e73ea846dae7e805279e47204dc7",
                     "versions.yml:md5,c1dfd15a1f2163efd0fc318809c8a071",
+                    "versions.yml:md5,d9cf2bc9a6b5f0916586f0b5184b580f",
                     "versions.yml:md5,def0f65b2a7925e2541586ea7ad06118",
                     "versions.yml:md5,e50e1883b0220a195e1c520411dcbc63"
                 ]
@@ -123,8 +159,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-09-28T13:45:35.150219947"
+        "timestamp": "2025-11-13T18:35:49.650684716"
     }
 }

@@ -1,7 +1,7 @@
 {
     "Should run with bed only": {
         "content": [
-            174,
+            179,
             {
                 "AFFINITY_MEAN": {
                     "numpy": "2.2.6",
@@ -142,6 +142,9 @@
                 },
                 "RUN_FIMO": {
                     "fimo": "5.5.8"
+                },
+                "SELECT_SIGNIFICANT": {
+                    "gawk": "5.3.0"
                 },
                 "SORT_BED": {
                     "coreutils": 9.3
@@ -599,6 +602,12 @@
                 "06_fimo/04_combined_results/tsv/L1_H3K4me3.tsv",
                 "06_fimo/04_combined_results/tsv/p6_H3K27ac.tsv",
                 "06_fimo/04_combined_results/tsv/p6_H3K4me3.tsv",
+                "06_fimo/05_significant_results",
+                "06_fimo/05_significant_results/L10_H3K27ac_significant.tsv",
+                "06_fimo/05_significant_results/L1_H3K27ac_significant.tsv",
+                "06_fimo/05_significant_results/L1_H3K4me3_significant.tsv",
+                "06_fimo/05_significant_results/p6_H3K27ac_significant.tsv",
+                "06_fimo/05_significant_results/p6_H3K4me3_significant.tsv",
                 "07_sneep",
                 "07_sneep/01_filtered_scales_motifs",
                 "07_sneep/01_filtered_scales_motifs/filtered_sneep_scale_mouse_218.txt",
@@ -3949,6 +3958,11 @@
                 "L1_H3K4me3.tsv:md5,234fdab4f7c07b423f8f022b6c3d0d8a",
                 "p6_H3K27ac.tsv:md5,d75f51f8af229ad6082a3bbe38f94f14",
                 "p6_H3K4me3.tsv:md5,b1004c2222c3b0e75062dbb0083d46eb",
+                "L10_H3K27ac_significant.tsv:md5,cd7825b546b90fc8e7a8eb1cc8533ca3",
+                "L1_H3K27ac_significant.tsv:md5,0700a8ce866a2ca40795461eecf1bdf6",
+                "L1_H3K4me3_significant.tsv:md5,a2b971328c33a981678d90d16849c272",
+                "p6_H3K27ac_significant.tsv:md5,cd7825b546b90fc8e7a8eb1cc8533ca3",
+                "p6_H3K4me3_significant.tsv:md5,cd7825b546b90fc8e7a8eb1cc8533ca3",
                 "filtered_sneep_scale_mouse_218.txt:md5,26199aaf8103de723163c03bfa8b88b2",
                 "filtered_sneep_transfac_mouse_218.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "L10_H3K27ac.bed:md5,4e48a06e991fdd12712c25823eebc5be",
@@ -3975,13 +3989,13 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-09-28T13:58:48.753999494"
+        "timestamp": "2025-11-13T19:36:12.666238946"
     },
     "Should run with both bed and bam input": {
         "content": [
-            396,
+            407,
             {
                 "AFFINITY_MEAN": {
                     "numpy": "2.2.6",
@@ -4147,6 +4161,9 @@
                 },
                 "RUN_FIMO": {
                     "fimo": "5.5.8"
+                },
+                "SELECT_SIGNIFICANT": {
+                    "gawk": "5.3.0"
                 },
                 "SORT_BED": {
                     "coreutils": 9.3
@@ -5163,6 +5180,18 @@
                 "06_fimo/04_combined_results/tsv/p6_H3K4me3.tsv",
                 "06_fimo/04_combined_results/tsv/p6_chromHMM_enhancers.tsv",
                 "06_fimo/04_combined_results/tsv/p6_chromHMM_promoters.tsv",
+                "06_fimo/05_significant_results",
+                "06_fimo/05_significant_results/L10_H3K27ac_significant.tsv",
+                "06_fimo/05_significant_results/L10_chromHMM_enhancers_significant.tsv",
+                "06_fimo/05_significant_results/L10_chromHMM_promoters_significant.tsv",
+                "06_fimo/05_significant_results/L1_H3K27ac_significant.tsv",
+                "06_fimo/05_significant_results/L1_H3K4me3_significant.tsv",
+                "06_fimo/05_significant_results/L1_chromHMM_enhancers_significant.tsv",
+                "06_fimo/05_significant_results/L1_chromHMM_promoters_significant.tsv",
+                "06_fimo/05_significant_results/p6_H3K27ac_significant.tsv",
+                "06_fimo/05_significant_results/p6_H3K4me3_significant.tsv",
+                "06_fimo/05_significant_results/p6_chromHMM_enhancers_significant.tsv",
+                "06_fimo/05_significant_results/p6_chromHMM_promoters_significant.tsv",
                 "07_sneep",
                 "07_sneep/01_filtered_scales_motifs",
                 "07_sneep/01_filtered_scales_motifs/filtered_sneep_scale_mouse_218.txt",
@@ -10054,6 +10083,17 @@
                 "p6_H3K4me3.tsv:md5,264817038ac5cd1062b224364c96a451",
                 "p6_chromHMM_enhancers.tsv:md5,38f7bdbc36fbe617905a88934d402630",
                 "p6_chromHMM_promoters.tsv:md5,95a3cfa56a471160f6d1d2b35ddd5362",
+                "L10_H3K27ac_significant.tsv:md5,cd7825b546b90fc8e7a8eb1cc8533ca3",
+                "L10_chromHMM_enhancers_significant.tsv:md5,cd7825b546b90fc8e7a8eb1cc8533ca3",
+                "L10_chromHMM_promoters_significant.tsv:md5,8a21488440735b59233f13af69d9d387",
+                "L1_H3K27ac_significant.tsv:md5,0700a8ce866a2ca40795461eecf1bdf6",
+                "L1_H3K4me3_significant.tsv:md5,a2b971328c33a981678d90d16849c272",
+                "L1_chromHMM_enhancers_significant.tsv:md5,cd7825b546b90fc8e7a8eb1cc8533ca3",
+                "L1_chromHMM_promoters_significant.tsv:md5,4695ea8aec0374345d4276338add6d75",
+                "p6_H3K27ac_significant.tsv:md5,cd7825b546b90fc8e7a8eb1cc8533ca3",
+                "p6_H3K4me3_significant.tsv:md5,cd7825b546b90fc8e7a8eb1cc8533ca3",
+                "p6_chromHMM_enhancers_significant.tsv:md5,cd7825b546b90fc8e7a8eb1cc8533ca3",
+                "p6_chromHMM_promoters_significant.tsv:md5,188507b513f0016ecb82965de3b58bd7",
                 "filtered_sneep_scale_mouse_218.txt:md5,26199aaf8103de723163c03bfa8b88b2",
                 "filtered_sneep_transfac_mouse_218.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
                 "L10_H3K27ac.bed:md5,59f68dd95564876b3fe43e9af1195bfa",
@@ -10104,8 +10144,8 @@
         ],
         "meta": {
             "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
+            "nextflow": "25.10.0"
         },
-        "timestamp": "2025-09-28T13:53:09.941876368"
+        "timestamp": "2025-11-13T19:32:43.987079271"
     }
 }
