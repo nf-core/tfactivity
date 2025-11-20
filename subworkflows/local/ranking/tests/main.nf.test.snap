@@ -1,0 +1,152 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chromHMM_promoters"
+                        },
+                        "chromHMM_promoters.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "chromHMM_promoters"
+                        },
+                        "chromHMM_promoters.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "all"
+                        },
+                        "all.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,0c214efc3005193e39c9638c03805328",
+                    "versions.yml:md5,7f6a03763ba5a7b5ff6102b82bdea9d6",
+                    "versions.yml:md5,84513ae92b2346a33758ed1c2d6baf3b",
+                    "versions.yml:md5,c1de949600e8af33b97ea312cdd685f1",
+                    "versions.yml:md5,f40da7130a36ce4c3c2ee857fd240072",
+                    "versions.yml:md5,f748244dff50ba5d3b201be99a64a896"
+                ],
+                "tf_ranking": [
+                    [
+                        {
+                            "id": "chromHMM_promoters"
+                        },
+                        "chromHMM_promoters.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tf_total_ranking": [
+                    [
+                        {
+                            "id": "all"
+                        },
+                        "all.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tg_ranking": [
+                    [
+                        {
+                            "id": "chromHMM_promoters"
+                        },
+                        "chromHMM_promoters.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0c214efc3005193e39c9638c03805328",
+                    "versions.yml:md5,7f6a03763ba5a7b5ff6102b82bdea9d6",
+                    "versions.yml:md5,84513ae92b2346a33758ed1c2d6baf3b",
+                    "versions.yml:md5,c1de949600e8af33b97ea312cdd685f1",
+                    "versions.yml:md5,f40da7130a36ce4c3c2ee857fd240072",
+                    "versions.yml:md5,f748244dff50ba5d3b201be99a64a896"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-12T18:38:42.402751662"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "chromHMM_promoters"
+                        },
+                        "chromHMM_promoters.tsv:md5,6aa0c63215472c7dbab634999c499af7"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "chromHMM_promoters"
+                        },
+                        "chromHMM_promoters.tsv:md5,1243b4556ec8ed4723f3a43a8c9af8be"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "all"
+                        },
+                        "all.tsv:md5,6aa0c63215472c7dbab634999c499af7"
+                    ]
+                ],
+                "3": [
+                    "versions.yml:md5,0affe346ad49aa147d680f8f50ce15dc",
+                    "versions.yml:md5,151a93111962d7a859215d9b4ae2c60e",
+                    "versions.yml:md5,1b5cb6e8ff9b0baa44598439d18fd790",
+                    "versions.yml:md5,21eef97afa6c7c08e74cd18c52a4f988",
+                    "versions.yml:md5,5e931d7269338b9c99229be489d857b9",
+                    "versions.yml:md5,acd8461ed538d55799f5f5d201490c20"
+                ],
+                "tf_ranking": [
+                    [
+                        {
+                            "id": "chromHMM_promoters"
+                        },
+                        "chromHMM_promoters.tsv:md5,6aa0c63215472c7dbab634999c499af7"
+                    ]
+                ],
+                "tf_total_ranking": [
+                    [
+                        {
+                            "id": "all"
+                        },
+                        "all.tsv:md5,6aa0c63215472c7dbab634999c499af7"
+                    ]
+                ],
+                "tg_ranking": [
+                    [
+                        {
+                            "id": "chromHMM_promoters"
+                        },
+                        "chromHMM_promoters.tsv:md5,1243b4556ec8ed4723f3a43a8c9af8be"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0affe346ad49aa147d680f8f50ce15dc",
+                    "versions.yml:md5,151a93111962d7a859215d9b4ae2c60e",
+                    "versions.yml:md5,1b5cb6e8ff9b0baa44598439d18fd790",
+                    "versions.yml:md5,21eef97afa6c7c08e74cd18c52a4f988",
+                    "versions.yml:md5,5e931d7269338b9c99229be489d857b9",
+                    "versions.yml:md5,acd8461ed538d55799f5f5d201490c20"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-23T16:07:35.851684117"
+    }
+}

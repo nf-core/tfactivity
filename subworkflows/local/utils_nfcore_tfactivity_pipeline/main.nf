@@ -95,7 +95,7 @@ workflow PIPELINE_INITIALISATION {
     //
     // Custom validation for pipeline parameters
     //
-    validateInputParameters()
+    // validateInputParameters()
 
     //
     // Create channel from input file provided through params.input
@@ -104,26 +104,18 @@ workflow PIPELINE_INITIALISATION {
     Channel
         .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
         .map {
-            meta, fastq_1, fastq_2 ->
-                if (!fastq_2) {
-                    return [ meta.id, meta + [ single_end:true ], [ fastq_1 ] ]
-                } else {
-                    return [ meta.id, meta + [ single_end:false ], [ fastq_1, fastq_2 ] ]
-                }
-        }
-        .groupTuple()
-        .map { samplesheet ->
-            validateInputSamplesheet(samplesheet)
-        }
-        .map {
-            meta, fastqs ->
-                return [ meta, fastqs.flatten() ]
+            validateInputSamplesheet(it)
         }
         .set { ch_samplesheet }
 
+    ch_samplesheet_bam = params.input_bam ? Channel.fromList(samplesheetToList(params.input_bam, "${projectDir}/assets/schema_input_bam.json")) : Channel.empty()
+    ch_counts_design = Channel.fromList(samplesheetToList(params.counts_design, "${projectDir}/assets/schema_counts_design.json"))
+
     emit:
-    samplesheet = ch_samplesheet
-    versions    = ch_versions
+    samplesheet     = ch_samplesheet
+    samplesheet_bam = ch_samplesheet_bam
+    counts_design   = ch_counts_design
+    versions        = ch_versions
 }
 
 /*
@@ -188,15 +180,14 @@ def validateInputParameters() {
 // Validate channels from input samplesheet
 //
 def validateInputSamplesheet(input) {
-    def (metas, fastqs) = input[1..2]
+    def (meta, peak_files) = input[0..1]
 
-    // Check that multiple runs of the same sample are of the same datatype i.e. single-end / paired-end
-    def endedness_ok = metas.collect{ meta -> meta.single_end }.unique().size == 1
-    if (!endedness_ok) {
-        error("Please check input samplesheet -> Multiple runs of a sample must be of the same datatype i.e. single-end or paired-end: ${metas[0].id}")
+    // Check that include_original is only set to false if footprinting is enabled
+    if ( !meta.footprinting && !meta.include_original ) {
+        error("The 'include_original' parameter can only be set to 'false' if 'footprinting' is enabled.")
     }
 
-    return [ metas[0], fastqs ]
+    return [ meta, peak_files ]
 }
 //
 // Get attribute from genome config file e.g. fasta
@@ -227,32 +218,50 @@ def genomeExistsError() {
 // Generate methods description for MultiQC
 //
 def toolCitationText() {
-    // TODO nf-core: Optionally add in-text citation tools to this list.
-    // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "Tool (Foo et al. 2023)" : "",
-    // Uncomment function in methodsDescriptionText to render in MultiQC report
-    def citation_text = [
-            "Tools used in the workflow included:",
-            "."
-        ].join(' ').trim()
+    def tools = [
+            'DESeq2 (Love et al. 2014)',
+            'STARE (Hecker et al. 2023)',
+            'BEDTools (Quinlan et al. 2010)',
+            'GTFtools (Li et al. 2022)',
+            params.input_bam ? 'ChromHMM (Ernst et al. 2017)' : '',
+            'DYNAMITE (Schmidt et al. 2019)',
+            'Biopython (Cock et al. 2009)',
+            'JASPAR (Rauluseviciute et al. 2024)',
+            'universalmotif (Tremblay 2024)',
+            params.skip_fimo ? '' : 'FIMO (Grant et al. 2011)',
+            params.skip_sneep ? '' : 'SNEEP (Baumgarten et al. 2024)'
+        ]
+
+    def citation_text = "Tools used in the workflow included: ${tools.join(', ')}."
 
     return citation_text
 }
 
 def toolBibliographyText() {
-    // TODO nf-core: Optionally add bibliographic entries to this list.
-    // Can use ternary operators to dynamically construct based conditions, e.g. params["run_xyz"] ? "<li>Author (2023) Pub name, Journal, DOI</li>" : "",
-    // Uncomment function in methodsDescriptionText to render in MultiQC report
-    def reference_text = [
-        ].join(' ').trim()
+    def references = [
+            "<li>Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol. 2014;15:550. doi:10.1186/s13059-014-0550-8.</li>",
+            "<li>Hecker D, Behjati Ardakani F, Karollus A, Gagneur J, Schulz MH. The adapted Activity-By-Contact model for enhancer–gene assignment and its application to single-cell data (STARE). Bioinformatics. 2023;39(2). doi:10.1093/bioinformatics/btad062.</li>",
+            "<li>Quinlan AR, Hall IM. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics. 2010;26(6):841-842. doi:10.1093/bioinformatics/btq033.</li>",
+            "<li>Li H-D, Lin C-X, Zheng J. GTFtools: a software package for analyzing various features of gene models. Bioinformatics. 2022;38(20):4806–4808. doi:10.1093/bioinformatics/btac561.</li>",
+            (params.input_bam ? "<li>Ernst J, Kellis M. Chromatin-state discovery and genome annotation with ChromHMM. Nat Protoc. 2017;12:2478–2492. doi:10.1038/nprot.2017.124.</li>" : ""),
+            "<li>Schmidt F, Kern F, Ebert P, Baumgarten N, Schulz MH. TEPIC 2—an extended framework for transcription factor binding prediction and integrative epigenomic analysis (DYNAMITE). Bioinformatics. 2019;35(9):1608–1610. doi:10.1093/bioinformatics/bty856.</li>",
+            "<li>Cock PJA, Antao T, Chang JT, et al. Biopython: freely available Python tools for computational molecular biology and bioinformatics. Bioinformatics. 2009;25(11):1422–1423. doi:10.1093/bioinformatics/btp163.</li>",
+            (params.skip_fimo ? "" : "<li>Grant CE, Bailey TL, Noble WS. FIMO: scanning for occurrences of a given motif. Bioinformatics. 2011;27(7):1017–1018. doi:10.1093/bioinformatics/btr064.</li>"),
+            "<li>Rauluseviciute I, Riudavets-Puig R, Blanc-Mathieu R, et al. JASPAR 2024: 20th anniversary of the open-access database of transcription factor binding profiles. Nucleic Acids Res. 2024;52(D1):D174–D182. doi:10.1093/nar/gkad1059.</li>",
+            "<li>Tremblay BJ. universalmotif: An R package for biological motif analysis. Journal of Open Source Software. 2024;9(100):7012. doi:10.21105/joss.07012.</li>",
+            (params.skip_sneep ? "" : "<li>Baumgarten N, Ebert P, Schmidt F, Kern F, Schulz MH. A statistical approach for identifying single nucleotide variants that affect transcription factor binding (SNEEP). iScience. 2024;27(5):109765. doi:10.1016/j.isci.2024.109765.</li>")
+        ].findAll { it }
+
+    def reference_text = references.join(' ').trim()
 
     return reference_text
 }
 
-def methodsDescriptionText(mqc_methods_yaml) {
+def methodsDescriptionText() {
     // Convert  to a named map so can be used as with familiar NXF ${workflow} variable syntax in the MultiQC YML file
     def meta = [:]
-    meta.workflow = workflow.toMap()
-    meta["manifest_map"] = workflow.manifest.toMap()
+   //  meta.workflow = workflow.toMap()
+   meta["manifest_map"] = workflow.manifest.toMap()
 
     // Pipeline DOI
     if (meta.manifest_map.doi) {
@@ -269,18 +278,34 @@ def methodsDescriptionText(mqc_methods_yaml) {
     meta["nodoi_text"] = meta.manifest_map.doi ? "" : "<li>If available, make sure to update the text to include the Zenodo DOI of version of the pipeline used. </li>"
 
     // Tool references
-    meta["tool_citations"] = ""
-    meta["tool_bibliography"] = ""
-
-    // TODO nf-core: Only uncomment below if logic in toolCitationText/toolBibliographyText has been filled!
-    // meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
-    // meta["tool_bibliography"] = toolBibliographyText()
+    meta["tool_citations"] = toolCitationText().replaceAll(", \\.", ".").replaceAll("\\. \\.", ".").replaceAll(", \\.", ".")
+    meta["tool_bibliography"] = toolBibliographyText()
 
 
-    def methods_text = mqc_methods_yaml.text
+    // Serialize to JSON so downstream can store it directly
+    return groovy.json.JsonOutput.toJson(meta)
+}
 
-    def engine =  new groovy.text.SimpleTemplateEngine()
-    def description_html = engine.createTemplate(methods_text).make(meta)
-
-    return description_html.toString()
+def paramsSummaryToYAML(summary_params) {
+    def yaml_file_text = ""
+    summary_params
+        .keySet()
+        .sort()
+        .each { group ->
+            def group_params = summary_params.get(group)
+            if (group_params) {
+                yaml_file_text += "${group}:\n"
+                group_params
+                    .keySet()
+                    .sort()
+                    .each { param ->
+                        if (param == "runName" || param == "trace_report_suffix") {
+                            return // skip these keys to stabilize the hashes
+                        }
+                        def value = group_params.get(param)
+                        yaml_file_text += "  ${param}: ${value ?: 'null'}\n"
+                    }
+            }
+        }
+    return yaml_file_text.trim()
 }

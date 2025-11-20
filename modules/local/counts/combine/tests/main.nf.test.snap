@@ -1,0 +1,149 @@
+{
+    "Should run with split matrix": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.clean.tsv:md5,585246affe866ef5e8044704aa359d05"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "genes.txt:md5,383f48ac40deb0f3c7cfd79a6960bfd9"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,8e3685529347f94725b489e282a9e073"
+                ],
+                "counts": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.clean.tsv:md5,585246affe866ef5e8044704aa359d05"
+                    ]
+                ],
+                "genes": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "genes.txt:md5,383f48ac40deb0f3c7cfd79a6960bfd9"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,8e3685529347f94725b489e282a9e073"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T16:10:19.501071941"
+    },
+    "Should run with full count matrix": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.clean.tsv:md5,5d59b89073e481f7bca798b3b57a8202"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "genes.txt:md5,383f48ac40deb0f3c7cfd79a6960bfd9"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,8e3685529347f94725b489e282a9e073"
+                ],
+                "counts": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.clean.tsv:md5,5d59b89073e481f7bca798b3b57a8202"
+                    ]
+                ],
+                "genes": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "genes.txt:md5,383f48ac40deb0f3c7cfd79a6960bfd9"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,8e3685529347f94725b489e282a9e073"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-23T17:31:58.518033496"
+    },
+    "Should run with full count matrix - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.clean.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "genes.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,5e4d875c99ac73bc8299a81d889bba1d"
+                ],
+                "counts": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.clean.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "genes": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "genes.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,5e4d875c99ac73bc8299a81d889bba1d"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-23T17:32:15.6754901"
+    }
+}

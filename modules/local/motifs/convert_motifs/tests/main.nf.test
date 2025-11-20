@@ -1,0 +1,75 @@
+nextflow_process {
+
+    name "Test Process CONVERT_MOTIFS"
+    script "modules/local/motifs/convert_motifs/main.nf"
+    process "CONVERT_MOTIFS"
+
+    test("Should convert JASPAR motifs to universal format") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true),
+                    'jaspar'
+                ]
+                input[1] = 'universal'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should convert JASPAR motifs to universal format - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true),
+                    'jaspar'
+                ]
+                input[1] = 'universal'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+        test("Should convert JASPAR motifs to transfac format") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/reference/motifs.jaspar', checkIfExists: true),
+                    'jaspar'
+                ]
+                input[1] = 'transfac'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

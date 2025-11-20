@@ -1,0 +1,68 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.psem:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,e794fd804ec3e88a841c90242d3bdbaf"
+                ],
+                "psem": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.psem:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,e794fd804ec3e88a841c90242d3bdbaf"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T13:23:51.356566107"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.psem:md5,397109fcad19ddb47664dd37defdce34"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,519c4e5912caa1581318f5b4f4bcf564"
+                ],
+                "psem": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.psem:md5,397109fcad19ddb47664dd37defdce34"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,519c4e5912caa1581318f5b4f4bcf564"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-06-11T15:10:20.109551632"
+    }
+}

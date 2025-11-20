@@ -1,0 +1,43 @@
+name: "gnu_sort"
+description: |
+  Writes a sorted concatenation of file/s
+keywords:
+  - GNU
+  - sort
+  - merge compare
+tools:
+  - sort:
+      description: "Writes a sorted concatenation of file/s"
+      homepage: "https://github.com/vgl-hub/gfastats"
+      documentation: "https://www.gnu.org/software/coreutils/manual/html_node/sort-invocation.html"
+      licence: ["GPL"]
+      identifier: ""
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [ id:'test', single_end:false ]
+    - input:
+        type: file
+        description: Draft assembly file
+        pattern: "*.{txt,bed,interval,genome,bins}"
+        ontologies: []
+output:
+  sorted:
+    - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [ id:'test', single_end:false ]
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+        ontologies:
+          - edam: http://edamontology.org/format_3750 # YAML
+authors:
+  - "@DLBPointon"
+maintainers:
+  - "@DLBPointon"

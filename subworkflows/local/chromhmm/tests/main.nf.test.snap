@@ -1,0 +1,299 @@
+{
+    "Should run without controls": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "L10_chromHMM_enhancers",
+                            "condition": "L10",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "L10.bed:md5,2bfb78f5f170c8b80ee95060df64d64e"
+                    ],
+                    [
+                        {
+                            "id": "p6_chromHMM_enhancers",
+                            "condition": "p6",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "p6.bed:md5,07c3c0b32940aff61ecf4cbb5569dd4d"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters",
+                            "condition": "L10",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "L10.bed:md5,46370a62d3fa1d1cf1c6ae05c6794e5d"
+                    ],
+                    [
+                        {
+                            "id": "p6_chromHMM_promoters",
+                            "condition": "p6",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "p6.bed:md5,fe4281f664a38c46492a641f829aea4e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,7734bba3ee17d75e87d7488b33f79c31",
+                    "versions.yml:md5,8d4fe4585a472cc1a81fddb3664f193e",
+                    "versions.yml:md5,a9a8784007cdb217db63d2f3cf9b2bdb",
+                    "versions.yml:md5,a9a8784007cdb217db63d2f3cf9b2bdb",
+                    "versions.yml:md5,f96644e86e4f91e2227c9ebe979b3197",
+                    "versions.yml:md5,f96644e86e4f91e2227c9ebe979b3197"
+                ],
+                "enhancers": [
+                    [
+                        {
+                            "id": "L10_chromHMM_enhancers",
+                            "condition": "L10",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "L10.bed:md5,2bfb78f5f170c8b80ee95060df64d64e"
+                    ],
+                    [
+                        {
+                            "id": "p6_chromHMM_enhancers",
+                            "condition": "p6",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "p6.bed:md5,07c3c0b32940aff61ecf4cbb5569dd4d"
+                    ]
+                ],
+                "promoters": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters",
+                            "condition": "L10",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "L10.bed:md5,46370a62d3fa1d1cf1c6ae05c6794e5d"
+                    ],
+                    [
+                        {
+                            "id": "p6_chromHMM_promoters",
+                            "condition": "p6",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "p6.bed:md5,fe4281f664a38c46492a641f829aea4e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7734bba3ee17d75e87d7488b33f79c31",
+                    "versions.yml:md5,8d4fe4585a472cc1a81fddb3664f193e",
+                    "versions.yml:md5,a9a8784007cdb217db63d2f3cf9b2bdb",
+                    "versions.yml:md5,a9a8784007cdb217db63d2f3cf9b2bdb",
+                    "versions.yml:md5,f96644e86e4f91e2227c9ebe979b3197",
+                    "versions.yml:md5,f96644e86e4f91e2227c9ebe979b3197"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-07-12T11:30:13.086062392"
+    },
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "condition1_chromHMM_enhancers",
+                            "condition": "condition1",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "condition1.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "condition2_chromHMM_enhancers",
+                            "condition": "condition2",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "condition2.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "condition1_chromHMM_promoters",
+                            "condition": "condition1",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "condition1.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "condition2_chromHMM_promoters",
+                            "condition": "condition2",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "condition2.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,7734bba3ee17d75e87d7488b33f79c31",
+                    "versions.yml:md5,8d4fe4585a472cc1a81fddb3664f193e",
+                    "versions.yml:md5,c3dfeb27a2fe04478651a02dbc03d7ad",
+                    "versions.yml:md5,c3dfeb27a2fe04478651a02dbc03d7ad",
+                    "versions.yml:md5,db4a6bc3291d92822bf027c3639535d7",
+                    "versions.yml:md5,db4a6bc3291d92822bf027c3639535d7"
+                ],
+                "enhancers": [
+                    [
+                        {
+                            "id": "condition1_chromHMM_enhancers",
+                            "condition": "condition1",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "condition1.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "condition2_chromHMM_enhancers",
+                            "condition": "condition2",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "condition2.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "promoters": [
+                    [
+                        {
+                            "id": "condition1_chromHMM_promoters",
+                            "condition": "condition1",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "condition1.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "condition2_chromHMM_promoters",
+                            "condition": "condition2",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "condition2.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7734bba3ee17d75e87d7488b33f79c31",
+                    "versions.yml:md5,8d4fe4585a472cc1a81fddb3664f193e",
+                    "versions.yml:md5,c3dfeb27a2fe04478651a02dbc03d7ad",
+                    "versions.yml:md5,c3dfeb27a2fe04478651a02dbc03d7ad",
+                    "versions.yml:md5,db4a6bc3291d92822bf027c3639535d7",
+                    "versions.yml:md5,db4a6bc3291d92822bf027c3639535d7"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T14:13:38.477982915"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "L10_chromHMM_enhancers",
+                            "condition": "L10",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "L10.bed:md5,f9546933cefd8013f18701ed757c44a6"
+                    ],
+                    [
+                        {
+                            "id": "p6_chromHMM_enhancers",
+                            "condition": "p6",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "p6.bed:md5,6615b24f4b4b49e4c09652e61bae353d"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters",
+                            "condition": "L10",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "L10.bed:md5,92c472e63fd4aaa1cbdb828b35aa95ba"
+                    ],
+                    [
+                        {
+                            "id": "p6_chromHMM_promoters",
+                            "condition": "p6",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "p6.bed:md5,f210174222d089f9656d623bf832773d"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,7734bba3ee17d75e87d7488b33f79c31",
+                    "versions.yml:md5,8d4fe4585a472cc1a81fddb3664f193e",
+                    "versions.yml:md5,a9a8784007cdb217db63d2f3cf9b2bdb",
+                    "versions.yml:md5,a9a8784007cdb217db63d2f3cf9b2bdb",
+                    "versions.yml:md5,f96644e86e4f91e2227c9ebe979b3197",
+                    "versions.yml:md5,f96644e86e4f91e2227c9ebe979b3197"
+                ],
+                "enhancers": [
+                    [
+                        {
+                            "id": "L10_chromHMM_enhancers",
+                            "condition": "L10",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "L10.bed:md5,f9546933cefd8013f18701ed757c44a6"
+                    ],
+                    [
+                        {
+                            "id": "p6_chromHMM_enhancers",
+                            "condition": "p6",
+                            "assay": "chromHMM_enhancers"
+                        },
+                        "p6.bed:md5,6615b24f4b4b49e4c09652e61bae353d"
+                    ]
+                ],
+                "promoters": [
+                    [
+                        {
+                            "id": "L10_chromHMM_promoters",
+                            "condition": "L10",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "L10.bed:md5,92c472e63fd4aaa1cbdb828b35aa95ba"
+                    ],
+                    [
+                        {
+                            "id": "p6_chromHMM_promoters",
+                            "condition": "p6",
+                            "assay": "chromHMM_promoters"
+                        },
+                        "p6.bed:md5,f210174222d089f9656d623bf832773d"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7734bba3ee17d75e87d7488b33f79c31",
+                    "versions.yml:md5,8d4fe4585a472cc1a81fddb3664f193e",
+                    "versions.yml:md5,a9a8784007cdb217db63d2f3cf9b2bdb",
+                    "versions.yml:md5,a9a8784007cdb217db63d2f3cf9b2bdb",
+                    "versions.yml:md5,f96644e86e4f91e2227c9ebe979b3197",
+                    "versions.yml:md5,f96644e86e4f91e2227c9ebe979b3197"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-07-12T11:26:25.870662295"
+    }
+}

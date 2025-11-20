@@ -1,0 +1,204 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "gtf.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "gtf.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "fasta"
+                        },
+                        "genome.fasta.fai:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "fasta"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.fasta"
+                    ]
+                ],
+                "4": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.gtf"
+                    ]
+                ],
+                "5": [
+                    "versions.yml:md5,1b71d037313dd6cfb54f9f1914cc3601",
+                    "versions.yml:md5,2054d8ab3cf6ccee6783cdef808be649",
+                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95"
+                ],
+                "chrom_sizes": [
+                    [
+                        {
+                            "id": "fasta"
+                        },
+                        "genome.fasta.fai:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "fasta": [
+                    [
+                        {
+                            "id": "fasta"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.fasta"
+                    ]
+                ],
+                "gene_lengths": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "gtf.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "gene_map": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "gtf.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "gtf": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.gtf"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,1b71d037313dd6cfb54f9f1914cc3601",
+                    "versions.yml:md5,2054d8ab3cf6ccee6783cdef808be649",
+                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-09-16T13:51:42.992907734"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "gtf.txt:md5,b57bf4866aec828afff2de284f9d42c2"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "gtf.txt:md5,040796aba8b69f5e3100d6b0dc6493ac"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "fasta"
+                        },
+                        "genome.fasta.fai:md5,9da2a56e2853dc8c0b86a9e7229c9fe5"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "fasta"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.fasta"
+                    ]
+                ],
+                "4": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.gtf"
+                    ]
+                ],
+                "5": [
+                    "versions.yml:md5,2ed4fadc0038a6a8f46063219d23d3ef",
+                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95",
+                    "versions.yml:md5,ed4e00603d34e2b0cafc58f9aed810fc"
+                ],
+                "chrom_sizes": [
+                    [
+                        {
+                            "id": "fasta"
+                        },
+                        "genome.fasta.fai:md5,9da2a56e2853dc8c0b86a9e7229c9fe5"
+                    ]
+                ],
+                "fasta": [
+                    [
+                        {
+                            "id": "fasta"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.fasta"
+                    ]
+                ],
+                "gene_lengths": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "gtf.txt:md5,040796aba8b69f5e3100d6b0dc6493ac"
+                    ]
+                ],
+                "gene_map": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "gtf.txt:md5,b57bf4866aec828afff2de284f9d42c2"
+                    ]
+                ],
+                "gtf": [
+                    [
+                        {
+                            "id": "gtf"
+                        },
+                        "/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.gtf"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,2ed4fadc0038a6a8f46063219d23d3ef",
+                    "versions.yml:md5,a3bd13c63fe600640dd487607be44d95",
+                    "versions.yml:md5,ed4e00603d34e2b0cafc58f9aed810fc"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-09-16T13:51:30.140115616"
+    }
+}
