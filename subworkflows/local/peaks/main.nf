@@ -31,10 +31,12 @@ workflow PEAKS {
     chromhmm_threshold
     chromhmm_enhancer_marks
     chromhmm_promoter_marks
+    skip_chromhmm
+    skip_rose
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     CLEAN_BED(ch_peaks, [], false)
     ch_peaks = CLEAN_BED.out.output
@@ -55,16 +57,16 @@ workflow PEAKS {
         ch_versions = ch_versions.mix(SORT_PEAKS.out.versions)
     }
 
-    ch_chromhmm_out = Channel.empty()
-    if (!params.skip_chromhmm) {
+    ch_chromhmm_out = channel.empty()
+    if (!skip_chromhmm) {
         CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_enhancer_marks, chromhmm_promoter_marks)
         ch_chromhmm_out = ch_chromhmm_out.mix(CHROMHMM.out.enhancers.mix(CHROMHMM.out.promoters))
         ch_versions = ch_versions.mix(CHROMHMM.out.versions)
     }
 
-    ch_rose_out = Channel.empty()
-    if (!params.skip_rose) {
-        if (params.skip_chromhmm) {
+    ch_rose_out = channel.empty()
+    if (!skip_rose) {
+        if (skip_chromhmm) {
             log.warn("Rose can only be run if chromhmm is also run. If you want to run rose, please set --skip_chromhmm to false.")
         }
         else {
@@ -74,7 +76,7 @@ workflow PEAKS {
         }
     }
 
-    ch_chromhmm_rose_out = params.skip_rose ? ch_chromhmm_out : ch_rose_out
+    ch_chromhmm_rose_out = skip_rose ? ch_chromhmm_out : ch_rose_out
 
     ch_peaks = ch_peaks
         .mix(ch_chromhmm_rose_out)
@@ -129,9 +131,9 @@ workflow PEAKS {
 
     // Output warnings for merged duplicate motifs
     AGGREGATE_SYNONYMS.out.python_output
-        .splitText() { it.trim() }
-        .filter { it.startsWith("Merging duplicate motif in") }
-        .subscribe { log.warn(it) }
+        .splitText() { line -> line.trim() }
+        .filter { line -> line.startsWith("Merging duplicate motif in") }
+        .subscribe { line -> log.warn(line) }
 
     ch_affinities_spread = AGGREGATE_SYNONYMS.out.affinities.map { meta, affinities -> [meta.condition, meta.assay, affinities] }
 

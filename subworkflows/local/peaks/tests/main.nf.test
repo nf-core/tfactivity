@@ -35,7 +35,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = Channel.from([
+                input[0] = channel.from([
                     [[id: 'L1_H3K27ac_R1', condition: 'L1', assay: 'H3K27ac', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
                     [[id: 'L1_H3K27ac_R3', condition: 'L1', assay: 'H3K27ac', footprinting: false, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
                     [[id: 'L1_H3K4me3_R2', condition: 'L1', assay: 'H3K4me3', footprinting: true, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],
@@ -45,10 +45,10 @@ nextflow_workflow {
                 ])
                 input[1] = PREPARE_GENOME.out.fasta
                 input[2] = PREPARE_GENOME.out.gtf
-                input[3] = Channel.value(file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true))
+                input[3] = channel.value(file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true))
                 input[4] = MOTIFS.out.psem
                 input[5] = true // merge_samples
-                input[6] = Channel.from([
+                input[6] = channel.from([
                     ['L1', 'L10'],
                     ['L1', 'p6'],
                     ['L10', 'p6']
@@ -56,7 +56,7 @@ nextflow_workflow {
                 input[7] = PREPARE_GENOME.out.gene_map
                 input[8] = 'max' // Duplicate aggregation method
                 input[9] = true // merge_duplicate_motifs
-                input[10] = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                input[10] = channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .filter { row -> row.condition == "L10" || row.condition == "p6" }
                     .filter { row -> row.assay.startsWith("H3") }
@@ -76,6 +76,8 @@ nextflow_workflow {
                 input[13] = 0.75 // chromhmm_threshold
                 input[14] = ["H3K27ac"] // chromhmm_enhancer_marks
                 input[15] = ["H3K4me3"] // chromhmm_promoter_marks
+                input[16] = false // skip_chromhmm
+                input[17] = false // skip_rose
                 """
             }
         }
@@ -95,7 +97,7 @@ nextflow_workflow {
         when {
             workflow {
                 """
-                input[0] = Channel.from([
+                input[0] = channel.from([
                     [[id: 'L1_H3K27ac_R1', condition: 'L1', assay: 'H3K27ac', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
                     [[id: 'L1_H3K27ac_R3', condition: 'L1', assay: 'H3K27ac', footprinting: false, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
                     [[id: 'L1_H3K4me3_R2', condition: 'L1', assay: 'H3K4me3', footprinting: true, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],
@@ -105,10 +107,10 @@ nextflow_workflow {
                 ])
                 input[1] = PREPARE_GENOME.out.fasta
                 input[2] = PREPARE_GENOME.out.gtf
-                input[3] = Channel.value(file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true))
+                input[3] = channel.value(file('https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/blacklists/mm10-blacklist.bed', checkIfExists: true))
                 input[4] = MOTIFS.out.psem
                 input[5] = true // merge_samples
-                input[6] = Channel.from([
+                input[6] = channel.from([
                     ['L1', 'L10'],
                     ['L1', 'p6'],
                     ['L10', 'p6']
@@ -116,7 +118,7 @@ nextflow_workflow {
                 input[7] = PREPARE_GENOME.out.gene_map
                 input[8] = 'max' // Duplicate aggregation method
                 input[9] = true // merge_duplicate_motifs
-                input[10] = Channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
+                input[10] = channel.of(file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_bam.csv', checkIfExists: true).text)
                     .splitCsv(header: true, sep: ',')
                     .filter { row -> row.condition == "L10" || row.condition == "p6" }
                     .filter { row -> row.assay.startsWith("H3") }
@@ -136,6 +138,8 @@ nextflow_workflow {
                 input[13] = 0.75 // chromhmm_threshold
                 input[14] = ["H3K27ac"] // chromhmm_enhancer_marks
                 input[15] = ["H3K4me3"] // chromhmm_promoter_marks
+                input[16] = false // skip_chromhmm
+                input[17] = false // skip_rose
                 """
             }
         }

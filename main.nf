@@ -51,14 +51,14 @@ workflow NFCORE_TFACTIVITY {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     fasta = file(params.fasta, checkIfExists: true)
     gtf = file(params.gtf, checkIfExists: true)
 
-    ch_blacklist = Channel.value(params.blacklist ? file(params.blacklist, checkIfExists: true) : [])
+    ch_blacklist = channel.value(params.blacklist ? file(params.blacklist, checkIfExists: true) : [])
     ch_motifs = params.motifs ? file(params.motifs, checkIfExists: true) : null
-    ch_counts = Channel.value(file(params.counts, checkIfExists: true))
+    ch_counts = channel.value(file(params.counts, checkIfExists: true))
 
     snps = params.snps ? file(params.snps, checkIfExists: true) : null
     sneep_scale_file = params.sneep_scale_file ? file(params.sneep_scale_file, checkIfExists: true) : null
@@ -101,7 +101,7 @@ workflow NFCORE_TFACTIVITY {
         params.duplicate_motifs,
         ch_counts,
         ch_extra_counts,
-        Channel.value([[id: "design"], file(params.counts_design, checkIfExists: true)]),
+        channel.value([[id: "design"], file(params.counts_design, checkIfExists: true)]),
         params.min_count,
         params.min_tpm,
         params.expression_aggregation,
@@ -114,6 +114,11 @@ workflow NFCORE_TFACTIVITY {
         params.alpha,
         snps,
         ch_versions,
+        params.skip_fimo,
+        params.skip_sneep,
+        params.skip_chromhmm,
+        params.skip_rose,
+        params.outdir,
     )
 }
 /*
@@ -129,10 +134,14 @@ workflow {
     PIPELINE_INITIALISATION(
         params.version,
         params.validate_params,
-        params.monochrome_logs,
         args,
         params.outdir,
+        params.help,
+        params.help_full,
+        params.show_hidden,
         params.input,
+        params.input_bam,
+        params.counts_design,
     )
 
     //

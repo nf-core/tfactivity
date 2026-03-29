@@ -93,7 +93,7 @@
             },
             "mentions": [
                 {
-                    "@id": "#5142e5eb-6487-4bff-870f-72d5c15b870e"
+                    "@id": "#b55260aa-41b6-4759-90f5-46e2bf50c735"
                 }
             ],
             "name": "nf-core/tfactivity"
@@ -126,7 +126,7 @@
                 }
             ],
             "dateCreated": "",
-            "dateModified": "2025-07-08T11:39:27Z",
+            "dateModified": "2025-11-20T09:32:30Z",
             "dct:conformsTo": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE/",
             "keywords": [
                 "nf-core",
@@ -170,14 +170,14 @@
             "url": {
                 "@id": "https://www.nextflow.io/"
             },
-            "version": "!>=24.10.5"
+            "version": "!>=25.04.0"
         },
         {
-            "@id": "#5142e5eb-6487-4bff-870f-72d5c15b870e",
+            "@id": "#b55260aa-41b6-4759-90f5-46e2bf50c735",
             "@type": "TestSuite",
             "instance": [
                 {
-                    "@id": "#b0cf8ab4-541d-41b0-870c-4c266bc5bb9c"
+                    "@id": "#412782bd-d602-4e3a-befc-c7604fbade27"
                 }
             ],
             "mainEntity": {
@@ -186,7 +186,7 @@
             "name": "Test suite for nf-core/tfactivity"
         },
         {
-            "@id": "#b0cf8ab4-541d-41b0-870c-4c266bc5bb9c",
+            "@id": "#412782bd-d602-4e3a-befc-c7604fbade27",
             "@type": "TestInstance",
             "name": "GitHub Actions workflow for testing nf-core/tfactivity",
             "resource": "repos/nf-core/tfactivity/actions/workflows/nf-test.yml",

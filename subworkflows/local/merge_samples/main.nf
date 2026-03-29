@@ -11,7 +11,7 @@ workflow MERGE_SAMPLES {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     ANNOTATE_SAMPLES(ch_peaks, [], false)
     ch_versions = ch_versions.mix(ANNOTATE_SAMPLES.out.versions)

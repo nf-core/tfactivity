@@ -11,10 +11,10 @@ workflow PREPARE_GENOME {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
-    ch_fasta = Channel.value([[id: 'fasta'], fasta])
-    ch_gtf = Channel.value([[id: 'gtf'], gtf])
+    ch_fasta = channel.value([[id: 'fasta'], fasta])
+    ch_gtf = channel.value([[id: 'gtf'], gtf])
 
     if (fasta.extension == 'gz') {
         GUNZIP_FASTA(ch_fasta)

@@ -13,10 +13,10 @@ workflow MOTIFS {
     remove_duplicates
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     if (motifs) {
-        ch_motifs = Channel.value(motifs)
+        ch_motifs = channel.value(motifs)
     }
     else {
         if (taxon_id) {
@@ -40,9 +40,9 @@ workflow MOTIFS {
 
     // Output warnings for removed duplicate motifs
     FILTER_MOTIFS.out.python_output
-        .splitText() { it.trim() }
-        .filter { it.startsWith("Removing duplicate motif with symbol") }
-        .subscribe { log.warn(it) }
+        .splitText() { line -> line.trim() }
+        .filter { line -> line.startsWith("Removing duplicate motif with symbol") }
+        .subscribe { line -> log.warn(line) }
 
     CONVERT_TO_MEME(ch_filtered, "meme")
     ch_versions = ch_versions.mix(CONVERT_TO_MEME.out.versions)

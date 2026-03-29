@@ -25,6 +25,7 @@ workflow REPORT {
     regression_coefficients
     fimo_binding_sites
     ch_versions
+    outdir
 
     main:
     UNTAR([[id: 'report'], file("https://github.com/daisybio/nfcore-tfactivity-report/archive/refs/tags/v0.5.0.tar.gz", checkIfExists: true)])
@@ -35,7 +36,7 @@ workflow REPORT {
     //
     softwareVersionsToYAML(ch_versions)
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
+            storeDir: "${outdir}/pipeline_info",
             name: 'nf_core_tfactivity_software_versions.yml',
             sort: true,
             newLine: true,
@@ -46,8 +47,8 @@ workflow REPORT {
         workflow,
         parameters_schema: "nextflow_schema.json"
     )
-    ch_workflow_summary = Channel.value(paramsSummaryToYAML(summary_params))
-    ch_methods_description = Channel.value(methodsDescriptionText())
+    ch_workflow_summary = channel.value(paramsSummaryToYAML(summary_params))
+    ch_methods_description = channel.value(methodsDescriptionText())
 
     PREPROCESS(
         gtf,

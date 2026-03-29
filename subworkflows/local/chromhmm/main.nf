@@ -14,16 +14,16 @@ workflow CHROMHMM {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     ch_files = ch_samplesheet_bam.map{ _meta, signal, control -> [signal, control]}.flatten().filter { f -> f != null }
 
     ch_table = ch_samplesheet_bam
         .map { meta, signal, control -> [meta.condition, meta.assay, signal.name, control ? control.name : ''] }
-        .collectFile {
-            ["cellmarkfiletable.tsv", it.join("\t") + "\n"]
+        .collectFile { row ->
+            ["cellmarkfiletable.tsv", row.join("\t") + "\n"]
         }
-        .map { [it.baseName, it] }
+        .map { f -> [f.baseName, f] }
         .collect()
 
     // drop meta, remove duplicated control bams, add new meta

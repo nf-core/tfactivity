@@ -21,7 +21,7 @@ workflow COUNTS {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     COMBINE_COUNTS(
         ch_counts.map { counts -> [[id: "counts"], counts] },
@@ -58,7 +58,7 @@ workflow COUNTS {
     ch_versions = ch_versions.mix(PREPARE_DESIGN.out.versions)
 
     DESEQ2_DIFFERENTIAL(
-        Channel.value(["condition"]).combine(contrasts).map { variable, reference, target ->
+        channel.value(["condition"]).combine(contrasts).map { variable, reference, target ->
             [
                 [
                     id: reference + ":" + target,

@@ -13,6 +13,7 @@ include { RANKING                } from '../subworkflows/local/ranking'
 include { FIMO                   } from '../subworkflows/local/fimo'
 include { SNEEP                  } from '../subworkflows/local/sneep'
 include { REPORT                 } from '../subworkflows/local/report'
+include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -56,10 +57,15 @@ workflow TFACTIVITY {
     alpha
     snps
     ch_versions
+    skip_fimo
+    skip_sneep
+    skip_chromhmm
+    skip_rose
+    outdir
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     ch_conditions = ch_samplesheet
         .map { meta, _peak_file -> meta.condition }
@@ -111,6 +117,8 @@ workflow TFACTIVITY {
         chromhmm_threshold,
         chromhmm_enhancer_marks,
         chromhmm_promoter_marks,
+        skip_chromhmm,
+        skip_rose,
     )
     ch_versions = ch_versions.mix(PEAKS.out.versions)
 
@@ -133,9 +141,9 @@ workflow TFACTIVITY {
     )
     ch_versions = ch_versions.mix(RANKING.out.versions)
 
-    ch_fimo_binding_sites = Channel.empty()
+    ch_fimo_binding_sites = channel.empty()
 
-    if (!params.skip_fimo) {
+    if (!skip_fimo) {
         if (duplicate_motifs == "merge") {
             error "Fimo can only be run if duplicate motifs are not merged. Please set --skip_fimo true or --duplicate_motifs [remove|keep]."
         }
@@ -150,7 +158,7 @@ workflow TFACTIVITY {
         ch_fimo_binding_sites = FIMO.out.tsv_significant
     }
 
-    if (!params.skip_sneep) {
+    if (!skip_sneep) {
         if (!sneep_scale_file) {
             error("In order to run sneep, please provide a sneep scale file (--sneep_scale_file). If you set --genome to either hg38 or mm10, the sneep scale file will be automatically downloaded.")
         }
@@ -163,7 +171,7 @@ workflow TFACTIVITY {
             error("In order to run sneep, please provide a snps file (--snps). If you set --genome to either hg38 or mm10, the snps file will be automatically downloaded.")
         }
 
-        if (params.skip_fimo) {
+        if (skip_fimo) {
             error "Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false."
         }
 
@@ -176,6 +184,36 @@ workflow TFACTIVITY {
         )
         ch_versions = ch_versions.mix(SNEEP.out.versions)
     }
+
+    //
+    // Collate and save software versions
+    //
+    def topic_versions = channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
+
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+        }
+        .groupTuple(by: 0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
+
+    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
+        .collectFile(
+            storeDir: "${outdir}/pipeline_info",
+            name: 'nf_core_' + 'tfactivity_software_' + 'versions.yml',
+            sort: true,
+            newLine: true,
+        )
+        .set { ch_collated_versions }
 
     REPORT(
         gtf,
@@ -192,7 +230,8 @@ workflow TFACTIVITY {
         PEAKS.out.candidate_regions.map { _meta, candidate_regions -> candidate_regions }.collect(),
         DYNAMITE.out.all_coefficients.map { _meta, all_coefficients -> all_coefficients }.collect(),
         ch_fimo_binding_sites.map { _meta, fimo_binding_sites -> fimo_binding_sites }.collect(),
-        ch_versions
+        ch_versions.mix(ch_collated_versions),
+        outdir,
     )
 
     emit:

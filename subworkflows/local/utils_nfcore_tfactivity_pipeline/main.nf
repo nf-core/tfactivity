@@ -11,9 +11,9 @@
 include { UTILS_NFSCHEMA_PLUGIN     } from '../../nf-core/utils_nfschema_plugin'
 include { paramsSummaryMap          } from 'plugin/nf-schema'
 include { samplesheetToList         } from 'plugin/nf-schema'
+include { paramsHelp                } from 'plugin/nf-schema'
 include { completionEmail           } from '../../nf-core/utils_nfcore_pipeline'
 include { completionSummary         } from '../../nf-core/utils_nfcore_pipeline'
-include { imNotification            } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NFCORE_PIPELINE     } from '../../nf-core/utils_nfcore_pipeline'
 include { UTILS_NEXTFLOW_PIPELINE   } from '../../nf-core/utils_nextflow_pipeline'
 
@@ -28,14 +28,18 @@ workflow PIPELINE_INITIALISATION {
     take:
     version           // boolean: Display version and exit
     validate_params   // boolean: Boolean whether to validate parameters against the schema at runtime
-    monochrome_logs   // boolean: Do not use coloured log outputs
     nextflow_cli_args //   array: List of positional nextflow CLI args
     outdir            //  string: The output directory where the results will be saved
+    help              // boolean: Display help message and exit
+    help_full         // boolean: Show the full help message
+    show_hidden       // boolean: Show hidden parameters in the help message
     input             //  string: Path to input samplesheet
+    input_bam         //  string: Path to BAM samplesheet (optional)
+    counts_design     //  string: Path to counts design file
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Print version and exit if required and dump pipeline parameters to JSON file
@@ -50,10 +54,35 @@ workflow PIPELINE_INITIALISATION {
     //
     // Validate parameters and generate parameter summary to stdout
     //
+    before_text = """
+-\033[2m----------------------------------------------------\033[0m-
+                                        \033[0;32m,--.\033[0;30m/\033[0;32m,-.\033[0m
+\033[0;34m        ___     __   __   __   ___     \033[0;32m/,-._.--~\'\033[0m
+\033[0;34m  |\\ | |__  __ /  ` /  \\ |__) |__         \033[0;33m}  {\033[0m
+\033[0;34m  | \\| |       \\__, \\__/ |  \\ |___     \033[0;32m\\`-._,-`-,\033[0m
+                                        \033[0;32m`._,._,\'\033[0m
+\033[0;35m  nf-core/tfactivity ${workflow.manifest.version}\033[0m
+-\033[2m----------------------------------------------------\033[0m-
+"""
+    after_text = """${workflow.manifest.doi ? "\n* The pipeline\n" : ""}${workflow.manifest.doi.tokenize(",").collect { doi -> "    https://doi.org/${doi.trim().replace('https://doi.org/','')}"}.join("\n")}${workflow.manifest.doi ? "\n" : ""}
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/tfactivity/blob/master/CITATIONS.md
+"""
+    command = "nextflow run ${workflow.manifest.name} -profile <docker/singularity/.../institute> --input samplesheet.csv --outdir <OUTDIR>"
+
     UTILS_NFSCHEMA_PLUGIN (
         workflow,
         validate_params,
-        null
+        null,
+        help,
+        help_full,
+        show_hidden,
+        before_text,
+        after_text,
+        command
     )
 
     //
@@ -72,15 +101,17 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
-    Channel
-        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
-        .map {
-            validateInputSamplesheet(it)
-        }
-        .set { ch_samplesheet }
+    ch_samplesheet = (input && input instanceof String)
+        ? channel.fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
+            .map { sample -> validateInputSamplesheet(sample) }
+        : channel.empty()
 
-    ch_samplesheet_bam = params.input_bam ? Channel.fromList(samplesheetToList(params.input_bam, "${projectDir}/assets/schema_input_bam.json")) : Channel.empty()
-    ch_counts_design = Channel.fromList(samplesheetToList(params.counts_design, "${projectDir}/assets/schema_counts_design.json"))
+    ch_samplesheet_bam = (input_bam && input_bam instanceof String)
+        ? channel.fromList(samplesheetToList(input_bam, "${projectDir}/assets/schema_input_bam.json"))
+        : channel.empty()
+    ch_counts_design = (counts_design && counts_design instanceof String)
+        ? channel.fromList(samplesheetToList(counts_design, "${projectDir}/assets/schema_counts_design.json"))
+        : channel.empty()
 
     emit:
     samplesheet     = ch_samplesheet
@@ -125,9 +156,6 @@ workflow PIPELINE_COMPLETION {
         }
 
         completionSummary(monochrome_logs)
-        if (hook_url) {
-            imNotification(summary_params, hook_url)
-        }
     }
 
     workflow.onError {
@@ -221,7 +249,7 @@ def toolBibliographyText() {
             "<li>Rauluseviciute I, Riudavets-Puig R, Blanc-Mathieu R, et al. JASPAR 2024: 20th anniversary of the open-access database of transcription factor binding profiles. Nucleic Acids Res. 2024;52(D1):D174–D182. doi:10.1093/nar/gkad1059.</li>",
             "<li>Tremblay BJ. universalmotif: An R package for biological motif analysis. Journal of Open Source Software. 2024;9(100):7012. doi:10.21105/joss.07012.</li>",
             (params.skip_sneep ? "" : "<li>Baumgarten N, Ebert P, Schmidt F, Kern F, Schulz MH. A statistical approach for identifying single nucleotide variants that affect transcription factor binding (SNEEP). iScience. 2024;27(5):109765. doi:10.1016/j.isci.2024.109765.</li>")
-        ].findAll { it }
+        ].findAll { ref -> ref }
 
     def reference_text = references.join(' ').trim()
 

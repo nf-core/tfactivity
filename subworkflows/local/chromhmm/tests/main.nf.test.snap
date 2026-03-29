@@ -92,11 +92,11 @@
                 ]
             }
         ],
+        "timestamp": "2025-07-12T11:30:13.086062392",
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
-        },
-        "timestamp": "2025-07-12T11:30:13.086062392"
+        }
     },
     "Should run without failures - stub": {
         "content": [
@@ -191,11 +191,11 @@
                 ]
             }
         ],
+        "timestamp": "2026-03-29T15:31:47.250628769",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.2"
-        },
-        "timestamp": "2025-06-12T14:13:38.477982915"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.2"
+        }
     },
     "Should run without failures": {
         "content": [
@@ -290,10 +290,10 @@
                 ]
             }
         ],
+        "timestamp": "2025-07-12T11:26:25.870662295",
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.3"
-        },
-        "timestamp": "2025-07-12T11:26:25.870662295"
+        }
     }
 }
