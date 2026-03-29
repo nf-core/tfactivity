@@ -102,15 +102,17 @@ workflow PIPELINE_INITIALISATION {
     // Create channel from input file provided through params.input
     //
 
-    channel
-        .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
-        .map { sample ->
-            validateInputSamplesheet(sample)
-        }
-        .set { ch_samplesheet }
+    ch_samplesheet = (input && input instanceof String)
+        ? channel.fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
+            .map { sample -> validateInputSamplesheet(sample) }
+        : channel.empty()
 
-    ch_samplesheet_bam = input_bam ? channel.fromList(samplesheetToList(input_bam, "${projectDir}/assets/schema_input_bam.json")) : channel.empty()
-    ch_counts_design = channel.fromList(samplesheetToList(counts_design, "${projectDir}/assets/schema_counts_design.json"))
+    ch_samplesheet_bam = (input_bam && input_bam instanceof String)
+        ? channel.fromList(samplesheetToList(input_bam, "${projectDir}/assets/schema_input_bam.json"))
+        : channel.empty()
+    ch_counts_design = (counts_design && counts_design instanceof String)
+        ? channel.fromList(samplesheetToList(counts_design, "${projectDir}/assets/schema_counts_design.json"))
+        : channel.empty()
 
     emit:
     samplesheet     = ch_samplesheet
