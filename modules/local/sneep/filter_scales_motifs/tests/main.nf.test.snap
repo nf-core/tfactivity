@@ -1,0 +1,60 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    "filtered_sneep_transfac_mouse_218.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "1": [
+                    "filtered_sneep_scale_mouse_218.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "2": [
+                    "versions.yml:md5,66a3fd79a4f4b440bfd853e55a502226"
+                ],
+                "scale_file": [
+                    "filtered_sneep_scale_mouse_218.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "transfac": [
+                    "filtered_sneep_transfac_mouse_218.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "versions": [
+                    "versions.yml:md5,66a3fd79a4f4b440bfd853e55a502226"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T10:28:29.159166885"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    "filtered_sneep_transfac_mouse_218.txt:md5,d5d69a7ebf91e0dbbeacddc601b77e11"
+                ],
+                "1": [
+                    "filtered_sneep_scale_mouse_218.txt:md5,a16515e3d710c2358504e1c468a2642e"
+                ],
+                "2": [
+                    "versions.yml:md5,4fdedef67d13adfc0c9635d3057fd42e"
+                ],
+                "scale_file": [
+                    "filtered_sneep_scale_mouse_218.txt:md5,a16515e3d710c2358504e1c468a2642e"
+                ],
+                "transfac": [
+                    "filtered_sneep_transfac_mouse_218.txt:md5,d5d69a7ebf91e0dbbeacddc601b77e11"
+                ],
+                "versions": [
+                    "versions.yml:md5,4fdedef67d13adfc0c9635d3057fd42e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T10:34:58.508510416"
+    }
+}

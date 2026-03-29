@@ -1,0 +1,60 @@
+nextflow_workflow {
+
+    name "Test Workflow FOOTPRINTING"
+    script "subworkflows/local/footprinting/main.nf"
+    workflow "FOOTPRINTING"
+
+    test("Should run without failures") {
+
+        config "./nextflow.config"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.from([
+                    [[id: 'L1_H3K27ac_R1', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K27ac_R3', footprinting: false, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K4me3_R2', footprinting: true, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L10_H3K27ac_R2', footprinting: false, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K27ac_R2', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K27ac/WT_p6_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K4me3_R1', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K4me3/WT_p6_H3K4me3_R1_peaks.broadPeak', checkIfExists: true)]
+                ])
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        config "./nextflow.config"
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.from([
+                    [[id: 'L1_H3K27ac_R1', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K27ac_R3', footprinting: false, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K4me3_R2', footprinting: true, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L10_H3K27ac_R2', footprinting: false, include_original: false, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K27ac_R2', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K27ac/WT_p6_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K4me3_R1', footprinting: true, include_original: true, max_peak_gap: 500], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K4me3/WT_p6_H3K4me3_R1_peaks.broadPeak', checkIfExists: true)]
+                ])
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}

@@ -1,0 +1,124 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "condition1": "L1",
+                            "condition2": "L10"
+                        },
+                        "test_dynamite_regression_coefficients.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test",
+                            "condition1": "L1",
+                            "condition2": "L10"
+                        },
+                        "test.filtered.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,5ec6593ae744d4101bbdd51c370e0bb7",
+                    "versions.yml:md5,7326a836a75d741d24554cc0e859bcea",
+                    "versions.yml:md5,b2e3aa92455f23be6266863f6ad5a3f6"
+                ],
+                "all_coefficients": [
+                    [
+                        {
+                            "id": "test",
+                            "condition1": "L1",
+                            "condition2": "L10"
+                        },
+                        "test_dynamite_regression_coefficients.txt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "filtered_coefficients": [
+                    [
+                        {
+                            "id": "test",
+                            "condition1": "L1",
+                            "condition2": "L10"
+                        },
+                        "test.filtered.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,5ec6593ae744d4101bbdd51c370e0bb7",
+                    "versions.yml:md5,7326a836a75d741d24554cc0e859bcea",
+                    "versions.yml:md5,b2e3aa92455f23be6266863f6ad5a3f6"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.3"
+        },
+        "timestamp": "2025-07-05T07:51:13.086018728"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test",
+                            "condition1": "L1",
+                            "condition2": "L10"
+                        },
+                        "test_dynamite_regression_coefficients.txt:md5,492f71af04955fb0f56d4f59b4de663f"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test",
+                            "condition1": "L1",
+                            "condition2": "L10"
+                        },
+                        "test.filtered.tsv:md5,fde0947b56bf364a0e551db932c45dae"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,7326a836a75d741d24554cc0e859bcea",
+                    "versions.yml:md5,b2e3aa92455f23be6266863f6ad5a3f6",
+                    "versions.yml:md5,fcafb3483f13789b7b87728707190092"
+                ],
+                "all_coefficients": [
+                    [
+                        {
+                            "id": "test",
+                            "condition1": "L1",
+                            "condition2": "L10"
+                        },
+                        "test_dynamite_regression_coefficients.txt:md5,492f71af04955fb0f56d4f59b4de663f"
+                    ]
+                ],
+                "filtered_coefficients": [
+                    [
+                        {
+                            "id": "test",
+                            "condition1": "L1",
+                            "condition2": "L10"
+                        },
+                        "test.filtered.tsv:md5,fde0947b56bf364a0e551db932c45dae"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,7326a836a75d741d24554cc0e859bcea",
+                    "versions.yml:md5,b2e3aa92455f23be6266863f6ad5a3f6",
+                    "versions.yml:md5,fcafb3483f13789b7b87728707190092"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-23T18:08:05.857789095"
+    }
+}

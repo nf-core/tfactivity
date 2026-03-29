@@ -1,0 +1,154 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    
+                ],
+                "1": [
+                    
+                ],
+                "10": [
+                    
+                ],
+                "11": [
+                    
+                ],
+                "12": [
+                    
+                ],
+                "13": [
+                    "versions.yml:md5,3a960beed761fb3c59bf5207d3e9629e",
+                    "versions.yml:md5,b11ac0334a547b6b4cc8995f451845fd",
+                    "versions.yml:md5,d9c5f7317226ed24bd44c0af02dd05bd",
+                    "versions.yml:md5,ee8df3b82d17ea9e3beafb1138385ef1",
+                    "versions.yml:md5,f17bd36717f1da258e7be8257799718f"
+                ],
+                "2": [
+                    
+                ],
+                "3": [
+                    
+                ],
+                "4": [
+                    
+                ],
+                "5": [
+                    
+                ],
+                "6": [
+                    
+                ],
+                "7": [
+                    
+                ],
+                "8": [
+                    
+                ],
+                "9": [
+                    
+                ],
+                "indels": [
+                    
+                ],
+                "info": [
+                    
+                ],
+                "motifinfo": [
+                    
+                ],
+                "notconsideredsnps": [
+                    
+                ],
+                "pfms": [
+                    
+                ],
+                "result": [
+                    
+                ],
+                "snpregions_bed": [
+                    
+                ],
+                "snpregions_fa": [
+                    
+                ],
+                "snpsregions_notuniq": [
+                    
+                ],
+                "snpsregions_notuniq_sorted": [
+                    
+                ],
+                "snpsunique": [
+                    
+                ],
+                "sortedsnpsnotunique": [
+                    
+                ],
+                "tf_count": [
+                    
+                ],
+                "versions": [
+                    "versions.yml:md5,3a960beed761fb3c59bf5207d3e9629e",
+                    "versions.yml:md5,b11ac0334a547b6b4cc8995f451845fd",
+                    "versions.yml:md5,d9c5f7317226ed24bd44c0af02dd05bd",
+                    "versions.yml:md5,ee8df3b82d17ea9e3beafb1138385ef1",
+                    "versions.yml:md5,f17bd36717f1da258e7be8257799718f"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-09-16T13:50:33.888114869"
+    },
+    "Should run without failures": {
+        "content": [
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                "versions.yml:md5,3a960beed761fb3c59bf5207d3e9629e",
+                "versions.yml:md5,8aedd9632c0f0b68e856a4dace0f3f27",
+                "versions.yml:md5,b11ac0334a547b6b4cc8995f451845fd",
+                "versions.yml:md5,d9c5f7317226ed24bd44c0af02dd05bd",
+                "versions.yml:md5,ee8df3b82d17ea9e3beafb1138385ef1"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-09-16T13:50:16.012361748"
+    }
+}
