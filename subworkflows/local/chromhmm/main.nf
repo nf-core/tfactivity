@@ -20,10 +20,10 @@ workflow CHROMHMM {
 
     ch_table = ch_samplesheet_bam
         .map { meta, signal, control -> [meta.condition, meta.assay, signal.name, control ? control.name : ''] }
-        .collectFile {
-            ["cellmarkfiletable.tsv", it.join("\t") + "\n"]
+        .collectFile { row ->
+            ["cellmarkfiletable.tsv", row.join("\t") + "\n"]
         }
-        .map { [it.baseName, it] }
+        .map { f -> [f.baseName, f] }
         .collect()
 
     // drop meta, remove duplicated control bams, add new meta

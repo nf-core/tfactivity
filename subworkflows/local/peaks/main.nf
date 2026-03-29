@@ -129,9 +129,9 @@ workflow PEAKS {
 
     // Output warnings for merged duplicate motifs
     AGGREGATE_SYNONYMS.out.python_output
-        .splitText() { it.trim() }
-        .filter { it.startsWith("Merging duplicate motif in") }
-        .subscribe { log.warn(it) }
+        .splitText() { line -> line.trim() }
+        .filter { line -> line.startsWith("Merging duplicate motif in") }
+        .subscribe { line -> log.warn(line) }
 
     ch_affinities_spread = AGGREGATE_SYNONYMS.out.affinities.map { meta, affinities -> [meta.condition, meta.assay, affinities] }
 
