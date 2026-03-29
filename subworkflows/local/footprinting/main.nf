@@ -7,7 +7,7 @@ workflow FOOTPRINTING {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     ch_footprint_split = ch_peaks.branch { meta, _peaks ->
         footprinting: meta.footprinting

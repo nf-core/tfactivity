@@ -13,7 +13,7 @@ workflow DYNAMITE {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     ch_combined = ch_differential
         .map { meta, differential ->

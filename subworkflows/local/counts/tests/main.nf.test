@@ -24,8 +24,8 @@ nextflow_workflow {
                 """
                 input[0] = PREPARE_GENOME.out.gene_lengths
                 input[1] = PREPARE_GENOME.out.gene_map
-                input[2] = Channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true))
-                input[3] = Channel.empty()
+                input[2] = channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true))
+                input[3] = channel.empty()
                 input[4] = [
                     [ id: 'test'],
                     file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_rnaseq.csv', checkIfExists: true)
@@ -68,8 +68,8 @@ nextflow_workflow {
                 """
                 input[0] = PREPARE_GENOME.out.gene_lengths
                 input[1] = PREPARE_GENOME.out.gene_map
-                input[2] = Channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true))
-                input[3] = Channel.empty()
+                input[2] = channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/combined.csv', checkIfExists: true))
+                input[3] = channel.empty()
                 input[4] = [
                     [ id: 'test'],
                     file(params.pipelines_testdata_base_path + '/samplesheet/samplesheet_rnaseq.csv', checkIfExists: true)
@@ -102,8 +102,8 @@ nextflow_workflow {
                 """
                 input[0] = PREPARE_GENOME.out.gene_lengths
                 input[1] = PREPARE_GENOME.out.gene_map
-                input[2] = Channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/Gene_id.txt', checkIfExists: true))
-                input[3] = Channel.from([
+                input[2] = channel.value(file(params.pipelines_testdata_base_path + '/rna-seq/Gene_id.txt', checkIfExists: true))
+                input[3] = channel.from([
                     [[id: 'L1-WT1'], file(params.pipelines_testdata_base_path + '/rna-seq/L1/L1_WT1-count.txt', checkIfExists: true)],
                     [[id: 'L1-WT2'], file(params.pipelines_testdata_base_path + '/rna-seq/L1/L1_WT2-count.txt', checkIfExists: true)],
                     [[id: 'L1-WT4'], file(params.pipelines_testdata_base_path + '/rna-seq/L1/L1_WT4-count.txt', checkIfExists: true)],

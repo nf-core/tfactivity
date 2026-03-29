@@ -46,8 +46,8 @@ workflow REPORT {
         workflow,
         parameters_schema: "nextflow_schema.json"
     )
-    ch_workflow_summary = Channel.value(paramsSummaryToYAML(summary_params))
-    ch_methods_description = Channel.value(methodsDescriptionText())
+    ch_workflow_summary = channel.value(paramsSummaryToYAML(summary_params))
+    ch_methods_description = channel.value(methodsDescriptionText())
 
     PREPROCESS(
         gtf,

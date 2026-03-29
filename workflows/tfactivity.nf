@@ -134,7 +134,7 @@ workflow TFACTIVITY {
     )
     ch_versions = ch_versions.mix(RANKING.out.versions)
 
-    ch_fimo_binding_sites = Channel.empty()
+    ch_fimo_binding_sites = channel.empty()
 
     if (!params.skip_fimo) {
         if (duplicate_motifs == "merge") {
