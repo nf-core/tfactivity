@@ -76,6 +76,8 @@ nextflow_workflow {
                 input[13] = 0.75 // chromhmm_threshold
                 input[14] = ["H3K27ac"] // chromhmm_enhancer_marks
                 input[15] = ["H3K4me3"] // chromhmm_promoter_marks
+                input[16] = false // skip_chromhmm
+                input[17] = false // skip_rose
                 """
             }
         }
@@ -136,6 +138,8 @@ nextflow_workflow {
                 input[13] = 0.75 // chromhmm_threshold
                 input[14] = ["H3K27ac"] // chromhmm_enhancer_marks
                 input[15] = ["H3K4me3"] // chromhmm_promoter_marks
+                input[16] = false // skip_chromhmm
+                input[17] = false // skip_rose
                 """
             }
         }

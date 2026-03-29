@@ -57,6 +57,11 @@ workflow TFACTIVITY {
     alpha
     snps
     ch_versions
+    skip_fimo
+    skip_sneep
+    skip_chromhmm
+    skip_rose
+    outdir
 
     main:
 
@@ -112,6 +117,8 @@ workflow TFACTIVITY {
         chromhmm_threshold,
         chromhmm_enhancer_marks,
         chromhmm_promoter_marks,
+        skip_chromhmm,
+        skip_rose,
     )
     ch_versions = ch_versions.mix(PEAKS.out.versions)
 
@@ -136,7 +143,7 @@ workflow TFACTIVITY {
 
     ch_fimo_binding_sites = channel.empty()
 
-    if (!params.skip_fimo) {
+    if (!skip_fimo) {
         if (duplicate_motifs == "merge") {
             error "Fimo can only be run if duplicate motifs are not merged. Please set --skip_fimo true or --duplicate_motifs [remove|keep]."
         }
@@ -151,7 +158,7 @@ workflow TFACTIVITY {
         ch_fimo_binding_sites = FIMO.out.tsv_significant
     }
 
-    if (!params.skip_sneep) {
+    if (!skip_sneep) {
         if (!sneep_scale_file) {
             error("In order to run sneep, please provide a sneep scale file (--sneep_scale_file). If you set --genome to either hg38 or mm10, the sneep scale file will be automatically downloaded.")
         }
@@ -164,7 +171,7 @@ workflow TFACTIVITY {
             error("In order to run sneep, please provide a snps file (--snps). If you set --genome to either hg38 or mm10, the snps file will be automatically downloaded.")
         }
 
-        if (params.skip_fimo) {
+        if (skip_fimo) {
             error "Sneep can only be run if fimo is also run. If you want to run sneep, please set --skip_fimo to false."
         }
 
@@ -201,7 +208,7 @@ workflow TFACTIVITY {
     softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
         .collectFile(
-            storeDir: "${params.outdir}/pipeline_info",
+            storeDir: "${outdir}/pipeline_info",
             name: 'nf_core_' + 'tfactivity_software_' + 'versions.yml',
             sort: true,
             newLine: true,
@@ -224,6 +231,7 @@ workflow TFACTIVITY {
         DYNAMITE.out.all_coefficients.map { _meta, all_coefficients -> all_coefficients }.collect(),
         ch_fimo_binding_sites.map { _meta, fimo_binding_sites -> fimo_binding_sites }.collect(),
         ch_versions.mix(ch_collated_versions),
+        outdir,
     )
 
     emit:

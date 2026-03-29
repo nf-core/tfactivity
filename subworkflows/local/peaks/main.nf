@@ -31,6 +31,8 @@ workflow PEAKS {
     chromhmm_threshold
     chromhmm_enhancer_marks
     chromhmm_promoter_marks
+    skip_chromhmm
+    skip_rose
 
     main:
 
@@ -56,15 +58,15 @@ workflow PEAKS {
     }
 
     ch_chromhmm_out = channel.empty()
-    if (!params.skip_chromhmm) {
+    if (!skip_chromhmm) {
         CHROMHMM(ch_samplesheet_bam, chrom_sizes, chromhmm_states, chromhmm_threshold, chromhmm_enhancer_marks, chromhmm_promoter_marks)
         ch_chromhmm_out = ch_chromhmm_out.mix(CHROMHMM.out.enhancers.mix(CHROMHMM.out.promoters))
         ch_versions = ch_versions.mix(CHROMHMM.out.versions)
     }
 
     ch_rose_out = channel.empty()
-    if (!params.skip_rose) {
-        if (params.skip_chromhmm) {
+    if (!skip_rose) {
+        if (skip_chromhmm) {
             log.warn("Rose can only be run if chromhmm is also run. If you want to run rose, please set --skip_chromhmm to false.")
         }
         else {
@@ -74,7 +76,7 @@ workflow PEAKS {
         }
     }
 
-    ch_chromhmm_rose_out = params.skip_rose ? ch_chromhmm_out : ch_rose_out
+    ch_chromhmm_rose_out = skip_rose ? ch_chromhmm_out : ch_rose_out
 
     ch_peaks = ch_peaks
         .mix(ch_chromhmm_rose_out)

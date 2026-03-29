@@ -34,6 +34,9 @@ workflow PIPELINE_INITIALISATION {
     help              // boolean: Display help message and exit
     help_full         // boolean: Show the full help message
     show_hidden       // boolean: Show hidden parameters in the help message
+    input             //  string: Path to input samplesheet
+    input_bam         //  string: Path to BAM samplesheet (optional)
+    counts_design     //  string: Path to counts design file
 
     main:
 
@@ -100,14 +103,14 @@ workflow PIPELINE_INITIALISATION {
     //
 
     channel
-        .fromList(samplesheetToList(params.input, "${projectDir}/assets/schema_input.json"))
+        .fromList(samplesheetToList(input, "${projectDir}/assets/schema_input.json"))
         .map { sample ->
             validateInputSamplesheet(sample)
         }
         .set { ch_samplesheet }
 
-    ch_samplesheet_bam = params.input_bam ? channel.fromList(samplesheetToList(params.input_bam, "${projectDir}/assets/schema_input_bam.json")) : channel.empty()
-    ch_counts_design = channel.fromList(samplesheetToList(params.counts_design, "${projectDir}/assets/schema_counts_design.json"))
+    ch_samplesheet_bam = input_bam ? channel.fromList(samplesheetToList(input_bam, "${projectDir}/assets/schema_input_bam.json")) : channel.empty()
+    ch_counts_design = channel.fromList(samplesheetToList(counts_design, "${projectDir}/assets/schema_counts_design.json"))
 
     emit:
     samplesheet     = ch_samplesheet

@@ -50,11 +50,11 @@
                 ]
             }
         ],
+        "timestamp": "2025-08-23T15:47:47.843784047",
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-08-23T15:47:47.843784047"
+        }
     },
     "Should run with input motifs (filtering duplicates) - stub": {
         "content": [
@@ -107,11 +107,11 @@
                 ]
             }
         ],
+        "timestamp": "2026-03-29T15:45:22.340901937",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-08-23T15:48:16.322866677"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.2"
+        }
     },
     "Should run with taxon id": {
         "content": [
@@ -166,11 +166,11 @@
                 ]
             }
         ],
+        "timestamp": "2025-08-23T15:46:43.791706128",
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-08-23T15:46:43.791706128"
+        }
     },
     "Should run with taxon id - stub": {
         "content": [
@@ -225,11 +225,11 @@
                 ]
             }
         ],
+        "timestamp": "2026-03-29T15:44:05.351634571",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2025-06-12T18:30:36.511040846"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.2"
+        }
     },
     "Should run with input motifs": {
         "content": [
@@ -282,11 +282,11 @@
                 ]
             }
         ],
+        "timestamp": "2025-08-23T15:45:39.25283353",
         "meta": {
             "nf-test": "0.9.2",
             "nextflow": "25.04.6"
-        },
-        "timestamp": "2025-08-23T15:45:39.25283353"
+        }
     },
     "Should run with input motifs - stub": {
         "content": [
@@ -339,10 +339,10 @@
                 ]
             }
         ],
+        "timestamp": "2026-03-29T15:42:30.646072992",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.04.3"
-        },
-        "timestamp": "2025-06-12T18:16:42.974358934"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.2"
+        }
     }
 }

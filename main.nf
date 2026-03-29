@@ -114,6 +114,11 @@ workflow NFCORE_TFACTIVITY {
         params.alpha,
         snps,
         ch_versions,
+        params.skip_fimo,
+        params.skip_sneep,
+        params.skip_chromhmm,
+        params.skip_rose,
+        params.outdir,
     )
 }
 /*
@@ -134,6 +139,9 @@ workflow {
         params.help,
         params.help_full,
         params.show_hidden,
+        params.input,
+        params.input_bam,
+        params.counts_design,
     )
 
     //
