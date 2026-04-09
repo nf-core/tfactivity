@@ -10,7 +10,13 @@ import yaml
 from gtfparse import read_gtf
 
 # Constants
-OVERVIEW_TEMPLATE = {"dcg": {}, "regression_coefficients": {}, "differential_expression": {}, "tpm": {}}
+OVERVIEW_TEMPLATE = {
+    "dcg": {},
+    "regression_coefficients": {},
+    "differential_expression": {},
+    "tpm": {},
+    "tflink": {},
+}
 TF_TEMPLATE = {
     "target_genes": {},
     "differential_expression": {},
@@ -20,6 +26,7 @@ TF_TEMPLATE = {
     "tpm": {},
     "counts": {},
     "fimo_binding_sites": {},
+    "tflink": {},
 }
 
 def remove_motif_id(tf):
@@ -72,11 +79,30 @@ def init_tf_data(tf, tfs):
 
 def process_ranking_data(paths, overview, tfs):
     """Process TF ranking and target gene data."""
+    tflink_summary = {}
+
     for file in paths['tf_ranking_dir'].glob("*.tf_ranking.tsv"):
-        assay = file.stem.split(".")[0]
+        file_name = file.name
+        if file_name.endswith(".tflink.tf_ranking.tsv"):
+            assay = file_name.removesuffix(".tflink.tf_ranking.tsv")
+            tg_filename = file_name.replace(".tflink.tf_ranking.tsv", ".tflink.tg_ranking.tsv")
+        else:
+            assay = file_name.removesuffix(".tf_ranking.tsv")
+            tg_filename = file_name.replace(".tf_ranking.tsv", ".tg_ranking.tsv")
 
         df_tf = pd.read_csv(file, sep="\\t", index_col=0)
-        df_tg = pd.read_csv(paths['tg_ranking_dir'] / f"{assay}.tg_ranking.tsv", sep="\\t", index_col=0)
+        df_tg = pd.read_csv(paths['tg_ranking_dir'] / tg_filename, sep="\\t", index_col=0)
+        has_tflink_columns = all(
+            column in df_tf.columns
+            for column in ["tflink_supported_edges", "tflink_total_edges", "tflink_support_rate"]
+        )
+
+        if has_tflink_columns and assay not in tflink_summary:
+            tflink_summary[assay] = {
+                "supported_edges": 0,
+                "total_edges": 0,
+                "support_rate": 0.0,
+            }
 
         # Process all TFs from this assay
         for tf, dcg_score in df_tf["dcg"].items():
@@ -89,6 +115,29 @@ def process_ranking_data(paths, overview, tfs):
 
             # Store target genes
             tfs[tf]["target_genes"][assay] = df_tg[tf].to_dict()
+
+            if has_tflink_columns:
+                supported_edges = int(df_tf.loc[tf, "tflink_supported_edges"]) if pd.notna(df_tf.loc[tf, "tflink_supported_edges"]) else 0
+                total_edges = int(df_tf.loc[tf, "tflink_total_edges"]) if pd.notna(df_tf.loc[tf, "tflink_total_edges"]) else 0
+                support_rate = float(df_tf.loc[tf, "tflink_support_rate"]) if pd.notna(df_tf.loc[tf, "tflink_support_rate"]) else 0.0
+
+                tflink_data = {
+                    "supported_edges": supported_edges,
+                    "total_edges": total_edges,
+                    "support_rate": support_rate,
+                }
+                overview[tf]["tflink"][assay] = tflink_data
+                tfs[tf]["tflink"][assay] = tflink_data
+
+                tflink_summary[assay]["supported_edges"] += supported_edges
+                tflink_summary[assay]["total_edges"] += total_edges
+
+    for assay in tflink_summary:
+        total_edges = tflink_summary[assay]["total_edges"]
+        supported_edges = tflink_summary[assay]["supported_edges"]
+        tflink_summary[assay]["support_rate"] = (float(supported_edges) / float(total_edges)) if total_edges else 0.0
+
+    return tflink_summary
 
 def process_differential_expression(paths, overview, tfs):
     """Process differential expression data."""
@@ -335,6 +384,9 @@ def clean_empty_data(overview, tfs):
         # Remove empty target_genes
         if not tfs[tf]["target_genes"]:
             del tfs[tf]["target_genes"]
+        # Remove empty TFLink annotations
+        if "tflink" in tfs[tf] and not tfs[tf]["tflink"]:
+            del tfs[tf]["tflink"]
 
 def merge_overview_data(overview, tfs):
     """Merge overview data into individual TF structures."""
@@ -491,12 +543,16 @@ def main():
     clean_params_data(params)
 
     # Process core data
-    process_ranking_data(paths, overview, tfs)
+    tflink_summary = process_ranking_data(paths, overview, tfs)
     pairings = process_differential_expression(paths, overview, tfs)
 
     # Get assays from overview
     assays = list(set([assay for tf_data in overview.values() for assay in tf_data["dcg"].keys()]))
     metadata["assays"] = assays
+    metadata["tflink"] = {
+        "enabled": bool(tflink_summary),
+        "assays": tflink_summary,
+    }
 
     # Process remaining data types
     process_regression_coefficients(paths, overview, pairings, assays)

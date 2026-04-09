@@ -1,0 +1,164 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink.tf_ranking.tsv:md5,ff2dddc7ddb2ca0bd65cd623915796c7"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink.tg_ranking.tsv:md5,8aa221f160336c2a1ef00f6b12a588e7"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink_edges.tsv:md5,84e6026449b92fd83248f705c19184f0"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink_summary.tsv:md5,9c98f1a338812660920d639e8fe0574f"
+                    ]
+                ],
+                "4": [
+                    "versions.yml:md5,0ce29530d4f834275f6e1dfd4ad6ba95"
+                ],
+                "edge_annotations": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink_edges.tsv:md5,84e6026449b92fd83248f705c19184f0"
+                    ]
+                ],
+                "summary": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink_summary.tsv:md5,9c98f1a338812660920d639e8fe0574f"
+                    ]
+                ],
+                "tf_ranking": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink.tf_ranking.tsv:md5,ff2dddc7ddb2ca0bd65cd623915796c7"
+                    ]
+                ],
+                "tg_ranking": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink.tg_ranking.tsv:md5,8aa221f160336c2a1ef00f6b12a588e7"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,0ce29530d4f834275f6e1dfd4ad6ba95"
+                ]
+            }
+        ],
+        "timestamp": "2026-04-09T19:27:16.276982145",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink.tf_ranking.tsv:md5,d2c5c3278b9117610a1eca0f0bb91c60"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink.tg_ranking.tsv:md5,0221b5d45a65a32e58452107916845fa"
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink_edges.tsv:md5,19fdf044666f51bc3bd9cc93839928d9"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink_summary.tsv:md5,b86a0988730182b87de41cdf044b6d39"
+                    ]
+                ],
+                "4": [
+                    "versions.yml:md5,3ccdc123869180cdb82f254b27831d37"
+                ],
+                "edge_annotations": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink_edges.tsv:md5,19fdf044666f51bc3bd9cc93839928d9"
+                    ]
+                ],
+                "summary": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink_summary.tsv:md5,b86a0988730182b87de41cdf044b6d39"
+                    ]
+                ],
+                "tf_ranking": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink.tf_ranking.tsv:md5,d2c5c3278b9117610a1eca0f0bb91c60"
+                    ]
+                ],
+                "tg_ranking": [
+                    [
+                        {
+                            "id": "test_assay"
+                        },
+                        "test_assay.tflink.tg_ranking.tsv:md5,0221b5d45a65a32e58452107916845fa"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,3ccdc123869180cdb82f254b27831d37"
+                ]
+            }
+        ],
+        "timestamp": "2026-04-09T18:43:15.660367921",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
+        }
+    }
+}

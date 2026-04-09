@@ -217,6 +217,7 @@ def genomeExistsError() {
 // Generate methods description for MultiQC
 //
 def toolCitationText() {
+    def tflink_enabled = params.tflink_file ?: getGenomeAttribute('tflink_file')
     def tools = [
             'DESeq2 (Love et al. 2014)',
             'STARE (Hecker et al. 2023)',
@@ -227,6 +228,7 @@ def toolCitationText() {
             'Biopython (Cock et al. 2009)',
             'JASPAR (Rauluseviciute et al. 2024)',
             'universalmotif (Tremblay 2024)',
+            tflink_enabled ? 'TFLink (Fekete et al. 2022)' : '',
             params.skip_fimo ? '' : 'FIMO (Grant et al. 2011)',
             params.skip_sneep ? '' : 'SNEEP (Baumgarten et al. 2024)'
         ]
@@ -237,6 +239,7 @@ def toolCitationText() {
 }
 
 def toolBibliographyText() {
+    def tflink_enabled = params.tflink_file ?: getGenomeAttribute('tflink_file')
     def references = [
             "<li>Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol. 2014;15:550. doi:10.1186/s13059-014-0550-8.</li>",
             "<li>Hecker D, Behjati Ardakani F, Karollus A, Gagneur J, Schulz MH. The adapted Activity-By-Contact model for enhancer–gene assignment and its application to single-cell data (STARE). Bioinformatics. 2023;39(2). doi:10.1093/bioinformatics/btad062.</li>",
@@ -248,6 +251,7 @@ def toolBibliographyText() {
             (params.skip_fimo ? "" : "<li>Grant CE, Bailey TL, Noble WS. FIMO: scanning for occurrences of a given motif. Bioinformatics. 2011;27(7):1017–1018. doi:10.1093/bioinformatics/btr064.</li>"),
             "<li>Rauluseviciute I, Riudavets-Puig R, Blanc-Mathieu R, et al. JASPAR 2024: 20th anniversary of the open-access database of transcription factor binding profiles. Nucleic Acids Res. 2024;52(D1):D174–D182. doi:10.1093/nar/gkad1059.</li>",
             "<li>Tremblay BJ. universalmotif: An R package for biological motif analysis. Journal of Open Source Software. 2024;9(100):7012. doi:10.21105/joss.07012.</li>",
+            (tflink_enabled ? "<li>Fekete T, Gyorffy B. TFLink: an integrated gateway to access transcription factor-target gene interactions for multiple species. Database (Oxford). 2022;2022:baac083. doi:10.1093/database/baac083.</li>" : ""),
             (params.skip_sneep ? "" : "<li>Baumgarten N, Ebert P, Schmidt F, Kern F, Schulz MH. A statistical approach for identifying single nucleotide variants that affect transcription factor binding (SNEEP). iScience. 2024;27(5):109765. doi:10.1016/j.isci.2024.109765.</li>")
         ].findAll { ref -> ref }
 
