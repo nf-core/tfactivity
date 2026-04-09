@@ -50,6 +50,10 @@
 
   > Tremblay, B. J., (2024). universalmotif: An R package for biological motif analysis. Journal of Open Source Software, 9(100), 701
 
+- [TFLink](https://doi.org/10.1093/database/baac083)
+
+  > Fekete T, Gyorffy B. TFLink: an integrated gateway to access transcription factor-target gene interactions for multiple species. Database (Oxford). 2022;2022:baac083.
+
 - [SNEEP](https://doi.org/10.1016/j.isci.2024.109765)
 
   > Baumgarten N, Ebert P, Schmidt F, Kern F, Schulz MH. A statistical approach for identifying single nucleotide variants that affect transcription factor binding. iScience, Volume 27, Issue 5, 109765

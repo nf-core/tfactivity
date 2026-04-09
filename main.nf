@@ -22,6 +22,7 @@ params.taxon_id         = getGenomeAttribute('taxon_id')
 params.snps             = getGenomeAttribute('snps')
 params.sneep_scale_file = getGenomeAttribute('sneep_scale_file')
 params.sneep_motif_file = getGenomeAttribute('sneep_motif_file')
+params.tflink_file      = getGenomeAttribute('tflink_file')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,6 +64,7 @@ workflow NFCORE_TFACTIVITY {
     snps = params.snps ? file(params.snps, checkIfExists: true) : null
     sneep_scale_file = params.sneep_scale_file ? file(params.sneep_scale_file, checkIfExists: true) : null
     sneep_motif_file = params.sneep_motif_file ? file(params.sneep_motif_file, checkIfExists: true) : null
+    tflink_file = params.tflink_file ? file(params.tflink_file, checkIfExists: true) : null
 
     //
     // SUBWORKFLOW: Prepare genome
@@ -113,6 +115,7 @@ workflow NFCORE_TFACTIVITY {
         params.dynamite_randomize,
         params.alpha,
         snps,
+        tflink_file,
         ch_versions,
         params.skip_fimo,
         params.skip_sneep,

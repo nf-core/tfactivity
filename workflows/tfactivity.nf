@@ -13,6 +13,7 @@ include { RANKING                } from '../subworkflows/local/ranking'
 include { FIMO                   } from '../subworkflows/local/fimo'
 include { SNEEP                  } from '../subworkflows/local/sneep'
 include { REPORT                 } from '../subworkflows/local/report'
+include { TFLINK_ANNOTATE        } from '../modules/local/tflink/annotate'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 
 /*
@@ -56,6 +57,7 @@ workflow TFACTIVITY {
     dynamite_randomize
     alpha
     snps
+    tflink_file
     ch_versions
     skip_fimo
     skip_sneep
@@ -140,6 +142,26 @@ workflow TFACTIVITY {
         affinity_agg_method,
     )
     ch_versions = ch_versions.mix(RANKING.out.versions)
+    ch_tf_rankings_for_report = RANKING.out.tf_ranking
+    ch_tg_rankings_for_report = RANKING.out.tg_ranking
+
+    if (tflink_file) {
+        ch_rankings_for_tflink = RANKING.out.tf_ranking
+            .map { meta, tf_ranking -> [meta.id, meta, tf_ranking] }
+            .join(
+                RANKING.out.tg_ranking.map { meta, tg_ranking -> [meta.id, tg_ranking] },
+                by: 0
+            )
+            .map { _id, meta, tf_ranking, tg_ranking -> [meta, tf_ranking, tg_ranking] }
+
+        TFLINK_ANNOTATE(
+            ch_rankings_for_tflink,
+            tflink_file,
+        )
+        ch_versions = ch_versions.mix(TFLINK_ANNOTATE.out.versions)
+        ch_tf_rankings_for_report = TFLINK_ANNOTATE.out.tf_ranking
+        ch_tg_rankings_for_report = TFLINK_ANNOTATE.out.tg_ranking
+    }
 
     ch_fimo_binding_sites = channel.empty()
 
@@ -217,8 +239,8 @@ workflow TFACTIVITY {
 
     REPORT(
         gtf,
-        RANKING.out.tf_ranking.map { _meta, ranking -> ranking }.collect(),
-        RANKING.out.tg_ranking.map { _meta, ranking -> ranking }.collect(),
+        ch_tf_rankings_for_report.map { _meta, ranking -> ranking }.collect(),
+        ch_tg_rankings_for_report.map { _meta, ranking -> ranking }.collect(),
         COUNTS.out.differential.map { _meta, differential -> differential }.collect(),
         COUNTS.out.raw_counts.map { _meta, raw_counts -> raw_counts }.collect(),
         COUNTS.out.normalized.map { _meta, normalized -> normalized }.collect(),

@@ -278,6 +278,11 @@ The ranking outputs provide the primary results of the pipeline: prioritized lis
     - `<assay>.tg_ranking.tsv`: TG ranking matrices per assay (COMBINE_TGS_PER_ASSAY).
   - `06_combined_tgs_across_assays/`
     - `all.tsv`: TG ranking matrices combined across assays (COMBINE_TGS_ACROSS_ASSAYS).
+  - `07_tflink_annotation/` (only if `--tflink_file` is provided directly or via `--genome`)
+    - `<assay>.tf_ranking.tsv`: TF rankings with TFLink support columns (`tflink_supported`, `tflink_supported_edges`, `tflink_total_edges`, `tflink_support_rate`).
+    - `<assay>.tg_ranking.tsv`: Unchanged TG ranking matrix copied for traceable side-by-side usage with TFLink annotations.
+    - `<assay>.tflink_edges.tsv`: Edge-level TFLink support table with per TF-target support status and evidence metadata.
+    - `<assay>.tflink_summary.tsv`: Per-assay support summary for annotated edges.
 
 </details>
 
@@ -387,6 +392,7 @@ This final step generates a comprehensive, interactive HTML report that consolid
 - Binding affinity predictions from STARE
 - Regulatory coefficients from DYNAMITE analysis
 - Motif information and binding site predictions
+- TFLink evidence summaries and per-TF support metrics when TFLink annotation is enabled
 
 **Distribution Formats**: Results are provided in two convenient formats:
 

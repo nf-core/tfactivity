@@ -426,6 +426,16 @@
                     "help_text": "This parameter is *mandatory* if `--genome` is not specified and `--skip_sneep` is false.",
                     "fa_icon": "far fa-file-code"
                 },
+                "tflink_file": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/plain",
+                    "pattern": "^\\S+\\.(tsv|txt|tsv.gz|txt.gz)$",
+                    "description": "Path to TFLink TF-target interaction table used for annotation.",
+                    "help_text": "If provided (or resolved via `--genome` in `igenomes.config`), TFLink post-ranking annotation is enabled. Explicit `--tflink_file` overrides any genome-provided default.",
+                    "fa_icon": "far fa-file-code"
+                },
                 "taxon_id": {
                     "type": "integer",
                     "description": "NCBI Taxonomy ID.",

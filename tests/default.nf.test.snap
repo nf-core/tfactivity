@@ -1,7 +1,7 @@
 {
     "Should run with bed only": {
         "content": [
-            179,
+            181,
             {
                 "AFFINITY_MEAN": {
                     "numpy": "2.2.6",
@@ -163,6 +163,10 @@
                 },
                 "STARE": {
                     "stare": "1.0.5"
+                },
+                "TFLINK_ANNOTATE": {
+                    "pandas": "2.3.0",
+                    "yaml": "6.0.2"
                 },
                 "TF_TG_SCORE": {
                     "pandas": "2.3.0",
@@ -363,6 +367,15 @@
                 "05_ranking/05_combined_tgs_per_assay/H3K4me3.tg_ranking.tsv",
                 "05_ranking/06_combined_tgs_across_assays",
                 "05_ranking/06_combined_tgs_across_assays/all.tsv",
+                "05_ranking/07_tflink_annotation",
+                "05_ranking/07_tflink_annotation/H3K27ac.tflink.tf_ranking.tsv",
+                "05_ranking/07_tflink_annotation/H3K27ac.tflink.tg_ranking.tsv",
+                "05_ranking/07_tflink_annotation/H3K27ac.tflink_edges.tsv",
+                "05_ranking/07_tflink_annotation/H3K27ac.tflink_summary.tsv",
+                "05_ranking/07_tflink_annotation/H3K4me3.tflink.tf_ranking.tsv",
+                "05_ranking/07_tflink_annotation/H3K4me3.tflink.tg_ranking.tsv",
+                "05_ranking/07_tflink_annotation/H3K4me3.tflink_edges.tsv",
+                "05_ranking/07_tflink_annotation/H3K4me3.tflink_summary.tsv",
                 "06_fimo",
                 "06_fimo/01_filtered_motifs",
                 "06_fimo/01_filtered_motifs/motifs",
@@ -3757,6 +3770,14 @@
                 "H3K27ac.tg_ranking.tsv:md5,88229324fcacf3fd97140defa3c50d88",
                 "H3K4me3.tg_ranking.tsv:md5,7d27ecc256317be02da81db75303e24d",
                 "all.tsv:md5,0371c1546c0f018b03366fa3c4633d64",
+                "H3K27ac.tflink.tf_ranking.tsv:md5,e20dee29187ee7be46c848e67bcc418d",
+                "H3K27ac.tflink.tg_ranking.tsv:md5,447eab86bbb3ae5e1ecdb69d06f5b06c",
+                "H3K27ac.tflink_edges.tsv:md5,d8588f19d1cb15733e51163de814b140",
+                "H3K27ac.tflink_summary.tsv:md5,b788a17d208a5678487606a7d0d21f84",
+                "H3K4me3.tflink.tf_ranking.tsv:md5,200ca0fb1d810a02dd7f296133d4477d",
+                "H3K4me3.tflink.tg_ranking.tsv:md5,c2182ff92a1e83b41f610185bed7e385",
+                "H3K4me3.tflink_edges.tsv:md5,7d1ddabc85e36240638f0cf0b00465cd",
+                "H3K4me3.tflink_summary.tsv:md5,4296871d510d012d028ec51e4e0489a8",
                 "MA0145.2.meme:md5,112ddef6097b5b7cec18dc83dde6f654",
                 "MA0602.2.meme:md5,6d30a7ab368e43d191a583424715fbba",
                 "MA0626.2.meme:md5,c1844d28f080b72823106c799266fd65",
@@ -3987,10 +4008,10 @@
                 "filtered_p6_H3K4me3.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2025-11-13T19:36:12.666238946",
+        "timestamp": "2026-04-09T21:31:19.892864774",
         "meta": {
-            "nf-test": "0.9.2",
-            "nextflow": "25.10.0"
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.4"
         }
     },
     "Should run with both bed and bam input": {
@@ -4187,6 +4208,10 @@
                 },
                 "SUBTRACT_OVERLAPS": {
                     "bedtools": "2.31.1"
+                },
+                "TFLINK_ANNOTATE": {
+                    "pandas": "2.3.0",
+                    "yaml": "6.0.2"
                 },
                 "TF_TG_SCORE": {
                     "pandas": "2.3.0",
@@ -4542,6 +4567,23 @@
                 "05_ranking/05_combined_tgs_per_assay/chromHMM_promoters.tg_ranking.tsv",
                 "05_ranking/06_combined_tgs_across_assays",
                 "05_ranking/06_combined_tgs_across_assays/all.tsv",
+                "05_ranking/07_tflink_annotation",
+                "05_ranking/07_tflink_annotation/H3K27ac.tflink.tf_ranking.tsv",
+                "05_ranking/07_tflink_annotation/H3K27ac.tflink.tg_ranking.tsv",
+                "05_ranking/07_tflink_annotation/H3K27ac.tflink_edges.tsv",
+                "05_ranking/07_tflink_annotation/H3K27ac.tflink_summary.tsv",
+                "05_ranking/07_tflink_annotation/H3K4me3.tflink.tf_ranking.tsv",
+                "05_ranking/07_tflink_annotation/H3K4me3.tflink.tg_ranking.tsv",
+                "05_ranking/07_tflink_annotation/H3K4me3.tflink_edges.tsv",
+                "05_ranking/07_tflink_annotation/H3K4me3.tflink_summary.tsv",
+                "05_ranking/07_tflink_annotation/chromHMM_enhancers.tflink.tf_ranking.tsv",
+                "05_ranking/07_tflink_annotation/chromHMM_enhancers.tflink.tg_ranking.tsv",
+                "05_ranking/07_tflink_annotation/chromHMM_enhancers.tflink_edges.tsv",
+                "05_ranking/07_tflink_annotation/chromHMM_enhancers.tflink_summary.tsv",
+                "05_ranking/07_tflink_annotation/chromHMM_promoters.tflink.tf_ranking.tsv",
+                "05_ranking/07_tflink_annotation/chromHMM_promoters.tflink.tg_ranking.tsv",
+                "05_ranking/07_tflink_annotation/chromHMM_promoters.tflink_edges.tsv",
+                "05_ranking/07_tflink_annotation/chromHMM_promoters.tflink_summary.tsv",
                 "06_fimo",
                 "06_fimo/01_filtered_motifs",
                 "06_fimo/01_filtered_motifs/motifs",
@@ -9537,6 +9579,22 @@
                 "chromHMM_enhancers.tg_ranking.tsv:md5,85f61b6c0f3ff0103684d76f3c7d1e34",
                 "chromHMM_promoters.tg_ranking.tsv:md5,edf40455b2658931b5b48c177d0637e3",
                 "all.tsv:md5,44590a7acfd2082306fb56aca936c217",
+                "H3K27ac.tflink.tf_ranking.tsv:md5,e20dee29187ee7be46c848e67bcc418d",
+                "H3K27ac.tflink.tg_ranking.tsv:md5,447eab86bbb3ae5e1ecdb69d06f5b06c",
+                "H3K27ac.tflink_edges.tsv:md5,d8588f19d1cb15733e51163de814b140",
+                "H3K27ac.tflink_summary.tsv:md5,b788a17d208a5678487606a7d0d21f84",
+                "H3K4me3.tflink.tf_ranking.tsv:md5,200ca0fb1d810a02dd7f296133d4477d",
+                "H3K4me3.tflink.tg_ranking.tsv:md5,c2182ff92a1e83b41f610185bed7e385",
+                "H3K4me3.tflink_edges.tsv:md5,7d1ddabc85e36240638f0cf0b00465cd",
+                "H3K4me3.tflink_summary.tsv:md5,4296871d510d012d028ec51e4e0489a8",
+                "chromHMM_enhancers.tflink.tf_ranking.tsv:md5,c5d40f1a73a5327d5aca63acb582e7e9",
+                "chromHMM_enhancers.tflink.tg_ranking.tsv:md5,6ec3683806785560ac5659d4eab8db99",
+                "chromHMM_enhancers.tflink_edges.tsv:md5,0d7d246974185fad470c3454e2b73dec",
+                "chromHMM_enhancers.tflink_summary.tsv:md5,16d5f5555ba856d99ad6ce49b4ef83a7",
+                "chromHMM_promoters.tflink.tf_ranking.tsv:md5,d4521af42b3df2a1297584be295cf598",
+                "chromHMM_promoters.tflink.tg_ranking.tsv:md5,86bd7f96be19d306d22ac18383efa738",
+                "chromHMM_promoters.tflink_edges.tsv:md5,f4ed8a836788fbeb309e1176611ffe76",
+                "chromHMM_promoters.tflink_summary.tsv:md5,a6246cd61b34edb71b0b82c2d98577ec",
                 "MA0145.2.meme:md5,112ddef6097b5b7cec18dc83dde6f654",
                 "MA0505.3.meme:md5,c13fc4da323a7944e49564b163f2a0e9",
                 "MA0518.2.meme:md5,fb73c817ec3bffc16887882a1913b5ef",
@@ -10141,10 +10199,10 @@
                 "filtered_p6_chromHMM_promoters.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
             ]
         ],
-        "timestamp": "2026-03-29T16:58:46.963683478",
+        "timestamp": "2026-04-09T21:24:32.438531168",
         "meta": {
             "nf-test": "0.9.4",
-            "nextflow": "25.10.2"
+            "nextflow": "25.10.4"
         }
     }
 }
