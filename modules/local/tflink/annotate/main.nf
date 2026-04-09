@@ -4,8 +4,8 @@ process TFLINK_ANNOTATE {
 
     conda "${moduleDir}/environment.yml"
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/c5/c59e6f0f9a6959e3755f422836b3d77a592d3be0a4e7a1798fd2d4aa8e10a874/data'
-        : 'community.wave.seqera.io/library/gtfparse_pandas_pyyaml:10fc85c2e9b77f0d'}"
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/7c/7c256e63e08633ac420692d3ceec1f554fe4fcc794e5bdd331994f743096a46d/data'
+        : 'community.wave.seqera.io/library/pandas_pyyaml:c0acbb47d05e4f9c'}"
 
     input:
     tuple val(meta), path(tf_ranking), path(tg_ranking)
