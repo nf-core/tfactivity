@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import platform
 from pathlib import Path
 
 import pandas as pd
@@ -230,7 +229,6 @@ def main() -> None:
 
     versions = {
         "${task.process}": {
-            "python": platform.python_version(),
             "pandas": pd.__version__,
             "yaml": yaml.__version__,
         }
