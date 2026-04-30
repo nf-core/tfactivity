@@ -5,7 +5,7 @@ lint:
     - .github/CONTRIBUTING.md
     - assets/sendmail_template.txt
   multiqc_config: false
-nf_core_version: 4.0.0
+nf_core_version: 4.0.2
 repository_type: pipeline
 template:
   author: Nico Trummer
