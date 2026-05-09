@@ -67,8 +67,6 @@ workflow TFACTIVITY {
 
     main:
 
-    ch_versions = channel.empty()
-
     ch_conditions = ch_samplesheet
         .map { meta, _peak_file -> meta.condition }
         .toSortedList()
@@ -227,7 +225,7 @@ workflow TFACTIVITY {
             "${process}:\n${tool_versions.join('\n')}"
         }
 
-    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+    def ch_collated_versions = softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
         .mix(topic_versions_string)
         .collectFile(
             storeDir: "${outdir}/pipeline_info",
@@ -235,7 +233,6 @@ workflow TFACTIVITY {
             sort: true,
             newLine: true,
         )
-        .set { ch_collated_versions }
 
     REPORT(
         gtf,
