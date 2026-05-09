@@ -1,0 +1,63 @@
+nextflow_process {
+
+    name "Test Process RANKING"
+    script "modules/local/ranking/ranking/main.nf"
+    process "RANKING"
+
+    setup {
+        run("TF_TG_SCORE") {
+            script "../../tf_tg_score"
+            process {
+                """
+                input[0] = [
+                    [id: "test"],
+                    file(params.pipelines_testdata_base_path + '/intermediates/deseq2/L1:L10.deseq2.results.tsv', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1:L10_chromHMM_promoters_sum.tsv', checkIfExists: true),
+                    file(params.pipelines_testdata_base_path + '/intermediates/dynamite/L1:L10_chromHMM_promoters.filtered.tsv', checkIfExists: true)
+                ]
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                input[0] = TF_TG_SCORE.out.score
+                input[1] = 0.05
+                input[2] = 'max'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = TF_TG_SCORE.out.score
+                input[1] = 0.05
+                input[2] = 'max'
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

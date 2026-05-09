@@ -1,0 +1,87 @@
+nextflow_workflow {
+
+    name "Test Workflow SNEEP"
+    script "subworkflows/local/sneep/main.nf"
+    workflow "SNEEP"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        config "./nextflow.config"
+
+        when {
+            workflow {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/snps_chr1.bed.gz', checkIfExists: true)
+                input[1] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
+                input[2] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
+                input[3] = PREPARE_GENOME.out.fasta
+                input[4] = channel.value([
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_promoters.gff', checkIfExists: true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(
+                workflow.out.pfms,
+                workflow.out.indels,
+                // workflow.out.info, -> Contains execution time, thus cannot be hashed
+                workflow.out.motifinfo,
+                workflow.out.notconsideredsnps,
+                workflow.out.result,
+                workflow.out.snpregions_bed,
+                workflow.out.snpregions_fa,
+                workflow.out.snpsregions_notuniq_sorted,
+                workflow.out.snpsregions_notuniq,
+                workflow.out.snpsunique,
+                workflow.out.sortedsnpsnotunique,
+                // workflow.out.tf_count, -> Column order is not deterministic
+                workflow.out.versions
+            ).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+        config "./nextflow.config"
+
+        when {
+            workflow {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/snps_chr1.bed.gz', checkIfExists: true)
+                input[1] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_scale_mouse_218.txt", checkIfExists: true)
+                input[2] = file("https://github.com/nf-core/tfactivity/raw/refs/heads/dev/assets/sneep_transfac_mouse_218.txt", checkIfExists: true)
+                input[3] = PREPARE_GENOME.out.fasta
+                input[4] = channel.value([
+                    [ id: 'test' ],
+                    file(params.pipelines_testdata_base_path + '/intermediates/fimo/L1_chromHMM_promoters.gff', checkIfExists: true)
+                ])
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}
