@@ -1,0 +1,6 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bioconda::bcbio-gff=0.7.1
+  - conda-forge::pyyaml=6.0.2

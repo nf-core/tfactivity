@@ -1,0 +1,96 @@
+nextflow_workflow {
+
+    name "Test Workflow ROSE"
+    script "subworkflows/local/rose/main.nf"
+    workflow "ROSE"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        config "./nextflow.config"
+
+        when {
+            workflow {
+                """
+                input[0] = channel.of(
+                    [
+                        [id: 'p6_chromHMM_enhancers', condition: 'p6', assay: 'chromHMM_enhancers'],
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/enhancer/p6.bed', checkIfExists: true)
+                    ],
+                    [
+                        [id: 'p6_chromHMM_promoters', condition: 'p6', assay: 'chromHMM_promoters'],
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/promoter/p6.bed', checkIfExists: true)
+                    ],
+                    [
+                        [id: 'L10_chromHMM_enhancers', condition: 'L10', assay: 'chromHMM_enhancers'],
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/enhancer/L10.bed', checkIfExists: true)
+                    ],
+                    [
+                        [id: 'L10_chromHMM_promoters', condition: 'L10', assay: 'chromHMM_promoters'],
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/promoter/L10.bed', checkIfExists: true)
+                    ]
+                )
+                input[1] = PREPARE_GENOME.out.gtf
+                input[2] = PREPARE_GENOME.out.chrom_sizes
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        config "./nextflow.config"
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = channel.of(
+                    [
+                        [id: 'p6_chromHMM_enhancers', condition: 'p6', assay: 'chromHMM_enhancers'],
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/enhancer/p6.bed', checkIfExists: true)
+                    ],
+                    [
+                        [id: 'p6_chromHMM_promoters', condition: 'p6', assay: 'chromHMM_promoters'],
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/promoter/p6.bed', checkIfExists: true)
+                    ],
+                    [
+                        [id: 'L10_chromHMM_enhancers', condition: 'L10', assay: 'chromHMM_enhancers'],
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/enhancer/L10.bed', checkIfExists: true)
+                    ],
+                    [
+                        [id: 'L10_chromHMM_promoters', condition: 'L10', assay: 'chromHMM_promoters'],
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/promoter/L10.bed', checkIfExists: true)
+                    ]
+                )
+                input[1] = PREPARE_GENOME.out.gtf
+                input[2] = PREPARE_GENOME.out.chrom_sizes
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}

@@ -1,0 +1,64 @@
+nextflow_process {
+
+    name "Test Process GET_RESULTS"
+    script "modules/local/chromhmm/get_results/main.nf"
+    process "GET_RESULTS"
+
+    setup {
+        run("LEARN_MODEL") {
+            script "../../learn_model/main.nf"
+            process {
+                """
+                input[0] = [
+                    [id: "chromHMM"],
+                    [
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/L10_chr1_binary.txt', checkIfExists: true),
+                        file(params.pipelines_testdata_base_path + '/intermediates/chromHMM/p6_chr1_binary.txt', checkIfExists: true)
+                    ]
+                ]
+                input[1] = 4
+                """
+            }
+        }
+    }
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                input[0] = LEARN_MODEL.out.model.transpose().map { _meta, emissions, bed -> [[id: bed.simpleName.split("_")[0]], emissions, bed] }
+                input[1] = 0.5
+                input[2] = ["H3K27ac"]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = LEARN_MODEL.out.model.transpose().map { _meta, emissions, bed -> [[id: bed.simpleName.split("_")[0]], emissions, bed] }
+                input[1] = 0.5
+                input[2] = ["H3K27ac"]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

@@ -1,0 +1,43 @@
+nextflow_process {
+
+    name "Test Process FETCH_JASPAR"
+    script "modules/local/motifs/fetch_jaspar/main.nf"
+    process "FETCH_JASPAR"
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                input[0] = "9606"
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = "9606"
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

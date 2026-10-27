@@ -1,0 +1,60 @@
+nextflow_workflow {
+
+    name "Test Workflow MERGE_SAMPLES"
+    script "subworkflows/local/merge_samples/main.nf"
+    workflow "MERGE_SAMPLES"
+
+    test("Should run without failures") {
+
+        config "./nextflow.config"
+
+        when {
+            workflow {
+                """
+                input[0] = channel.from([
+                    [[id: 'L1_H3K27ac_R1', condition: 'L1', assay: 'H3K27ac'], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K27ac_R3', condition: 'L1', assay: 'H3K27ac'], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K4me3_R2', condition: 'L1', assay: 'H3K4me3'], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L10_H3K27ac_R2', condition: 'L10', assay: 'H3K27ac'], file(params.pipelines_testdata_base_path + '/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K27ac_R2', condition: 'p6', assay: 'H3K27ac'], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K27ac/WT_p6_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K4me3_R1', condition: 'p6', assay: 'H3K4me3'], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K4me3/WT_p6_H3K4me3_R1_peaks.broadPeak', checkIfExists: true)]
+                ])
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        config "./nextflow.config"
+        options "-stub"
+
+        when {
+            workflow {
+                """
+                input[0] = channel.from([
+                    [[id: 'L1_H3K27ac_R1', condition: 'L1', assay: 'H3K27ac'], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R1_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K27ac_R3', condition: 'L1', assay: 'H3K27ac'], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L1_H3K4me3_R2', condition: 'L1', assay: 'H3K4me3'], file(params.pipelines_testdata_base_path + '/peaks/L1/H3K4me3/WT_L1_H3K4me3_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'L10_H3K27ac_R2', condition: 'L10', assay: 'H3K27ac'], file(params.pipelines_testdata_base_path + '/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K27ac_R2', condition: 'p6', assay: 'H3K27ac'], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K27ac/WT_p6_H3K27ac_R2_peaks.broadPeak', checkIfExists: true)],
+                    [[id: 'p6_H3K4me3_R1', condition: 'p6', assay: 'H3K4me3'], file(params.pipelines_testdata_base_path + '/peaks/p6/H3K4me3/WT_p6_H3K4me3_R1_peaks.broadPeak', checkIfExists: true)]
+                ])
+                """
+            }
+        }
+
+        then {
+            assert workflow.success
+            assert snapshot(workflow.out).match()
+        }
+
+    }
+
+}
