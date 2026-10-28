@@ -1,0 +1,5445 @@
+AC MA0004.1
+XX
+ID Arnt
+XX
+DE MA0004.1 Arnt ; From JASPAR
+PO	A	C	G	T
+01	4.0	16.0	0.0	0.0
+02	19.0	0.0	1.0	0.0
+03	0.0	20.0	0.0	0.0
+04	0.0	0.0	20.0	0.0
+05	0.0	0.0	0.0	20.0
+06	0.0	0.0	20.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:PAS domain factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:7592839
+CC uniprot_ids:P53762
+CC data_type:SELEX
+XX
+//
+AC MA0006.2
+XX
+ID Ahr::Arnt
+XX
+DE MA0006.2 Ahr::Arnt ; From JASPAR
+PO	A	C	G	T
+01	0.0	0.0	23.0	1.0
+02	0.0	23.0	0.0	1.0
+03	0.0	0.0	23.0	1.0
+04	0.0	0.0	0.0	24.0
+05	0.0	0.0	24.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:PAS domain factors; PAS domain factors
+CC tf_class:Basic helix-loop-helix factors (bHLH); Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:7592839
+CC uniprot_ids:P30561; P53762
+CC data_type:SELEX
+XX
+//
+AC MA0007.4
+XX
+ID Ar
+XX
+DE MA0007.4 Ar ; From JASPAR
+PO	A	C	G	T
+01	1094.0	167.0	1555.0	286.0
+02	939.0	17.0	2221.0	19.0
+03	8.0	0.0	3837.0	6.0
+04	1197.0	291.0	184.0	1027.0
+05	2167.0	5.0	3.0	3.0
+06	4.0	2189.0	5.0	2.0
+07	1997.0	20.0	273.0	11.0
+08	199.0	1228.0	328.0	712.0
+09	561.0	611.0	991.0	509.0
+10	755.0	250.0	1673.0	207.0
+11	33.0	277.0	8.0	2529.0
+12	0.0	4.0	3618.0	1.0
+13	22.0	4.0	0.0	2768.0
+14	1195.0	112.0	230.0	1094.0
+15	7.0	2166.0	0.0	8.0
+16	32.0	1542.0	2.0	829.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Steroid hormone receptors (NR3)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:20943813
+CC uniprot_ids:P19091
+CC data_type:HT-SELEX
+XX
+//
+AC MA0009.1
+XX
+ID Tbxt
+XX
+DE MA0009.1 Tbxt ; From JASPAR
+PO	A	C	G	T
+01	2.0	28.0	8.0	2.0
+02	1.0	1.0	0.0	38.0
+03	40.0	0.0	0.0	0.0
+04	0.0	0.0	40.0	0.0
+05	0.0	0.0	40.0	0.0
+06	0.0	0.0	0.0	40.0
+07	0.0	0.0	40.0	0.0
+08	0.0	2.0	0.0	38.0
+09	1.0	7.0	28.0	4.0
+10	40.0	0.0	0.0	0.0
+11	31.0	5.0	0.0	4.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Brachyury-related factors
+CC tf_class:T-Box factors
+CC pubmed_ids:8344258
+CC uniprot_ids:P20293
+CC data_type:SELEX
+XX
+//
+AC MA0014.1
+XX
+ID Pax5
+XX
+DE MA0014.1 Pax5 ; From JASPAR
+PO	A	C	G	T
+01	4.0	1.0	4.0	3.0
+02	4.0	0.0	8.0	0.0
+03	4.0	3.0	3.0	2.0
+04	1.0	2.0	5.0	4.0
+05	2.0	7.0	1.0	2.0
+06	7.0	2.0	1.0	2.0
+07	2.0	5.0	3.0	2.0
+08	0.0	3.0	2.0	7.0
+09	1.0	2.0	8.0	1.0
+10	6.0	1.0	3.0	2.0
+11	6.0	0.0	2.0	4.0
+12	0.0	0.0	12.0	0.0
+13	2.0	8.0	1.0	1.0
+14	3.0	0.0	9.0	0.0
+15	1.0	0.0	4.0	7.0
+16	6.0	1.0	5.0	0.0
+17	5.0	1.0	5.0	1.0
+18	2.0	10.0	0.0	0.0
+19	2.0	5.0	5.0	0.0
+20	5.0	0.0	6.0	1.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired domain only
+CC tf_class:Paired box factors
+CC pubmed_ids:8406007
+CC uniprot_ids:Q02650
+CC data_type:COMPILED
+XX
+//
+AC MA0018.5
+XX
+ID CREB1
+XX
+DE MA0018.5 CREB1 ; From JASPAR
+PO	A	C	G	T
+01	1911.0	970.0	1109.0	75554.0
+02	1728.0	2298.0	72555.0	2963.0
+03	73505.0	1748.0	2012.0	2279.0
+04	2186.0	14144.0	6339.0	56875.0
+05	1417.0	1895.0	74401.0	1831.0
+06	8889.0	1231.0	1207.0	68217.0
+07	3533.0	71982.0	2177.0	1852.0
+08	75819.0	1018.0	1222.0	1485.0
+XX
+CC tax_group:vertebrates
+CC tf_family:CREB-related factors
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:17916232
+CC uniprot_ids:P16220
+CC data_type:ChIP-seq
+XX
+//
+AC MA0027.1
+XX
+ID En1
+XX
+DE MA0027.1 En1 ; From JASPAR
+PO	A	C	G	T
+01	4.0	1.0	2.0	3.0
+02	5.0	2.0	2.0	1.0
+03	3.0	0.0	7.0	0.0
+04	0.0	0.0	2.0	8.0
+05	4.0	0.0	3.0	3.0
+06	3.0	0.0	7.0	0.0
+07	3.0	0.0	0.0	7.0
+08	2.0	1.0	4.0	3.0
+09	1.0	3.0	3.0	3.0
+10	1.0	4.0	1.0	4.0
+11	1.0	6.0	1.0	2.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:8096059
+CC uniprot_ids:P09065
+CC data_type:SELEX
+XX
+//
+AC MA0029.2
+XX
+ID Mecom
+XX
+DE MA0029.2 Mecom ; From JASPAR
+PO	A	C	G	T
+01	20.0	1.0	2.0	4.0
+02	0.0	1.0	25.0	1.0
+03	27.0	0.0	0.0	0.0
+04	1.0	10.0	0.0	16.0
+05	27.0	0.0	0.0	0.0
+06	26.0	0.0	1.0	0.0
+07	0.0	0.0	27.0	0.0
+08	27.0	0.0	0.0	0.0
+09	0.0	3.0	0.0	24.0
+10	24.0	1.0	0.0	2.0
+11	23.0	0.0	4.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Factors with multiple dispersed zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:8321231
+CC uniprot_ids:A4QPC8
+CC data_type:SELEX
+XX
+//
+AC MA0035.3
+XX
+ID Gata1
+XX
+DE MA0035.3 Gata1 ; From JASPAR
+PO	A	C	G	T
+01	2035.0	4321.0	2530.0	9069.0
+02	506.0	6406.0	2792.0	8251.0
+03	0.0	14869.0	437.0	2649.0
+04	0.0	697.0	0.0	17258.0
+05	0.0	0.0	0.0	17955.0
+06	17955.0	0.0	0.0	0.0
+07	0.0	0.0	0.0	17955.0
+08	0.0	17955.0	0.0	0.0
+09	2166.0	0.0	0.0	15789.0
+10	2502.0	6166.0	6687.0	2600.0
+11	1886.0	5072.0	1598.0	9399.0
+XX
+CC tax_group:vertebrates
+CC tf_family:C4-GATA-related
+CC tf_class:Other C4 zinc finger-type factors
+CC pubmed_ids:1638017
+CC uniprot_ids:P17679
+CC data_type:ChIP-seq
+XX
+//
+AC MA0039.2
+XX
+ID Klf4
+XX
+DE MA0039.2 Klf4 ; From JASPAR
+PO	A	C	G	T
+01	1468.0	81.0	1022.0	1765.0
+02	88.0	9.0	4237.0	6.0
+03	14.0	13.0	4304.0	13.0
+04	14.0	36.0	4281.0	16.0
+05	277.0	1922.0	11.0	2139.0
+06	22.0	15.0	4273.0	34.0
+07	42.0	80.0	2179.0	2042.0
+08	264.0	46.0	3902.0	125.0
+09	123.0	130.0	3789.0	289.0
+10	254.0	2858.0	280.0	932.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Three-zinc finger Kruppel-related
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:18555785
+CC uniprot_ids:Q60793
+CC data_type:ChIP-seq
+XX
+//
+AC MA0047.2
+XX
+ID Foxa2
+XX
+DE MA0047.2 Foxa2 ; From JASPAR
+PO	A	C	G	T
+01	1.0	1.0	1.0	805.0
+02	221.0	3.0	582.0	3.0
+03	1.0	1.0	1.0	806.0
+04	1.0	3.0	36.0	769.0
+05	1.0	1.0	175.0	634.0
+06	736.0	4.0	67.0	3.0
+07	2.0	725.0	2.0	81.0
+08	338.0	77.0	3.0	391.0
+09	50.0	265.0	58.0	436.0
+10	417.0	6.0	24.0	360.0
+11	131.0	53.0	482.0	140.0
+12	129.0	195.0	290.0	189.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:19553195
+CC uniprot_ids:P35583
+CC data_type:ChIP-seq
+XX
+//
+AC MA0060.4
+XX
+ID NFYA
+XX
+DE MA0060.4 NFYA ; From JASPAR
+PO	A	C	G	T
+01	23.0	4657.0	34.0	111.0
+02	31.0	4713.0	28.0	53.0
+03	4683.0	29.0	17.0	96.0
+04	4584.0	94.0	124.0	23.0
+05	37.0	132.0	11.0	4645.0
+06	166.0	4215.0	319.0	125.0
+07	4088.0	213.0	489.0	35.0
+08	611.0	1131.0	2713.0	370.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Heteromeric CCAAT-binding
+CC tf_class:Heteromeric CCAAT-binding factors
+CC pubmed_ids:9469818
+CC uniprot_ids:P23511
+CC data_type:ChIP-seq
+XX
+//
+AC MA0105.4
+XX
+ID NFKB1
+XX
+DE MA0105.4 NFKB1 ; From JASPAR
+PO	A	C	G	T
+01	8441.0	2013.0	990.0	818.0
+02	9.0	0.0	19047.0	5.0
+03	0.0	3.0	19177.0	2.0
+04	4.0	0.0	19167.0	318.0
+05	229.0	3.0	19458.0	27.0
+06	12004.0	62.0	821.0	27.0
+07	7003.0	18.0	32.0	6744.0
+08	22.0	1311.0	116.0	14372.0
+09	17.0	9574.0	4.0	130.0
+10	497.0	9536.0	1.0	3.0
+11	4.0	9591.0	1.0	2.0
+12	6.0	9642.0	2.0	8.0
+13	1231.0	1293.0	3348.0	9386.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NF-kappaB-related factors
+CC tf_class:Rel homology region (RHR) factors
+CC pubmed_ids:20066093
+CC uniprot_ids:P19838
+CC data_type:HT-SELEX
+XX
+//
+AC MA0063.1
+XX
+ID Nkx2-5
+XX
+DE MA0063.1 Nkx2-5 ; From JASPAR
+PO	A	C	G	T
+01	7.0	0.0	1.0	9.0
+02	0.0	4.0	0.0	13.0
+03	17.0	0.0	0.0	0.0
+04	17.0	0.0	0.0	0.0
+05	0.0	0.0	7.0	10.0
+06	4.0	2.0	0.0	11.0
+07	2.0	1.0	11.0	3.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:7797561
+CC uniprot_ids:P42582
+CC data_type:SELEX
+XX
+//
+AC MA0067.1
+XX
+ID Pax2
+XX
+DE MA0067.1 Pax2 ; From JASPAR
+PO	A	C	G	T
+01	10.0	7.0	5.0	9.0
+02	7.0	1.0	21.0	2.0
+03	3.0	2.0	0.0	26.0
+04	0.0	28.0	1.0	2.0
+05	26.0	1.0	3.0	1.0
+06	2.0	17.0	1.0	11.0
+07	2.0	0.0	19.0	10.0
+08	1.0	11.0	11.0	8.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired domain only
+CC tf_class:Paired box factors
+CC pubmed_ids:8132558
+CC uniprot_ids:P32114
+CC data_type:SELEX
+XX
+//
+AC MA0068.1
+XX
+ID Pax4
+XX
+DE MA0068.1 Pax4 ; From JASPAR
+PO	A	C	G	T
+01	7.0	2.0	11.0	1.0
+02	20.0	0.0	1.0	0.0
+03	16.0	2.0	1.0	2.0
+04	11.0	1.0	1.0	8.0
+05	13.0	1.0	3.0	4.0
+06	11.0	3.0	1.0	6.0
+07	6.0	1.0	2.0	12.0
+08	9.0	1.0	1.0	10.0
+09	5.0	3.0	6.0	7.0
+10	5.0	11.0	1.0	4.0
+11	6.0	11.0	4.0	0.0
+12	7.0	7.0	5.0	2.0
+13	8.0	7.0	2.0	4.0
+14	6.0	5.0	1.0	9.0
+15	10.0	5.0	4.0	2.0
+16	4.0	8.0	4.0	5.0
+17	3.0	6.0	4.0	8.0
+18	7.0	8.0	3.0	3.0
+19	4.0	9.0	3.0	5.0
+20	9.0	6.0	2.0	4.0
+21	5.0	7.0	5.0	4.0
+22	5.0	6.0	2.0	8.0
+23	7.0	11.0	0.0	3.0
+24	6.0	9.0	1.0	5.0
+25	3.0	12.0	2.0	4.0
+26	7.0	9.0	2.0	3.0
+27	3.0	12.0	2.0	4.0
+28	1.0	11.0	3.0	6.0
+29	6.0	11.0	1.0	3.0
+30	3.0	13.0	2.0	3.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired plus homeo domain
+CC tf_class:Paired box factors
+CC pubmed_ids:10567552
+CC uniprot_ids:P32115
+CC data_type:SELEX
+XX
+//
+AC MA0075.2
+XX
+ID Prrx2
+XX
+DE MA0075.2 Prrx2 ; From JASPAR
+PO	A	C	G	T
+01	644.0	1522.0	715.0	969.0
+02	407.0	2052.0	250.0	1797.0
+03	3849.0	361.0	412.0	298.0
+04	3849.0	232.0	124.0	70.0
+05	13.0	22.0	11.0	3849.0
+06	466.0	504.0	239.0	3849.0
+07	3849.0	198.0	39.0	400.0
+08	1234.0	878.0	1035.0	702.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:7901837
+CC uniprot_ids:Q06348
+CC data_type:HT-SELEX
+XX
+//
+AC MA0078.3
+XX
+ID Sox17
+XX
+DE MA0078.3 Sox17 ; From JASPAR
+PO	A	C	G	T
+01	7836.0	957.0	1889.0	1605.0
+02	2720.0	885.0	6638.0	2044.0
+03	8708.0	1111.0	1561.0	907.0
+04	11818.0	124.0	163.0	182.0
+05	271.0	11241.0	490.0	285.0
+06	11906.0	140.0	105.0	136.0
+07	11634.0	258.0	281.0	114.0
+08	1005.0	138.0	189.0	10955.0
+09	1324.0	251.0	10241.0	471.0
+10	1224.0	1012.0	9181.0	870.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SOX-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:8636240
+CC uniprot_ids:Q61473
+CC data_type:
+XX
+//
+AC MA0079.5
+XX
+ID SP1
+XX
+DE MA0079.5 SP1 ; From JASPAR
+PO	A	C	G	T
+01	1.05485	1.05485	950.422	47.4684
+02	1.05485	1.05485	996.835	1.05485
+03	1.05485	1.05485	996.835	1.05485
+04	1.05485	1.05485	996.835	1.05485
+05	266.878	731.013	1.05485	1.05485
+06	1.05485	1.05485	996.835	1.05485
+07	1.05485	85.443	912.447	1.05485
+08	254.219	51.6878	659.283	34.8101
+09	161.392	1.05485	836.498	1.05485
+XX
+CC tax_group:vertebrates
+CC tf_family:Three-zinc finger Kruppel-related
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:22021377
+CC uniprot_ids:P08047
+CC data_type:ChIP-seq
+XX
+//
+AC MA0087.3
+XX
+ID Sox5
+XX
+DE MA0087.3 Sox5 ; From JASPAR
+PO	A	C	G	T
+01	104.0	4.0	12.0	4.0
+02	122.0	0.0	1.0	1.0
+03	0.0	120.0	2.0	2.0
+04	120.0	2.0	2.0	0.0
+05	114.0	5.0	4.0	1.0
+06	6.0	3.0	1.0	114.0
+07	20.0	0.0	101.0	3.0
+08	13.0	14.0	90.0	7.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SOX-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:1396566
+CC uniprot_ids:P35710
+CC data_type:
+XX
+//
+AC MA0092.2
+XX
+ID Hand1::Tcf3
+XX
+DE MA0092.2 Hand1::Tcf3 ; From JASPAR
+PO	A	C	G	T
+01	10.0	0.0	15.0	4.0
+02	2.0	2.0	1.0	24.0
+03	0.0	28.0	0.0	1.0
+04	0.0	0.0	0.0	29.0
+05	0.0	0.0	29.0	0.0
+06	0.0	3.0	25.0	1.0
+07	9.0	14.0	1.0	5.0
+08	16.0	0.0	3.0	10.0
+09	5.0	4.0	4.0	16.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related; E2A
+CC tf_class:Basic helix-loop-helix factors (bHLH); Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:7791788
+CC uniprot_ids:P15806; Q64279
+CC data_type:SELEX
+XX
+//
+AC MA0099.1
+XX
+ID Fos::Jun
+XX
+DE MA0099.1 Fos::Jun ; From JASPAR
+PO	A	C	G	T
+01	5.0	2.0	12.0	0.0
+02	0.0	0.0	0.0	19.0
+03	0.0	1.0	18.0	0.0
+04	18.0	1.0	0.0	0.0
+05	1.0	6.0	9.0	3.0
+06	1.0	1.0	0.0	17.0
+07	6.0	13.0	0.0	0.0
+08	18.0	0.0	0.0	1.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Fos-related; Jun-related
+CC tf_class:Basic leucine zipper factors (bZIP); Basic leucine zipper factors (bZIP)
+CC pubmed_ids:2243767
+CC uniprot_ids:P01101
+CC data_type:SELEX
+XX
+//
+AC MA0100.2
+XX
+ID Myb
+XX
+DE MA0100.2 Myb ; From JASPAR
+PO	A	C	G	T
+01	89.0	374.0	190.0	326.0
+02	227.0	452.0	0.0	300.0
+03	979.0	0.0	0.0	0.0
+04	910.0	0.0	69.0	0.0
+05	0.0	979.0	0.0	0.0
+06	53.0	0.0	0.0	926.0
+07	0.0	0.0	979.0	0.0
+08	150.0	416.0	9.0	404.0
+09	30.0	949.0	0.0	0.0
+10	725.0	8.0	0.0	246.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Myb/SANT domain factors
+CC tf_class:Tryptophan cluster factors
+CC pubmed_ids:8467793
+CC uniprot_ids:P06876
+CC data_type:ChIP-seq
+XX
+//
+AC MA0102.1
+XX
+ID Cebpa
+XX
+DE MA0102.1 Cebpa ; From JASPAR
+PO	A	C	G	T
+01	3.0	0.0	0.0	15.0
+02	1.0	1.0	4.0	12.0
+03	4.0	1.0	6.0	7.0
+04	2.0	9.0	2.0	5.0
+05	4.0	2.0	10.0	2.0
+06	2.0	15.0	0.0	1.0
+07	18.0	0.0	0.0	0.0
+08	18.0	0.0	0.0	0.0
+09	0.0	6.0	2.0	10.0
+10	5.0	6.0	5.0	2.0
+11	2.0	5.0	3.0	8.0
+12	1.0	6.0	5.0	6.0
+XX
+CC tax_group:vertebrates
+CC tf_family:CEBP-related
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:1672737
+CC uniprot_ids:P53566
+CC data_type:COMPILED
+XX
+//
+AC MA0104.3
+XX
+ID Mycn
+XX
+DE MA0104.3 Mycn ; From JASPAR
+PO	A	C	G	T
+01	528.0	146.0	566.0	163.0
+02	0.0	1135.0	268.0	0.0
+03	0.0	1403.0	0.0	0.0
+04	1403.0	0.0	0.0	0.0
+05	0.0	1403.0	0.0	0.0
+06	168.0	0.0	1235.0	0.0
+07	0.0	0.0	0.0	1403.0
+08	0.0	0.0	1403.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:bHLH-ZIP
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:18555785
+CC uniprot_ids:P03966
+CC data_type:ChIP-seq
+XX
+//
+AC MA0112.4
+XX
+ID ESR1
+XX
+DE MA0112.4 ESR1 ; From JASPAR
+PO	A	C	G	T
+01	402.0	6.0	206.0	0.0
+02	0.0	0.0	623.0	34.0
+03	2.0	0.0	638.0	0.0
+04	0.0	0.0	3.0	549.0
+05	1.0	452.0	0.0	2.0
+06	471.0	0.0	30.0	0.0
+07	108.0	338.0	53.0	23.0
+08	127.0	223.0	340.0	65.0
+09	235.0	88.0	284.0	13.0
+10	0.0	23.0	1.0	510.0
+11	2.0	0.0	632.0	0.0
+12	491.0	1.0	1.0	0.0
+13	0.0	460.0	2.0	0.0
+14	15.0	455.0	0.0	0.0
+15	0.0	143.0	7.0	502.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Steroid hormone receptors (NR3)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:19339991
+CC uniprot_ids:P03372
+CC data_type:HT-SELEX
+XX
+//
+AC MA0113.4
+XX
+ID NR3C1
+XX
+DE MA0113.4 NR3C1 ; From JASPAR
+PO	A	C	G	T
+01	8885.0	107.0	12768.0	225.0
+02	40.0	7.0	27337.0	38.0
+03	8932.0	599.0	2854.0	10448.0
+04	18207.0	8.0	9.0	10.0
+05	0.0	24481.0	14.0	0.0
+06	18421.0	18.0	698.0	71.0
+07	2470.0	9569.0	1583.0	10711.0
+08	7736.0	3656.0	5589.0	5972.0
+09	11413.0	964.0	7861.0	1822.0
+10	81.0	565.0	50.0	23751.0
+11	0.0	11.0	27160.0	5.0
+12	8.0	9.0	50.0	24434.0
+13	8832.0	3149.0	648.0	10375.0
+14	33.0	24380.0	5.0	58.0
+15	234.0	14665.0	188.0	9821.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Steroid hormone receptors (NR3)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:15563547
+CC uniprot_ids:P04150
+CC data_type:HT-SELEX
+XX
+//
+AC MA0117.3
+XX
+ID Mafb
+XX
+DE MA0117.3 Mafb ; From JASPAR
+PO	A	C	G	T
+01	1237.0	174.0	326.0	446.0
+02	1263.0	121.0	159.0	639.0
+03	1080.0	216.0	182.0	704.0
+04	744.0	398.0	429.0	611.0
+05	264.0	618.0	31.0	2182.0
+06	2.0	14.0	2182.0	5.0
+07	295.0	2182.0	5.0	7.0
+08	31.0	36.0	2.0	2182.0
+09	45.0	13.0	2182.0	170.0
+10	2182.0	13.0	17.0	13.0
+11	182.0	2182.0	490.0	273.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Maf-related
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:9571165
+CC uniprot_ids:P54841
+CC data_type:HT-SELEX
+XX
+//
+AC MA0122.4
+XX
+ID Nkx3-2
+XX
+DE MA0122.4 Nkx3-2 ; From JASPAR
+PO	A	C	G	T
+01	5714.0	952.0	1466.0	2088.0
+02	5598.0	1109.0	1154.0	2359.0
+03	2604.0	5079.0	1504.0	1033.0
+04	79.0	9900.0	23.0	218.0
+05	9907.0	82.0	19.0	212.0
+06	151.0	9965.0	10.0	94.0
+07	50.0	32.0	29.0	10109.0
+08	95.0	138.0	68.0	9919.0
+09	9680.0	147.0	68.0	325.0
+10	5620.0	991.0	1368.0	2241.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585360
+CC uniprot_ids:P97503
+CC data_type:ChIP-seq
+XX
+//
+AC MA0125.2
+XX
+ID Nobox
+XX
+DE MA0125.2 Nobox ; From JASPAR
+PO	A	C	G	T
+01	0.0	1.0	0.0	37.0
+02	36.0	0.0	0.0	2.0
+03	38.0	0.0	0.0	0.0
+04	1.0	1.0	2.0	34.0
+05	2.0	0.0	4.0	32.0
+06	15.0	0.0	22.0	1.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:16997917
+CC uniprot_ids:Q8VIH1
+CC data_type:SELEX
+XX
+//
+AC MA0132.1
+XX
+ID Pdx1
+XX
+DE MA0132.1 Pdx1 ; From JASPAR
+PO	A	C	G	T
+01	1.0	19.0	5.0	6.0
+02	0.0	0.0	0.0	31.0
+03	31.0	0.0	0.0	0.0
+04	31.0	0.0	0.0	0.0
+05	0.0	0.0	1.0	30.0
+06	1.0	1.0	10.0	19.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:14704343
+CC uniprot_ids:P52946
+CC data_type:SELEX
+XX
+//
+AC MA0135.2
+XX
+ID Lhx3
+XX
+DE MA0135.2 Lhx3 ; From JASPAR
+PO	A	C	G	T
+01	9.0	0.0	3.0	8.0
+02	16.0	2.0	2.0	0.0
+03	19.0	0.0	0.0	1.0
+04	0.0	0.0	0.0	20.0
+05	0.0	0.0	0.0	20.0
+06	19.0	0.0	0.0	1.0
+07	20.0	0.0	0.0	0.0
+08	2.0	2.0	0.0	16.0
+09	0.0	1.0	0.0	19.0
+10	16.0	1.0	0.0	3.0
+11	9.0	0.0	3.0	8.0
+12	2.0	8.0	0.0	10.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HD-LIM
+CC tf_class:Homeo domain factors
+CC pubmed_ids:11602361
+CC uniprot_ids:P50481
+CC data_type:SELEX
+XX
+//
+AC MA0136.2
+XX
+ID ELF5
+XX
+DE MA0136.2 ELF5 ; From JASPAR
+PO	A	C	G	T
+01	2416.0	252.0	301.0	793.0
+02	1221.0	2298.0	955.0	866.0
+03	987.0	2453.0	1266.0	97.0
+04	1458.0	2528.0	309.0	56.0
+05	3.0	0.0	3307.0	20.0
+06	5.0	0.0	3315.0	25.0
+07	2699.0	11.0	1.0	4.0
+08	2646.0	61.0	0.0	245.0
+09	890.0	155.0	2857.0	84.0
+10	477.0	716.0	312.0	2470.0
+11	959.0	371.0	762.0	663.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Ets-related
+CC tf_class:Tryptophan cluster factors
+CC pubmed_ids:20517297
+CC uniprot_ids:Q9UKW6
+CC data_type:HT-SELEX
+XX
+//
+AC MA0140.1
+XX
+ID Gata1::Tal1
+XX
+DE MA0140.1 Gata1::Tal1 ; From JASPAR
+PO	A	C	G	T
+01	400.0	1329.0	618.0	595.0
+02	261.0	444.0	520.0	1717.0
+03	131.0	182.0	1921.0	710.0
+04	265.0	746.0	1228.0	706.0
+05	669.0	635.0	775.0	866.0
+06	701.0	687.0	903.0	654.0
+07	664.0	745.0	938.0	599.0
+08	713.0	699.0	891.0	644.0
+09	734.0	662.0	862.0	691.0
+10	996.0	407.0	940.0	603.0
+11	527.0	1172.0	901.0	345.0
+12	1959.0	31.0	37.0	920.0
+13	3.0	7.0	2936.0	0.0
+14	2928.0	7.0	2.0	10.0
+15	16.0	26.0	30.0	2873.0
+16	2770.0	6.0	23.0	144.0
+17	2382.0	51.0	376.0	134.0
+18	547.0	550.0	1601.0	242.0
+XX
+CC tax_group:vertebrates
+CC tf_family:C4-GATA-related; Tal-related
+CC tf_class:Other C4 zinc finger-type factors; Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:20566737
+CC uniprot_ids:P17679; P22091
+CC data_type:ChIP-seq
+XX
+//
+AC MA0141.2
+XX
+ID Esrrb
+XX
+DE MA0141.2 Esrrb ; From JASPAR
+PO	A	C	G	T
+01	1055.0	801.0	984.0	773.0
+02	673.0	832.0	1352.0	767.0
+03	403.0	1212.0	1212.0	807.0
+04	260.0	1230.0	449.0	1702.0
+05	312.0	2653.0	630.0	51.0
+06	3347.0	32.0	248.0	27.0
+07	3590.0	2.0	60.0	6.0
+08	33.0	2.0	3597.0	29.0
+09	12.0	11.0	3622.0	16.0
+10	180.0	43.0	243.0	3192.0
+11	9.0	3394.0	167.0	85.0
+12	3478.0	21.0	128.0	26.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Steroid hormone receptors (NR3)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:18555785
+CC uniprot_ids:Q61539
+CC data_type:ChIP-seq
+XX
+//
+AC MA0142.1
+XX
+ID Pou5f1::Sox2
+XX
+DE MA0142.1 Pou5f1::Sox2 ; From JASPAR
+PO	A	C	G	T
+01	63.0	846.0	66.0	389.0
+02	579.0	58.0	28.0	701.0
+03	11.0	50.0	36.0	1270.0
+04	47.0	12.0	79.0	1231.0
+05	118.0	363.0	825.0	63.0
+06	415.0	18.0	29.0	907.0
+07	206.0	365.0	186.0	612.0
+08	1235.0	30.0	24.0	80.0
+09	17.0	5.0	15.0	1332.0
+10	10.0	16.0	1239.0	104.0
+11	14.0	1029.0	129.0	196.0
+12	1050.0	16.0	30.0	269.0
+13	887.0	68.0	315.0	92.0
+14	1200.0	33.0	75.0	53.0
+15	198.0	119.0	207.0	837.0
+XX
+CC tax_group:vertebrates
+CC tf_family:POU domain factors; SOX-related factors
+CC tf_class:Homeo domain factors; High-mobility group (HMG) domain factors
+CC pubmed_ids:18555785
+CC uniprot_ids:P20263; P48432
+CC data_type:ChIP-seq
+XX
+//
+AC MA0143.3
+XX
+ID Sox2
+XX
+DE MA0143.3 Sox2 ; From JASPAR
+PO	A	C	G	T
+01	0.0	1476.0	0.0	0.0
+02	0.0	1476.0	0.0	0.0
+03	669.0	0.0	0.0	807.0
+04	0.0	0.0	0.0	1476.0
+05	0.0	0.0	0.0	1476.0
+06	0.0	0.0	1476.0	0.0
+07	0.0	0.0	0.0	1476.0
+08	0.0	419.0	297.0	760.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SOX-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:15863505
+CC uniprot_ids:P48432
+CC data_type:ChIP-seq
+XX
+//
+AC MA0144.1
+XX
+ID Stat3
+XX
+DE MA0144.1 Stat3 ; From JASPAR
+PO	A	C	G	T
+01	20.0	19.0	25.0	549.0
+02	13.0	10.0	129.0	461.0
+03	38.0	552.0	9.0	14.0
+04	6.0	541.0	1.0	65.0
+05	321.0	21.0	148.0	123.0
+06	8.0	0.0	605.0	0.0
+07	6.0	2.0	592.0	13.0
+08	585.0	21.0	7.0	0.0
+09	606.0	1.0	5.0	1.0
+10	191.0	15.0	393.0	14.0
+XX
+CC tax_group:vertebrates
+CC tf_family:STAT factors
+CC tf_class:STAT domain factors
+CC pubmed_ids:18555785
+CC uniprot_ids:P42227
+CC data_type:ChIP-seq
+XX
+//
+AC MA0145.2
+XX
+ID Tfcp2l1
+XX
+DE MA0145.2 Tfcp2l1 ; From JASPAR
+PO	A	C	G	T
+01	8.0	3768.0	255.0	40.0
+02	285.0	3304.0	22.0	465.0
+03	2437.0	21.0	1117.0	507.0
+04	24.0	98.0	3949.0	12.0
+05	710.0	1380.0	103.0	1890.0
+06	402.0	1183.0	253.0	2246.0
+07	707.0	1630.0	616.0	1134.0
+08	1462.0	922.0	1026.0	681.0
+09	2585.0	286.0	780.0	441.0
+10	1612.0	212.0	1263.0	1003.0
+11	16.0	3811.0	223.0	34.0
+12	253.0	3324.0	12.0	491.0
+13	2199.0	30.0	1232.0	612.0
+14	49.0	118.0	3881.0	17.0
+XX
+CC tax_group:vertebrates
+CC tf_family:CP2-related factors
+CC tf_class:Grainyhead domain factors
+CC pubmed_ids:18555785
+CC uniprot_ids:Q3UNW5
+CC data_type:ChIP-seq
+XX
+//
+AC MA0146.3
+XX
+ID Zfx
+XX
+DE MA0146.3 Zfx ; From JASPAR
+PO	A	C	G	T
+01	72.0	49.0	297.0	61.0
+02	10.0	297.0	144.0	30.0
+03	6.0	361.0	2.0	112.0
+04	30.0	124.0	183.0	144.0
+05	191.0	153.0	122.0	15.0
+06	8.0	2.0	470.0	1.0
+07	0.0	3.0	477.0	1.0
+08	0.0	481.0	0.0	0.0
+09	0.0	480.0	0.0	1.0
+10	0.0	1.0	0.0	480.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:18555785
+CC uniprot_ids:P17012
+CC data_type:ChIP-seq
+XX
+//
+AC MA0147.2
+XX
+ID Myc
+XX
+DE MA0147.2 Myc ; From JASPAR
+PO	A	C	G	T
+01	1181.0	3650.0	504.0	0.0
+02	0.0	5335.0	0.0	0.0
+03	5335.0	0.0	0.0	0.0
+04	0.0	2295.0	0.0	3040.0
+05	0.0	0.0	5335.0	0.0
+06	0.0	0.0	0.0	5335.0
+07	0.0	0.0	5335.0	0.0
+08	49.0	2297.0	2081.0	908.0
+09	848.0	1087.0	556.0	2844.0
+10	82.0	1877.0	801.0	2575.0
+XX
+CC tax_group:vertebrates
+CC tf_family:bHLH-ZIP
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:18555785
+CC uniprot_ids:P01108
+CC data_type:ChIP-seq
+XX
+//
+AC MA0062.2
+XX
+ID Gabpa
+XX
+DE MA0062.2 Gabpa ; From JASPAR
+PO	A	C	G	T
+01	32.0	768.0	188.0	1.0
+02	70.0	914.0	4.0	1.0
+03	0.0	0.0	990.0	1.0
+04	0.0	0.0	991.0	0.0
+05	991.0	1.0	1.0	0.0
+06	989.0	2.0	0.0	2.0
+07	94.0	32.0	866.0	0.0
+08	56.0	261.0	37.0	637.0
+09	154.0	137.0	603.0	96.0
+10	264.0	262.0	415.0	49.0
+11	233.0	357.0	224.0	176.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Ets-related
+CC tf_class:Tryptophan cluster factors
+CC pubmed_ids:19160518
+CC uniprot_ids:Q91YY8
+CC data_type:ChIP-seq
+XX
+//
+AC MA0002.3
+XX
+ID Runx1
+XX
+DE MA0002.3 Runx1 ; From JASPAR
+PO	A	C	G	T
+01	123.0	1072.0	149.0	656.0
+02	57.0	0.0	7.0	1936.0
+03	0.0	75.0	1872.0	53.0
+04	87.0	127.0	70.0	1716.0
+05	0.0	0.0	1987.0	13.0
+06	17.0	42.0	1848.0	93.0
+07	10.0	400.0	251.0	1339.0
+08	131.0	463.0	81.0	1325.0
+09	500.0	158.0	289.0	1053.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Runt-related factors
+CC tf_class:Runt domain factors
+CC pubmed_ids:8413232
+CC uniprot_ids:Q01196
+CC data_type:ChIP-seq
+XX
+//
+AC MA0065.3
+XX
+ID Pparg::Rxra
+XX
+DE MA0065.3 Pparg::Rxra ; From JASPAR
+PO	A	C	G	T
+01	390.0	23.0	368.0	79.0
+02	100.0	3.0	671.0	87.0
+03	139.0	15.0	674.0	34.0
+04	145.0	129.0	395.0	193.0
+05	71.0	547.0	179.0	66.0
+06	819.0	21.0	15.0	8.0
+07	522.0	48.0	270.0	23.0
+08	713.0	5.0	137.0	9.0
+09	82.0	2.0	767.0	12.0
+10	41.0	9.0	693.0	120.0
+11	22.0	99.0	263.0	479.0
+12	54.0	555.0	144.0	109.0
+13	676.0	58.0	47.0	81.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Thyroid hormone receptor-related factors (NR1); RXR-related receptors (NR2)
+CC tf_class:Nuclear receptors with C4 zinc fingers; Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:18981474
+CC uniprot_ids:P28700; P37238
+CC data_type:ChIP-seq
+XX
+//
+AC MA0152.1
+XX
+ID NFATC2
+XX
+DE MA0152.1 NFATC2 ; From JASPAR
+PO	A	C	G	T
+01	3.0	1.0	2.0	20.0
+02	1.0	2.0	2.0	21.0
+03	1.0	1.0	0.0	24.0
+04	0.0	0.0	0.0	26.0
+05	1.0	25.0	0.0	0.0
+06	0.0	26.0	0.0	0.0
+07	18.0	3.0	1.0	4.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NFAT-related factors
+CC tf_class:Rel homology region (RHR) factors
+CC pubmed_ids:17916232
+CC uniprot_ids:Q13469
+CC data_type:COMPILED
+XX
+//
+AC MA0153.2
+XX
+ID HNF1B
+XX
+DE MA0153.2 HNF1B ; From JASPAR
+PO	A	C	G	T
+01	1528.0	1030.0	30839.0	1628.0
+02	541.0	2552.0	1434.0	30839.0
+03	5730.0	3466.0	778.0	30839.0
+04	30839.0	13.0	398.0	49.0
+05	30839.0	1163.0	140.0	612.0
+06	1944.0	809.0	66.0	30839.0
+07	6502.0	9236.0	9626.0	5474.0
+08	30839.0	73.0	600.0	1047.0
+09	1323.0	416.0	1589.0	30839.0
+10	80.0	665.0	1.0	30839.0
+11	30839.0	794.0	5271.0	3119.0
+12	30839.0	1472.0	1980.0	406.0
+13	1790.0	17114.0	725.0	13724.0
+XX
+CC tax_group:vertebrates
+CC tf_family:POU domain factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:17916232
+CC uniprot_ids:P35680
+CC data_type:HT-SELEX
+XX
+//
+AC MA0154.5
+XX
+ID EBF1
+XX
+DE MA0154.5 EBF1 ; From JASPAR
+PO	A	C	G	T
+01	2352.0	4506.0	5497.0	33070.0
+02	1321.0	34665.0	1920.0	7519.0
+03	568.0	43256.0	371.0	1230.0
+04	648.0	42562.0	443.0	1772.0
+05	2539.0	39675.0	862.0	2349.0
+06	34745.0	1707.0	1723.0	7250.0
+07	3502.0	814.0	38728.0	2381.0
+08	2617.0	495.0	41651.0	662.0
+09	1515.0	455.0	42789.0	666.0
+10	8856.0	2462.0	32761.0	1346.0
+11	31636.0	6355.0	4957.0	2477.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Early B-Cell Factor-related factors
+CC tf_class:Rel homology region (RHR) factors
+CC pubmed_ids:8497258
+CC uniprot_ids:Q9UH73
+CC data_type:ChIP-seq
+XX
+//
+AC MA0157.2
+XX
+ID FOXO3
+XX
+DE MA0157.2 FOXO3 ; From JASPAR
+PO	A	C	G	T
+01	21.0	0.0	532.0	0.0
+02	0.0	0.0	13.0	532.0
+03	532.0	16.0	5.0	1.0
+04	532.0	1.0	0.0	0.0
+05	532.0	10.0	0.0	0.0
+06	15.0	532.0	0.0	3.0
+07	532.0	11.0	0.0	0.0
+08	317.0	12.0	36.0	215.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:17916232
+CC uniprot_ids:O43524
+CC data_type:HT-SELEX
+XX
+//
+AC MA0158.2
+XX
+ID HOXA5
+XX
+DE MA0158.2 HOXA5 ; From JASPAR
+PO	A	C	G	T
+01	142.0	832.0	1759.0	397.0
+02	0.0	1052.0	0.0	2078.0
+03	3130.0	1632.0	81.0	0.0
+04	3130.0	0.0	0.0	0.0
+05	0.0	0.0	0.0	3130.0
+06	0.0	0.0	885.0	3130.0
+07	3130.0	0.0	0.0	0.0
+08	480.0	1463.0	1133.0	54.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:P20719
+CC data_type:HT-SELEX
+XX
+//
+AC MA0160.3
+XX
+ID NR4A2
+XX
+DE MA0160.3 NR4A2 ; From JASPAR
+PO	A	C	G	T
+01	209.0	0.0	28.0	22.0
+02	209.0	0.0	1.0	18.0
+03	209.0	5.0	1.0	0.0
+04	0.0	0.0	160.0	49.0
+05	0.0	0.0	209.0	2.0
+06	6.0	22.0	21.0	209.0
+07	0.0	209.0	1.0	14.0
+08	209.0	4.0	40.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NGFI-B-related receptors (NR4)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:17916232
+CC uniprot_ids:P43354
+CC data_type:CAP-SELEX
+XX
+//
+AC MA0162.1
+XX
+ID Egr1
+XX
+DE MA0162.1 Egr1 ; From JASPAR
+PO	A	C	G	T
+01	3.0	4.0	1.0	7.0
+02	2.0	1.0	12.0	0.0
+03	0.0	13.0	0.0	2.0
+04	0.0	0.0	15.0	0.0
+05	0.0	0.0	3.0	12.0
+06	3.0	0.0	12.0	0.0
+07	1.0	0.0	14.0	0.0
+08	0.0	0.0	15.0	0.0
+09	2.0	10.0	0.0	3.0
+10	0.0	0.0	15.0	0.0
+11	1.0	0.0	7.0	7.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Three-zinc finger Kruppel-related
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:16041365
+CC uniprot_ids:P08046
+CC data_type:bacterial 1-hybrid
+XX
+//
+AC MA0164.2
+XX
+ID Nr2e3
+XX
+DE MA0164.2 Nr2e3 ; From JASPAR
+PO	A	C	G	T
+01	23.0	0.0	0.0	0.0
+02	23.0	0.0	0.0	0.0
+03	0.0	1.0	22.0	0.0
+04	0.0	23.0	0.0	0.0
+05	0.0	0.0	0.0	23.0
+06	0.0	0.0	0.0	23.0
+XX
+CC tax_group:vertebrates
+CC tf_family:RXR-related receptors (NR2)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:15634773
+CC uniprot_ids:Q9QXZ7
+CC data_type:SELEX
+XX
+//
+AC MA1126.2
+XX
+ID FOS::JUN
+XX
+DE MA1126.2 FOS::JUN ; From JASPAR
+PO	A	C	G	T
+01	556.0	45.0	369.0	30.0
+02	47.0	74.0	62.0	816.0
+03	42.0	112.0	655.0	191.0
+04	748.0	31.0	135.0	86.0
+05	80.0	838.0	41.0	41.0
+06	131.0	114.0	722.0	34.0
+07	40.0	23.0	32.0	905.0
+08	53.0	846.0	44.0	57.0
+09	907.0	24.0	36.0	33.0
+10	30.0	234.0	60.0	676.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Fos-related; Jun-related
+CC tf_class:Basic leucine zipper factors (bZIP); Basic leucine zipper factors (bZIP)
+CC pubmed_ids:11988758
+CC uniprot_ids:P01100; P05412
+CC data_type:SMiLE-seq
+XX
+//
+AC MA0102.5
+XX
+ID CEBPA
+XX
+DE MA0102.5 CEBPA ; From JASPAR
+PO	A	C	G	T
+01	54374.0	7284.0	12772.0	4573.0
+02	869.0	826.0	722.0	76586.0
+03	1002.0	282.0	2365.0	75354.0
+04	9252.0	936.0	57887.0	10928.0
+05	1148.0	75124.0	678.0	2053.0
+06	62409.0	3535.0	6751.0	6308.0
+07	6095.0	61538.0	1583.0	9787.0
+08	71916.0	5655.0	340.0	1092.0
+09	75177.0	1034.0	1381.0	1411.0
+10	4506.0	16193.0	7312.0	50992.0
+XX
+CC tax_group:vertebrates
+CC tf_family:CEBP-related
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:8632009
+CC uniprot_ids:P49715
+CC data_type:ChIP-seq
+XX
+//
+AC MA0259.2
+XX
+ID ARNT::HIF1A
+XX
+DE MA0259.2 ARNT::HIF1A ; From JASPAR
+PO	A	C	G	T
+01	78.0	2.0	23.0	1.0
+02	0.0	103.0	0.0	1.0
+03	0.0	0.0	104.0	0.0
+04	0.0	0.0	0.0	104.0
+05	0.0	0.0	104.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:PAS domain factors; PAS domain factors
+CC tf_class:Basic helix-loop-helix factors (bHLH); Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:16234508
+CC uniprot_ids:P27540; Q16665
+CC data_type:COMPILED
+XX
+//
+AC MA0442.3
+XX
+ID SOX10
+XX
+DE MA0442.3 SOX10 ; From JASPAR
+PO	A	C	G	T
+01	2023.0	4.0	3.0	25.0
+02	3.0	1989.0	11.0	52.0
+03	2029.0	7.0	7.0	12.0
+04	1968.0	28.0	20.0	39.0
+05	1959.0	23.0	12.0	61.0
+06	10.0	13.0	2012.0	20.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SOX-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:17916232
+CC uniprot_ids:P56693
+CC data_type:ChIP-seq
+XX
+//
+AC MA1467.3
+XX
+ID Atoh1
+XX
+DE MA1467.3 Atoh1 ; From JASPAR
+PO	A	C	G	T
+01	273.0	20657.0	208.0	339.0
+02	20977.0	170.0	257.0	73.0
+03	165.0	425.0	18911.0	1976.0
+04	21079.0	115.0	189.0	94.0
+05	117.0	552.0	99.0	20709.0
+06	280.0	159.0	20837.0	201.0
+07	1158.0	2163.0	15743.0	2413.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:22985730
+CC uniprot_ids:P48985
+CC data_type:
+XX
+//
+AC MA0463.1
+XX
+ID Bcl6
+XX
+DE MA0463.1 Bcl6 ; From JASPAR
+PO	A	C	G	T
+01	191.0	171.0	245.0	349.0
+02	35.0	22.0	28.0	871.0
+03	5.0	80.0	30.0	841.0
+04	30.0	876.0	24.0	26.0
+05	0.0	819.0	0.0	137.0
+06	0.0	0.0	0.0	956.0
+07	446.0	86.0	404.0	20.0
+08	142.0	0.0	814.0	0.0
+09	941.0	0.0	11.0	4.0
+10	642.0	101.0	175.0	38.0
+11	615.0	7.0	213.0	121.0
+12	101.0	92.0	630.0	133.0
+13	189.0	494.0	116.0	157.0
+14	369.0	188.0	166.0	233.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:7945383
+CC uniprot_ids:P41183
+CC data_type:ChIP-seq
+XX
+//
+AC MA0464.1
+XX
+ID Bhlhe40
+XX
+DE MA0464.1 Bhlhe40 ; From JASPAR
+PO	A	C	G	T
+01	1626.0	6868.0	6311.0	999.0
+02	4869.0	524.0	3146.0	7265.0
+03	0.0	15804.0	0.0	0.0
+04	15804.0	0.0	0.0	0.0
+05	0.0	14493.0	0.0	1311.0
+06	2875.0	1107.0	11822.0	0.0
+07	0.0	0.0	0.0	15804.0
+08	0.0	0.0	15804.0	0.0
+09	3859.0	11919.0	26.0	0.0
+10	6629.0	4255.0	345.0	4575.0
+11	2028.0	6293.0	3681.0	3802.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Hairy-related factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:11880636
+CC uniprot_ids:O35185
+CC data_type:ChIP-seq
+XX
+//
+AC MA0467.3
+XX
+ID Crx
+XX
+DE MA0467.3 Crx ; From JASPAR
+PO	A	C	G	T
+01	19.0	155.0	4129.0	30.0
+02	26.0	36.0	4200.0	71.0
+03	4227.0	17.0	42.0	47.0
+04	11.0	32.0	9.0	4281.0
+05	50.0	25.0	20.0	4238.0
+06	4241.0	25.0	23.0	44.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:20463752
+CC uniprot_ids:O54751
+CC data_type:
+XX
+//
+AC MA0469.4
+XX
+ID E2F3
+XX
+DE MA0469.4 E2F3 ; From JASPAR
+PO	A	C	G	T
+01	9758.0	153.0	336.0	25118.0
+02	4706.0	81.0	83.0	28522.0
+03	2828.0	320.0	109.0	27783.0
+04	2537.0	98.0	3968.0	27496.0
+05	72.0	3846.0	29311.0	0.0
+06	11.0	0.0	29421.0	12.0
+07	17.0	29393.0	9.0	24.0
+08	26.0	14.0	29386.0	25.0
+09	14.0	29427.0	0.0	8.0
+10	0.0	29368.0	3755.0	71.0
+11	27525.0	3862.0	78.0	2530.0
+12	27860.0	113.0	272.0	2677.0
+13	28547.0	80.0	92.0	4552.0
+14	25059.0	397.0	114.0	9732.0
+XX
+CC tax_group:vertebrates
+CC tf_family:E2F
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:18836037
+CC uniprot_ids:O00716
+CC data_type:HT-SELEX
+XX
+//
+AC MA0472.1
+XX
+ID Egr2
+XX
+DE MA0472.1 Egr2 ; From JASPAR
+PO	A	C	G	T
+01	169.0	572.0	291.0	214.0
+02	337.0	460.0	180.0	269.0
+03	168.0	572.0	216.0	290.0
+04	387.0	722.0	65.0	72.0
+05	26.0	1186.0	0.0	34.0
+06	448.0	0.0	602.0	196.0
+07	0.0	1246.0	0.0	0.0
+08	152.0	1094.0	0.0	0.0
+09	0.0	1169.0	0.0	77.0
+10	1059.0	187.0	0.0	0.0
+11	0.0	1246.0	0.0	0.0
+12	460.0	0.0	579.0	207.0
+13	0.0	1041.0	114.0	91.0
+14	558.0	302.0	199.0	187.0
+15	127.0	617.0	251.0	251.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Three-zinc finger Kruppel-related
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:7891721
+CC uniprot_ids:P08152
+CC data_type:ChIP-seq
+XX
+//
+AC MA0474.4
+XX
+ID Erg
+XX
+DE MA0474.4 Erg ; From JASPAR
+PO	A	C	G	T
+01	19688.0	2742.0	4936.0	2695.0
+02	1837.0	24759.0	2732.0	733.0
+03	26773.0	2559.0	463.0	266.0
+04	170.0	133.0	29562.0	196.0
+05	297.0	265.0	29221.0	278.0
+06	29248.0	355.0	274.0	184.0
+07	27881.0	370.0	277.0	1533.0
+08	4894.0	1173.0	23600.0	394.0
+09	2318.0	3310.0	2870.0	21563.0
+10	4846.0	3938.0	18018.0	3259.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Ets-related
+CC tf_class:Tryptophan cluster factors
+CC pubmed_ids:20517297
+CC uniprot_ids:P81270
+CC data_type:
+XX
+//
+AC MA0480.3
+XX
+ID Foxo1
+XX
+DE MA0480.3 Foxo1 ; From JASPAR
+PO	A	C	G	T
+01	1411.0	481.0	11670.0	554.0
+02	945.0	555.0	1025.0	11591.0
+03	12408.0	934.0	478.0	296.0
+04	12663.0	849.0	384.0	220.0
+05	12972.0	387.0	508.0	249.0
+06	293.0	12710.0	356.0	757.0
+07	13332.0	277.0	153.0	354.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:10880363
+CC uniprot_ids:Q9R1E0
+CC data_type:
+XX
+//
+AC MA0482.1
+XX
+ID Gata4
+XX
+DE MA0482.1 Gata4 ; From JASPAR
+PO	A	C	G	T
+01	10.0	1039.0	374.0	1323.0
+02	0.0	2165.0	306.0	275.0
+03	0.0	89.0	0.0	2657.0
+04	0.0	0.0	0.0	2746.0
+05	2707.0	39.0	0.0	0.0
+06	0.0	0.0	0.0	2746.0
+07	0.0	2746.0	0.0	0.0
+08	547.0	0.0	0.0	2199.0
+09	0.0	1240.0	940.0	566.0
+10	601.0	1004.0	157.0	984.0
+11	386.0	929.0	682.0	749.0
+XX
+CC tax_group:vertebrates
+CC tf_family:C4-GATA-related
+CC tf_class:Other C4 zinc finger-type factors
+CC pubmed_ids:7791790
+CC uniprot_ids:Q08369
+CC data_type:ChIP-seq
+XX
+//
+AC MA0483.2
+XX
+ID Gfi1B
+XX
+DE MA0483.2 Gfi1B ; From JASPAR
+PO	A	C	G	T
+01	1124.0	438.0	104.0	95.0
+02	1761.0	0.0	0.0	0.0
+03	1759.0	0.0	2.0	0.0
+04	0.0	338.0	28.0	1395.0
+05	0.0	1761.0	0.0	0.0
+06	1033.0	21.0	0.0	707.0
+07	61.0	1312.0	388.0	0.0
+08	1116.0	0.0	1.0	644.0
+09	57.0	1.0	1676.0	27.0
+10	142.0	1328.0	76.0	215.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:19773260
+CC uniprot_ids:O70237
+CC data_type:ChIP-seq
+XX
+//
+AC MA0485.1
+XX
+ID Hoxc9
+XX
+DE MA0485.1 Hoxc9 ; From JASPAR
+PO	A	C	G	T
+01	235.0	110.0	401.0	139.0
+02	112.0	171.0	536.0	66.0
+03	88.0	605.0	40.0	152.0
+04	224.0	468.0	1.0	192.0
+05	661.0	3.0	205.0	16.0
+06	0.0	9.0	0.0	876.0
+07	745.0	84.0	35.0	21.0
+08	881.0	0.0	0.0	4.0
+09	879.0	6.0	0.0	0.0
+10	18.0	0.0	0.0	867.0
+11	48.0	715.0	5.0	117.0
+12	567.0	72.0	6.0	240.0
+13	141.0	329.0	160.0	255.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:9079637
+CC uniprot_ids:P09633
+CC data_type:ChIP-seq
+XX
+//
+AC MA0493.1
+XX
+ID Klf1
+XX
+DE MA0493.1 Klf1 ; From JASPAR
+PO	A	C	G	T
+01	150.0	76.0	202.0	98.0
+02	167.0	40.0	305.0	14.0
+03	67.0	396.0	32.0	31.0
+04	13.0	461.0	0.0	52.0
+05	404.0	118.0	0.0	4.0
+06	0.0	526.0	0.0	0.0
+07	400.0	0.0	97.0	29.0
+08	0.0	526.0	0.0	0.0
+09	0.0	526.0	0.0	0.0
+10	0.0	508.0	0.0	18.0
+11	280.0	35.0	0.0	211.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Three-zinc finger Kruppel-related
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:7682653
+CC uniprot_ids:P46099
+CC data_type:ChIP-seq
+XX
+//
+AC MA0494.2
+XX
+ID Nr1h3::Rxra
+XX
+DE MA0494.2 Nr1h3::Rxra ; From JASPAR
+PO	A	C	G	T
+01	0.0	50.0	28.0	1191.0
+02	140.0	30.0	1089.0	10.0
+03	738.0	243.0	137.0	151.0
+04	246.0	971.0	0.0	52.0
+05	58.0	1080.0	3.0	128.0
+06	78.0	313.0	128.0	750.0
+07	358.0	318.0	343.0	250.0
+08	374.0	257.0	336.0	302.0
+09	794.0	0.0	321.0	154.0
+10	278.0	19.0	903.0	69.0
+11	77.0	0.0	4.0	1188.0
+12	559.0	77.0	440.0	193.0
+13	900.0	177.0	192.0	0.0
+14	255.0	962.0	20.0	32.0
+15	117.0	1040.0	0.0	112.0
+16	11.0	502.0	42.0	714.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Thyroid hormone receptor-related factors (NR1); RXR-related receptors (NR2)
+CC tf_class:Nuclear receptors with C4 zinc fingers; Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:21349840
+CC uniprot_ids:P28700; Q9Z0Y9
+CC data_type:ChIP-seq
+XX
+//
+AC MA0498.1
+XX
+ID Meis1
+XX
+DE MA0498.1 Meis1 ; From JASPAR
+PO	A	C	G	T
+01	1341.0	122.0	499.0	645.0
+02	171.0	759.0	1414.0	263.0
+03	121.0	2411.0	3.0	72.0
+04	0.0	0.0	0.0	2607.0
+05	0.0	0.0	2607.0	0.0
+06	85.0	50.0	0.0	2472.0
+07	0.0	2607.0	0.0	0.0
+08	2458.0	0.0	0.0	149.0
+09	261.0	1115.0	1075.0	156.0
+10	334.0	537.0	263.0	1473.0
+11	175.0	1472.0	494.0	466.0
+12	1059.0	547.0	145.0	856.0
+13	515.0	802.0	696.0	594.0
+14	472.0	1007.0	536.0	592.0
+15	529.0	736.0	480.0	862.0
+XX
+CC tax_group:vertebrates
+CC tf_family:TALE-type homeo domain factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:9315626
+CC uniprot_ids:Q60954
+CC data_type:ChIP-seq
+XX
+//
+AC MA0499.1
+XX
+ID Myod1
+XX
+DE MA0499.1 Myod1 ; From JASPAR
+PO	A	C	G	T
+01	6862.0	5589.0	5003.0	7060.0
+02	4142.0	6513.0	11000.0	2859.0
+03	0.0	24514.0	0.0	0.0
+04	24353.0	0.0	0.0	161.0
+05	0.0	6423.0	18072.0	19.0
+06	0.0	24514.0	0.0	0.0
+07	0.0	0.0	0.0	24514.0
+08	0.0	0.0	24514.0	0.0
+09	9.0	9087.0	654.0	14764.0
+10	16.0	11010.0	2905.0	10583.0
+11	5861.0	7591.0	5945.0	5117.0
+12	1913.0	11622.0	4319.0	6660.0
+13	4129.0	7657.0	4423.0	8305.0
+XX
+CC tax_group:vertebrates
+CC tf_family:MyoD/ASC-related factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:20412780
+CC uniprot_ids:P10085
+CC data_type:ChIP-seq
+XX
+//
+AC MA0505.1
+XX
+ID Nr5a2
+XX
+DE MA0505.1 Nr5a2 ; From JASPAR
+PO	A	C	G	T
+01	645.0	224.0	634.0	199.0
+02	985.0	170.0	336.0	211.0
+03	276.0	198.0	990.0	238.0
+04	122.0	378.0	366.0	836.0
+05	71.0	351.0	23.0	1257.0
+06	8.0	1616.0	74.0	4.0
+07	1685.0	14.0	0.0	3.0
+08	1679.0	0.0	23.0	0.0
+09	39.0	0.0	1663.0	0.0
+10	0.0	0.0	1702.0	0.0
+11	169.0	584.0	61.0	888.0
+12	0.0	1568.0	12.0	122.0
+13	1437.0	20.0	90.0	155.0
+14	271.0	345.0	740.0	346.0
+15	249.0	693.0	454.0	306.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FTZF1related(NR5A)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:12853459
+CC uniprot_ids:P45448
+CC data_type:ChIP-seq
+XX
+//
+AC MA0509.1
+XX
+ID Rfx1
+XX
+DE MA0509.1 Rfx1 ; From JASPAR
+PO	A	C	G	T
+01	290.0	157.0	1532.0	159.0
+02	58.0	222.0	377.0	1481.0
+03	145.0	833.0	131.0	1029.0
+04	421.0	433.0	762.0	522.0
+05	37.0	1748.0	96.0	257.0
+06	0.0	2048.0	0.0	90.0
+07	1254.0	402.0	73.0	409.0
+08	138.0	115.0	96.0	1789.0
+09	604.0	0.0	1534.0	0.0
+10	186.0	0.0	1952.0	0.0
+11	287.0	1710.0	12.0	129.0
+12	1793.0	0.0	244.0	101.0
+13	2082.0	0.0	56.0	0.0
+14	0.0	2138.0	0.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:RFX-related factors
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:20189986
+CC uniprot_ids:P48377
+CC data_type:ChIP-seq
+XX
+//
+AC MA0512.2
+XX
+ID Rxra
+XX
+DE MA0512.2 Rxra ; From JASPAR
+PO	A	C	G	T
+01	12568.0	5031.0	30811.0	2084.0
+02	21345.0	200.0	30406.0	75.0
+03	110.0	77.0	38290.0	159.0
+04	132.0	72.0	36414.0	4372.0
+05	47.0	109.0	372.0	40596.0
+06	97.0	44342.0	577.0	2686.0
+07	46204.0	51.0	120.0	21.0
+08	45275.0	89.0	830.0	368.0
+09	45265.0	73.0	1369.0	19.0
+10	39.0	71.0	39798.0	51.0
+11	63.0	85.0	38185.0	3335.0
+12	44.0	114.0	267.0	39867.0
+13	63.0	43686.0	348.0	1775.0
+14	44403.0	158.0	2447.0	37.0
+XX
+CC tax_group:vertebrates
+CC tf_family:RXR-related receptors (NR2)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:1323763
+CC uniprot_ids:P28700
+CC data_type:HT-SELEX
+XX
+//
+AC MA0514.3
+XX
+ID Sox3
+XX
+DE MA0514.3 Sox3 ; From JASPAR
+PO	A	C	G	T
+01	11761.0	52.0	76.0	89.0
+02	150.0	11125.0	178.0	525.0
+03	11284.0	312.0	93.0	289.0
+04	11623.0	143.0	143.0	69.0
+05	573.0	150.0	104.0	11151.0
+06	1617.0	133.0	10041.0	187.0
+07	1759.0	1582.0	7664.0	973.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SOX-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:8625802
+CC uniprot_ids:P53784
+CC data_type:
+XX
+//
+AC MA0515.1
+XX
+ID Sox6
+XX
+DE MA0515.1 Sox6 ; From JASPAR
+PO	A	C	G	T
+01	4.0	139.0	50.0	56.0
+02	0.0	221.0	0.0	28.0
+03	161.0	0.0	0.0	88.0
+04	0.0	0.0	0.0	249.0
+05	0.0	0.0	0.0	249.0
+06	0.0	0.0	249.0	0.0
+07	0.0	0.0	0.0	249.0
+08	0.0	115.0	5.0	129.0
+09	4.0	112.0	0.0	133.0
+10	14.0	76.0	31.0	128.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SOX-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:21985497
+CC uniprot_ids:P40645
+CC data_type:ChIP-seq
+XX
+//
+AC MA0518.2
+XX
+ID Stat4
+XX
+DE MA0518.2 Stat4 ; From JASPAR
+PO	A	C	G	T
+01	12.0	2.0	0.0	2859.0
+02	26.0	0.0	529.0	2318.0
+03	632.0	2229.0	12.0	0.0
+04	307.0	1491.0	72.0	1003.0
+05	1450.0	28.0	1223.0	172.0
+06	733.0	0.0	2134.0	6.0
+07	45.0	0.0	2828.0	0.0
+08	2873.0	0.0	0.0	0.0
+09	2873.0	0.0	0.0	0.0
+10	1573.0	279.0	833.0	188.0
+XX
+CC tax_group:vertebrates
+CC tf_family:STAT factors
+CC tf_class:STAT domain factors
+CC pubmed_ids:19710469
+CC uniprot_ids:P42228
+CC data_type:ChIP-seq
+XX
+//
+AC MA0519.2
+XX
+ID Stat5a::Stat5b
+XX
+DE MA0519.2 Stat5a::Stat5b ; From JASPAR
+PO	A	C	G	T
+01	0.0	0.0	0.0	16507.0
+02	0.0	1600.0	0.0	14907.0
+03	0.0	16341.0	0.0	166.0
+04	263.0	12795.0	0.0	3449.0
+05	7044.0	6137.0	0.0	3326.0
+06	11543.0	0.0	4140.0	824.0
+07	0.0	0.0	16507.0	0.0
+08	14888.0	93.0	0.0	1526.0
+09	14886.0	0.0	1621.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:STAT factors; STAT factors
+CC tf_class:STAT domain factors; STAT domain factors
+CC pubmed_ids:22158971
+CC uniprot_ids:P42230; P42232
+CC data_type:ChIP-seq
+XX
+//
+AC MA0520.2
+XX
+ID Stat6
+XX
+DE MA0520.2 Stat6 ; From JASPAR
+PO	A	C	G	T
+01	0.0	0.0	0.0	1852.0
+02	13.0	0.0	0.0	1839.0
+03	122.0	1680.0	0.0	50.0
+04	70.0	1204.0	0.0	578.0
+05	664.0	21.0	219.0	948.0
+06	328.0	534.0	898.0	92.0
+07	1153.0	3.0	416.0	280.0
+08	26.0	0.0	1796.0	30.0
+09	1852.0	0.0	0.0	0.0
+10	1849.0	0.0	3.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:STAT factors
+CC tf_class:STAT domain factors
+CC pubmed_ids:21828071
+CC uniprot_ids:P52633
+CC data_type:ChIP-seq
+XX
+//
+AC MA0521.3
+XX
+ID Tcf12
+XX
+DE MA0521.3 Tcf12 ; From JASPAR
+PO	A	C	G	T
+01	367.0	72674.0	404.0	550.0
+02	72283.0	739.0	632.0	341.0
+03	836.0	1814.0	69780.0	1565.0
+04	1565.0	69780.0	1814.0	836.0
+05	341.0	632.0	738.0	72284.0
+06	549.0	402.0	72670.0	374.0
+XX
+CC tax_group:vertebrates
+CC tf_family:E2A
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:1501295
+CC uniprot_ids:Q61286
+CC data_type:
+XX
+//
+AC MA0522.1
+XX
+ID Tcf3
+XX
+DE MA0522.1 Tcf3 ; From JASPAR
+PO	A	C	G	T
+01	2717.0	8489.0	4689.0	1366.0
+02	8100.0	6433.0	1756.0	972.0
+03	0.0	17261.0	0.0	0.0
+04	17261.0	0.0	0.0	0.0
+05	0.0	4101.0	12403.0	757.0
+06	0.0	16850.0	411.0	0.0
+07	0.0	0.0	0.0	17261.0
+08	0.0	0.0	17261.0	0.0
+09	0.0	12529.0	3397.0	1335.0
+10	6957.0	4204.0	96.0	6004.0
+11	2351.0	4115.0	6625.0	4170.0
+XX
+CC tax_group:vertebrates
+CC tf_family:E2A
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:10594029
+CC uniprot_ids:Q9Z1J1
+CC data_type:ChIP-seq
+XX
+//
+AC MA0098.2
+XX
+ID Ets1
+XX
+DE MA0098.2 Ets1 ; From JASPAR
+PO	A	C	G	T
+01	431.0	668.0	420.0	349.0
+02	145.0	1160.0	244.0	319.0
+03	263.0	993.0	187.0	425.0
+04	1179.0	117.0	451.0	121.0
+05	0.0	1507.0	4.0	357.0
+06	329.0	0.0	0.0	1539.0
+07	0.0	0.0	0.0	1868.0
+08	0.0	1868.0	0.0	0.0
+09	0.0	1868.0	0.0	0.0
+10	0.0	0.0	156.0	1712.0
+11	0.0	329.0	1422.0	117.0
+12	65.0	579.0	62.0	1162.0
+13	146.0	678.0	437.0	607.0
+14	306.0	542.0	309.0	711.0
+15	265.0	629.0	472.0	502.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Ets-related
+CC tf_class:Tryptophan cluster factors
+CC pubmed_ids:1542566
+CC uniprot_ids:P27577
+CC data_type:ChIP-seq
+XX
+//
+AC MA0150.3
+XX
+ID Nfe2l2
+XX
+DE MA0150.3 Nfe2l2 ; From JASPAR
+PO	A	C	G	T
+01	488.0	28.0	205.0	5.0
+02	0.0	0.0	0.0	726.0
+03	0.0	0.0	711.0	15.0
+04	726.0	0.0	0.0	0.0
+05	20.0	533.0	118.0	55.0
+06	84.0	20.0	16.0	606.0
+07	65.0	549.0	46.0	66.0
+08	577.0	3.0	90.0	56.0
+09	10.0	11.0	698.0	7.0
+10	4.0	699.0	19.0	4.0
+11	623.0	26.0	31.0	46.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Jun-related
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:17916232
+CC uniprot_ids:Q60795
+CC data_type:ChIP-seq
+XX
+//
+AC MA0080.7
+XX
+ID Spi1
+XX
+DE MA0080.7 Spi1 ; From JASPAR
+PO	A	C	G	T
+01	66531.0	6863.0	22807.0	8997.0
+02	82280.0	5758.0	10614.0	6546.0
+03	81461.0	2330.0	10220.0	11187.0
+04	8636.0	12201.0	79986.0	4375.0
+05	89952.0	2594.0	9636.0	3016.0
+06	4077.0	550.0	99360.0	1211.0
+07	2028.0	831.0	101383.0	956.0
+08	102012.0	1095.0	1063.0	1028.0
+09	99529.0	958.0	1822.0	2889.0
+10	7616.0	7067.0	89140.0	1375.0
+11	16997.0	3716.0	5128.0	79357.0
+12	9972.0	6075.0	83385.0	5766.0
+13	23194.0	11577.0	57669.0	12758.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Ets-related
+CC tf_class:Tryptophan cluster factors
+CC pubmed_ids:7624145
+CC uniprot_ids:P17433
+CC data_type:
+XX
+//
+AC MA0591.2
+XX
+ID Bach1::Mafk
+XX
+DE MA0591.2 Bach1::Mafk ; From JASPAR
+PO	A	C	G	T
+01	15.0	41.0	54.0	4.0
+02	66.0	16.0	32.0	0.0
+03	2.0	1.0	0.0	111.0
+04	0.0	0.0	107.0	7.0
+05	113.0	0.0	0.0	1.0
+06	0.0	94.0	20.0	0.0
+07	1.0	0.0	4.0	109.0
+08	5.0	107.0	2.0	0.0
+09	108.0	1.0	3.0	2.0
+10	0.0	1.0	113.0	0.0
+11	0.0	114.0	0.0	0.0
+12	98.0	4.0	6.0	6.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Jun-related; Maf-related
+CC tf_class:Basic leucine zipper factors (bZIP); Basic leucine zipper factors (bZIP)
+CC pubmed_ids:11069897
+CC uniprot_ids:P97302; Q61827
+CC data_type:ChIP-seq
+XX
+//
+AC MA0594.1
+XX
+ID Hoxa9
+XX
+DE MA0594.1 Hoxa9 ; From JASPAR
+PO	A	C	G	T
+01	34.0	53.0	81.0	4.0
+02	12.0	110.0	5.0	45.0
+03	38.0	117.0	0.0	17.0
+04	161.0	3.0	8.0	0.0
+05	0.0	0.0	0.0	172.0
+06	101.0	58.0	8.0	5.0
+07	157.0	6.0	0.0	9.0
+08	171.0	1.0	0.0	0.0
+09	5.0	0.0	1.0	166.0
+10	7.0	154.0	0.0	11.0
+11	131.0	11.0	0.0	30.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:12923056
+CC uniprot_ids:P09631
+CC data_type:ChIP-seq
+XX
+//
+AC MA0602.2
+XX
+ID Arid5a
+XX
+DE MA0602.2 Arid5a ; From JASPAR
+PO	A	C	G	T
+01	16.0	32.0	3.0	48.0
+02	85.0	3.0	7.0	5.0
+03	96.0	0.0	1.0	2.0
+04	6.0	0.0	1.0	93.0
+05	93.0	1.0	1.0	6.0
+06	2.0	1.0	1.0	96.0
+07	4.0	9.0	4.0	83.0
+08	23.0	3.0	52.0	22.0
+XX
+CC tax_group:vertebrates
+CC tf_family:ARID-related
+CC tf_class:ARID
+CC pubmed_ids:25215497
+CC uniprot_ids:Q3U108
+CC data_type:PBM
+XX
+//
+AC MA0603.2
+XX
+ID Arntl
+XX
+DE MA0603.2 Arntl ; From JASPAR
+PO	A	C	G	T
+01	246.0	125.0	558.0	71.0
+02	62.0	44.0	143.0	752.0
+03	3.0	997.0	0.0	0.0
+04	953.0	16.0	10.0	21.0
+05	2.0	965.0	9.0	24.0
+06	48.0	3.0	946.0	3.0
+07	54.0	58.0	51.0	837.0
+08	9.0	4.0	938.0	48.0
+XX
+CC tax_group:vertebrates
+CC tf_family:PAS domain factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:7592839
+CC uniprot_ids:Q9WTL8
+CC data_type:PBM
+XX
+//
+AC MA0604.1
+XX
+ID Atf1
+XX
+DE MA0604.1 Atf1 ; From JASPAR
+PO	A	C	G	T
+01	462.0	86.0	387.0	65.0
+02	24.0	16.0	0.0	960.0
+03	0.0	22.0	803.0	175.0
+04	1000.0	0.0	0.0	0.0
+05	0.0	1000.0	0.0	0.0
+06	7.0	0.0	993.0	0.0
+07	90.0	198.0	0.0	712.0
+08	600.0	138.0	163.0	100.0
+XX
+CC tax_group:vertebrates
+CC tf_family:CREB-related factors
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:1655749
+CC uniprot_ids:P81269
+CC data_type:PBM
+XX
+//
+AC MA2193.1
+XX
+ID Atf3
+XX
+DE MA2193.1 Atf3 ; From JASPAR
+PO	A	C	G	T
+01	422.0	89.0	427.0	60.0
+02	0.0	7.0	0.0	992.0
+03	23.0	56.0	695.0	224.0
+04	937.0	0.0	39.0	23.0
+05	0.0	821.0	0.0	178.0
+06	192.0	0.0	807.0	0.0
+07	10.0	40.0	0.0	948.0
+08	268.0	675.0	52.0	3.0
+09	978.0	7.0	14.0	0.0
+10	38.0	439.0	112.0	409.0
+XX
+CC tax_group:insects
+CC tf_family:Fos-related
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:20023169
+CC uniprot_ids:Q9XZS8
+CC data_type:SELEX
+XX
+//
+AC MA1472.3
+XX
+ID Bhlha15
+XX
+DE MA1472.3 Bhlha15 ; From JASPAR
+PO	A	C	G	T
+01	15173.0	3298.0	2883.0	562.0
+02	269.0	21196.0	353.0	98.0
+03	21245.0	127.0	159.0	385.0
+04	113.0	329.0	20904.0	570.0
+05	570.0	20904.0	329.0	113.0
+06	385.0	159.0	127.0	21245.0
+07	98.0	353.0	21196.0	269.0
+08	562.0	2883.0	3298.0	15173.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:28174210
+CC uniprot_ids:Q9QYC3
+CC data_type:
+XX
+//
+AC MA0608.1
+XX
+ID Creb3l2
+XX
+DE MA0608.1 Creb3l2 ; From JASPAR
+PO	A	C	G	T
+01	2.0	2.0	745.0	250.0
+02	250.0	623.0	1.0	126.0
+03	1.0	872.0	126.0	1.0
+04	996.0	1.0	1.0	1.0
+05	1.0	996.0	1.0	1.0
+06	1.0	1.0	996.0	1.0
+07	1.0	1.0	1.0	996.0
+08	1.0	143.0	854.0	1.0
+09	250.0	2.0	250.0	498.0
+XX
+CC tax_group:vertebrates
+CC tf_family:CREB-related factors
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:23332764
+CC uniprot_ids:Q8BH52
+CC data_type:PBM
+XX
+//
+AC MA0609.1
+XX
+ID Crem
+XX
+DE MA0609.1 Crem ; From JASPAR
+PO	A	C	G	T
+01	183.0	183.0	271.0	363.0
+02	645.0	87.0	180.0	87.0
+03	0.0	0.0	0.0	999.0
+04	0.0	0.0	725.0	275.0
+05	999.0	0.0	0.0	0.0
+06	0.0	999.0	0.0	0.0
+07	0.0	0.0	999.0	0.0
+08	0.0	0.0	0.0	999.0
+09	548.0	318.0	67.0	67.0
+10	511.0	163.0	163.0	163.0
+XX
+CC tax_group:vertebrates
+CC tf_family:CREB-related factors
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:20920259
+CC uniprot_ids:P27699
+CC data_type:PBM
+XX
+//
+AC MA0611.3
+XX
+ID Dux
+XX
+DE MA0611.3 Dux ; From JASPAR
+PO	A	C	G	T
+01	830.0	70.0	248.0	1919.0
+02	118.0	16.0	2896.0	37.0
+03	3041.0	9.0	6.0	11.0
+04	18.0	10.0	58.0	2981.0
+05	8.0	220.0	22.0	2817.0
+06	409.0	920.0	827.0	911.0
+07	2985.0	22.0	48.0	12.0
+08	3025.0	22.0	5.0	15.0
+09	9.0	6.0	3.0	3049.0
+10	30.0	2912.0	7.0	118.0
+11	2766.0	47.0	23.0	231.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:28173143; 24278031
+CC uniprot_ids:A1JVI8
+CC data_type:
+XX
+//
+AC MA0614.1
+XX
+ID Foxj2
+XX
+DE MA0614.1 Foxj2 ; From JASPAR
+PO	A	C	G	T
+01	461.0	0.0	538.0	0.0
+02	50.0	25.0	0.0	924.0
+03	795.0	205.0	0.0	0.0
+04	977.0	0.0	0.0	22.0
+05	999.0	0.0	0.0	0.0
+06	0.0	954.0	0.0	46.0
+07	999.0	0.0	0.0	0.0
+08	593.0	125.0	125.0	156.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:24025729
+CC uniprot_ids:Q9ES18
+CC data_type:PBM
+XX
+//
+AC MA0615.2
+XX
+ID Gmeb1
+XX
+DE MA0615.2 Gmeb1 ; From JASPAR
+PO	A	C	G	T
+01	5.0	4.0	33.0	59.0
+02	71.0	1.0	28.0	0.0
+03	0.0	99.0	0.0	1.0
+04	1.0	0.0	99.0	0.0
+05	0.0	28.0	1.0	71.0
+06	59.0	33.0	4.0	5.0
+XX
+CC tax_group:vertebrates
+CC tf_family:GMEB
+CC tf_class:SAND domain factors
+CC pubmed_ids:19443739
+CC uniprot_ids:Q9JL60
+CC data_type:PBM
+XX
+//
+AC MA1099.1
+XX
+ID Hes1
+XX
+DE MA1099.1 Hes1 ; From JASPAR
+PO	A	C	G	T
+01	187.0	258.0	377.0	178.0
+02	209.0	299.0	396.0	96.0
+03	40.0	875.0	14.0	71.0
+04	743.0	33.0	141.0	82.0
+05	29.0	833.0	56.0	82.0
+06	165.0	41.0	769.0	26.0
+07	116.0	470.0	67.0	348.0
+08	58.0	113.0	661.0	168.0
+09	226.0	302.0	151.0	321.0
+10	217.0	384.0	198.0	200.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Hairy-related factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:15870295
+CC uniprot_ids:P35428
+CC data_type:PBM
+XX
+//
+AC MA0616.1
+XX
+ID Hes2
+XX
+DE MA0616.1 Hes2 ; From JASPAR
+PO	A	C	G	T
+01	214.0	214.0	214.0	357.0
+02	341.0	197.0	197.0	264.0
+03	341.0	197.0	197.0	264.0
+04	245.0	333.0	245.0	177.0
+05	83.0	152.0	682.0	83.0
+06	603.0	0.0	397.0	0.0
+07	282.0	718.0	0.0	0.0
+08	930.0	0.0	70.0	0.0
+09	174.0	754.0	36.0	36.0
+10	123.0	53.0	771.0	53.0
+11	53.0	53.0	53.0	841.0
+12	143.0	73.0	711.0	73.0
+13	238.0	428.0	167.0	167.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Hairy-related factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:8354270
+CC uniprot_ids:O54792
+CC data_type:PBM
+XX
+//
+AC MA1899.2
+XX
+ID Mitf
+XX
+DE MA1899.2 Mitf ; From JASPAR
+PO	A	C	G	T
+01	57.0	845.0	59.0	40.0
+02	865.0	33.0	61.0	42.0
+03	7.0	895.0	18.0	81.0
+04	77.0	26.0	886.0	10.0
+05	23.0	21.0	25.0	931.0
+06	8.0	28.0	954.0	9.0
+07	755.0	105.0	78.0	61.0
+XX
+CC tax_group:urochordates
+CC tf_family:bHLH-ZIP
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:26684323
+CC uniprot_ids:Q4H369
+CC data_type:SELEX
+XX
+//
+AC MA0622.2
+XX
+ID Mlxip
+XX
+DE MA0622.2 Mlxip ; From JASPAR
+PO	A	C	G	T
+01	0.0	999.0	0.0	0.0
+02	999.0	0.0	0.0	0.0
+03	0.0	999.0	0.0	0.0
+04	0.0	0.0	999.0	0.0
+05	0.0	0.0	0.0	999.0
+06	0.0	0.0	999.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:bHLH-ZIP
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:12446771
+CC uniprot_ids:Q2VPU4
+CC data_type:PBM
+XX
+//
+AC MA0623.1
+XX
+ID Neurog1
+XX
+DE MA0623.1 Neurog1 ; From JASPAR
+PO	A	C	G	T
+01	425.0	113.0	235.0	226.0
+02	170.0	592.0	171.0	67.0
+03	271.0	688.0	27.0	14.0
+04	665.0	35.0	187.0	113.0
+05	1.0	64.0	143.0	791.0
+06	794.0	141.0	56.0	9.0
+07	76.0	151.0	11.0	763.0
+08	12.0	1.0	870.0	118.0
+09	39.0	151.0	422.0	389.0
+10	92.0	270.0	235.0	403.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:23332764
+CC uniprot_ids:P70660
+CC data_type:PBM
+XX
+//
+AC MA0626.2
+XX
+ID Npas2
+XX
+DE MA0626.2 Npas2 ; From JASPAR
+PO	A	C	G	T
+01	154.0	377.0	420.0	48.0
+02	0.0	999.0	0.0	0.0
+03	999.0	0.0	0.0	0.0
+04	81.0	918.0	0.0	0.0
+05	81.0	0.0	918.0	0.0
+06	0.0	0.0	0.0	999.0
+07	81.0	0.0	918.0	0.0
+08	74.0	172.0	188.0	566.0
+XX
+CC tax_group:vertebrates
+CC tf_family:PAS domain factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:23332764
+CC uniprot_ids:P97460
+CC data_type:PBM
+XX
+//
+AC MA0627.1
+XX
+ID Pou2f3
+XX
+DE MA0627.1 Pou2f3 ; From JASPAR
+PO	A	C	G	T
+01	16.0	20.0	20.0	44.0
+02	24.0	22.0	15.0	39.0
+03	19.0	13.0	40.0	28.0
+04	9.0	12.0	4.0	75.0
+05	99.0	0.0	0.0	1.0
+06	0.0	1.0	0.0	98.0
+07	0.0	0.0	94.0	6.0
+08	0.0	91.0	0.0	8.0
+09	74.0	0.0	0.0	26.0
+10	91.0	0.0	1.0	8.0
+11	99.0	0.0	0.0	1.0
+12	2.0	0.0	2.0	96.0
+13	15.0	16.0	29.0	40.0
+14	46.0	24.0	11.0	19.0
+15	29.0	16.0	35.0	19.0
+16	41.0	24.0	18.0	16.0
+XX
+CC tax_group:vertebrates
+CC tf_family:POU domain factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:P31362
+CC data_type:universal protein binding microarray (PBM)
+XX
+//
+AC MA0629.2
+XX
+ID Rhox11
+XX
+DE MA0629.2 Rhox11 ; From JASPAR
+PO	A	C	G	T
+01	13.0	56.0	6.0	25.0
+02	3.0	1.0	95.0	1.0
+03	9.0	76.0	15.0	0.0
+04	1.0	0.0	1.0	99.0
+05	4.0	0.0	94.0	2.0
+06	1.0	1.0	0.0	99.0
+07	56.0	0.0	0.0	43.0
+08	78.0	4.0	3.0	15.0
+09	52.0	10.0	1.0	36.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:Q810N8
+CC data_type:PBM
+XX
+//
+AC MA0631.2
+XX
+ID Six3
+XX
+DE MA0631.2 Six3 ; From JASPAR
+PO	A	C	G	T
+01	72.0	8.0	8.0	12.0
+02	23.0	5.0	17.0	55.0
+03	47.0	10.0	32.0	10.0
+04	7.0	7.0	82.0	4.0
+05	2.0	2.0	90.0	7.0
+06	16.0	1.0	83.0	0.0
+07	0.0	0.0	4.0	95.0
+08	97.0	0.0	3.0	0.0
+09	0.0	0.0	0.0	99.0
+10	1.0	97.0	0.0	1.0
+11	92.0	3.0	3.0	2.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HD-SINE
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585360
+CC uniprot_ids:Q62233
+CC data_type:PBM
+XX
+//
+AC MA0632.1
+XX
+ID Tcfl5
+XX
+DE MA0632.1 Tcfl5 ; From JASPAR
+PO	A	C	G	T
+01	263.0	203.0	308.0	226.0
+02	113.0	227.0	364.0	296.0
+03	58.0	874.0	17.0	51.0
+04	372.0	64.0	336.0	227.0
+05	6.0	904.0	19.0	71.0
+06	71.0	19.0	904.0	6.0
+07	227.0	336.0	64.0	372.0
+08	51.0	17.0	874.0	58.0
+09	296.0	364.0	227.0	113.0
+10	226.0	308.0	203.0	263.0
+XX
+CC tax_group:vertebrates
+CC tf_family:PAS domain factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:15585666
+CC uniprot_ids:Q32NY8
+CC data_type:PBM
+XX
+//
+AC MA0633.3
+XX
+ID Twist2
+XX
+DE MA0633.3 Twist2 ; From JASPAR
+PO	A	C	G	T
+01	15.0	49473.0	81.0	60.0
+02	48915.0	345.0	369.0	0.0
+03	9.0	16.0	49583.0	21.0
+04	21.0	49583.0	16.0	9.0
+05	0.0	369.0	342.0	48918.0
+06	60.0	81.0	49473.0	15.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:10594029
+CC uniprot_ids:Q9D030
+CC data_type:
+XX
+//
+AC MA0643.2
+XX
+ID Esrrg
+XX
+DE MA0643.2 Esrrg ; From JASPAR
+PO	A	C	G	T
+01	3489.0	5974.0	2800.0	14909.0
+02	705.0	10009.0	4901.0	490.0
+03	14909.0	0.0	603.0	195.0
+04	14909.0	12.0	34.0	5.0
+05	12.0	7.0	14909.0	298.0
+06	0.0	17.0	14909.0	14.0
+07	472.0	41.0	844.0	14909.0
+08	7.0	14909.0	271.0	1280.0
+09	14909.0	34.0	1561.0	60.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Steroid hormone receptors (NR3)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:15475169
+CC uniprot_ids:P62509
+CC data_type:HT-SELEX
+XX
+//
+AC MA0676.1
+XX
+ID Nr2e1
+XX
+DE MA0676.1 Nr2e1 ; From JASPAR
+PO	A	C	G	T
+01	1118.0	244.0	191.0	401.0
+02	1118.0	89.0	448.0	369.0
+03	1118.0	1.0	101.0	19.0
+04	1118.0	0.0	74.0	5.0
+05	40.0	0.0	1118.0	8.0
+06	0.0	58.0	0.0	1118.0
+07	11.0	1118.0	12.0	112.0
+08	1118.0	0.0	0.0	0.0
+09	1118.0	131.0	117.0	247.0
+XX
+CC tax_group:vertebrates
+CC tf_family:RXR-related receptors (NR2)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:10706625
+CC uniprot_ids:Q9Y466
+CC data_type:HT-SELEX
+XX
+//
+AC MA0677.2
+XX
+ID Nr2f6
+XX
+DE MA0677.2 Nr2f6 ; From JASPAR
+PO	A	C	G	T
+01	216.0	11.0	158.0	6.0
+02	10.0	7.0	312.0	21.0
+03	11.0	8.0	305.0	24.0
+04	6.0	18.0	25.0	385.0
+05	11.0	523.0	18.0	56.0
+06	454.0	6.0	8.0	8.0
+07	425.0	11.0	42.0	35.0
+08	450.0	2.0	35.0	0.0
+09	2.0	2.0	320.0	5.0
+10	4.0	1.0	314.0	16.0
+11	2.0	10.0	15.0	419.0
+12	1.0	614.0	21.0	59.0
+13	449.0	7.0	44.0	7.0
+XX
+CC tax_group:vertebrates
+CC tf_family:RXR-related receptors (NR2)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:12690040
+CC uniprot_ids:P43136
+CC data_type:HT-SELEX
+XX
+//
+AC MA0681.1
+XX
+ID Phox2b
+XX
+DE MA0681.1 Phox2b ; From JASPAR
+PO	A	C	G	T
+01	3604.0	1710.0	611.0	23359.0
+02	23359.0	270.0	2656.0	1151.0
+03	23359.0	25.0	63.0	4.0
+04	1784.0	9263.0	905.0	23359.0
+05	955.0	10961.0	5380.0	12398.0
+06	3134.0	10392.0	2149.0	12967.0
+07	23359.0	1110.0	4248.0	604.0
+08	23359.0	214.0	394.0	102.0
+09	0.0	9.0	0.0	23359.0
+10	1514.0	1130.0	50.0	23359.0
+11	23359.0	202.0	1102.0	2912.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:22323723
+CC uniprot_ids:Q99453
+CC data_type:HT-SELEX
+XX
+//
+AC MA0682.1
+XX
+ID Pitx1
+XX
+DE MA0682.1 Pitx1 ; From JASPAR
+PO	A	C	G	T
+01	600.0	842.0	338.0	1335.0
+02	162.0	23.0	0.0	3116.0
+03	3116.0	155.0	210.0	49.0
+04	3116.0	0.0	0.0	17.0
+05	70.0	59.0	467.0	3116.0
+06	222.0	3116.0	42.0	235.0
+07	164.0	3116.0	138.0	612.0
+08	711.0	1275.0	430.0	700.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:8675014
+CC uniprot_ids:P70314
+CC data_type:HT-SELEX
+XX
+//
+AC MA0693.4
+XX
+ID Vdr
+XX
+DE MA0693.4 Vdr ; From JASPAR
+PO	A	C	G	T
+01	6355.0	4678.0	25359.0	2150.0
+02	35948.0	644.0	1137.0	813.0
+03	805.0	599.0	36028.0	1110.0
+04	978.0	520.0	1555.0	35489.0
+05	1685.0	655.0	574.0	35628.0
+06	1602.0	34477.0	406.0	2057.0
+07	36305.0	661.0	826.0	750.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Thyroid hormone receptor-related factors (NR1)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:8065900
+CC uniprot_ids:P48281
+CC data_type:
+XX
+//
+AC MA0704.2
+XX
+ID Lhx4
+XX
+DE MA0704.2 Lhx4 ; From JASPAR
+PO	A	C	G	T
+01	217.0	912.0	0.0	2896.0
+02	2896.0	428.0	309.0	255.0
+03	2896.0	0.0	0.0	155.0
+04	0.0	0.0	0.0	2896.0
+05	0.0	446.0	57.0	2896.0
+06	2896.0	39.0	316.0	135.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HD-LIM
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585360
+CC uniprot_ids:P53776
+CC data_type:HT-SELEX
+XX
+//
+AC MA0705.2
+XX
+ID Lhx8
+XX
+DE MA0705.2 Lhx8 ; From JASPAR
+PO	A	C	G	T
+01	0.0	1996.0	0.0	5092.0
+02	5092.0	160.0	1670.0	0.0
+03	5092.0	0.0	0.0	0.0
+04	0.0	0.0	0.0	5092.0
+05	0.0	2083.0	88.0	5092.0
+06	5092.0	0.0	1929.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HD-LIM
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585360
+CC uniprot_ids:O35652
+CC data_type:HT-SELEX
+XX
+//
+AC MA0709.2
+XX
+ID Msx3
+XX
+DE MA0709.2 Msx3 ; From JASPAR
+PO	A	C	G	T
+01	312.0	5798.0	29.0	2582.0
+02	8380.0	160.0	237.0	94.0
+03	8380.0	89.0	38.0	5.0
+04	0.0	0.0	0.0	8380.0
+05	121.0	215.0	105.0	8380.0
+06	8380.0	59.0	88.0	213.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585360
+CC uniprot_ids:P70354
+CC data_type:HT-SELEX
+XX
+//
+AC MA0124.3
+XX
+ID Nkx3-1
+XX
+DE MA0124.3 Nkx3-1 ; From JASPAR
+PO	A	C	G	T
+01	981.0	5335.0	1776.0	275.0
+02	0.0	5335.0	10.0	336.0
+03	5335.0	28.0	10.0	88.0
+04	59.0	5335.0	9.0	9.0
+05	0.0	1.0	0.0	5335.0
+06	0.0	254.0	0.0	5335.0
+07	5335.0	273.0	173.0	523.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585360
+CC uniprot_ids:P97436
+CC data_type:HT-SELEX
+XX
+//
+AC MA0720.2
+XX
+ID Shox2
+XX
+DE MA0720.2 Shox2 ; From JASPAR
+PO	A	C	G	T
+01	979.0	9027.0	228.0	9152.0
+02	18179.0	626.0	426.0	766.0
+03	18179.0	138.0	3.0	79.0
+04	29.0	12.0	0.0	18179.0
+05	597.0	545.0	870.0	18179.0
+06	18179.0	193.0	36.0	895.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585360
+CC uniprot_ids:P70390
+CC data_type:HT-SELEX
+XX
+//
+AC MA0592.2
+XX
+ID Esrra
+XX
+DE MA0592.2 Esrra ; From JASPAR
+PO	A	C	G	T
+01	110.0	696.0	1482.0	4775.0
+02	131.0	339.0	57.0	4775.0
+03	33.0	4775.0	404.0	4.0
+04	4775.0	0.0	4.0	0.0
+05	4775.0	0.0	4.0	0.0
+06	1.0	3.0	4775.0	9.0
+07	0.0	2.0	4775.0	3.0
+08	6.0	11.0	52.0	4775.0
+09	0.0	4775.0	211.0	42.0
+10	4775.0	6.0	293.0	2.0
+11	739.0	350.0	55.0	3630.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Steroid hormone receptors (NR3)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:17488637
+CC uniprot_ids:O08580
+CC data_type:HT-SELEX
+XX
+//
+AC MA0114.3
+XX
+ID Hnf4a
+XX
+DE MA0114.3 Hnf4a ; From JASPAR
+PO	A	C	G	T
+01	1870.0	587.0	3292.0	467.0
+02	1624.0	23.0	3538.0	5.0
+03	6.0	0.0	5162.0	1.0
+04	211.0	14.0	5162.0	711.0
+05	148.0	66.0	564.0	5162.0
+06	1.0	5162.0	5.0	122.0
+07	5162.0	2.0	159.0	0.0
+08	5162.0	0.0	69.0	11.0
+09	5162.0	0.0	52.0	0.0
+10	0.0	1.0	5162.0	3.0
+11	0.0	5.0	7.0	5162.0
+12	129.0	5162.0	131.0	962.0
+13	0.0	5162.0	4.0	191.0
+14	4452.0	35.0	709.0	135.0
+15	2148.0	1109.0	1121.0	784.0
+16	1019.0	1064.0	906.0	2174.0
+XX
+CC tax_group:vertebrates
+CC tf_family:RXR-related receptors (NR2)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:12385991
+CC uniprot_ids:P49698
+CC data_type:HT-SELEX
+XX
+//
+AC MA0728.1
+XX
+ID Nr2F6
+XX
+DE MA0728.1 Nr2F6 ; From JASPAR
+PO	A	C	G	T
+01	100.0	16.0	172.0	0.0
+02	265.0	0.0	53.0	3.0
+03	0.0	0.0	210.0	0.0
+04	1.0	0.0	183.0	0.0
+05	0.0	0.0	1.0	378.0
+06	0.0	667.0	1.0	51.0
+07	494.0	30.0	0.0	1.0
+08	406.0	4.0	7.0	9.0
+09	165.0	0.0	94.0	59.0
+10	258.0	0.0	0.0	0.0
+11	0.0	0.0	324.0	0.0
+12	0.0	0.0	155.0	5.0
+13	2.0	0.0	0.0	369.0
+14	0.0	678.0	0.0	3.0
+15	446.0	0.0	9.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:RXR-related receptors (NR2)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:12690040
+CC uniprot_ids:P43136
+CC data_type:HT-SELEX
+XX
+//
+AC MA0739.2
+XX
+ID Hic1
+XX
+DE MA0739.2 Hic1 ; From JASPAR
+PO	A	C	G	T
+01	6337.0	719.0	4670.0	666.0
+02	62.0	422.0	73.0	11007.0
+03	950.0	588.0	11007.0	183.0
+04	50.0	11007.0	121.0	0.0
+05	88.0	11007.0	31.0	68.0
+06	9008.0	1999.0	3.0	317.0
+07	6140.0	1986.0	2267.0	614.0
+08	1220.0	11007.0	1629.0	1488.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Factors with multiple dispersed zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:15231840
+CC uniprot_ids:Q9R1Y5
+CC data_type:HT-SELEX
+XX
+//
+AC MA0742.1
+XX
+ID Klf12
+XX
+DE MA0742.1 Klf12 ; From JASPAR
+PO	A	C	G	T
+01	167.0	35.0	1158.0	225.0
+02	553.0	11.0	531.0	0.0
+03	19.0	668.0	8.0	9.0
+04	5.0	670.0	12.0	3.0
+05	853.0	27.0	2.0	0.0
+06	9.0	675.0	0.0	4.0
+07	215.0	1.0	1348.0	16.0
+08	0.0	687.0	0.0	4.0
+09	0.0	706.0	9.0	13.0
+10	0.0	715.0	0.0	13.0
+11	410.0	120.0	0.0	483.0
+12	238.0	219.0	99.0	403.0
+13	308.0	239.0	84.0	290.0
+14	238.0	186.0	117.0	429.0
+15	271.0	210.0	141.0	330.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Three-zinc finger Kruppel-related
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:16266294
+CC uniprot_ids:O35738
+CC data_type:HT-SELEX
+XX
+//
+AC MA0769.1
+XX
+ID Tcf7
+XX
+DE MA0769.1 Tcf7 ; From JASPAR
+PO	A	C	G	T
+01	552.0	68.0	117.0	97.0
+02	791.0	31.0	144.0	111.0
+03	906.0	4.0	27.0	31.0
+04	5.0	277.0	744.0	6.0
+05	912.0	2.0	4.0	42.0
+06	0.0	5.0	18.0	874.0
+07	21.0	1018.0	28.0	21.0
+08	919.0	0.0	5.0	6.0
+09	921.0	6.0	10.0	3.0
+10	915.0	0.0	0.0	4.0
+11	32.0	0.0	846.0	0.0
+12	159.0	146.0	600.0	89.0
+XX
+CC tax_group:vertebrates
+CC tf_family:TCF-7-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:16710294
+CC uniprot_ids:Q00417
+CC data_type:HT-SELEX
+XX
+//
+AC MA0816.1
+XX
+ID Ascl2
+XX
+DE MA0816.1 Ascl2 ; From JASPAR
+PO	A	C	G	T
+01	237.0	36.0	63.0	16.0
+02	128.0	41.0	172.0	1.0
+03	3.0	300.0	0.0	1.0
+04	300.0	0.0	0.0	15.0
+05	7.0	23.0	300.0	18.0
+06	3.0	300.0	2.0	1.0
+07	4.0	0.0	0.0	300.0
+08	0.0	1.0	300.0	2.0
+09	6.0	206.0	15.0	94.0
+10	34.0	101.0	28.0	199.0
+XX
+CC tax_group:vertebrates
+CC tf_family:MyoD/ASC-related factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:19443739
+CC uniprot_ids:O35885
+CC data_type:HT-SELEX
+XX
+//
+AC MA0829.1
+XX
+ID Srebf1
+XX
+DE MA0829.1 Srebf1 ; From JASPAR
+PO	A	C	G	T
+01	1188.0	134.0	537.0	16.0
+02	202.0	52.0	14.0	1725.0
+03	6.0	1725.0	0.0	0.0
+04	1725.0	0.0	27.0	10.0
+05	0.0	1725.0	54.0	19.0
+06	10.0	232.0	1725.0	0.0
+07	16.0	79.0	5.0	1725.0
+08	1.0	7.0	1725.0	0.0
+09	1725.0	22.0	8.0	82.0
+10	19.0	882.0	60.0	843.0
+XX
+CC tax_group:vertebrates
+CC tf_family:bHLH-ZIP
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:11591434
+CC uniprot_ids:Q9WTN3
+CC data_type:HT-SELEX
+XX
+//
+AC MA0832.2
+XX
+ID Tcf21
+XX
+DE MA0832.2 Tcf21 ; From JASPAR
+PO	A	C	G	T
+01	171.0	1.0	23.0	3.0
+02	171.0	10.0	0.0	0.0
+03	0.0	171.0	0.0	0.0
+04	171.0	1.0	0.0	0.0
+05	0.0	0.0	171.0	2.0
+06	0.0	171.0	1.0	1.0
+07	0.0	0.0	0.0	171.0
+08	0.0	0.0	171.0	0.0
+09	0.0	4.0	20.0	171.0
+10	5.0	23.0	0.0	171.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:26020271
+CC uniprot_ids:O35437
+CC data_type:HT-SELEX
+XX
+//
+AC MA0840.2
+XX
+ID Creb5
+XX
+DE MA0840.2 Creb5 ; From JASPAR
+PO	A	C	G	T
+01	3704.0	227.0	256.0	40.0
+02	6.0	16.0	0.0	3704.0
+03	13.0	6.0	3704.0	918.0
+04	3704.0	0.0	1.0	10.0
+05	0.0	3704.0	0.0	57.0
+06	151.0	0.0	3704.0	0.0
+07	18.0	6.0	0.0	3704.0
+08	917.0	3704.0	0.0	4.0
+09	3704.0	0.0	0.0	2.0
+10	25.0	1861.0	77.0	1843.0
+XX
+CC tax_group:vertebrates
+CC tf_family:CREB-related factors
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:11134034
+CC uniprot_ids:Q8K1L0
+CC data_type:HT-SELEX
+XX
+//
+AC MA0851.2
+XX
+ID Foxj3
+XX
+DE MA0851.2 Foxj3 ; From JASPAR
+PO	A	C	G	T
+01	30.0	1.0	68.0	0.0
+02	1.0	2.0	0.0	97.0
+03	91.0	8.0	0.0	0.0
+04	96.0	2.0	0.0	3.0
+05	99.0	0.0	0.0	1.0
+06	0.0	81.0	0.0	18.0
+07	99.0	0.0	0.0	1.0
+08	79.0	7.0	6.0	9.0
+09	57.0	9.0	7.0	27.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:23332764
+CC uniprot_ids:Q8BUR3
+CC data_type:PBM
+XX
+//
+AC MA0852.1
+XX
+ID Foxk1
+XX
+DE MA0852.1 Foxk1 ; From JASPAR
+PO	A	C	G	T
+01	34.0	19.0	21.0	26.0
+02	41.0	12.0	28.0	20.0
+03	60.0	7.0	12.0	21.0
+04	71.0	4.0	5.0	20.0
+05	12.0	12.0	18.0	58.0
+06	20.0	1.0	79.0	0.0
+07	2.0	0.0	0.0	97.0
+08	92.0	8.0	0.0	0.0
+09	97.0	1.0	0.0	2.0
+10	99.0	0.0	0.0	0.0
+11	0.0	89.0	0.0	11.0
+12	99.0	0.0	0.0	0.0
+13	80.0	6.0	2.0	11.0
+14	56.0	9.0	10.0	24.0
+15	27.0	30.0	29.0	14.0
+16	34.0	22.0	25.0	19.0
+17	15.0	27.0	32.0	25.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:16624804
+CC uniprot_ids:P42128
+CC data_type:universal protein binding microarray (PBM)
+XX
+//
+AC MA0853.2
+XX
+ID Alx4
+XX
+DE MA0853.2 Alx4 ; From JASPAR
+PO	A	C	G	T
+01	16.0	59.0	15.0	11.0
+02	10.0	24.0	56.0	10.0
+03	19.0	44.0	16.0	21.0
+04	40.0	15.0	29.0	16.0
+05	2.0	34.0	1.0	62.0
+06	1.0	8.0	0.0	92.0
+07	99.0	1.0	1.0	0.0
+08	98.0	0.0	1.0	1.0
+09	1.0	1.0	0.0	98.0
+10	0.0	1.0	1.0	99.0
+11	92.0	0.0	8.0	1.0
+12	62.0	1.0	34.0	2.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:10542273
+CC uniprot_ids:O35137
+CC data_type:PBM
+XX
+//
+AC MA0858.1
+XX
+ID Rarb
+XX
+DE MA0858.1 Rarb ; From JASPAR
+PO	A	C	G	T
+01	610.0	3.0	39.0	0.0
+02	0.0	1.0	713.0	0.0
+03	2.0	1.0	663.0	22.0
+04	0.0	2.0	0.0	694.0
+05	1.0	686.0	2.0	1.0
+06	728.0	0.0	4.0	0.0
+07	293.0	210.0	15.0	204.0
+08	249.0	252.0	140.0	64.0
+09	38.0	239.0	116.0	281.0
+10	438.0	34.0	41.0	158.0
+11	398.0	4.0	218.0	4.0
+12	639.0	0.0	37.0	1.0
+13	1.0	1.0	682.0	0.0
+14	0.0	2.0	663.0	26.0
+15	0.0	3.0	4.0	674.0
+16	0.0	765.0	0.0	4.0
+17	693.0	0.0	2.0	1.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Thyroid hormone receptor-related factors (NR1)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:15019979
+CC uniprot_ids:P22605
+CC data_type:HT-SELEX
+XX
+//
+AC MA0859.2
+XX
+ID Rarg
+XX
+DE MA0859.2 Rarg ; From JASPAR
+PO	A	C	G	T
+01	12548.0	1655.0	11289.0	1309.0
+02	7220.0	147.0	3074.0	5.0
+03	3.0	0.0	12765.0	0.0
+04	0.0	3.0	11969.0	1826.0
+05	20.0	35.0	64.0	10030.0
+06	3.0	12653.0	38.0	79.0
+07	8844.0	2.0	15.0	0.0
+08	9169.0	49.0	114.0	257.0
+09	8864.0	13.0	618.0	353.0
+10	9211.0	4.0	394.0	0.0
+11	1.0	1.0	13267.0	3.0
+12	0.0	2.0	9298.0	2628.0
+13	6.0	40.0	51.0	9774.0
+14	0.0	11730.0	67.0	105.0
+15	9147.0	4.0	82.0	1.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Thyroid hormone receptor-related factors (NR1)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:15019979
+CC uniprot_ids:P18911
+CC data_type:HT-SELEX
+XX
+//
+AC MA0869.3
+XX
+ID Sox11
+XX
+DE MA0869.3 Sox11 ; From JASPAR
+PO	A	C	G	T
+01	1014.0	764.0	8063.0	407.0
+02	7912.0	766.0	1298.0	272.0
+03	9856.0	100.0	211.0	81.0
+04	119.0	9471.0	501.0	157.0
+05	10020.0	108.0	49.0	71.0
+06	9676.0	264.0	248.0	60.0
+07	9276.0	61.0	233.0	678.0
+08	506.0	148.0	9486.0	108.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SOX-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:24681958; 12920151
+CC uniprot_ids:Q7M6Y2
+CC data_type:
+XX
+//
+AC MA0870.1
+XX
+ID Sox1
+XX
+DE MA0870.1 Sox1 ; From JASPAR
+PO	A	C	G	T
+01	1369.0	396.0	356.0	195.0
+02	2316.0	51.0	36.0	85.0
+03	0.0	2316.0	0.0	0.0
+04	2316.0	12.0	0.0	7.0
+05	2316.0	325.0	0.0	0.0
+06	13.0	0.0	0.0	2316.0
+07	1682.0	5.0	359.0	634.0
+08	782.0	508.0	525.0	502.0
+09	4.0	2316.0	51.0	33.0
+10	2316.0	0.0	0.0	0.0
+11	0.0	0.0	244.0	2316.0
+12	0.0	14.0	0.0	2316.0
+13	0.0	0.0	2316.0	0.0
+14	79.0	260.0	58.0	2316.0
+15	222.0	329.0	265.0	1499.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SOX-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:12920151
+CC uniprot_ids:P53783
+CC data_type:HT-SELEX
+XX
+//
+AC MA0874.2
+XX
+ID Arx
+XX
+DE MA0874.2 Arx ; From JASPAR
+PO	A	C	G	T
+01	22.0	56.0	13.0	10.0
+02	50.0	6.0	38.0	7.0
+03	1.0	38.0	1.0	60.0
+04	1.0	13.0	0.0	86.0
+05	98.0	0.0	0.0	1.0
+06	99.0	0.0	1.0	1.0
+07	1.0	1.0	0.0	99.0
+08	1.0	0.0	0.0	98.0
+09	86.0	0.0	13.0	1.0
+10	60.0	1.0	38.0	1.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:O35085
+CC data_type:PBM
+XX
+//
+AC MA0877.1
+XX
+ID Barhl1
+XX
+DE MA0877.1 Barhl1 ; From JASPAR
+PO	A	C	G	T
+01	1214.0	1623.0	2123.0	1304.0
+02	1127.0	2159.0	1121.0	1858.0
+03	590.0	41.0	0.0	6265.0
+04	6265.0	0.0	53.0	181.0
+05	6265.0	0.0	39.0	3.0
+06	3241.0	418.0	1950.0	6265.0
+07	1881.0	2017.0	1937.0	6265.0
+08	1763.0	337.0	6265.0	677.0
+09	1136.0	2053.0	1839.0	1236.0
+10	985.0	1760.0	1195.0	2325.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:P63157
+CC data_type:HT-SELEX
+XX
+//
+AC MA0879.1
+XX
+ID Dlx1
+XX
+DE MA0879.1 Dlx1 ; From JASPAR
+PO	A	C	G	T
+01	2123.0	2825.0	1814.0	1519.0
+02	2584.0	2795.0	1592.0	1311.0
+03	2295.0	2753.0	149.0	5528.0
+04	8281.0	861.0	416.0	347.0
+05	8281.0	105.0	42.0	535.0
+06	1002.0	41.0	49.0	8281.0
+07	157.0	359.0	511.0	8281.0
+08	8281.0	103.0	36.0	1910.0
+09	1774.0	1894.0	2077.0	2536.0
+10	1613.0	3126.0	1893.0	1648.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:Q64317
+CC data_type:PBM
+XX
+//
+AC MA0880.2
+XX
+ID Dlx3
+XX
+DE MA0880.2 Dlx3 ; From JASPAR
+PO	A	C	G	T
+01	572.0	4133.0	164.0	3190.0
+02	7323.0	995.0	587.0	643.0
+03	7323.0	536.0	62.0	299.0
+04	173.0	66.0	60.0	7323.0
+05	399.0	535.0	452.0	7323.0
+06	7323.0	202.0	101.0	691.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:Q64205
+CC data_type:PBM
+XX
+//
+AC MA0881.2
+XX
+ID Dlx4
+XX
+DE MA0881.2 Dlx4 ; From JASPAR
+PO	A	C	G	T
+01	724.0	6841.0	145.0	5213.0
+02	12054.0	1500.0	739.0	883.0
+03	12054.0	744.0	55.0	499.0
+04	88.0	85.0	38.0	12054.0
+05	440.0	868.0	542.0	12054.0
+06	12054.0	316.0	134.0	1127.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:P70436
+CC data_type:PBM
+XX
+//
+AC MA0883.2
+XX
+ID Dmbx1
+XX
+DE MA0883.2 Dmbx1 ; From JASPAR
+PO	A	C	G	T
+01	49.0	8.0	31.0	12.0
+02	49.0	8.0	13.0	30.0
+03	25.0	36.0	18.0	21.0
+04	28.0	50.0	20.0	3.0
+05	6.0	1.0	93.0	0.0
+06	0.0	1.0	99.0	0.0
+07	94.0	6.0	0.0	0.0
+08	0.0	0.0	0.0	99.0
+09	1.0	1.0	0.0	98.0
+10	97.0	0.0	0.0	3.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired-related HD factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:Q91ZK4
+CC data_type:PBM
+XX
+//
+AC MA0885.3
+XX
+ID Dlx2
+XX
+DE MA0885.3 Dlx2 ; From JASPAR
+PO	A	C	G	T
+01	402.0	424.0	6256.0	355.0
+02	288.0	6082.0	159.0	908.0
+03	7088.0	164.0	47.0	138.0
+04	7045.0	135.0	114.0	143.0
+05	156.0	45.0	61.0	7175.0
+06	70.0	316.0	103.0	6948.0
+07	6924.0	22.0	114.0	377.0
+08	931.0	537.0	5246.0	723.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:P40764
+CC data_type:
+XX
+//
+AC MA0896.2
+XX
+ID Hmx1
+XX
+DE MA0896.2 Hmx1 ; From JASPAR
+PO	A	C	G	T
+01	69.0	6.0	16.0	9.0
+02	13.0	8.0	72.0	7.0
+03	1.0	95.0	0.0	4.0
+04	87.0	0.0	12.0	1.0
+05	88.0	11.0	0.0	1.0
+06	0.0	0.0	0.0	99.0
+07	2.0	6.0	0.0	93.0
+08	95.0	0.0	1.0	3.0
+09	88.0	1.0	4.0	6.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:O70218
+CC data_type:PBM
+XX
+//
+AC MA0897.2
+XX
+ID Hmx2
+XX
+DE MA0897.2 Hmx2 ; From JASPAR
+PO	A	C	G	T
+01	55.0	19.0	17.0	9.0
+02	77.0	6.0	12.0	6.0
+03	17.0	15.0	57.0	11.0
+04	1.0	97.0	0.0	1.0
+05	85.0	0.0	15.0	0.0
+06	85.0	13.0	1.0	1.0
+07	1.0	0.0	0.0	99.0
+08	2.0	6.0	0.0	93.0
+09	93.0	0.0	1.0	5.0
+10	89.0	1.0	2.0	8.0
+11	36.0	19.0	11.0	34.0
+12	25.0	21.0	41.0	14.0
+13	41.0	27.0	27.0	5.0
+14	47.0	10.0	25.0	18.0
+15	9.0	7.0	9.0	74.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:P43687
+CC data_type:PBM
+XX
+//
+AC MA0898.2
+XX
+ID Hmx3
+XX
+DE MA0898.2 Hmx3 ; From JASPAR
+PO	A	C	G	T
+01	76.0	7.0	11.0	6.0
+02	15.0	10.0	59.0	15.0
+03	2.0	94.0	0.0	4.0
+04	84.0	0.0	16.0	1.0
+05	87.0	12.0	0.0	1.0
+06	1.0	0.0	0.0	99.0
+07	1.0	4.0	0.0	94.0
+08	92.0	0.0	2.0	5.0
+09	87.0	2.0	3.0	7.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:P42581
+CC data_type:PBM
+XX
+//
+AC MA0904.1
+XX
+ID Hoxb5
+XX
+DE MA0904.1 Hoxb5 ; From JASPAR
+PO	A	C	G	T
+01	52.0	23.0	14.0	11.0
+02	27.0	35.0	19.0	19.0
+03	17.0	9.0	65.0	10.0
+04	12.0	15.0	38.0	35.0
+05	1.0	7.0	0.0	92.0
+06	90.0	9.0	0.0	0.0
+07	98.0	1.0	0.0	1.0
+08	1.0	0.0	1.0	98.0
+09	0.0	0.0	9.0	90.0
+10	92.0	0.0	7.0	1.0
+11	19.0	29.0	41.0	11.0
+12	10.0	65.0	9.0	17.0
+13	28.0	25.0	10.0	36.0
+14	28.0	44.0	11.0	17.0
+15	68.0	5.0	14.0	14.0
+16	22.0	16.0	14.0	48.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:P09079
+CC data_type:universal protein binding microarray (PBM)
+XX
+//
+AC MA0910.1
+XX
+ID Hoxd8
+XX
+DE MA0910.1 Hoxd8 ; From JASPAR
+PO	A	C	G	T
+01	13.0	12.0	20.0	55.0
+02	60.0	12.0	11.0	16.0
+03	60.0	8.0	20.0	11.0
+04	33.0	5.0	29.0	33.0
+05	7.0	23.0	1.0	69.0
+06	72.0	12.0	3.0	12.0
+07	92.0	2.0	2.0	4.0
+08	4.0	1.0	1.0	94.0
+09	5.0	1.0	0.0	94.0
+10	95.0	0.0	1.0	3.0
+11	79.0	5.0	2.0	13.0
+12	7.0	9.0	5.0	79.0
+13	35.0	4.0	47.0	14.0
+14	24.0	7.0	56.0	13.0
+15	19.0	50.0	8.0	24.0
+16	19.0	9.0	14.0	59.0
+17	36.0	21.0	18.0	25.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:P23463
+CC data_type:universal protein binding microarray (PBM)
+XX
+//
+AC MA0911.2
+XX
+ID Hoxa11
+XX
+DE MA0911.2 Hoxa11 ; From JASPAR
+PO	A	C	G	T
+01	296.0	255.0	704.0	3.0
+02	1.0	28.0	16.0	704.0
+03	30.0	704.0	0.0	36.0
+04	250.0	2.0	704.0	7.0
+05	14.0	1.0	3.0	704.0
+06	489.0	3.0	13.0	215.0
+07	704.0	0.0	2.0	31.0
+08	704.0	27.0	3.0	40.0
+09	704.0	159.0	117.0	197.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:P31270
+CC data_type:HT-SELEX
+XX
+//
+AC MA0912.1
+XX
+ID Hoxd3
+XX
+DE MA0912.1 Hoxd3 ; From JASPAR
+PO	A	C	G	T
+01	19.0	37.0	5.0	39.0
+02	19.0	8.0	8.0	65.0
+03	14.0	10.0	60.0	16.0
+04	37.0	10.0	33.0	21.0
+05	24.0	9.0	44.0	24.0
+06	14.0	24.0	29.0	33.0
+07	1.0	14.0	0.0	84.0
+08	87.0	12.0	0.0	0.0
+09	98.0	1.0	0.0	1.0
+10	1.0	0.0	1.0	98.0
+11	0.0	0.0	12.0	87.0
+12	84.0	0.0	14.0	1.0
+13	37.0	37.0	14.0	11.0
+14	24.0	44.0	9.0	24.0
+15	12.0	37.0	31.0	21.0
+16	9.0	22.0	21.0	48.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:23332764
+CC uniprot_ids:P09027
+CC data_type:universal protein binding microarray (PBM)
+XX
+//
+AC MA0913.1
+XX
+ID Hoxd9
+XX
+DE MA0913.1 Hoxd9 ; From JASPAR
+PO	A	C	G	T
+01	75.0	44.0	194.0	9.0
+02	24.0	275.0	12.0	194.0
+03	194.0	77.0	36.0	0.0
+04	194.0	2.0	31.0	5.0
+05	13.0	7.0	7.0	194.0
+06	99.0	3.0	0.0	95.0
+07	194.0	2.0	0.0	17.0
+08	194.0	7.0	0.0	7.0
+09	194.0	26.0	40.0	44.0
+10	83.0	28.0	19.0	65.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:10523646
+CC uniprot_ids:P28357
+CC data_type:HT-SELEX
+XX
+//
+AC MA1153.2
+XX
+ID Smad4
+XX
+DE MA1153.2 Smad4 ; From JASPAR
+PO	A	C	G	T
+01	88.0	250.0	81.0	581.0
+02	0.0	0.0	1000.0	0.0
+03	0.0	0.0	0.0	1000.0
+04	0.0	1000.0	0.0	0.0
+05	0.0	0.0	0.0	1000.0
+06	596.0	0.0	404.0	0.0
+07	0.0	0.0	1000.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SMAD factors
+CC tf_class:SMAD/NF-1 DNA-binding domain factors
+CC pubmed_ids:15329343
+CC uniprot_ids:P97471
+CC data_type:SMiLE-seq
+XX
+//
+AC MA1540.3
+XX
+ID NR5A1
+XX
+DE MA1540.3 NR5A1 ; From JASPAR
+PO	A	C	G	T
+01	2945.0	398.0	633.0	721.0
+02	708.0	558.0	2825.0	606.0
+03	376.0	747.0	729.0	2845.0
+04	160.0	564.0	130.0	3843.0
+05	72.0	4316.0	189.0	120.0
+06	4287.0	193.0	125.0	92.0
+07	4340.0	86.0	160.0	111.0
+08	106.0	45.0	4461.0	85.0
+09	87.0	53.0	4440.0	117.0
+10	389.0	964.0	171.0	3173.0
+11	67.0	4271.0	112.0	247.0
+12	4201.0	144.0	154.0	198.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FTZF1related(NR5A)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:23907384; 10913126
+CC uniprot_ids:P33242
+CC data_type:
+XX
+//
+AC MA1603.2
+XX
+ID Dmrt1
+XX
+DE MA1603.2 Dmrt1 ; From JASPAR
+PO	A	C	G	T
+01	3915.0	1228.0	918.0	12234.0
+02	17933.0	69.0	82.0	211.0
+03	211.0	17633.0	139.0	312.0
+04	17489.0	110.0	104.0	592.0
+05	15568.0	482.0	456.0	1789.0
+06	12433.0	205.0	322.0	5335.0
+07	727.0	185.0	17032.0	351.0
+08	547.0	161.0	200.0	17387.0
+09	10367.0	1233.0	2521.0	4174.0
+XX
+CC tax_group:vertebrates
+CC tf_family:DMRT factors
+CC tf_class:DM-type intertwined zinc finger factors
+CC pubmed_ids:26005864
+CC uniprot_ids:Q9QZ59
+CC data_type:ChIP-seq
+XX
+//
+AC MA1604.2
+XX
+ID Ebf2
+XX
+DE MA1604.2 Ebf2 ; From JASPAR
+PO	A	C	G	T
+01	196.0	25497.0	376.0	192.0
+02	513.0	24252.0	259.0	1237.0
+03	435.0	25137.0	242.0	447.0
+04	19235.0	3744.0	1427.0	1855.0
+05	19155.0	1347.0	3635.0	2124.0
+06	737.0	239.0	25103.0	182.0
+07	1276.0	220.0	24386.0	379.0
+08	971.0	580.0	24124.0	586.0
+09	21802.0	1437.0	1701.0	1321.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Early B-Cell Factor-related factors
+CC tf_class:Rel homology region (RHR) factors
+CC pubmed_ids:23499423
+CC uniprot_ids:O08792
+CC data_type:ChIP-seq
+XX
+//
+AC MA1606.2
+XX
+ID Foxf1
+XX
+DE MA1606.2 Foxf1 ; From JASPAR
+PO	A	C	G	T
+01	18534.0	3754.0	33599.0	3653.0
+02	568.0	446.0	1158.0	57368.0
+03	57293.0	899.0	445.0	903.0
+04	53942.0	2249.0	811.0	2538.0
+05	57167.0	475.0	1067.0	831.0
+06	437.0	54394.0	522.0	4187.0
+07	56436.0	745.0	443.0	1916.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:25215497
+CC uniprot_ids:Q61080
+CC data_type:ChIP-seq
+XX
+//
+AC MA1607.2
+XX
+ID Foxl2
+XX
+DE MA1607.2 Foxl2 ; From JASPAR
+PO	A	C	G	T
+01	6433.0	1576.0	1599.0	8493.0
+02	11158.0	2051.0	2107.0	2785.0
+03	2985.0	896.0	1371.0	12849.0
+04	2607.0	367.0	14648.0	479.0
+05	1097.0	301.0	419.0	16284.0
+06	17227.0	558.0	112.0	204.0
+07	17212.0	336.0	187.0	366.0
+08	17146.0	216.0	411.0	328.0
+09	282.0	15698.0	151.0	1970.0
+10	15623.0	807.0	401.0	1270.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:17192407
+CC uniprot_ids:O88470
+CC data_type:ChIP-seq
+XX
+//
+AC MA1608.2
+XX
+ID Isl1
+XX
+DE MA1608.2 Isl1 ; From JASPAR
+PO	A	C	G	T
+01	356.0	4710.0	192.0	379.0
+02	432.0	4885.0	54.0	266.0
+03	5476.0	30.0	99.0	32.0
+04	67.0	54.0	34.0	5482.0
+05	64.0	104.0	39.0	5430.0
+06	5462.0	45.0	20.0	110.0
+07	1089.0	410.0	3702.0	436.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HD-LIM
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:P61372
+CC data_type:ChIP-seq
+XX
+//
+AC MA1615.2
+XX
+ID Plagl1
+XX
+DE MA1615.2 Plagl1 ; From JASPAR
+PO	A	C	G	T
+01	1919.0	1471.0	1338.0	9425.0
+02	197.0	243.0	13595.0	118.0
+03	1213.0	356.0	12261.0	323.0
+04	187.0	266.0	13517.0	183.0
+05	180.0	336.0	13495.0	142.0
+06	782.0	12737.0	313.0	321.0
+07	181.0	13152.0	422.0	398.0
+08	12064.0	686.0	1032.0	371.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:28985358
+CC uniprot_ids:O35745
+CC data_type:ChIP-seq
+XX
+//
+AC MA1616.2
+XX
+ID Prdm15
+XX
+DE MA1616.2 Prdm15 ; From JASPAR
+PO	A	C	G	T
+01	252.0	325.0	1333.0	327.0
+02	2011.0	60.0	135.0	31.0
+03	2121.0	34.0	58.0	24.0
+04	1942.0	47.0	200.0	48.0
+05	1801.0	138.0	152.0	146.0
+06	67.0	1941.0	101.0	128.0
+07	222.0	1886.0	107.0	22.0
+08	220.0	361.0	28.0	1628.0
+09	19.0	7.0	2199.0	12.0
+10	64.0	23.0	2126.0	24.0
+11	1531.0	314.0	220.0	172.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Factors with multiple dispersed zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:28740264
+CC uniprot_ids:E9Q8T2
+CC data_type:ChIP-seq
+XX
+//
+AC MA1618.1
+XX
+ID Ptf1a
+XX
+DE MA1618.1 Ptf1a ; From JASPAR
+PO	A	C	G	T
+01	4092.0	2989.0	3661.0	3699.0
+02	4476.0	3662.0	3568.0	2735.0
+03	8554.0	2747.0	2414.0	726.0
+04	133.0	14006.0	130.0	172.0
+05	14064.0	118.0	153.0	106.0
+06	250.0	466.0	13072.0	653.0
+07	12132.0	1724.0	437.0	148.0
+08	126.0	224.0	118.0	13973.0
+09	241.0	122.0	13868.0	210.0
+10	965.0	2058.0	2854.0	8564.0
+11	1511.0	2341.0	2295.0	8294.0
+12	3491.0	3601.0	3664.0	3685.0
+13	3754.0	3689.0	3376.0	3622.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:23754747
+CC uniprot_ids:Q9QX98
+CC data_type:ChIP-seq
+XX
+//
+AC MA1620.2
+XX
+ID Ptf1A
+XX
+DE MA1620.2 Ptf1A ; From JASPAR
+PO	A	C	G	T
+01	6867.0	1188.0	1410.0	826.0
+02	184.0	9887.0	113.0	107.0
+03	10033.0	60.0	84.0	114.0
+04	116.0	8567.0	1182.0	426.0
+05	256.0	9612.0	294.0	129.0
+06	85.0	94.0	98.0	10014.0
+07	68.0	109.0	9972.0	142.0
+08	527.0	1615.0	1516.0	6633.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:23754747
+CC uniprot_ids:Q9QX98
+CC data_type:ChIP-seq
+XX
+//
+AC MA1623.2
+XX
+ID Stat2
+XX
+DE MA1623.2 Stat2 ; From JASPAR
+PO	A	C	G	T
+01	969.0	306.0	2287.0	397.0
+02	3554.0	76.0	168.0	161.0
+03	3736.0	75.0	71.0	77.0
+04	3738.0	72.0	87.0	62.0
+05	286.0	2907.0	524.0	242.0
+06	3146.0	151.0	74.0	588.0
+07	152.0	45.0	3707.0	55.0
+08	3700.0	49.0	163.0	47.0
+09	3747.0	45.0	98.0	69.0
+10	3514.0	147.0	157.0	141.0
+XX
+CC tax_group:vertebrates
+CC tf_family:STAT factors
+CC tf_class:STAT domain factors
+CC pubmed_ids:9242679
+CC uniprot_ids:Q9WVL2
+CC data_type:ChIP-seq
+XX
+//
+AC MA1624.2
+XX
+ID Stat5a
+XX
+DE MA1624.2 Stat5a ; From JASPAR
+PO	A	C	G	T
+01	314.0	372.0	207.0	3621.0
+02	151.0	89.0	144.0	4130.0
+03	66.0	4381.0	26.0	41.0
+04	71.0	4046.0	28.0	369.0
+05	3191.0	588.0	137.0	598.0
+06	3351.0	80.0	980.0	103.0
+07	19.0	22.0	4441.0	32.0
+08	4337.0	41.0	49.0	87.0
+09	4274.0	66.0	101.0	73.0
+XX
+CC tax_group:vertebrates
+CC tf_family:STAT factors
+CC tf_class:STAT domain factors
+CC pubmed_ids:10594041
+CC uniprot_ids:P42230
+CC data_type:ChIP-seq
+XX
+//
+AC MA1625.2
+XX
+ID Stat5b
+XX
+DE MA1625.2 Stat5b ; From JASPAR
+PO	A	C	G	T
+01	51.0	54.0	51.0	2604.0
+02	92.0	34.0	34.0	2600.0
+03	32.0	2666.0	23.0	39.0
+04	74.0	2176.0	43.0	467.0
+05	462.0	1746.0	127.0	425.0
+06	2474.0	60.0	150.0	76.0
+07	10.0	16.0	2717.0	17.0
+08	2554.0	35.0	86.0	85.0
+09	2664.0	25.0	50.0	21.0
+XX
+CC tax_group:vertebrates
+CC tf_family:STAT factors
+CC tf_class:STAT domain factors
+CC pubmed_ids:10594041
+CC uniprot_ids:P42232
+CC data_type:ChIP-seq
+XX
+//
+AC MA1627.2
+XX
+ID Wt1
+XX
+DE MA1627.2 Wt1 ; From JASPAR
+PO	A	C	G	T
+01	839.0	2948.0	404.0	500.0
+02	48.0	4546.0	58.0	39.0
+03	120.0	69.0	319.0	4183.0
+04	21.0	4602.0	42.0	26.0
+05	40.0	4354.0	75.0	222.0
+06	43.0	4252.0	120.0	276.0
+07	850.0	3636.0	101.0	104.0
+08	31.0	4573.0	46.0	41.0
+09	3294.0	53.0	990.0	354.0
+10	158.0	3749.0	436.0	348.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:7862533
+CC uniprot_ids:P22561
+CC data_type:ChIP-seq
+XX
+//
+AC MA1628.2
+XX
+ID Zic1::Zic2
+XX
+DE MA1628.2 Zic1::Zic2 ; From JASPAR
+PO	A	C	G	T
+01	29.0	9594.0	106.0	163.0
+02	9238.0	384.0	266.0	4.0
+03	96.0	195.0	9527.0	74.0
+04	75.0	9293.0	96.0	428.0
+05	8950.0	311.0	627.0	4.0
+06	11.0	512.0	9279.0	90.0
+07	46.0	91.0	9631.0	124.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers; More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:11038359
+CC uniprot_ids:P46684; Q62520
+CC data_type:ChIP-seq
+XX
+//
+AC MA1629.2
+XX
+ID Zic2
+XX
+DE MA1629.2 Zic2 ; From JASPAR
+PO	A	C	G	T
+01	1161.0	9933.0	585.0	240.0
+02	6888.0	1765.0	829.0	2437.0
+03	135.0	11476.0	188.0	120.0
+04	11074.0	391.0	186.0	268.0
+05	140.0	228.0	11484.0	67.0
+06	80.0	11272.0	269.0	298.0
+07	10625.0	118.0	735.0	441.0
+08	192.0	133.0	11184.0	410.0
+09	96.0	204.0	11465.0	154.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:11038359
+CC uniprot_ids:Q62520
+CC data_type:ChIP-seq
+XX
+//
+AC MA1630.1
+XX
+ID Znf281
+XX
+DE MA1630.1 Znf281 ; From JASPAR
+PO	A	C	G	T
+01	1197.0	878.0	3539.0	954.0
+02	996.0	1076.0	3751.0	745.0
+03	8.0	233.0	29.0	6298.0
+04	19.0	88.0	6449.0	12.0
+05	25.0	163.0	6356.0	24.0
+06	36.0	131.0	6378.0	23.0
+07	22.0	115.0	6402.0	29.0
+08	18.0	41.0	6457.0	52.0
+09	6504.0	45.0	8.0	11.0
+10	735.0	418.0	4312.0	1103.0
+11	374.0	356.0	5523.0	315.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:19443739
+CC uniprot_ids:Q99LI5
+CC data_type:ChIP-seq
+XX
+//
+AC MA1724.2
+XX
+ID Rfx6
+XX
+DE MA1724.2 Rfx6 ; From JASPAR
+PO	A	C	G	T
+01	187.0	7859.0	232.0	272.0
+02	1093.0	6405.0	242.0	810.0
+03	344.0	1066.0	146.0	6994.0
+04	7215.0	64.0	1205.0	66.0
+05	179.0	102.0	8215.0	54.0
+06	378.0	7474.0	359.0	339.0
+07	8085.0	117.0	132.0	216.0
+08	7740.0	258.0	339.0	213.0
+09	552.0	6811.0	552.0	635.0
+XX
+CC tax_group:vertebrates
+CC tf_family:RFX-related factors
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:33033118
+CC uniprot_ids:Q8C7R7
+CC data_type:ChIP-seq
+XX
+//
+AC MA1684.1
+XX
+ID Foxn1
+XX
+DE MA1684.1 Foxn1 ; From JASPAR
+PO	A	C	G	T
+01	1464.0	0.0	2558.0	1213.0
+02	0.0	0.0	5235.0	0.0
+03	5235.0	0.0	0.0	0.0
+04	2287.0	2948.0	0.0	0.0
+05	0.0	0.0	5235.0	0.0
+06	0.0	5235.0	0.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:23836653
+CC uniprot_ids:Q61575
+CC data_type:ChIP-seq
+XX
+//
+AC MA1989.2
+XX
+ID Bcl11B
+XX
+DE MA1989.2 Bcl11B ; From JASPAR
+PO	A	C	G	T
+01	24743.0	5084.0	3712.0	6252.0
+02	31408.0	2339.0	3044.0	3000.0
+03	36130.0	1397.0	1662.0	602.0
+04	1391.0	36798.0	762.0	840.0
+05	1058.0	37476.0	416.0	841.0
+06	36734.0	940.0	796.0	1321.0
+07	1718.0	35985.0	1217.0	871.0
+08	36053.0	1397.0	1246.0	1095.0
+09	23689.0	3546.0	7120.0	5436.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Factors with multiple dispersed zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:21912641
+CC uniprot_ids:Q99PV8
+CC data_type:
+XX
+//
+AC MA1990.2
+XX
+ID Gli1
+XX
+DE MA1990.2 Gli1 ; From JASPAR
+PO	A	C	G	T
+01	2124.0	299.0	1104.0	476.0
+02	113.0	193.0	3535.0	162.0
+03	3120.0	331.0	498.0	54.0
+04	100.0	3744.0	88.0	71.0
+05	71.0	3809.0	74.0	49.0
+06	3653.0	73.0	87.0	190.0
+07	38.0	3827.0	75.0	63.0
+08	559.0	3231.0	145.0	68.0
+09	153.0	3566.0	110.0	174.0
+10	3312.0	188.0	251.0	252.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:25476449
+CC uniprot_ids:P47806
+CC data_type:
+XX
+//
+AC MA1991.2
+XX
+ID Hnf1A
+XX
+DE MA1991.2 Hnf1A ; From JASPAR
+PO	A	C	G	T
+01	103.0	744.0	204.0	198.0
+02	18.0	1130.0	39.0	62.0
+03	19.0	30.0	7.0	1193.0
+04	16.0	51.0	60.0	1122.0
+05	16.0	11.0	12.0	1210.0
+06	30.0	118.0	1033.0	68.0
+07	1125.0	35.0	16.0	73.0
+08	105.0	21.0	31.0	1092.0
+09	85.0	689.0	377.0	98.0
+10	156.0	210.0	99.0	784.0
+XX
+CC tax_group:vertebrates
+CC tf_family:POU domain factors
+CC tf_class:Homeo domain factors
+CC pubmed_ids:30420627
+CC uniprot_ids:P22361
+CC data_type:
+XX
+//
+AC MA1992.2
+XX
+ID Ikzf3
+XX
+DE MA1992.2 Ikzf3 ; From JASPAR
+PO	A	C	G	T
+01	51.0	998.0	103.0	31.0
+02	1054.0	62.0	48.0	19.0
+03	4.0	7.0	1166.0	6.0
+04	18.0	16.0	1141.0	8.0
+05	1130.0	25.0	22.0	6.0
+06	1058.0	12.0	20.0	93.0
+07	102.0	45.0	1011.0	25.0
+08	115.0	147.0	111.0	810.0
+09	125.0	141.0	808.0	109.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Three-zinc finger Kruppel-related
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:27664237
+CC uniprot_ids:O08900
+CC data_type:
+XX
+//
+AC MA0668.3
+XX
+ID Neurod2
+XX
+DE MA0668.3 Neurod2 ; From JASPAR
+PO	A	C	G	T
+01	20692.0	5909.0	5852.0	504.0
+02	214.0	32326.0	246.0	171.0
+03	32478.0	131.0	211.0	137.0
+04	289.0	532.0	30524.0	1612.0
+05	29423.0	2571.0	708.0	255.0
+06	752.0	548.0	313.0	31344.0
+07	179.0	151.0	32176.0	451.0
+08	586.0	1828.0	27651.0	2892.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:22445365
+CC uniprot_ids:Q62414
+CC data_type:
+XX
+//
+AC MA1994.2
+XX
+ID Nkx2-1
+XX
+DE MA1994.2 Nkx2-1 ; From JASPAR
+PO	A	C	G	T
+01	289.0	14886.0	181.0	886.0
+02	15478.0	275.0	146.0	343.0
+03	168.0	15640.0	118.0	316.0
+04	369.0	162.0	605.0	15106.0
+05	252.0	518.0	315.0	15157.0
+06	895.0	657.0	14172.0	518.0
+07	15245.0	243.0	213.0	541.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:26556242
+CC uniprot_ids:P50220
+CC data_type:
+XX
+//
+AC MA1995.2
+XX
+ID Npas4
+XX
+DE MA1995.2 Npas4 ; From JASPAR
+PO	A	C	G	T
+01	540.0	492.0	702.0	7226.0
+02	334.0	7713.0	580.0	333.0
+03	515.0	350.0	7969.0	126.0
+04	124.0	106.0	251.0	8479.0
+05	56.0	184.0	8602.0	118.0
+06	7460.0	622.0	367.0	511.0
+07	404.0	7292.0	647.0	617.0
+XX
+CC tax_group:vertebrates
+CC tf_family:PAS domain factors
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:31585079
+CC uniprot_ids:Q8BGD7
+CC data_type:
+XX
+//
+AC MA1996.2
+XX
+ID Nr1H2
+XX
+DE MA1996.2 Nr1H2 ; From JASPAR
+PO	A	C	G	T
+01	8549.0	191.0	132.0	99.0
+02	88.0	171.0	8521.0	191.0
+03	91.0	36.0	8740.0	104.0
+04	61.0	35.0	41.0	8834.0
+05	147.0	8483.0	72.0	269.0
+06	8642.0	51.0	241.0	37.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Thyroid hormone receptor-related factors (NR1)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:31175293
+CC uniprot_ids:
+CC data_type:
+XX
+//
+AC MA1997.2
+XX
+ID Olig2
+XX
+DE MA1997.2 Olig2 ; From JASPAR
+PO	A	C	G	T
+01	10.0	60968.0	114.0	50.0
+02	59733.0	668.0	741.0	0.0
+03	14.0	18.0	61069.0	41.0
+04	41.0	61069.0	18.0	14.0
+05	0.0	741.0	668.0	59733.0
+06	50.0	114.0	60968.0	10.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:20959288
+CC uniprot_ids:Q13516
+CC data_type:
+XX
+//
+AC MA1998.2
+XX
+ID Prdm14
+XX
+DE MA1998.2 Prdm14 ; From JASPAR
+PO	A	C	G	T
+01	735.0	1081.0	11199.0	826.0
+02	293.0	571.0	12447.0	530.0
+03	544.0	381.0	1234.0	11682.0
+04	267.0	12509.0	562.0	503.0
+05	415.0	1276.0	183.0	11967.0
+06	132.0	12030.0	891.0	788.0
+07	203.0	278.0	128.0	13232.0
+08	12559.0	505.0	393.0	384.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:20953172
+CC uniprot_ids:E9Q3T6
+CC data_type:
+XX
+//
+AC MA1999.2
+XX
+ID Prdm5
+XX
+DE MA1999.2 Prdm5 ; From JASPAR
+PO	A	C	G	T
+01	36.0	60.0	580.0	64.0
+02	59.0	86.0	50.0	545.0
+03	18.0	43.0	37.0	642.0
+04	20.0	677.0	13.0	30.0
+05	39.0	31.0	20.0	650.0
+06	16.0	677.0	30.0	17.0
+07	22.0	685.0	18.0	15.0
+08	575.0	81.0	40.0	44.0
+09	18.0	59.0	128.0	535.0
+10	43.0	518.0	86.0	93.0
+11	88.0	145.0	67.0	440.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:22589746
+CC uniprot_ids:Q9CXE0
+CC data_type:
+XX
+//
+AC MA0204.1
+XX
+ID Six4
+XX
+DE MA0204.1 Six4 ; From JASPAR
+PO	A	C	G	T
+01	0.0	0.0	0.0	20.0
+02	0.0	0.0	20.0	0.0
+03	20.0	0.0	0.0	0.0
+04	0.0	7.0	4.0	9.0
+05	20.0	0.0	0.0	0.0
+06	1.0	19.0	0.0	0.0
+XX
+CC tax_group:insects
+CC tf_family:HD-SINE
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18332042
+CC uniprot_ids:Q9Y1P6
+CC data_type:bacterial 1-hybrid
+XX
+//
+AC MA2002.2
+XX
+ID Zfp335
+XX
+DE MA2002.2 Zfp335 ; From JASPAR
+PO	A	C	G	T
+01	12.0	5.0	15.0	52.0
+02	2.0	82.0	0.0	0.0
+03	78.0	3.0	0.0	3.0
+04	0.0	2.0	81.0	1.0
+05	0.0	0.0	82.0	2.0
+06	2.0	81.0	1.0	0.0
+07	72.0	1.0	10.0	1.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Factors with multiple dispersed zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:27401554
+CC uniprot_ids:A2A5K6
+CC data_type:
+XX
+//
+AC MA0037.5
+XX
+ID Gata3
+XX
+DE MA0037.5 Gata3 ; From JASPAR
+PO	A	C	G	T
+01	2016.0	3859.0	2551.0	16442.0
+02	946.0	19702.0	2165.0	2055.0
+03	794.0	928.0	280.0	22866.0
+04	984.0	758.0	960.0	22166.0
+05	22974.0	566.0	528.0	800.0
+06	427.0	282.0	291.0	23868.0
+07	294.0	23839.0	255.0	480.0
+08	3100.0	903.0	608.0	20257.0
+XX
+CC tax_group:vertebrates
+CC tf_family:C4-GATA-related
+CC tf_class:Other C4 zinc finger-type factors
+CC pubmed_ids:8321207
+CC uniprot_ids:P23772
+CC data_type:
+XX
+//
+AC MA0050.4
+XX
+ID Irf1
+XX
+DE MA0050.4 Irf1 ; From JASPAR
+PO	A	C	G	T
+01	3724.0	1292.0	2035.0	8589.0
+02	1661.0	637.0	12682.0	660.0
+03	13772.0	361.0	1024.0	483.0
+04	14795.0	253.0	258.0	334.0
+05	14878.0	176.0	240.0	346.0
+06	1939.0	9822.0	3315.0	564.0
+07	1900.0	933.0	274.0	12533.0
+08	1017.0	314.0	14013.0	296.0
+09	14145.0	298.0	775.0	422.0
+10	14424.0	353.0	499.0	364.0
+11	14172.0	365.0	607.0	496.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Interferon-regulatory factors
+CC tf_class:Tryptophan cluster factors
+CC pubmed_ids:21803131
+CC uniprot_ids:P15314
+CC data_type:
+XX
+//
+AC MA0095.4
+XX
+ID Yy1
+XX
+DE MA0095.4 Yy1 ; From JASPAR
+PO	A	C	G	T
+01	3123.0	33122.0	3684.0	3419.0
+02	41529.0	926.0	287.0	606.0
+03	39666.0	1447.0	1320.0	915.0
+04	30769.0	2536.0	8658.0	1385.0
+05	41506.0	746.0	712.0	384.0
+06	689.0	241.0	708.0	41710.0
+07	561.0	165.0	42263.0	359.0
+08	1597.0	971.0	39612.0	1168.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:18950698
+CC uniprot_ids:Q00899
+CC data_type:
+XX
+//
+AC MA0136.4
+XX
+ID Elf5
+XX
+DE MA0136.4 Elf5 ; From JASPAR
+PO	A	C	G	T
+01	29427.0	6065.0	5204.0	1450.0
+02	38778.0	978.0	2049.0	341.0
+03	512.0	182.0	41025.0	427.0
+04	587.0	510.0	40626.0	423.0
+05	40896.0	580.0	390.0	280.0
+06	40552.0	389.0	481.0	724.0
+07	2609.0	1234.0	37803.0	500.0
+08	5180.0	3355.0	4948.0	28663.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Ets-related
+CC tf_class:Tryptophan cluster factors
+CC pubmed_ids:20517297
+CC uniprot_ids:Q8VDK3
+CC data_type:
+XX
+//
+AC MA0152.3
+XX
+ID Nfatc2
+XX
+DE MA0152.3 Nfatc2 ; From JASPAR
+PO	A	C	G	T
+01	2166.0	460.0	292.0	321.0
+02	2583.0	206.0	329.0	121.0
+03	170.0	124.0	101.0	2844.0
+04	78.0	17.0	3118.0	26.0
+05	33.0	27.0	3133.0	46.0
+06	3095.0	38.0	65.0	41.0
+07	3140.0	19.0	45.0	35.0
+08	2944.0	104.0	79.0	112.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NFAT-related factors
+CC tf_class:Rel homology region (RHR) factors
+CC pubmed_ids:17916232
+CC uniprot_ids:Q60591
+CC data_type:
+XX
+//
+AC MA0157.4
+XX
+ID Foxo3
+XX
+DE MA0157.4 Foxo3 ; From JASPAR
+PO	A	C	G	T
+01	3470.0	590.0	19202.0	650.0
+02	1546.0	435.0	1199.0	20732.0
+03	22240.0	968.0	328.0	376.0
+04	22288.0	803.0	333.0	488.0
+05	22551.0	483.0	464.0	414.0
+06	403.0	21237.0	361.0	1911.0
+07	22141.0	587.0	361.0	823.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FOX
+CC tf_class:Fork head/winged helix factors
+CC pubmed_ids:17916232
+CC uniprot_ids:Q9WVH4
+CC data_type:
+XX
+//
+AC MA0489.3
+XX
+ID Jun
+XX
+DE MA0489.3 Jun ; From JASPAR
+PO	A	C	G	T
+01	1166.0	716.0	718.0	91503.0
+02	968.0	1468.0	88928.0	2739.0
+03	89245.0	1493.0	1717.0	1648.0
+04	3860.0	71105.0	14953.0	4185.0
+05	3034.0	920.0	1009.0	89140.0
+06	3691.0	88215.0	1228.0	969.0
+07	89496.0	1827.0	1147.0	1633.0
+08	4975.0	14637.0	13040.0	61451.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Jun-related
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:21703547
+CC uniprot_ids:P05627
+CC data_type:
+XX
+//
+AC MA0505.3
+XX
+ID Nr5A2
+XX
+DE MA0505.3 Nr5A2 ; From JASPAR
+PO	A	C	G	T
+01	4020.0	3118.0	2303.0	21101.0
+02	2032.0	869.0	27158.0	483.0
+03	19888.0	1185.0	6736.0	2733.0
+04	327.0	29854.0	124.0	237.0
+05	299.0	29734.0	166.0	343.0
+06	364.0	694.0	359.0	29125.0
+07	266.0	338.0	285.0	29653.0
+08	340.0	870.0	29010.0	322.0
+09	26370.0	645.0	2402.0	1125.0
+XX
+CC tax_group:vertebrates
+CC tf_family:FTZF1related(NR5A)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:12853459
+CC uniprot_ids:P45448
+CC data_type:
+XX
+//
+AC MA0506.3
+XX
+ID Nrf1
+XX
+DE MA0506.3 Nrf1 ; From JASPAR
+PO	A	C	G	T
+01	1289.0	7208.0	3330.0	902.0
+02	744.0	1831.0	864.0	9290.0
+03	445.0	339.0	11841.0	104.0
+04	408.0	11783.0	343.0	195.0
+05	286.0	193.0	12026.0	224.0
+06	147.0	11838.0	510.0	234.0
+07	4332.0	5475.0	2514.0	408.0
+08	128.0	577.0	446.0	11578.0
+09	68.0	251.0	12324.0	86.0
+10	131.0	12143.0	201.0	254.0
+11	274.0	576.0	11169.0	710.0
+12	426.0	8461.0	1008.0	2834.0
+XX
+CC tax_group:vertebrates
+CC tf_family:
+CC tf_class:
+CC pubmed_ids:12533512
+CC uniprot_ids:Q9WU00
+CC data_type:
+XX
+//
+AC MA0606.3
+XX
+ID Nfat5
+XX
+DE MA0606.3 Nfat5 ; From JASPAR
+PO	A	C	G	T
+01	279.0	17.0	47.0	13.0
+02	35.0	10.0	9.0	302.0
+03	13.0	0.0	332.0	11.0
+04	16.0	8.0	325.0	7.0
+05	328.0	8.0	15.0	5.0
+06	336.0	1.0	10.0	9.0
+07	334.0	4.0	8.0	10.0
+08	315.0	8.0	19.0	14.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NFAT-related factors
+CC tf_class:Rel homology region (RHR) factors
+CC pubmed_ids:12374807
+CC uniprot_ids:Q9WV30
+CC data_type:
+XX
+//
+AC MA0624.3
+XX
+ID Nfatc1
+XX
+DE MA0624.3 Nfatc1 ; From JASPAR
+PO	A	C	G	T
+01	128.0	227.0	65.0	5771.0
+02	55.0	13.0	6106.0	17.0
+03	62.0	16.0	6058.0	55.0
+04	6080.0	30.0	27.0	54.0
+05	6107.0	13.0	32.0	39.0
+06	5947.0	77.0	43.0	124.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NFAT-related factors
+CC tf_class:Rel homology region (RHR) factors
+CC pubmed_ids:23332764
+CC uniprot_ids:O88942
+CC data_type:
+XX
+//
+AC MA0650.4
+XX
+ID Hoxa13
+XX
+DE MA0650.4 Hoxa13 ; From JASPAR
+PO	A	C	G	T
+01	1442.0	12600.0	1889.0	1317.0
+02	1273.0	14100.0	77.0	1798.0
+03	14069.0	1594.0	146.0	1439.0
+04	15410.0	243.0	666.0	929.0
+05	105.0	249.0	232.0	16662.0
+06	15804.0	205.0	407.0	832.0
+07	16813.0	125.0	98.0	212.0
+08	16550.0	306.0	145.0	247.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:17200107
+CC uniprot_ids:Q62424
+CC data_type:
+XX
+//
+AC MA0659.4
+XX
+ID Mafg
+XX
+DE MA0659.4 Mafg ; From JASPAR
+PO	A	C	G	T
+01	1157.0	2388.0	15608.0	965.0
+02	8434.0	9862.0	1015.0	807.0
+03	582.0	928.0	361.0	18247.0
+04	416.0	397.0	18551.0	754.0
+05	18141.0	410.0	1193.0	374.0
+06	831.0	15032.0	3504.0	751.0
+07	804.0	387.0	282.0	18645.0
+08	695.0	18563.0	449.0	411.0
+09	18664.0	173.0	622.0	659.0
+10	273.0	222.0	18733.0	890.0
+11	516.0	18113.0	878.0	611.0
+12	12447.0	1934.0	2413.0	3324.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Maf-related
+CC tf_class:Basic leucine zipper factors (bZIP)
+CC pubmed_ids:8264639
+CC uniprot_ids:O54790
+CC data_type:
+XX
+//
+AC MA0680.3
+XX
+ID Pax7
+XX
+DE MA0680.3 Pax7 ; From JASPAR
+PO	A	C	G	T
+01	9362.0	3522.0	3149.0	25396.0
+02	38618.0	858.0	904.0	1049.0
+03	39010.0	674.0	719.0	1026.0
+04	872.0	1092.0	831.0	38634.0
+05	1152.0	31089.0	1356.0	7832.0
+06	35354.0	1721.0	3677.0	677.0
+07	38882.0	542.0	1095.0	910.0
+08	1086.0	430.0	494.0	39419.0
+09	1108.0	1805.0	708.0	37808.0
+10	32141.0	1551.0	1612.0	6125.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Paired plus homeo domain
+CC tf_class:Paired box factors
+CC pubmed_ids:22609161; 10567552
+CC uniprot_ids:P47239
+CC data_type:
+XX
+//
+AC MA0697.3
+XX
+ID Zic3
+XX
+DE MA0697.3 Zic3 ; From JASPAR
+PO	A	C	G	T
+01	345.0	25035.0	460.0	334.0
+02	23947.0	872.0	759.0	596.0
+03	331.0	670.0	24907.0	266.0
+04	354.0	24272.0	756.0	792.0
+05	22980.0	568.0	1768.0	858.0
+06	393.0	500.0	24314.0	967.0
+07	347.0	955.0	24340.0	532.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:20872845; 19443739
+CC uniprot_ids:Q62521
+CC data_type:
+XX
+//
+AC MA0734.4
+XX
+ID Gli2
+XX
+DE MA0734.4 Gli2 ; From JASPAR
+PO	A	C	G	T
+01	60.0	96.0	2251.0	85.0
+02	1920.0	227.0	337.0	8.0
+03	44.0	2404.0	27.0	17.0
+04	8.0	2464.0	13.0	7.0
+05	2216.0	40.0	82.0	154.0
+06	9.0	2451.0	12.0	20.0
+07	313.0	2145.0	20.0	14.0
+08	59.0	2288.0	77.0	68.0
+09	2101.0	85.0	193.0	113.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:2105456
+CC uniprot_ids:Q0VGT2
+CC data_type:
+XX
+//
+AC MA0768.3
+XX
+ID Lef1
+XX
+DE MA0768.3 Lef1 ; From JASPAR
+PO	A	C	G	T
+01	73.0	788.0	130.0	90.0
+02	26.0	989.0	21.0	45.0
+03	12.0	19.0	14.0	1036.0
+04	19.0	47.0	39.0	976.0
+05	18.0	18.0	15.0	1030.0
+06	73.0	75.0	882.0	51.0
+07	987.0	28.0	25.0	41.0
+08	130.0	28.0	51.0	872.0
+XX
+CC tax_group:vertebrates
+CC tf_family:TCF-7-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:19443739
+CC uniprot_ids:P27782
+CC data_type:
+XX
+//
+AC MA0909.4
+XX
+ID Hoxd13
+XX
+DE MA0909.4 Hoxd13 ; From JASPAR
+PO	A	C	G	T
+01	16.0	5866.0	34.0	61.0
+02	5775.0	5.0	148.0	49.0
+03	5923.0	13.0	11.0	30.0
+04	0.0	2.0	3.0	5972.0
+05	5955.0	4.0	7.0	11.0
+06	5923.0	37.0	2.0	15.0
+07	4227.0	704.0	379.0	667.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HOX
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:P70217
+CC data_type:
+XX
+//
+AC MA1110.3
+XX
+ID Nr1H4
+XX
+DE MA1110.3 Nr1H4 ; From JASPAR
+PO	A	C	G	T
+01	4597.0	83.0	49.0	7.0
+02	13.0	150.0	4542.0	31.0
+03	31.0	4.0	4671.0	30.0
+04	1.0	0.0	0.0	4735.0
+05	163.0	4351.0	10.0	212.0
+06	4589.0	29.0	118.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Thyroid hormone receptor-related factors (NR1)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:24498423
+CC uniprot_ids:Q60641
+CC data_type:
+XX
+//
+AC MA1476.3
+XX
+ID Dlx5
+XX
+DE MA1476.3 Dlx5 ; From JASPAR
+PO	A	C	G	T
+01	216.0	183.0	3490.0	188.0
+02	142.0	3363.0	78.0	494.0
+03	3906.0	88.0	19.0	64.0
+04	3898.0	62.0	59.0	58.0
+05	68.0	26.0	23.0	3960.0
+06	33.0	143.0	52.0	3849.0
+07	3836.0	6.0	37.0	198.0
+08	554.0	304.0	2658.0	561.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:P70396
+CC data_type:
+XX
+//
+AC MA1518.3
+XX
+ID Lhx1
+XX
+DE MA1518.3 Lhx1 ; From JASPAR
+PO	A	C	G	T
+01	46.0	58.0	276.0	74.0
+02	38.0	260.0	65.0	91.0
+03	13.0	24.0	6.0	411.0
+04	405.0	30.0	16.0	3.0
+05	437.0	2.0	5.0	10.0
+06	10.0	5.0	1.0	438.0
+07	3.0	16.0	28.0	407.0
+08	412.0	5.0	24.0	13.0
+09	94.0	64.0	260.0	36.0
+10	74.0	276.0	59.0	45.0
+XX
+CC tax_group:vertebrates
+CC tf_family:HD-LIM
+CC tf_class:Homeo domain factors
+CC pubmed_ids:18585359
+CC uniprot_ids:P63006
+CC data_type:
+XX
+//
+AC MA1524.3
+XX
+ID Msgn1
+XX
+DE MA1524.3 Msgn1 ; From JASPAR
+PO	A	C	G	T
+01	193.0	21.0	324.0	4.0
+02	363.0	128.0	46.0	5.0
+03	0.0	539.0	2.0	1.0
+04	537.0	3.0	0.0	2.0
+05	460.0	8.0	52.0	22.0
+06	537.0	4.0	0.0	1.0
+07	18.0	6.0	3.0	515.0
+08	1.0	2.0	531.0	8.0
+09	5.0	8.0	512.0	17.0
+10	37.0	140.0	50.0	315.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:21750544
+CC uniprot_ids:Q9JK54
+CC data_type:
+XX
+//
+AC MA1567.3
+XX
+ID Tbx6
+XX
+DE MA1567.3 Tbx6 ; From JASPAR
+PO	A	C	G	T
+01	4968.0	643.0	2541.0	1500.0
+02	758.0	186.0	8347.0	361.0
+03	103.0	347.0	9131.0	71.0
+04	158.0	229.0	152.0	9113.0
+05	39.0	119.0	9393.0	101.0
+06	710.0	229.0	676.0	8037.0
+07	183.0	775.0	8237.0	457.0
+08	9063.0	165.0	332.0	92.0
+09	7889.0	492.0	898.0	373.0
+XX
+CC tax_group:vertebrates
+CC tf_family:TBX6-related factors
+CC tf_class:T-Box factors
+CC pubmed_ids:12093383
+CC uniprot_ids:P70327
+CC data_type:
+XX
+//
+AC MA1573.2
+XX
+ID Thap11
+XX
+DE MA1573.2 Thap11 ; From JASPAR
+PO	A	C	G	T
+01	588.0	38.0	20.0	14.0
+02	20.0	603.0	18.0	19.0
+03	5.0	39.0	6.0	610.0
+04	627.0	17.0	10.0	6.0
+05	4.0	639.0	9.0	8.0
+06	609.0	13.0	29.0	9.0
+07	414.0	46.0	56.0	144.0
+08	70.0	209.0	165.0	216.0
+09	18.0	20.0	19.0	603.0
+10	5.0	631.0	2.0	22.0
+11	8.0	642.0	5.0	5.0
+12	9.0	622.0	10.0	19.0
+13	475.0	16.0	147.0	22.0
+14	74.0	68.0	421.0	97.0
+XX
+CC tax_group:vertebrates
+CC tf_family:THAP-related factors
+CC tf_class:C2CH THAP-type zinc finger factors
+CC pubmed_ids:20581084
+CC uniprot_ids:Q9JJD0
+CC data_type:
+XX
+//
+AC MA1647.3
+XX
+ID Prdm4
+XX
+DE MA1647.3 Prdm4 ; From JASPAR
+PO	A	C	G	T
+01	220.0	745.0	76.0	140.0
+02	33.0	1098.0	14.0	36.0
+03	21.0	40.0	13.0	1107.0
+04	202.0	37.0	203.0	739.0
+05	30.0	4.0	1141.0	6.0
+06	1155.0	12.0	7.0	7.0
+07	1140.0	10.0	27.0	4.0
+08	1161.0	6.0	9.0	5.0
+09	16.0	1147.0	8.0	10.0
+10	223.0	434.0	39.0	485.0
+11	170.0	184.0	715.0	112.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Factors with multiple dispersed zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:23918801
+CC uniprot_ids:Q80V63
+CC data_type:
+XX
+//
+AC MA0111.1
+XX
+ID Spz1
+XX
+DE MA0111.1 Spz1 ; From JASPAR
+PO	A	C	G	T
+01	9.0	0.0	3.0	0.0
+02	0.0	2.0	9.0	1.0
+03	2.0	0.0	10.0	0.0
+04	0.0	0.0	11.0	1.0
+05	1.0	0.0	1.0	10.0
+06	8.0	0.0	0.0	4.0
+07	6.0	0.0	2.0	4.0
+08	1.0	9.0	2.0	0.0
+09	10.0	0.0	2.0	0.0
+10	0.0	1.0	9.0	2.0
+11	2.0	8.0	2.0	0.0
+XX
+CC tax_group:vertebrates
+CC tf_family:bHLH-ZIP
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:11165476
+CC uniprot_ids:Q99MY0
+CC data_type:SELEX
+XX
+//
+AC MA2095.1
+XX
+ID Sox7
+XX
+DE MA2095.1 Sox7 ; From JASPAR
+PO	A	C	G	T
+01	1536.0	138.0	494.0	263.0
+02	458.0	140.0	1706.0	127.0
+03	2039.0	81.0	283.0	28.0
+04	2399.0	11.0	8.0	13.0
+05	20.0	2367.0	26.0	18.0
+06	2393.0	15.0	8.0	15.0
+07	2389.0	9.0	19.0	14.0
+08	114.0	10.0	9.0	2298.0
+09	353.0	24.0	2009.0	45.0
+10	278.0	225.0	1855.0	73.0
+XX
+CC tax_group:vertebrates
+CC tf_family:SOX-related factors
+CC tf_class:High-mobility group (HMG) domain factors
+CC pubmed_ids:15220343
+CC uniprot_ids:P40646
+CC data_type:ChIP-seq
+XX
+//
+AC MA2122.1
+XX
+ID Ebf4
+XX
+DE MA2122.1 Ebf4 ; From JASPAR
+PO	A	C	G	T
+01	619.0	821.0	1246.0	6701.0
+02	323.0	6941.0	474.0	1649.0
+03	159.0	8753.0	87.0	388.0
+04	252.0	8501.0	83.0	551.0
+05	476.0	8145.0	219.0	547.0
+06	7458.0	423.0	421.0	1085.0
+07	763.0	247.0	7880.0	497.0
+08	618.0	118.0	8414.0	237.0
+09	468.0	96.0	8591.0	232.0
+10	1348.0	404.0	7354.0	281.0
+11	7681.0	802.0	498.0	406.0
+XX
+CC tax_group:vertebrates
+CC tf_family:EBF-related
+CC tf_class:Rel homology region (RHR) factors
+CC pubmed_ids:35939714
+CC uniprot_ids:Q8K4J2
+CC data_type:
+XX
+//
+AC MA2123.1
+XX
+ID Hand1
+XX
+DE MA2123.1 Hand1 ; From JASPAR
+PO	A	C	G	T
+01	177.0	128.0	148.0	609.0
+02	84.0	850.0	101.0	27.0
+03	8.0	1036.0	12.0	6.0
+04	1016.0	16.0	10.0	20.0
+05	8.0	24.0	1016.0	14.0
+06	908.0	33.0	104.0	17.0
+07	28.0	955.0	46.0	33.0
+08	40.0	962.0	46.0	14.0
+09	153.0	235.0	61.0	613.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Tal-related
+CC tf_class:Basic helix-loop-helix factors (bHLH)
+CC pubmed_ids:20975697
+CC uniprot_ids:O96004
+CC data_type:
+XX
+//
+AC MA2125.1
+XX
+ID Zfp809
+XX
+DE MA2125.1 Zfp809 ; From JASPAR
+PO	A	C	G	T
+01	828.0	66.0	81.0	690.0
+02	23.0	41.0	23.0	1578.0
+03	15.0	1607.0	18.0	25.0
+04	20.0	1610.0	14.0	21.0
+05	10.0	1621.0	16.0	18.0
+06	1529.0	26.0	73.0	37.0
+07	32.0	35.0	1572.0	26.0
+08	287.0	1218.0	99.0	61.0
+09	217.0	1091.0	115.0	242.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:26417948
+CC uniprot_ids:G3X9G7
+CC data_type:ChIP-seq
+XX
+//
+AC MA2126.1
+XX
+ID Zfp961
+XX
+DE MA2126.1 Zfp961 ; From JASPAR
+PO	A	C	G	T
+01	18.0	20.0	1372.0	8.0
+02	13.0	22.0	1312.0	71.0
+03	11.0	13.0	1278.0	116.0
+04	8.0	1219.0	9.0	182.0
+05	23.0	8.0	1372.0	15.0
+06	12.0	1367.0	23.0	16.0
+07	9.0	1353.0	30.0	26.0
+08	1214.0	74.0	69.0	61.0
+XX
+CC tax_group:vertebrates
+CC tf_family:More than 3 adjacent zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:35259018
+CC uniprot_ids:E9Q4R5
+CC data_type:
+XX
+//
+AC MA2337.1
+XX
+ID Nr1h3
+XX
+DE MA2337.1 Nr1h3 ; From JASPAR
+PO	A	C	G	T
+01	3796.0	31.0	35.0	0.0
+02	0.0	27.0	3832.0	3.0
+03	2.0	17.0	3839.0	4.0
+04	10.0	5.0	1600.0	2247.0
+05	5.0	3851.0	1.0	5.0
+06	3836.0	6.0	19.0	1.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Thyroid hormone receptor-related factors (NR1)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:31175293
+CC uniprot_ids:Q9Z0Y9
+CC data_type:ChIP-seq
+XX
+//
+AC MA2338.1
+XX
+ID Ppara
+XX
+DE MA2338.1 Ppara ; From JASPAR
+PO	A	C	G	T
+01	16299.0	258.0	788.0	833.0
+02	17009.0	641.0	328.0	200.0
+03	258.0	446.0	17024.0	450.0
+04	354.0	68.0	17412.0	344.0
+05	259.0	83.0	75.0	17761.0
+06	440.0	16858.0	178.0	702.0
+07	13045.0	2036.0	1148.0	1949.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Thyroid hormone receptor-related factors (NR1)
+CC tf_class:Nuclear receptors with C4 zinc fingers
+CC pubmed_ids:31175293
+CC uniprot_ids:P23204
+CC data_type:ChIP-seq
+XX
+//
+AC MA2339.1
+XX
+ID Nanog
+XX
+DE MA2339.1 Nanog ; From JASPAR
+PO	A	C	G	T
+01	480.0	164.0	7830.0	190.0
+02	143.0	7298.0	93.0	1130.0
+03	6992.0	400.0	365.0	907.0
+04	7959.0	206.0	196.0	303.0
+05	235.0	96.0	124.0	8209.0
+06	348.0	7421.0	149.0	746.0
+07	8076.0	131.0	180.0	277.0
+XX
+CC tax_group:vertebrates
+CC tf_family:NK
+CC tf_class:Homeo domain factors
+CC pubmed_ids:33603233
+CC uniprot_ids:Q80Z64
+CC data_type:ChIP-seq
+XX
+//
+AC MA2340.1
+XX
+ID Zbtb2
+XX
+DE MA2340.1 Zbtb2 ; From JASPAR
+PO	A	C	G	T
+01	776.0	90.0	108.0	45.0
+02	39.0	842.0	110.0	28.0
+03	59.0	876.0	58.0	26.0
+04	21.0	35.0	940.0	23.0
+05	15.0	22.0	963.0	19.0
+06	890.0	43.0	73.0	13.0
+07	823.0	62.0	94.0	40.0
+08	63.0	96.0	828.0	32.0
+09	63.0	159.0	105.0	692.0
+10	102.0	139.0	697.0	81.0
+XX
+CC tax_group:vertebrates
+CC tf_family:Factors with multiple dispersed zinc fingers
+CC tf_class:C2H2 zinc finger factors
+CC pubmed_ids:28473536
+CC uniprot_ids:Q3V1Q5
+CC data_type:ChIP-seq
+XX
+//

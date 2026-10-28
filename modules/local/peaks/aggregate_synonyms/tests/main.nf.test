@@ -1,0 +1,136 @@
+nextflow_process {
+
+    name "Test Process AGGREGATE_SYNONYMS"
+    script "modules/local/peaks/aggregate_synonyms/main.nf"
+    process "AGGREGATE_SYNONYMS"
+
+    setup {
+        run("PREPARE_GENOME") {
+            script "../../../../../subworkflows/local/prepare_genome"
+            process {
+                """
+                input[0] = file(params.pipelines_testdata_base_path + '/reference/chr1.fa.gz', checkIfExists: true)
+                input[1] = file(params.pipelines_testdata_base_path + '/reference/chr1.gtf.gz', checkIfExists: true)
+                """
+            }
+        }
+    }
+
+    test("Should run max without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                ]
+                input[1] = PREPARE_GENOME.out.gene_map
+                input[2] = 'max'
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run mean without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                ]
+                input[1] = PREPARE_GENOME.out.gene_map
+                input[2] = 'mean'
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run sum without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                ]
+                input[1] = PREPARE_GENOME.out.gene_map
+                input[2] = 'sum'
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run sum (merge duplicates) without failures") {
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                ]
+                input[1] = PREPARE_GENOME.out.gene_map
+                input[2] = 'sum'
+                input[3] = true
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run max without failures - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: 'test'],
+                    file(params.pipelines_testdata_base_path + '/intermediates/stare/L1_H3K27ac_R1_TF_Gene_Affinities.txt', checkIfExists: true),
+                ]
+                input[1] = PREPARE_GENOME.out.gene_map
+                input[2] = 'max'
+                input[3] = false
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

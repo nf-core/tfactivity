@@ -1,0 +1,87 @@
+nextflow_process {
+
+    name "Test Process TFLINK_ANNOTATE"
+    script "modules/local/tflink/annotate/main.nf"
+    process "TFLINK_ANNOTATE"
+
+    test("Should run without failures") {
+
+        when {
+            process {
+                """
+                tf_ranking = channel.of('''
+\tdcg
+TFA(M1)\t1.0
+TFB(M2)\t0.5
+''').collectFile(name: "test.tf_ranking.tsv", newLine: false)
+
+                tg_ranking = channel.of('''
+\tTFA(M1)\tTFB(M2)
+GENE1\t0.9\t0.1
+GENE2\t0.4\t0.7
+GENE3\t0.2\t0.3
+''').collectFile(name: "test.tg_ranking.tsv", newLine: false)
+
+                tflink = channel.of('''
+Name.TF\tName.Target\tSmall-scale.evidence\tSource.database
+TFA\tGENE1\tYes\tDB_A
+TFA\tGENE2\tNo\tDB_B
+TFA\tGENE2\tYes\tDB_C
+TFB\tGENE2\tNo\tDB_D
+''').collectFile(name: "test.tflink.tsv", newLine: false)
+
+                input[0] = tf_ranking.combine(tg_ranking).map { tf_file, tg_file -> [[id: 'test_assay'], tf_file, tg_file] }
+                input[1] = tflink
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+    test("Should run without failures - stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                tf_ranking = channel.of('''
+\tdcg
+TFA(M1)\t1.0
+TFB(M2)\t0.5
+''').collectFile(name: "test.tf_ranking.tsv", newLine: false)
+
+                tg_ranking = channel.of('''
+\tTFA(M1)\tTFB(M2)
+GENE1\t0.9\t0.1
+GENE2\t0.4\t0.7
+GENE3\t0.2\t0.3
+''').collectFile(name: "test.tg_ranking.tsv", newLine: false)
+
+                tflink = channel.of('''
+Name.TF\tName.Target\tSmall-scale.evidence\tSource.database
+TFA\tGENE1\tYes\tDB_A
+TFA\tGENE2\tNo\tDB_B
+TFA\tGENE2\tYes\tDB_C
+TFB\tGENE2\tNo\tDB_D
+''').collectFile(name: "test.tflink.tsv", newLine: false)
+
+                input[0] = tf_ranking.combine(tg_ranking).map { tf_file, tg_file -> [[id: 'test_assay'], tf_file, tg_file] }
+                input[1] = tflink
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert snapshot(process.out).match()
+        }
+
+    }
+
+}

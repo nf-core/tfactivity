@@ -1,0 +1,276 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "L10_H3K27ac_R2",
+                            "footprinting": false,
+                            "include_original": false,
+                            "max_peak_gap": 500
+                        },
+                        "/nf-core/test-datasets/refs/heads/tfactivity/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac_R1",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "L1_H3K27ac_R1.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac_R3",
+                            "footprinting": false,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "/nf-core/test-datasets/refs/heads/tfactivity/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K4me3_R2",
+                            "footprinting": true,
+                            "include_original": false,
+                            "max_peak_gap": 500
+                        },
+                        "L1_H3K4me3_R2.subtracted.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K27ac_R2",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "p6_H3K27ac_R2.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K4me3_R1",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "p6_H3K4me3_R1.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,2f0e1587c814a2f4c53e1ce52f49e08d",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0"
+                ],
+                "footprinted_peaks": [
+                    [
+                        {
+                            "id": "L10_H3K27ac_R2",
+                            "footprinting": false,
+                            "include_original": false,
+                            "max_peak_gap": 500
+                        },
+                        "/nf-core/test-datasets/refs/heads/tfactivity/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac_R1",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "L1_H3K27ac_R1.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac_R3",
+                            "footprinting": false,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "/nf-core/test-datasets/refs/heads/tfactivity/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K4me3_R2",
+                            "footprinting": true,
+                            "include_original": false,
+                            "max_peak_gap": 500
+                        },
+                        "L1_H3K4me3_R2.subtracted.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K27ac_R2",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "p6_H3K27ac_R2.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K4me3_R1",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "p6_H3K4me3_R1.bed:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,2f0e1587c814a2f4c53e1ce52f49e08d",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0"
+                ]
+            }
+        ],
+        "timestamp": "2026-03-29T15:40:34.394098152",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.2"
+        }
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "L10_H3K27ac_R2",
+                            "footprinting": false,
+                            "include_original": false,
+                            "max_peak_gap": 500
+                        },
+                        "/nf-core/test-datasets/refs/heads/tfactivity/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac_R1",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "L1_H3K27ac_R1.bed:md5,cb5b653dfb2d0e72a04d3e5750118f4d"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac_R3",
+                            "footprinting": false,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "/nf-core/test-datasets/refs/heads/tfactivity/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K4me3_R2",
+                            "footprinting": true,
+                            "include_original": false,
+                            "max_peak_gap": 500
+                        },
+                        "L1_H3K4me3_R2.subtracted.bed:md5,52c4a79348b8b4dce28df140461d4066"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K27ac_R2",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "p6_H3K27ac_R2.bed:md5,ade4c5c7cb18b46e3e83afdcc3848aca"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K4me3_R1",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "p6_H3K4me3_R1.bed:md5,3ef06abb0248f151518a0cda3944ac7e"
+                    ]
+                ],
+                "1": [
+                    "versions.yml:md5,2f0e1587c814a2f4c53e1ce52f49e08d",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0"
+                ],
+                "footprinted_peaks": [
+                    [
+                        {
+                            "id": "L10_H3K27ac_R2",
+                            "footprinting": false,
+                            "include_original": false,
+                            "max_peak_gap": 500
+                        },
+                        "/nf-core/test-datasets/refs/heads/tfactivity/peaks/L10/H3K27ac/WT_L10_H3K27ac_R2_peaks.broadPeak"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac_R1",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "L1_H3K27ac_R1.bed:md5,cb5b653dfb2d0e72a04d3e5750118f4d"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K27ac_R3",
+                            "footprinting": false,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "/nf-core/test-datasets/refs/heads/tfactivity/peaks/L1/H3K27ac/WT_L1_H3K27ac_R3_peaks.broadPeak"
+                    ],
+                    [
+                        {
+                            "id": "L1_H3K4me3_R2",
+                            "footprinting": true,
+                            "include_original": false,
+                            "max_peak_gap": 500
+                        },
+                        "L1_H3K4me3_R2.subtracted.bed:md5,52c4a79348b8b4dce28df140461d4066"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K27ac_R2",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "p6_H3K27ac_R2.bed:md5,ade4c5c7cb18b46e3e83afdcc3848aca"
+                    ],
+                    [
+                        {
+                            "id": "p6_H3K4me3_R1",
+                            "footprinting": true,
+                            "include_original": true,
+                            "max_peak_gap": 500
+                        },
+                        "p6_H3K4me3_R1.bed:md5,3ef06abb0248f151518a0cda3944ac7e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,2f0e1587c814a2f4c53e1ce52f49e08d",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0",
+                    "versions.yml:md5,fa1da7de7572da4f4d715d3ccb7ae8c0"
+                ]
+            }
+        ],
+        "timestamp": "2026-03-29T15:40:21.990967545",
+        "meta": {
+            "nf-test": "0.9.4",
+            "nextflow": "25.10.2"
+        }
+    }
+}

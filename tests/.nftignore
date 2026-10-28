@@ -1,2 +1,5 @@
 .DS_Store
 pipeline_info/*.{html,json,txt,yml}
+03_peaks/07_affinity_mean/*.tsv
+08_report/report.zip
+08_report/report/**

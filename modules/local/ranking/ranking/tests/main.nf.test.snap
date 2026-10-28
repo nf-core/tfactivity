@@ -1,0 +1,100 @@
+{
+    "Should run without failures - stub": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tf_ranking.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tg_ranking.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,a004eb37d0eb257d229ade848b0e3360"
+                ],
+                "tfs": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tf_ranking.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "tgs": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tg_ranking.tsv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,a004eb37d0eb257d229ade848b0e3360"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.2"
+        },
+        "timestamp": "2025-06-12T13:24:58.035181414"
+    },
+    "Should run without failures": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tf_ranking.tsv:md5,bae5ad3dd596ad802464fb81dbabcefc"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tg_ranking.tsv:md5,1243b4556ec8ed4723f3a43a8c9af8be"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,012c1b2ce059314f503dc9183a913461"
+                ],
+                "tfs": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tf_ranking.tsv:md5,bae5ad3dd596ad802464fb81dbabcefc"
+                    ]
+                ],
+                "tgs": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "test.tg_ranking.tsv:md5,1243b4556ec8ed4723f3a43a8c9af8be"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,012c1b2ce059314f503dc9183a913461"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.2",
+            "nextflow": "25.04.6"
+        },
+        "timestamp": "2025-08-23T16:22:38.079834925"
+    }
+}
